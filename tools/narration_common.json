@@ -1,0 +1,28 @@
+{
+ "_comment": "General pronunciation fixes shared by the feature-page scripts (inherit: [\"narration_script.json\", \"narration_common.json\"]).",
+ "lexicon": {
+  "四": "sì",
+  "猶": "iáu",
+  "遮的": "tsia-ê",
+  "个人": "ê lâng",
+  "舉行": "kí-hîng",
+  "落到": "lo̍h kàu",
+  "六工": "la̍k kang",
+  "幾工": "kuí kang",
+  "碉堡": "tiau-pó",
+  "西拉雅族": "Se-la-ia-tso̍k",
+  "雛形": "tshoo-hîng",
+  "病逝": "pīng-sē",
+  "渡過": "tōo-kuè",
+  "行去": "kiânn khì",
+  "陳": "Tân ",
+  "林": "Lîm ",
+  "之役": "tsi-i̍k",
+  "戰役": "tsiàn-i̍k",
+  "之一": "tsi-it",
+  "各": "kok ",
+  "倖存": "hīng-tsûn",
+  "搜捕": "soo-póo",
+  "損壞": "sún-huāi"
+ }
+}

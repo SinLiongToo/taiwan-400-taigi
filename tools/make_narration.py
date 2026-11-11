@@ -94,7 +94,10 @@ def main():
     spec = json.loads(script.read_text(encoding="utf-8"))
     lexicon = dict(spec.get("lexicon", {}))
     if spec.get("inherit"):   # start from another script's lexicon; this script's own entries win
-        lexicon = {**json.loads((script.parent / spec["inherit"]).read_text(encoding="utf-8")).get("lexicon", {}), **lexicon}
+        base = {}
+        for name_ in ([spec["inherit"]] if isinstance(spec["inherit"], str) else spec["inherit"]):
+            base.update(json.loads((script.parent / name_).read_text(encoding="utf-8")).get("lexicon", {}))
+        lexicon = {**base, **lexicon}
     clips = spec["clips"]
     ids = [c["id"] for c in clips]
     if len(set(ids)) != len(ids):

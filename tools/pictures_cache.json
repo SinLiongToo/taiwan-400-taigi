@@ -230,5 +230,45 @@
   "license": "CC BY-SA 3.0",
   "artist": "CEphoto, Uwe Aranas",
   "url": "https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Memorial-to-the-Victims-of-the-White-Terror-01.jpg"
+ },
+ "taioan-blaeu": {
+  "file": "Atlas Blaeu-Van der Hem - Taioan.jpg",
+  "w": 960,
+  "h": 613,
+  "license": "Public domain",
+  "artist": "Joan Blaeu",
+  "url": "https://commons.wikimedia.org/wiki/File:Atlas_Blaeu-Van_der_Hem_-_Taioan.jpg"
+ },
+ "spanish-drawing-1626": {
+  "file": "Description of the Dutch port on Formosa Island (Taiwan), drawing 1626.jpg",
+  "w": 960,
+  "h": 690,
+  "license": "Public domain",
+  "artist": "Pedro de Vera",
+  "url": "https://commons.wikimedia.org/wiki/File:Description_of_the_Dutch_port_on_Formosa_Island_(Taiwan),_drawing_1626.jpg"
+ },
+ "koxinga-portrait": {
+  "file": "The Portrait of Koxinga.jpg",
+  "w": 537,
+  "h": 900,
+  "license": "Public domain",
+  "artist": "AnonymousUnknown author",
+  "url": "https://commons.wikimedia.org/wiki/File:The_Portrait_of_Koxinga.jpg"
+ },
+ "herport-zeelandia": {
+  "file": "Herport Albrecht Zeelandia 1669.jpg",
+  "w": 960,
+  "h": 755,
+  "license": "Public domain",
+  "artist": "Albrecht Herport",
+  "url": "https://commons.wikimedia.org/wiki/File:Herport_Albrecht_Zeelandia_1669.jpg"
+ },
+ "peace-talks-1675": {
+  "file": "荷蘭遣使議和圖.jpg",
+  "w": 960,
+  "h": 559,
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "url": "https://commons.wikimedia.org/wiki/File:%E8%8D%B7%E8%98%AD%E9%81%A3%E4%BD%BF%E8%AD%B0%E5%92%8C%E5%9C%96.jpg"
  }
 }

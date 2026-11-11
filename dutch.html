@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="荷西時期 1622–1662：荷蘭東印度公司與西班牙在台灣的 40 年，逐年地圖呈現控制範圍、原住民村社、鹿皮與蔗糖貿易。Dutch and Spanish Formosa, 1622–1662: a year-by-year map of control, villages and trade.">
+<title>荷西時期 1622–1662</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one "film" canvas (year and events left, the island with Dutch and Spanish reach centre, people, the VOC census chart and trade figures right, phase strip below), then a reading column. Same sea-ink family as 台灣四百年; VOC orange, Spanish rose and Indigenous green from the main page. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --voc: #f29a3a;
+  --esp: #e57fa8;
+  --focus: #7fd3d0;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 14px; }
+.wrap > * { min-width: 0; }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.back { color: var(--muted); font-size: 13.5px; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas.film { display: block; width: 100%; height: auto; max-width: 100%; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--voc); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 7ch; color: var(--voc); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--voc); color: #1d1105; border-color: var(--voc); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #5e3a10; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.read { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px 48px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 8px; }
+@media (max-width: 820px) { .read { grid-template-columns: minmax(0, 1fr); } }
+.read h2 { font-family: var(--f-display); font-size: 21px; margin: 0 0 12px; letter-spacing: .04em; }
+.read p { margin: 0 0 12px; max-width: 66ch; }
+.after { list-style: none; margin: 0; padding: 0; display: grid; }
+.after li { display: grid; grid-template-columns: 6.6em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.after li:last-child { border-bottom: 0; }
+.after b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--voc); font-weight: 600; }
+.after span { min-width: 0; }
+.side { display: grid; gap: 26px; align-content: start; color: var(--muted); }
+.side p { margin: 0; }
+.side a { color: var(--ink); }
+.side ul, .side ol { margin: 0; padding-left: 1.3em; }
+.refs li { margin-bottom: 6px; font-size: 13.5px; }
+#credits { font-size: 12.5px; }
+#credits a { color: var(--muted); }
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
+.read h2 .en { font-family: var(--f-body); font-size: .62em; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="./" data-k="back"></a>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <h1 data-k="h1"></h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="film" class="film" width="1600" height="900"></canvas></div>
+  <div class="deck">
+    <button id="play" class="primary" type="button"></button>
+    <div class="scrub">
+      <input id="scrub" type="range" min="1622" max="1662.2" step="0.01" value="1622" aria-label="Year">
+      <output id="out" for="scrub">1622</output>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="speed" data-k="speed"></label>
+      <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+    </div>
+  </div>
+
+  <section class="read">
+    <div>
+      <h2 data-k="bgH"></h2>
+      <p data-k="bg1"></p>
+      <p data-k="bg2"></p>
+      <h2 data-k="afterH"></h2>
+      <ol class="after" id="after"></ol>
+    </div>
+    <div class="side">
+      <div>
+        <h2 data-k="noteH"></h2>
+        <p data-k="note"></p>
+      </div>
+      <div>
+        <h2 data-k="refH"></h2>
+        <ol class="refs">
+          <li>Tonio Andrade, <i>How Taiwan Became Chinese: Dutch, Spanish, and Han Colonization in the Seventeenth Century</i>. New York: Columbia University Press, 2008.</li>
+          <li>Tonio Andrade, <i>Lost Colony: The Untold Story of China’s First Great Victory over the West</i>. Princeton: Princeton University Press, 2011.</li>
+          <li>吳聰敏，〈荷蘭統治時期之村社承包制度〉，2007（國立臺灣大學經濟學系工作論文）。</li>
+          <li>荷蘭東印度公司戶口表（1647–1656）人口數，經維基百科「臺灣荷蘭統治時期」等條目轉引。</li>
+          <li>Wikipedia, “Dutch Formosa,” “Spanish Formosa,” “Dutch pacification campaign on Formosa,” “Landdag.”（2026 年 10 月查閱）</li>
+        </ol>
+      </div>
+      <div>
+        <h2 data-k="moreH"></h2>
+        <ul>
+          <li><a href="koxinga.html" data-k="kox"></a></li>
+          <li><a href="https://zh.wikipedia.org/wiki/臺灣荷蘭統治時期" target="_blank" rel="noopener">維基百科：臺灣荷蘭統治時期</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Spanish_Formosa" target="_blank" rel="noopener">Wikipedia: Spanish Formosa</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Landdag" target="_blank" rel="noopener">Wikipedia: Landdag</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 data-k="credH"></h2>
+        <ul id="credits"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="portraits.js"></script>
+<script src="narration-dutch.js"></script>
+<script src="pictures.js"></script>
+<script src="tg.js"></script>
+<script>
+(() => {
+const PORTRAITS = window.PORTRAITS || {};
+const IMG = {}; for (const k of ['Pieter Nuyts','Frederick Coyett']) if (PORTRAITS[k]) { const im=new Image(); im.src=PORTRAITS[k].src; IMG[k]=im; }
+
+// ---------- language (shared with 台灣四百年) ----------
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;
+const UI = {
+  back: ['台灣四百年', 'Taiwan: Four Centuries'],
+  langLbl: ['語言','Language'],
+  h1: ['荷西時期 1622–1662', 'Dutch and Spanish Formosa, 1622–1662'],
+  intro: ['荷蘭東印度公司從大員出發，以武力與「地方會議」把西南平原的原住民村社納入統治；西班牙則佔據北部的雞籠與淡水。逐年看兩個歐洲勢力在台灣的擴張、貿易與衰落。',
+          'From Tayouan, the Dutch East India Company brought the Indigenous villages of the southwestern plains under its rule by force and through the Landdag assemblies, while Spain held Keelung and Tamsui in the north. Watch the two European powers expand, trade and decline, year by year.'],
+  play: ['播放','Play'], pause: ['暫停','Pause'], replay: ['重播','Replay'], speed: ['速度','Speed'],
+  bgH: ['背景', 'Background'],
+  bg1: ['荷蘭人原本想在中國沿海取得貿易據點，被明朝逐出澎湖後轉往台灣。他們以大員為中心，經營對中國、日本的轉口貿易，收購原住民的鹿皮外銷日本，並招募漢人來台種植稻米與甘蔗。',
+        'The Dutch first wanted a trading base on the Chinese coast; driven from Penghu by the Ming, they moved to Taiwan. From Tayouan they ran entrepôt trade with China and Japan, bought Indigenous deerskins for export to Japan, and recruited Chinese settlers to grow rice and sugar cane.'],
+  bg2: ['傳教士甘治士等人在新港等西拉雅村社傳教，用羅馬字書寫西拉雅語，留下的契約文書後來被稱為「新港文書」。荷蘭統治的 38 年間，約有五到六萬名漢人移入台灣，台灣從原住民族的島嶼開始轉變。',
+        'Missionaries such as Candidius worked in Siraya villages like Sinkan and wrote the Siraya language in Roman letters; the contracts written this way became known as the Sinkan Manuscripts. In 38 years of Dutch rule some 50,000–60,000 Chinese settled in Taiwan, and the island began to change from an Indigenous one.'],
+  afterH: ['之後', 'Afterward'],
+  noteH: ['關於這張地圖', 'About this map'],
+  note: ['控制範圍是依綏靖戰爭、地方會議與戶口表整理的示意模型，不是精確疆界。荷蘭的「控制」多半是透過村社長老的間接統治。標示年份或月份者沒有確切日期。1629 年麻豆溪事件的荷蘭死亡人數，各來源記載不同。',
+         'Areas of control are a schematic model based on the pacification campaigns, the Landdag and the census, not exact borders; Dutch “control” was mostly indirect rule through village elders. Entries labelled only by year or month have no exact date. Sources disagree on how many Dutch soldiers died in the 1629 Mattau ambush.'],
+  refH: ['參考資料', 'References'],
+  moreH: ['延伸閱讀', 'Further reading'],
+  kox: ['專題：鄭成功攻台（荷蘭統治的終結）','Feature: Koxinga takes Taiwan (the end of Dutch rule)'],
+  credH: ['肖像來源', 'Portrait sources'],
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ---------- time: decimal years ----------
+const Y0 = 1622.4, Y1 = 1662.2;
+
+// ---------- geography ----------
+const COAST = [[121.54,25.30],[121.62,25.24],[121.74,25.15],[121.85,25.11],[121.92,25.03],[121.83,24.90],[121.82,24.75],[121.86,24.59],[121.78,24.42],[121.70,24.28],[121.62,24.02],[121.58,23.85],[121.50,23.60],[121.45,23.38],[121.37,23.15],[121.25,22.92],[121.15,22.75],[121.02,22.58],[120.95,22.45],[120.90,22.30],[120.86,22.10],[120.85,21.92],[120.75,21.93],[120.70,21.95],[120.72,22.10],[120.62,22.30],[120.50,22.45],[120.38,22.52],[120.27,22.62],[120.20,22.78],[120.13,22.95],[120.10,23.10],[120.08,23.30],[120.13,23.50],[120.20,23.75],[120.30,23.95],[120.40,24.15],[120.52,24.35],[120.68,24.58],[120.85,24.80],[120.98,24.95],[121.10,25.05],[121.28,25.12],[121.40,25.18],[121.54,25.30]];
+const SPINE = [[121.55,24.75],[121.35,24.45],[121.18,24.05],[121.02,23.55],[120.90,23.05],[120.83,22.55],[120.79,22.18]];
+const BOUNDS = [119.75, 21.8, 122.15, 25.45];
+const COS = Math.cos(23.7*Math.PI/180);
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const smooth = (a,b,x) => { const t = clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };
+const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+const rgba = (c,a) => `rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a.toFixed(3)})`;
+const pw = (x, pts) => { if (x<=pts[0][0]) return pts[0][1]; for (let i=1;i<pts.length;i++) if (x<=pts[i][0]) { const [a,va]=pts[i-1],[b,vb]=pts[i]; return va+(vb-va)*(x-a)/(b-a); } return pts[pts.length-1][1]; };
+function pip(x,y,p){ let inside=false; for(let i=0,j=p.length-1;i<p.length;j=i++){ const [xi,yi]=p[i],[xj,yj]=p[j]; if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=!inside; } return inside; }
+function segDist(px,py,a,b){ const ax=a[0]*COS,ay=a[1],bx=b[0]*COS,by=b[1],x=px*COS; const dx=bx-ax,dy=by-ay; const t=clamp(((x-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy),0,1); return Math.hypot(x-(ax+t*dx), py-(ay+t*dy)); }
+const spineLon = lat => pw(lat, SPINE.map(p=>[p[1],p[0]]).reverse());
+const dist = (d, lon, lat) => Math.hypot((d.lon-lon)*COS, d.lat-lat);
+const SP = 0.034, dots = [];
+for (let r=0, lat=25.34; lat>21.88; lat-=SP*0.866, r++)
+  for (let lon=119.95+(r%2?SP/COS/2:0); lon<122.0; lon+=SP/COS) {
+    if (!pip(lon,lat,COAST)) continue;
+    let d=9; for (let i=0;i<SPINE.length-1;i++) d=Math.min(d, segDist(lon,lat,SPINE[i],SPINE[i+1]));
+    const w = 0.24 + 0.17*Math.exp(-(((lat-23.8)/0.6)**2));
+    dots.push({ lon, lat, m:clamp(1-d/w,0,1), east: lat<24.45 && lon > spineLon(lat)+0.03, cr:90, cg:163, cb:111 });
+  }
+for (const p of [[119.56,23.66],[119.60,23.63],[119.64,23.60],[119.60,23.57],[119.56,23.57],[119.52,23.60]]) dots.push({ lon:p[0], lat:p[1], penghu:true, m:0, cr:90, cg:163, cb:111 });
+dots.push({ lon:120.37, lat:22.34, lamey:true, m:0, cr:90, cg:163, cb:111 });
+
+// ---------- control model: returns ['voc'|'esp'|'ming'|'ind', strength] ----------
+function owner(d, y){
+  if (d.penghu) return y < 1624.6 ? ['voc',0.7] : ['ming',0.5];
+  if (d.lamey) return y >= 1636.3 ? ['voc',0.8] : ['ind',0];
+  if (y >= 1626.37 && y < 1642.65) {
+    if (dist(d,121.74,25.14) < 0.05+0.09*smooth(1626.4,1629,y)) return ['esp',0.7];
+    if (y >= 1628.5 && dist(d,121.44,25.17) < 0.11*smooth(1628.5,1630,y)) return ['esp',0.6];
+  }
+  const decline = smooth(1653.5, 1656.5, y);                 // census shows the VOC losing villages after 1654
+  if (y >= 1642.65) {
+    if (dist(d,121.74,25.14) < 0.13 || dist(d,121.44,25.17) < 0.12) return ['voc',0.6];
+    if (y >= 1644 && d.lat>24.85 && d.m<0.3 && dist(d,121.5,25.05) < 0.28*smooth(1644,1646,y)) return ['voc',0.35*(1-0.7*decline)];
+  }
+  if (y >= 1638 && d.m<0.35 && dist(d,121.14,22.76) < 0.10) return ['voc',0.3];  // Pimaba, the east
+  if (y < 1624.6) return ['ind',0];
+  const ry = pw(y,[[1624.6,0.05],[1630,0.12],[1635.8,0.18],[1636.2,0.45],[1642,0.72],[1645,0.95],[1650,1.05],[1654,1.05],[1657,0.8]]);
+  if (!d.east && d.m<0.3) {
+    const r = Math.hypot((d.lat-23.05)/ry, (d.lon-120.2)/(ry*0.6+0.04));
+    if (r < 1) return ['voc', (0.3+0.55*(1-smooth(0.55,1,r))) * (r>0.6 ? 1-0.5*decline : 1)];
+  }
+  return ['ind',0];
+}
+
+// ---------- story ----------
+const PLACES = {
+  makung:     { zh:'澎湖（馬公）', en:'Penghu', p:[119.57,23.57], side:'r', dy:-16, a:1622.5 },
+  zeelandia:  { zh:'熱蘭遮城（大員）', en:'Zeelandia (Tayouan)', p:[120.16,23.00], side:'l', a:1624.6 },
+  provintia:  { zh:'普羅民遮城', en:'Provintia', p:[120.21,22.99], side:'r', dy:12, a:1653 },
+  sinkan:     { zh:'新港社', en:'Sinkan', p:[120.30,23.07], side:'r', a:1627 },
+  mattau:     { zh:'麻豆社', en:'Mattau', p:[120.25,23.18], side:'r', a:1629.5 },
+  lamey:      { zh:'小琉球', en:'Lamey', p:[120.37,22.34], side:'l', a:1636.3 },
+  pangsoia:   { zh:'放索社', en:'Pangsoia', p:[120.47,22.47], side:'r', a:1636 },
+  favorolang: { zh:'虎尾壠社', en:'Favorolang', p:[120.42,23.72], side:'l', a:1642 },
+  pimaba:     { zh:'卑南', en:'Pimaba', p:[121.14,22.76], side:'r', a:1638 },
+  keelung:    { zh:'雞籠（聖薩爾瓦多城）', en:'Keelung (San Salvador)', p:[121.74,25.14], side:'r', a:1626.37, esp:1642.65 },
+  tamsui:     { zh:'淡水（聖多明哥城）', en:'Tamsui (Santo Domingo)', p:[121.44,25.17], side:'l', a:1628.5, esp:1642.65 },
+};
+// [year, zh title, en title, zh text, en text, place, label]
+const EVENTS = [
+  [1622.55,'荷蘭佔澎湖','The Dutch seize Penghu','荷蘭東印度公司艦隊佔領澎湖築城，要求與中國通商，與明朝對峙。','A VOC fleet occupied Penghu and built a fort, demanding trade with China and facing off with the Ming.','makung',['1622','1622']],
+  [1624.6,'轉往大員','The move to Tayouan','明荷議和，荷蘭人撤出澎湖，轉往台灣大員建立據點，開始修築熱蘭遮城。','Under a truce with the Ming, the Dutch left Penghu for Tayouan on Taiwan and began building Fort Zeelandia.','zeelandia',['1624/8','Aug 1624']],
+  [1626.37,'西班牙佔雞籠','Spain takes Keelung','5 月 16 日，西班牙人在社寮島（今和平島）舉行佔領儀式，修築聖薩爾瓦多城。','On May 16 the Spanish held a ceremony of possession on Heping Island and built Fort San Salvador.','keelung',['1626/5/16','May 16, 1626']],
+  [1627.3,'甘治士抵台傳教','Candidius arrives','傳教士甘治士到新港社傳教，荷蘭人開始以宗教與教育影響西拉雅族。','The missionary Candidius began work in Sinkan, and the Dutch started to influence the Siraya through religion and schooling.','sinkan',['1627','1627']],
+  [1628.5,'濱田彌兵衛事件','The Hamada Yahei incident','日本商人濱田彌兵衛不滿荷蘭課稅，挾持長官納茨，荷日貿易一度中斷。西班牙同年進入淡水。','Japanese merchant Hamada Yahei, angry at Dutch taxes, took Governor Nuyts hostage, and Dutch–Japanese trade was suspended for a time. Spain moved into Tamsui the same year.','zeelandia',['1628','1628']],
+  [1629.6,'麻豆溪事件','The Mattau ambush','長官納茨的衛隊在麻豆溪遭麻豆社族人伏擊，數十名荷蘭士兵身亡（人數各來源不同）。','Governor Nuyts’s escort was ambushed by Mattau warriors at the Mattau river; dozens of Dutch soldiers died (sources give different numbers).','mattau',['1629','1629']],
+  [1635.9,'征討麻豆社','The Mattau campaign','11 月 23 日，長官普特曼斯率約 475 名援軍攻打麻豆社，焚毀房屋並處死 26 人；12 月麻豆社簽約臣服。','On November 23 Governor Putmans attacked Mattau with some 475 reinforcements, burning houses and executing 26 men; in December Mattau signed a treaty of submission.','mattau',['1635/11/23','Nov 23, 1635']],
+  [1636.14,'和平大會','The peace assembly','2 月 22 日，南部與中部 28 個村社的代表到新港出席和平儀式，是日後地方會議的雛形。','On February 22 representatives of 28 villages from the south and centre attended a peace ceremony at Sinkan, the forerunner of the Landdag.','sinkan',['1636/2/22','Feb 22, 1636']],
+  [1636.3,'小琉球事件','The Lamey massacre','荷蘭軍隊攻擊小琉球，約 1,100 名島上居民被殺或遷走。','Dutch troops attacked Lamey Island; some 1,100 islanders were killed or removed.','lamey',['1636','1636']],
+  [1638.4,'鹿皮外銷 151,400 張','151,400 deerskins','這一年荷蘭從台灣輸出 151,400 張鹿皮到日本，鹿皮是早期最重要的商品。','That year the Dutch shipped 151,400 deerskins from Taiwan to Japan, the most important early export.','pimaba',['1638','1638']],
+  [1641.3,'第一次地方會議','The first Landdag','荷蘭召集各社長老舉行第一次正式地方會議，授予權杖，透過長老間接統治村社。同年進攻雞籠失敗。','The Dutch held the first formal Landdag, giving village elders staffs of office and ruling through them. The same year an attack on Keelung failed.','zeelandia',['1641','1641']],
+  [1642.65,'逐出西班牙','Spain driven out','8 月，荷軍以四艘大船與約 369 名士兵進攻雞籠，激戰六天後西班牙投降，荷蘭獨佔台灣西部與北部。','In August the Dutch attacked Keelung with four large ships and about 369 soldiers; after six days the Spanish surrendered, leaving the Dutch alone in western and northern Taiwan.','keelung',['1642/8','Aug 1642']],
+  [1644.2,'南北地方會議','Northern and southern Landdag','地方會議改為每年南北兩區分別舉行，淡水與卑南也不定期召開。','The Landdag was now held each year in separate northern and southern sessions, with occasional ones in Tamsui and Pimaba.','favorolang',['1644','1644']],
+  [1650.4,'戶口表：315 社','The census: 315 villages','荷蘭統治的全盛期，戶口表記錄 315 個村社、68,657 人，約佔全島原住民的四到五成。','At the height of Dutch rule the census listed 315 villages and 68,657 people, perhaps 40–50% of the island’s Indigenous population.','zeelandia',['1650','1650']],
+  [1652.7,'郭懷一事件','The Guo Huaiyi rebellion','漢人農民不滿重稅起事，遭荷軍與原住民部隊鎮壓，約 4,000 人身亡。','Chinese farmers rose against heavy taxes and were crushed by Dutch and Indigenous forces; about 4,000 died.','provintia',['1652/9','Sep 1652']],
+  [1653.3,'普羅民遮城建成','Fort Provintia built','郭懷一事件後，荷蘭在赤崁興建普羅民遮城，加強對漢人聚落的控制。','After the rebellion the Dutch built Fort Provintia at Saccam to tighten control over the Chinese settlements.','provintia',['1653','1653']],
+  [1655.5,'控制力下降','Control slips','戶口表顯示受控人口從 1650 年的 68,657 人降到 1656 年的 32,221 人，北部與山區村社逐漸脫離。','The census shows the people under Dutch rule falling from 68,657 in 1650 to 32,221 in 1656 as northern and mountain villages slipped away.','favorolang',['1654–56','1654–56']],
+  [1661.33,'鄭成功來襲','Koxinga arrives','鄭成功率大軍從鹿耳門登陸，包圍熱蘭遮城。','Koxinga landed with a large army through Luermen and besieged Fort Zeelandia.','zeelandia',['1661/4/30','Apr 30, 1661']],
+  [1662.09,'荷蘭投降','The Dutch surrender','2 月 1 日，揆一與鄭成功締約，荷蘭結束在台 38 年的統治。','On February 1 Coyett signed a treaty with Koxinga, ending 38 years of Dutch rule.','zeelandia',['1662/2/1','Feb 1, 1662']],
+].map(e=>({ d:e[0], tz:e[1], te:e[2], bz:e[3], be:e[4], at:e[5], lbl:e[6] }));
+const PHASES = [
+  [Y0, 1624.6, '澎湖與大員','Penghu to Tayouan','#c4a57a','荷蘭先佔澎湖，被明朝逼退後轉往台灣大員。','The Dutch first seized Penghu, then, pushed out by the Ming, moved to Tayouan on Taiwan.'],
+  [1624.6, 1635.9, '立足大員','A foothold','#f29a3a','荷蘭在大員經營轉口貿易；西班牙佔據北部。與日本商人、麻豆社的衝突顯示荷蘭的力量仍有限。','The Dutch ran their entrepôt trade from Tayouan while Spain took the north. Clashes with Japanese merchants and with Mattau showed how limited Dutch power still was.'],
+  [1635.9, 1642.65, '綏靖與擴張','Pacification','#e0753a','荷蘭以武力征討麻豆、小琉球等地，再以和平大會與地方會議讓村社臣服，統治範圍迅速擴大。','The Dutch subdued Mattau, Lamey and others by force, then bound the villages through peace assemblies and the Landdag, and their reach grew quickly.'],
+  [1642.65, 1652.7, '全盛期','The height','#d9a23a','逐出西班牙後，荷蘭統治延伸到北部與東部，鹿皮、蔗糖與漢人移民帶來收入，1650 年戶口表達到 315 社。','With Spain gone, Dutch rule reached the north and east; deerskins, sugar and Chinese settlers brought revenue, and the 1650 census reached 315 villages.'],
+  [1652.7, Y1+0.1, '動搖與終結','Unrest and the end','#a8607a','郭懷一事件後漢人不滿升高，村社逐漸脫離；1661 年鄭成功來襲，次年荷蘭投降。','After the Guo Huaiyi rebellion, Chinese discontent grew and villages drifted away; Koxinga attacked in 1661, and the Dutch surrendered the next year.'],
+];
+const phaseAt = y => PHASES.find(p => y>=p[0] && y<p[1]) || PHASES[PHASES.length-1];
+const PEOPLE = [
+  { k:'Pieter Nuyts', zh:'納茨', en:'Pieter Nuyts', role:['第 3 任荷蘭台灣長官','3rd Dutch governor'], yrs:'1627–1629', col:'#f29a3a', a:1627.5, b:1629.5, st:['未到任','Not yet','在任','In office','去職','Gone'] },
+  { k:'Candidius', zh:'甘治士', en:'Georgius Candidius', role:['傳教士，在新港社傳教','Missionary at Sinkan'], yrs:'1627–1637', col:'#f2c27a', a:1627.3, b:1637.5, st:['未抵台','Not yet','傳教','Preaching','離台','Left'] },
+  { k:'Carreño', zh:'卡黎尼奧', en:'Antonio Carreño de Valdés', role:['西班牙首任台灣總督','First Spanish governor'], yrs:'1626–1629', col:'#e57fa8', a:1626.37, b:1629.5, st:['未到任','Not yet','在任','In office','離任','Gone'] },
+  { k:'Frederick Coyett', zh:'揆一', en:'Frederick Coyett', role:['末任荷蘭台灣長官','Last Dutch governor'], yrs:'1656–1662', col:'#f29a3a', a:1656.5, b:1662.09, st:['未到任','Not yet','在任','In office','投降','Surrendered'] },
+];
+const CENSUS = [[1647,62849],[1648,63861],[1650,68657],[1654,49324],[1655,39222],[1656,32221]];
+const TRADE = [
+  [1638.4,'151,400','張鹿皮輸日（1638）','deerskins to Japan (1638)'],
+  [1658,'173 萬','斤蔗糖產量（1658）','catties of sugar (1658)'],
+  [1661,'5–6 萬','漢人移入（荷蘭時期）','Chinese settlers (Dutch era)'],
+];
+const AFTER = [
+  ['1662','鄭氏建立東寧政權，台灣首次出現漢人政權。','The Zheng family founds Tungning, Taiwan’s first Han Chinese state.'],
+  ['1675','揆一出版《被遺誤的台灣》。','Coyett publishes Verwaerloosde Formosa.'],
+  ['1683','清朝攻台，西拉雅等平埔族群在清代逐漸漢化。新港文書的使用延續到 19 世紀初。','The Qing take Taiwan; the Siraya and other plains peoples are gradually assimilated, though Sinkan-script contracts stay in use into the early 19th century.'],
+];
+
+// ---------- drawing ----------
+const C = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d' };
+const COLS = { voc:hex('#f29a3a'), esp:hex('#e57fa8'), ming:hex('#b39a7a'), ind:hex('#5aa36f') };
+const INK = hex('#ece6d6'), FIRE = hex('#f08a4b');
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+const cv=document.getElementById('film'), ctx=cv.getContext('2d'), stage=cv.parentElement;
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1, title:{x:56,y:58}, date:{x:52,y:190,size:130}, year:{x:58,y:228}, phase:{x:58,y:286,size:34}, pdesc:{x:58,y:326,w:370,lh:27,max:4},
+    event:{x:58,y:486,w:370}, map:{x:450,y:24,w:600,h:800}, people:{x:1100,y:56,w:440,rh:80}, census:{x:1100,y:430,w:440,h:150}, trade:{x:1100,y:660,w:440}, strip:{x:56,y:846,w:1488,h:28} },
+  port: { W:720, H:2060, u:1.3, title:{x:28,y:50}, date:{x:24,y:150,size:100}, year:{x:30,y:186}, phase:{x:28,y:242,size:30}, pdesc:{x:28,y:282,w:664,lh:30,max:2},
+    map:{x:16,y:330,w:688,h:640}, event:{x:28,y:1020,w:664}, people:{x:28,y:1210,w:664,rh:86}, census:{x:28,y:1620,w:664,h:150}, trade:{x:28,y:1860,w:664}, strip:{x:28,y:1990,w:664,h:32} },
+};
+let L=LAYOUTS.land, M={};
+const P = (lon,lat) => [M.ox+(lon-BOUNDS[0])*COS*M.k, M.oy+(BOUNDS[3]-lat)*M.k];
+function layout(){
+  const cw = stage.clientWidth || 1000;
+  L = cw < 720 ? LAYOUTS.port : LAYOUTS.land;
+  const scale = Math.min(2, window.devicePixelRatio||1) * cw / L.W;
+  cv.width=Math.round(L.W*scale); cv.height=Math.round(L.H*scale); ctx.setTransform(scale,0,0,scale,0,0);
+  const r=L.map, gw=(BOUNDS[2]-BOUNDS[0])*COS, gh=BOUNDS[3]-BOUNDS[1];
+  M.k=Math.min(r.w/gw, r.h/gh); M.ox=r.x+(r.w-gw*M.k)/2; M.oy=r.y+(r.h-gh*M.k)/2; M.dot=SP*M.k*0.42;
+  for (const d of dots) [d.x,d.y]=P(d.lon,d.lat);
+}
+function wrap(text, maxW){
+  const toks = text.match(/[\p{Script=Latin}0-9.,;:!?%’'"“”()\/\-–]+|\s|./gu) || [];
+  const lines=[]; let line='';
+  for (const t of toks) { if (line && !/^[，。、；：！？）」』,.;:!?)]$/.test(t) && ctx.measureText(line+t).width > maxW) { lines.push(line.trimEnd()); line = t.trim() ? t : ''; } else line += t; }
+  if (line) lines.push(line); return lines;
+}
+function fitFont(text, weight, size, family, maxW, min=11){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+function label(zh, en, x, y, left, size=12, col=C.ink){
+  const u=L.u, lx=x+(left?-10:10);
+  ctx.textAlign = left ? 'right' : 'left'; ctx.font=font(600,size*u,F.b);
+  const nm = tx(zh,en);
+  ctx.lineWidth=3.5; ctx.strokeStyle=C.bg; ctx.strokeText(nm, lx, y+4.5); ctx.fillStyle=col; ctx.fillText(nm, lx, y+4.5);
+  if (lang==='bi') { ctx.font=font(400,(size-3)*u,F.b); ctx.strokeText(en, lx, y+4.5+12*u); ctx.fillStyle=C.muted; ctx.fillText(en, lx, y+4.5+12*u); }
+  ctx.textAlign='left';
+}
+const rrect = (x,y,w,h,r) => { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); };
+const lastEvent = y => { let e=null; for (const x of EVENTS) if (x.d<=y) e=x; else break; return e; };
+
+function drawMap(y, dt){
+  const r=L.map, u=L.u, f=1-Math.pow(0.004, dt);
+  ctx.save(); ctx.beginPath(); ctx.rect(r.x,r.y,r.w,r.h); ctx.clip();
+  ctx.strokeStyle=C.grid; ctx.lineWidth=1; ctx.font=font(400,11*u,F.m); ctx.fillStyle=C.faint;
+  for (let lon=120; lon<=122; lon++) { const [x]=P(lon,0); ctx.beginPath(); ctx.moveTo(x,r.y); ctx.lineTo(x,r.y+r.h); ctx.stroke(); ctx.fillText(`${lon}°E`, x+4, r.y+r.h-8); }
+  for (let lat=22; lat<=25; lat++) { const [,yy]=P(0,lat); ctx.beginPath(); ctx.moveTo(r.x,yy); ctx.lineTo(r.x+r.w,yy); ctx.stroke(); ctx.fillText(`${lat}°N`, r.x+r.w-44*u, yy-5); }
+  for (const d of dots) {
+    const [o,k]=owner(d,y); let tc, a;
+    if (o==='ind') { const t=smooth(0.1,0.8,d.m); tc=[156+(59-156)*t, 204+(138-204)*t, 132+(90-132)*t]; a=0.35+0.4*d.m; }
+    else { tc=COLS[o]; a=0.35+0.6*k; }
+    d.cr+=(tc[0]-d.cr)*f; d.cg+=(tc[1]-d.cg)*f; d.cb+=(tc[2]-d.cb)*f;
+    ctx.fillStyle=`rgba(${d.cr|0},${d.cg|0},${d.cb|0},${a.toFixed(3)})`; ctx.beginPath(); ctx.arc(d.x,d.y,M.dot*(d.penghu||d.lamey?1.25:1),0,6.2832); ctx.fill();
+  }
+  // Landdag rays from Zeelandia/Sinkan to the villages during assembly years
+  if (y >= 1636.14) { const [sx0,sy0]=P(...PLACES.sinkan.p), a=0.18+0.25*smooth(1641,1645,y)*(1-smooth(1653,1657,y));
+    for (const k of ['mattau','pangsoia','favorolang','pimaba']) { if (y < PLACES[k].a) continue; const [x,yy]=P(...PLACES[k].p); ctx.strokeStyle=rgba(COLS.voc,a); ctx.setLineDash([2,5]); ctx.lineWidth=1.2; ctx.beginPath(); ctx.moveTo(sx0,sy0); ctx.lineTo(x,yy); ctx.stroke(); ctx.setLineDash([]); } }
+  // battle bursts
+  for (const e of EVENTS) if (/事件|征討|逐出|來襲|小琉球/.test(e.tz) && y>=e.d && y<e.d+0.35) { const [x,yy]=P(...PLACES[e.at].p), q=(y-e.d)/0.35; for (let i=0;i<3;i++) { ctx.strokeStyle=rgba(FIRE,(1-q)*0.9); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,yy,(8+24*q)*(1+0.3*i),0,6.2832); ctx.stroke(); } }
+  // places
+  for (const k in PLACES) {
+    const pl=PLACES[k]; if (y < pl.a) continue;
+    const [x,yy]=P(...pl.p), isEsp = pl.esp && y < pl.esp, fort = /城/.test(pl.zh) || k==='makung';
+    const col = isEsp ? COLS.esp : k==='makung' && y>=1624.6 ? COLS.ming : COLS.voc;
+    if (fort) { const s=6; ctx.fillStyle=rgba(col,1); ctx.strokeStyle=C.bg; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x,yy-s*1.3); ctx.lineTo(x+s*1.3,yy); ctx.lineTo(x,yy+s*1.3); ctx.lineTo(x-s*1.3,yy); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+    else { ctx.fillStyle=C.bg; ctx.strokeStyle=rgba(COLS.ind,1); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,yy,4.5,0,6.2832); ctx.fill(); ctx.stroke(); }
+    label(pl.zh, pl.en, x, yy+(pl.dy||0), pl.side==='l', 12, C.ink);
+  }
+  const e = lastEvent(y);
+  if (e && e.at && y-e.d < 0.8) { const [x,yy]=P(...PLACES[e.at].p), ph=(performance.now()/1000)%1; ctx.strokeStyle=rgba(INK,(1-ph)*0.85); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,yy,9+ph*28,0,6.2832); ctx.stroke(); }
+  ctx.restore();
+  drawLegend();
+}
+function drawLegend(){
+  const r=L.map, u=L.u, items=[['voc','荷蘭東印度公司','Dutch East India Co.'],['esp','西班牙','Spain'],['ind','原住民族領域','Indigenous land'],['ming','明朝（澎湖）','Ming (Penghu)']];
+  const lh=(lang==='bi'?30:21)*u, w=(lang==='zh'?150:210)*u, h=items.length*lh+40*u, x=r.x+10, y=r.y+10;
+  ctx.fillStyle='rgba(8,21,29,0.88)'; ctx.fillRect(x,y,w,h); ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.strokeRect(x,y,w,h);
+  items.forEach(([k,zh,en],i)=>{ const yy=y+14+i*lh+8*u; ctx.fillStyle=rgba(COLS[k],0.95); ctx.beginPath(); ctx.arc(x+16,yy-4,6,0,6.2832); ctx.fill();
+    ctx.font=font(500,12*u,F.b); ctx.fillStyle=C.ink; ctx.fillText(tx(zh,en), x+30, yy); if (lang==='bi') { ctx.font=font(400,10.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(en, x+30, yy+13*u); } });
+  const yy=y+14+items.length*lh+8*u; ctx.strokeStyle=rgba(COLS.voc,0.8); ctx.setLineDash([2,5]); ctx.lineWidth=1.4; ctx.beginPath(); ctx.moveTo(x+8,yy-4); ctx.lineTo(x+24,yy-4); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font=font(500,12*u,F.b); ctx.fillStyle=C.ink; ctx.fillText(lang==='bi'?'地方會議 Landdag':tx('地方會議','Landdag ties'), x+30, yy);
+}
+function drawHeader(y){
+  const u=L.u, ph=phaseAt(y), bi=lang==='bi', Y=Math.floor(y);
+  ctx.font=font(700,13*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('荷 西 時 期　1622 — 1662','DUTCH AND SPANISH FORMOSA   1622 — 1662'), L.title.x, L.title.y);
+  ctx.font=font(900,L.date.size,F.d); ctx.fillStyle=C.ink; ctx.fillText(String(Y), L.date.x, L.date.y);
+  // Ming reign years: Tianqi 1621–27, Chongzhen 1628–44; then the Southern Ming Yongli (from 1647) used by Zheng
+  const reign = Y<1628 ? tx(`明天啟 ${Y-1620} 年`,`Tianqi ${Y-1620}`) : Y<=1644 ? tx(`明崇禎 ${Y-1627} 年`,`Chongzhen ${Y-1627}`) : Y<1647 ? tx(`清順治 ${Y-1643} 年`,`Shunzhi ${Y-1643}`) : tx(`清順治 ${Y-1643} 年・南明永曆 ${Y-1646} 年`,`Shunzhi ${Y-1643} · Yongli ${Y-1646}`);
+  ctx.font=font(500,17*u,F.d); ctx.fillStyle=C.muted; ctx.fillText(reign, L.year.x, L.year.y);
+  const pn=tx(ph[2],ph[3]); fitFont(pn, 900, L.phase.size, F.d, L.pdesc.w, 18); ctx.fillStyle=ph[4]; ctx.fillText(pn, L.phase.x, L.phase.y);
+  if (bi) { const w=ctx.measureText(pn).width; ctx.font=font(500,17*u,F.d); if (w+12+ctx.measureText(ph[3]).width <= L.pdesc.w) { ctx.globalAlpha=0.85; ctx.fillText(ph[3], L.phase.x+w+12, L.phase.y); ctx.globalAlpha=1; } }
+  const pd=L.pdesc; ctx.font=font(400,(lang==='en'?15.5:16.5)*u,F.b); ctx.fillStyle=C.muted;
+  wrap(tx(ph[5],ph[6]), pd.w).slice(0,pd.max).forEach((ln,i)=>ctx.fillText(ln, pd.x, pd.y+i*pd.lh));
+}
+const evDate = e => tx(e.lbl[0], e.lbl[1]);
+function drawEvent(y){
+  const r=L.event, u=L.u, bi=lang==='bi', port=L.W<1000;
+  ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('紀 事','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+  const idx=EVENTS.indexOf(lastEvent(y));
+  if (idx<0) { ctx.font=font(400,15*u,F.b); ctx.fillStyle=C.muted; wrap(tx('1622 年，台灣本島仍是原住民族的島嶼，漢人漁民與海商往來沿岸。','1622: Taiwan is still an Indigenous island, with Chinese fishermen and traders working its coasts.'), r.w).forEach((ln,i)=>ctx.fillText(ln, r.x, r.y+24*u+i*24*u)); return; }
+  const e=EVENTS[idx], dl=evDate(e);
+  fitFont(dl, 600, 14*u, F.m, 84*u, 9); ctx.fillStyle=phaseAt(e.d)[4]; ctx.fillText(dl, r.x, r.y+24*u);
+  const title=tx(e.tz,e.te); fitFont(title, 700, 23*u, F.d, r.w-94*u, 14); ctx.fillStyle=C.ink; ctx.fillText(title, r.x+94*u, r.y+25*u);
+  let yy=r.y+58*u;
+  if (bi) { fitFont(e.te, 500, 14*u, F.b, r.w-94*u, 10); ctx.fillStyle=C.muted; ctx.fillText(e.te, r.x+94*u, r.y+45*u); yy=r.y+74*u; }
+  ctx.font=font(400,(lang==='en'?14.5:15.5)*u,F.b); ctx.fillStyle=C.muted;
+  const lines=wrap(tx(e.bz,e.be), r.w).slice(0, port?3:5); lines.forEach((ln,i)=>ctx.fillText(ln, r.x, yy+i*24*u)); yy+=lines.length*24*u+22*u;
+  for (let j=idx-1; j>=Math.max(0,idx-2) && !port; j--) {
+    const p=EVENTS[j], s = bi ? `${p.tz} ${p.te}` : tx(p.tz,p.te); ctx.globalAlpha=0.6;
+    fitFont(evDate(p), 600, 12.5*u, F.m, 86*u, 9); ctx.fillStyle=C.muted; ctx.fillText(evDate(p), r.x, yy);
+    fitFont(s, 500, 14*u, F.b, r.w-94*u, 10); ctx.fillStyle=C.ink; ctx.fillText(s, r.x+94*u, yy); yy+=24*u; ctx.globalAlpha=1;
+  }
+}
+function drawPeople(y){
+  const r=L.people, u=L.u, bi=lang==='bi';
+  ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('人物','People'); ctx.fillText(tt, r.x, r.y);
+  if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('People', r.x+w+8, r.y); }
+  PEOPLE.forEach((pp,i)=>{
+    const yy=r.y+12*u+i*r.rh, pw=48*u, ph=60*u, x0=r.x+pw+12*u, s = y<pp.a ? 0 : y<pp.b ? 1 : 2, col = s===1 ? pp.col : '#7f8f96';
+    ctx.globalAlpha = s===1 ? 1 : 0.6;
+    ctx.save(); rrect(r.x,yy,pw,ph,4); ctx.clip();
+    const im=IMG[pp.k]; if (im && im.complete && im.naturalWidth) ctx.drawImage(im, r.x, yy, pw, ph);
+    else { ctx.fillStyle=rgba(hex(pp.col),0.2); ctx.fillRect(r.x,yy,pw,ph); ctx.fillStyle=pp.col; ctx.font=font(900,ph*0.45,F.d); ctx.textAlign='center'; ctx.fillText(pp.zh[0], r.x+pw/2, yy+ph*0.66); ctx.textAlign='left'; }
+    ctx.restore(); ctx.strokeStyle=pp.col; ctx.lineWidth=1.5; rrect(r.x,yy,pw,ph,4); ctx.stroke();
+    const nm=tx(pp.zh,pp.en); fitFont(nm, 900, 18*u, F.d, r.w-pw-150*u, 11); ctx.fillStyle=C.ink; ctx.fillText(nm, x0, yy+18*u);
+    const nw=ctx.measureText(nm).width; ctx.font=font(500,11.5*u,F.m); ctx.fillStyle=C.muted; ctx.fillText(pp.yrs, x0+nw+8, yy+17*u);
+    let ly=yy+36*u; if (bi) { fitFont(pp.en, 500, 11.5*u, F.b, r.w-pw-120*u, 8); ctx.fillStyle=C.muted; ctx.fillText(pp.en, x0, ly); ly+=15*u; }
+    fitFont(tx(...pp.role), 400, 12*u, F.b, r.w-pw-24*u, 8); ctx.fillStyle=C.muted; ctx.fillText(tx(...pp.role), x0, ly);
+    const chip = bi ? `${pp.st[s*2]} ${pp.st[s*2+1]}` : tx(pp.st[s*2], pp.st[s*2+1]); ctx.font=font(700,11.5*u,F.b);
+    const cw=ctx.measureText(chip).width+14*u, cx=r.x+r.w-cw, cy=yy+2*u;
+    ctx.fillStyle=rgba(hex(col),0.18); rrect(cx,cy,cw,20*u,10*u); ctx.fill(); ctx.strokeStyle=col; ctx.lineWidth=1.2; ctx.stroke(); ctx.fillStyle=col; ctx.fillText(chip, cx+7*u, cy+14.5*u);
+    ctx.globalAlpha=1;
+  });
+}
+function drawCensus(y){
+  const r=L.census, u=L.u, bi=lang==='bi';
+  ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('荷蘭統治下的原住民人口','Indigenous people under Dutch rule'); fitFont(tt, 700, 14*u, F.b, r.w, 10); ctx.fillText(tt, r.x, r.y-26*u);
+  ctx.font=font(400,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(bi ? '戶口表 VOC census' : tx('戶口表','VOC census'), r.x, r.y-10*u);
+  const max=70000, n=CENSUS.length, bw=r.w/n*0.62;
+  ctx.strokeStyle=C.grid; ctx.lineWidth=1; for (const v of [35000,70000]) { const yy=r.y+r.h*(1-v/max); ctx.beginPath(); ctx.moveTo(r.x,yy); ctx.lineTo(r.x+r.w,yy); ctx.stroke(); }
+  ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted; ctx.textAlign='right'; ctx.fillText('70,000', r.x+r.w, r.y-2); ctx.fillText('35,000', r.x+r.w, r.y+r.h/2-2); ctx.textAlign='left';
+  CENSUS.forEach(([yr,v],i)=>{
+    const x=r.x+(i+0.19)*r.w/n, h=r.h*v/max, on=y>=yr+0.4;
+    ctx.fillStyle = on ? rgba(COLS.voc, yr===1650?1:0.75) : rgba(hex(C.faint),1); ctx.fillRect(x, r.y+r.h-h, bw, h);
+    ctx.font=font(500,11*u,F.m); ctx.fillStyle=C.muted; ctx.textAlign='center'; ctx.fillText(String(yr), x+bw/2, r.y+r.h+15*u);
+    if (on) { ctx.fillStyle=C.ink; ctx.fillText(v.toLocaleString(), x+bw/2, r.y+r.h-h-6); }
+    ctx.textAlign='left';
+  });
+  if (y >= 1650.4) { const i=2, x=r.x+(i+0.19)*r.w/n; ctx.font=font(600,11.5*u,F.b); ctx.fillStyle=rgba(COLS.voc,1); ctx.fillText(tx('315 社','315 villages'), x+bw+6, r.y+r.h*(1-68657/max)+14*u); }
+}
+function drawTrade(y){
+  const r=L.trade, u=L.u, bi=lang==='bi';
+  ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('貿易與移民','Trade and settlers'); ctx.fillText(tt, r.x, r.y);
+  if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('Trade and settlers', r.x+w+8, r.y); }
+  const cw=r.w/3;
+  TRADE.forEach(([d,n,zh,en],i)=>{ const x=r.x+i*cw, on=y>=d, yy=r.y+44*u;
+    fitFont(on?n:'—', 900, 28*u, F.d, cw-10, 14); ctx.fillStyle = on ? (i===2?C.ink:rgba(COLS.voc,1)) : C.faint; ctx.fillText(on?n:'—', x, yy);
+    fitFont(tx(zh,en), 500, 12*u, F.b, cw-8, 8); ctx.fillStyle = on ? C.ink : C.faint; ctx.fillText(tx(zh,en), x, yy+20*u);
+    if (bi) { fitFont(en, 400, 10.5*u, F.b, cw-8, 7); ctx.fillStyle=C.muted; ctx.fillText(en, x, yy+35*u); } });
+}
+const SHARE=[0.07,0.25,0.22,0.24,0.22];
+function sx(y){ const r=L.strip; let acc=0; for (let i=0;i<PHASES.length;i++) { const [a,b]=PHASES[i], bb=Math.min(b,Y1); if (y<=bb || i===PHASES.length-1) return r.x + r.w*(acc + SHARE[i]*clamp((y-a)/(bb-a),0,1)); acc+=SHARE[i]; } }
+function drawStrip(y){
+  const r=L.strip, u=L.u;
+  PHASES.forEach(p=>{
+    const x0=sx(p[0]), x1=sx(Math.min(p[1],Y1)), on=y>=p[0]&&y<p[1];
+    ctx.fillStyle=p[4]; ctx.globalAlpha=on?0.95:0.35; ctx.fillRect(x0,r.y,x1-x0-1.5,r.h); ctx.globalAlpha=1;
+    ctx.font=font(700,12.5*u,F.b); ctx.fillStyle=on?'#14090a':C.ink;
+    let lb = lang==='bi' ? `${p[2]} ${p[3]}` : tx(p[2],p[3]); if (ctx.measureText(lb).width > x1-x0-10) lb=tx(p[2],p[3]);
+    if (ctx.measureText(lb).width < x1-x0-10) ctx.fillText(lb, x0+6, r.y+r.h/2+4.5*u);
+  });
+  ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted;
+  for (const v of [1625,1630,1635,1640,1645,1650,1655,1660]) { const x=sx(v); ctx.fillRect(x, r.y+r.h, 1, 5); ctx.fillText(String(v), x+3, r.y+r.h+15*u); }
+  ctx.fillStyle=C.ink; ctx.globalAlpha=0.55; for (const e of EVENTS) ctx.fillRect(sx(e.d)-0.5, r.y-6, 1, 4); ctx.globalAlpha=1;
+  const x=sx(y); ctx.fillStyle=C.ink; ctx.beginPath(); ctx.moveTo(x-6,r.y-10); ctx.lineTo(x+6,r.y-10); ctx.lineTo(x,r.y-2); ctx.closePath(); ctx.fill(); ctx.fillRect(x-1,r.y-2,2,r.h+4);
+}
+function render(y, dt){
+  ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
+  drawMap(y, dt); drawHeader(y); drawEvent(y); drawPeople(y); drawCensus(y); drawTrade(y); drawStrip(y);
+}
+
+// ---------- playback: about one year per second, slower near events ----------
+const playBtn=document.getElementById('play'), scrub=document.getElementById('scrub'), out=document.getElementById('out'), speed=document.getElementById('speed');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let y=Y0, playing=!reduce;
+function rate(x){ let dmin=Infinity; for (const e of EVENTS) { const dd = x < e.d ? e.d-x : x-e.d-0.25; dmin=Math.min(dmin, Math.max(0,dd)); } return Math.max(0.28, 1.1*clamp(dmin/0.6,0,1)); }
+function setPlaying(p){ playing=p; setK(playBtn, p ? 'pause' : (y>=Y1 ? 'replay' : 'play')); TG.sync(); }
+function seek(x){ y=clamp(x,Y0,Y1); scrub.value=y; out.textContent=String(Math.floor(y)); TG.seek(); }
+scrub.min=Y0; scrub.max=Y1;
+playBtn.addEventListener('click', ()=>{ if (!playing && y>=Y1) seek(Y0); if (!playing) TG.unlock(); setPlaying(!playing); });
+scrub.addEventListener('input', ()=>{ seek(+scrub.value); if (playing) setPlaying(false); });
+cv.setAttribute('tabindex','0');
+cv.addEventListener('keydown', e=>{
+  if (e.key===' ') { e.preventDefault(); playBtn.click(); }
+  else if (e.key==='ArrowRight') seek(Math.floor(y)+1);
+  else if (e.key==='ArrowLeft') seek(Math.floor(y)-1);
+});
+const afterOl=document.getElementById('after'), credUl=document.getElementById('credits');
+function applyLang(){
+  TG.lang();
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.title = tx('荷西時期 1622–1662', 'Dutch and Spanish Formosa, 1622–1662');
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
+  setPlaying(playing);
+  afterOl.innerHTML = AFTER.map(([yy,zh,en])=>`<li><b>${yy}</b><span>${uiHTML(zh,en)}</span></li>`).join('');
+  credUl.innerHTML = PEOPLE.filter(p=>PORTRAITS[p.k]).map(p=>{ const c=PORTRAITS[p.k]; return `<li>${esc(tx(p.zh,p.en))}: <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.file)}</a> (${esc(c.license)})</li>`; }).join('')
+    + `<li>${esc(tx('甘治士、卡黎尼奧：無可用的自由授權肖像，以字卡代替。','Candidius, Carreño: no freely licensed portrait; name cards are shown.'))}</li>`;
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  cv.setAttribute('aria-label', tx('荷西時期逐年地圖動畫','Year-by-year map animation of Dutch and Spanish Formosa'));
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+new ResizeObserver(()=>layout()).observe(stage);
+// Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.
+const TG = TGNarration({ name:'dutch', lang:()=>lang, getT:()=>y, isPlaying:()=>playing, setPlaying, stage:document.querySelector('.stage'), playBtn,
+  cues:[...PHASES.map((p,i)=>({y:Math.max(p[0],Y0), id:'p'+i})), ...EVENTS.map((e,i)=>({y:e.d, id:'e'+i}))] });
+if (TG.on()) playing=false;   // sound needs a tap, so the narrated film waits for Play
+layout(); applyLang(); seek(Y0); setPlaying(playing);
+let last=performance.now();
+function frame(now){
+  TG.tick();
+  const dt=Math.min(0.1,(now-last)/1000); last=now;
+  if (playing) { y+=TG.step(dt*rate(y)*(+speed.value), now); if (y>=Y1) { y=Y1; if (!TG.busy()) setPlaying(false); } scrub.value=y; out.textContent=String(Math.floor(y)); }
+  render(y, dt); requestAnimationFrame(frame);
+}
+requestAnimationFrame(n=>{ last=n; frame(n); });
+})();
+</script>
+</body>
+</html>

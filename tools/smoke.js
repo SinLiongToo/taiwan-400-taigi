@@ -6,6 +6,8 @@ const [,, file, widthArg] = process.argv;
 const width = +widthArg || 1300;
 const html = fs.readFileSync(file, 'utf8');
 const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+// the shared narration module is loaded from a file; run it too so its page hooks are exercised
+if (/<script src="tg\.js">/.test(html)) scripts.unshift(fs.readFileSync(require('path').join(require('path').dirname(file), 'tg.js'), 'utf8'));
 
 const ctx2d = new Proxy({}, {
   get(t, k) {
@@ -21,7 +23,7 @@ function el(id) {
   if (!els[id]) els[id] = {
     id, dataset: {}, style: {}, value: '0', textContent: '', innerHTML: '', hidden: false, clientWidth: width,
     parentElement: { clientWidth: width }, classList: { toggle() {}, add() {}, remove() {} },
-    getContext: () => ctx2d, setAttribute() {}, addEventListener() {}, appendChild() {}, append() {},
+    getContext: () => ctx2d, setAttribute() {}, addEventListener() {}, appendChild() {}, append() {}, insertAdjacentElement() {},
     scrollIntoView() {}, matches: () => false, querySelector: () => el('q'),
   };
   return els[id];
@@ -29,7 +31,7 @@ function el(id) {
 const dataKs = [...html.matchAll(/data-k="(\w+)"/g)].map(m => m[1]);
 global.window = global;
 global.document = {
-  getElementById: el, documentElement: el('html'), title: '',
+  getElementById: el, documentElement: el('html'), head: el('head'), title: '',
   querySelector: () => el('q'),
   querySelectorAll: sel => sel === '[data-k]' ? dataKs.map(k => Object.assign(el('k_' + k), { dataset: { k } })) : [],
   createElement: () => el('new' + Math.random()), addEventListener() {},

@@ -346,5 +346,119 @@ window.PICTURES = {
    "artist": "CEphoto, Uwe Aranas",
    "url": "https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Memorial-to-the-Victims-of-the-White-Terror-01.jpg"
   }
+ ],
+ "dutch": [
+  {
+   "at": "p0",
+   "key": "taioan-blaeu",
+   "zh": "大員：沙洲上的熱蘭遮城與市鎮，出自布勞—范德漢地圖集，繪於 1644 年之後。",
+   "en": "Tayouan: Fort Zeelandia and its town on the sandbar, from the Atlas Blaeu–Van der Hem, drawn after 1644.",
+   "w": 960,
+   "h": 613,
+   "license": "Public domain",
+   "artist": "Joan Blaeu",
+   "url": "https://commons.wikimedia.org/wiki/File:Atlas_Blaeu-Van_der_Hem_-_Taioan.jpg"
+  },
+  {
+   "at": "e1",
+   "key": "zeelandia-1635",
+   "zh": "熱蘭遮城與大員市鎮，芬伯翁斯（Johannes Vingboons）約 1635 年繪。",
+   "en": "Fort Zeelandia and the town of Tayouan, painted by Johannes Vingboons about 1635.",
+   "w": 960,
+   "h": 534,
+   "license": "Public domain",
+   "artist": "Johannes Vingboons",
+   "url": "https://commons.wikimedia.org/wiki/File:Zeelandia_from_Dutch.jpg"
+  },
+  {
+   "at": "e2",
+   "key": "spanish-drawing-1626",
+   "zh": "西班牙人 1626 年所繪的大員港與荷蘭人據點（Pedro de Vera）。",
+   "en": "The Dutch harbour at Tayouan as a Spaniard, Pedro de Vera, drew it in 1626.",
+   "w": 960,
+   "h": 690,
+   "license": "Public domain",
+   "artist": "Pedro de Vera",
+   "url": "https://commons.wikimedia.org/wiki/File:Description_of_the_Dutch_port_on_Formosa_Island_(Taiwan),_drawing_1626.jpg"
+  },
+  {
+   "at": "e3",
+   "key": "formosans-1670",
+   "zh": "歐洲人筆下的福爾摩沙人。達波（Olfert Dapper）1670 年著作中的銅版畫，畫的是想像多於寫實。",
+   "en": "Formosans as Europeans imagined them: an engraving from Olfert Dapper’s book of 1670.",
+   "w": 960,
+   "h": 784,
+   "license": "Public domain",
+   "artist": "Olfert Dapper",
+   "url": "https://commons.wikimedia.org/wiki/File:Formosans.jpg"
+  },
+  {
+   "at": "e9",
+   "key": "deer-hunt",
+   "zh": "平埔族人捕鹿。這是一百年後清代《番社采風圖》的畫面，荷蘭時期的鹿皮就來自這樣的獵場。",
+   "en": "Plains Indigenous hunters chasing deer. The painting is from a Qing album a century later; the deerskins of the Dutch era came from hunts like this.",
+   "w": 772,
+   "h": 960,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Taiwanese_aborigines_hunting_deer.jpg"
+  },
+  {
+   "at": "e17",
+   "key": "zeelandia-surrender",
+   "zh": "荷蘭人向鄭成功投降。1675 年荷蘭出版品中的版畫，出自當時歐洲人的想像。",
+   "en": "The Dutch surrender to Koxinga, an engraving from a Dutch book of 1675, drawn as Europeans imagined the scene.",
+   "w": 960,
+   "h": 530,
+   "license": "Public domain",
+   "artist": "Jan van Baden",
+   "url": "https://commons.wikimedia.org/wiki/File:Surrender_of_Zeelandia.jpg"
+  }
+ ],
+ "koxinga": [
+  {
+   "at": "p0",
+   "key": "koxinga-portrait",
+   "zh": "鄭成功畫像，國立臺灣博物館藏。",
+   "en": "Portrait of Koxinga, National Taiwan Museum.",
+   "w": 537,
+   "h": 900,
+   "license": "Public domain",
+   "artist": "AnonymousUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:The_Portrait_of_Koxinga.jpg"
+  },
+  {
+   "at": "e1",
+   "key": "taioan-blaeu",
+   "zh": "大員：沙洲上的熱蘭遮城與市鎮，出自布勞—范德漢地圖集（1644 年之後）。鄭軍繞過這裡，從北邊的鹿耳門水道進入內海。",
+   "en": "Tayouan: Fort Zeelandia and its town on the sandbar, from the Atlas Blaeu–Van der Hem (after 1644). Zheng’s fleet went around it, entering the lagoon by the Luermen channel to the north.",
+   "w": 960,
+   "h": 613,
+   "license": "Public domain",
+   "artist": "Joan Blaeu",
+   "url": "https://commons.wikimedia.org/wiki/File:Atlas_Blaeu-Van_der_Hem_-_Taioan.jpg"
+  },
+  {
+   "at": "p2",
+   "key": "herport-zeelandia",
+   "zh": "圍城中的熱蘭遮城。參戰的瑞士傭兵赫波特（Albrecht Herport）所繪，1669 年出版。",
+   "en": "Fort Zeelandia under siege, drawn by Albrecht Herport, a Swiss soldier who was there; published in 1669.",
+   "w": 960,
+   "h": 755,
+   "license": "Public domain",
+   "artist": "Albrecht Herport",
+   "url": "https://commons.wikimedia.org/wiki/File:Herport_Albrecht_Zeelandia_1669.jpg"
+  },
+  {
+   "at": "e10",
+   "key": "zeelandia-surrender",
+   "zh": "荷蘭人向鄭成功投降。1675 年荷蘭出版品中的版畫，出自當時歐洲人的想像。",
+   "en": "The Dutch surrender to Koxinga, an engraving from a Dutch book of 1675, drawn as Europeans imagined the scene.",
+   "w": 960,
+   "h": 530,
+   "license": "Public domain",
+   "artist": "Jan van Baden",
+   "url": "https://commons.wikimedia.org/wiki/File:Surrender_of_Zeelandia.jpg"
+  }
  ]
 };

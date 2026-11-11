@@ -1,5 +1,5 @@
 {
- "_comment": "Pictures shown under the films. t = when the picture starts showing (main and cwt: year; c228: day number, 0 = Feb 27, 1 = Feb 28, 2 = Mar 1 ...). file = exact file name on Wikimedia Commons. After editing run python tools/fetch_images.py.",
+ "_comment": "Pictures shown under the films. t = when the picture starts showing (main and cwt: year; c228: day number, 0 = Feb 27, 1 = Feb 28, 2 = Mar 1 ...). file = exact file name on Wikimedia Commons. After editing run python tools/fetch_images.py. Feature pages use at = the clip id (p<phase>, e<event>) at which the picture starts showing.",
  "main": [
   {
    "t": 1600,
@@ -221,6 +221,80 @@
    "file": "Taipei Taiwan Memorial-to-the-Victims-of-the-White-Terror-01.jpg",
    "zh": "台北凱達格蘭大道旁的白色恐怖政治受難者紀念碑，2008 年落成。",
    "en": "The memorial to the victims of the White Terror on Ketagalan Boulevard, Taipei, unveiled in 2008."
+  }
+ ],
+ "dutch": [
+  {
+   "at": "p0",
+   "key": "taioan-blaeu",
+   "file": "Atlas Blaeu-Van der Hem - Taioan.jpg",
+   "zh": "大員：沙洲上的熱蘭遮城與市鎮，出自布勞—范德漢地圖集，繪於 1644 年之後。",
+   "en": "Tayouan: Fort Zeelandia and its town on the sandbar, from the Atlas Blaeu–Van der Hem, drawn after 1644."
+  },
+  {
+   "at": "e1",
+   "key": "zeelandia-1635",
+   "file": "Zeelandia from Dutch.jpg",
+   "zh": "熱蘭遮城與大員市鎮，芬伯翁斯（Johannes Vingboons）約 1635 年繪。",
+   "en": "Fort Zeelandia and the town of Tayouan, painted by Johannes Vingboons about 1635."
+  },
+  {
+   "at": "e2",
+   "key": "spanish-drawing-1626",
+   "file": "Description of the Dutch port on Formosa Island (Taiwan), drawing 1626.jpg",
+   "zh": "西班牙人 1626 年所繪的大員港與荷蘭人據點（Pedro de Vera）。",
+   "en": "The Dutch harbour at Tayouan as a Spaniard, Pedro de Vera, drew it in 1626."
+  },
+  {
+   "at": "e3",
+   "key": "formosans-1670",
+   "file": "Formosans.jpg",
+   "zh": "歐洲人筆下的福爾摩沙人。達波（Olfert Dapper）1670 年著作中的銅版畫，畫的是想像多於寫實。",
+   "en": "Formosans as Europeans imagined them: an engraving from Olfert Dapper’s book of 1670."
+  },
+  {
+   "at": "e9",
+   "key": "deer-hunt",
+   "file": "Taiwanese aborigines hunting deer.jpg",
+   "zh": "平埔族人捕鹿。這是一百年後清代《番社采風圖》的畫面，荷蘭時期的鹿皮就來自這樣的獵場。",
+   "en": "Plains Indigenous hunters chasing deer. The painting is from a Qing album a century later; the deerskins of the Dutch era came from hunts like this."
+  },
+  {
+   "at": "e17",
+   "key": "zeelandia-surrender",
+   "file": "Surrender of Zeelandia.jpg",
+   "zh": "荷蘭人向鄭成功投降。1675 年荷蘭出版品中的版畫，出自當時歐洲人的想像。",
+   "en": "The Dutch surrender to Koxinga, an engraving from a Dutch book of 1675, drawn as Europeans imagined the scene."
+  }
+ ],
+ "koxinga": [
+  {
+   "at": "p0",
+   "key": "koxinga-portrait",
+   "file": "The Portrait of Koxinga.jpg",
+   "zh": "鄭成功畫像，國立臺灣博物館藏。",
+   "en": "Portrait of Koxinga, National Taiwan Museum."
+  },
+  {
+   "at": "e1",
+   "key": "taioan-blaeu",
+   "file": "Atlas Blaeu-Van der Hem - Taioan.jpg",
+   "zh": "大員：沙洲上的熱蘭遮城與市鎮，出自布勞—范德漢地圖集（1644 年之後）。鄭軍繞過這裡，從北邊的鹿耳門水道進入內海。",
+   "en": "Tayouan: Fort Zeelandia and its town on the sandbar, from the Atlas Blaeu–Van der Hem (after 1644). Zheng’s fleet went around it, entering the lagoon by the Luermen channel to the north."
+  },
+  {
+   "at": "p2",
+   "key": "herport-zeelandia",
+   "file": "Herport Albrecht Zeelandia 1669.jpg",
+   "zh": "圍城中的熱蘭遮城。參戰的瑞士傭兵赫波特（Albrecht Herport）所繪，1669 年出版。",
+   "en": "Fort Zeelandia under siege, drawn by Albrecht Herport, a Swiss soldier who was there; published in 1669."
+  },
+  {
+   "at": "e10",
+   "key": "zeelandia-surrender",
+   "file": "Surrender of Zeelandia.jpg",
+   "zh": "荷蘭人向鄭成功投降。1675 年荷蘭出版品中的版畫，出自當時歐洲人的想像。",
+   "en": "The Dutch surrender to Koxinga, an engraving from a Dutch book of 1675, drawn as Europeans imagined the scene."
   }
  ]
 }
