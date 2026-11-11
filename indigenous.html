@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="原住民族抗日 1896–1933：新城、大豹社、南庄、威里、七腳川、太魯閣戰役、大分到拉荷·阿雷歸順，隘勇線推進的逐年地圖。Indigenous resistance to Japanese rule, 1896–1933, mapped year by year.">
+<title>原住民族抗日 1896–1933</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: two chapter "films" (Guo Huaiyi 1652 under the Dutch, Lin Shuangwen 1786–88 under the Qing), each a canvas with its own deck, then a reading column. Same sea-ink family as 台灣四百年; ember for the risings, VOC orange and Qing gold for the states, teal for militias that sided with the state. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --ember: #e8743d;
+  --gold: #ecd04f;
+  --focus: #7fd3d0;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 14px; }
+.wrap > * { min-width: 0; }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.back { color: var(--muted); font-size: 13.5px; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.chapters { display: flex; flex-wrap: wrap; gap: 8px; }
+.chapters a { color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 14px; }
+.chapters a:hover { border-color: var(--muted); }
+.chap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin: 26px 0 0; font-family: var(--f-display); font-size: clamp(21px, 2.6vw, 27px); letter-spacing: .04em; scroll-margin-top: 16px; }
+.chap small { font-family: var(--f-mono); font-size: 15px; color: var(--ember); font-weight: 600; letter-spacing: 0; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas.film { display: block; width: 100%; height: auto; max-width: 100%; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--ember); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 9ch; color: var(--ember); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--ember); color: #1d0b04; border-color: var(--ember); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #5e2610; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.read { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px 48px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 18px; }
+@media (max-width: 820px) { .read { grid-template-columns: minmax(0, 1fr); } }
+.read h2 { font-family: var(--f-display); font-size: 21px; margin: 0 0 12px; letter-spacing: .04em; }
+.read p { margin: 0 0 12px; max-width: 66ch; }
+.after { list-style: none; margin: 0; padding: 0; display: grid; }
+.after li { display: grid; grid-template-columns: 4.2em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.after li:last-child { border-bottom: 0; }
+.after b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ember); font-weight: 600; }
+.after span { min-width: 0; }
+.side { display: grid; gap: 26px; align-content: start; color: var(--muted); }
+.side p { margin: 0; }
+.side a { color: var(--ink); }
+.side ul, .side ol { margin: 0; padding-left: 1.3em; }
+.refs li { margin-bottom: 6px; font-size: 13.5px; }
+#credits { font-size: 12.5px; }
+#credits a { color: var(--muted); }
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
+.read h2 .en { font-family: var(--f-body); font-size: .62em; }
+.chap .en { font-family: var(--f-body); font-size: .6em; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="./" data-k="back"></a>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <h1 data-k="h1"></h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="find" class="film" width="1600" height="900"></canvas></div>
+  <div class="deck">
+    <button id="playind" class="primary" type="button"></button>
+    <div class="scrub"><input id="scrubind" type="range" min="0" max="14000" step="1" value="0" aria-label="Date"><output id="outind" for="scrubind"></output></div>
+    <div class="grp"><label class="lbl" for="speedind" data-k="speed"></label><select id="speedind"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></div>
+  </div>
+
+  <section class="read">
+    <div>
+      <h2 data-k="bgH"></h2>
+      <p data-k="bg1"></p>
+      <p data-k="bg2"></p>
+      <h2 data-k="afterH"></h2>
+      <ol class="after" id="after"></ol>
+    </div>
+    <div class="side">
+      <div>
+        <h2 data-k="noteH"></h2>
+        <p data-k="note"></p>
+      </div>
+      <div>
+        <h2 data-k="refH"></h2>
+        <ol class="refs">
+          <li>國家教育研究院，《原住民族重大歷史事件補充教材：太魯閣事件》。</li>
+          <li>林素珍，《原住民族重大歷史事件補充教材：七腳川事件 1908–1914》，國家教育研究院。</li>
+          <li>Paul D. Barclay, <i>Outcasts of Empire: Japan’s Rule on Taiwan’s “Savage Border,” 1874–1945</i>. Oakland: University of California Press, 2018.</li>
+          <li>鈴木秀夫編，《臺灣蕃界展望》，臺北：理蕃之友，1935（拉荷・阿雷照片出處）。</li>
+          <li>維基百科「新城事件」「南庄事件」「大豹社事件」「大分事件」「拉荷・阿雷」條目；Wikipedia, “Sakuma Samata.”（2026 年 10 月查閱）</li>
+        </ol>
+      </div>
+      <div>
+        <h2 data-k="moreH"></h2>
+        <ul>
+          <li><a href="wushe.html" data-k="lRel1"></a></li>
+          <li><a href="yiwei.html" data-k="lRel2"></a></li>
+          <li><a href="https://zh.wikipedia.org/wiki/南庄事件" target="_blank" rel="noopener">維基百科：南庄事件</a></li>
+          <li><a href="https://zh.wikipedia.org/wiki/大豹社事件" target="_blank" rel="noopener">維基百科：大豹社事件</a></li>
+          <li><a href="https://zh.wikipedia.org/wiki/大分事件" target="_blank" rel="noopener">維基百科：大分事件</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 data-k="credH"></h2>
+        <ul id="credits"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="narration-indigenous.js"></script>
+<script src="pictures.js"></script>
+<script src="tg.js"></script>
+<script>
+(() => {
+const EMBED = {"lahu": {"file": "布農族領袖拉荷阿雷.jpg", "license": "Public domain", "artist": "鈴木秀夫", "url": "https://commons.wikimedia.org/wiki/File:%E5%B8%83%E8%BE%B2%E6%97%8F%E9%A0%98%E8%A2%96%E6%8B%89%E8%8D%B7%E9%98%BF%E9%9B%B7.jpg", "src": "data:image/jpeg;base64,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"}, "sakuma": {"src": "data:image/jpeg;base64,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", "file": "Sakuma_Samata.jpg", "license": "Public domain", "artist": "Unknown authorUnknown author", "url": "https://commons.wikimedia.org/wiki/File:Sakuma_Samata.jpg"}};
+const IMG = {}; for (const k in EMBED) { const im=new Image(); im.src=EMBED[k].src; IMG[k]=im; }
+
+// ================= language (shared with 台灣四百年) =================
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;
+const UI = {"back": ["台灣四百年", "Taiwan: Four Centuries"], "langLbl": ["語言", "Language"], "play": ["播放", "Play"], "pause": ["暫停", "Pause"], "replay": ["重播", "Replay"], "speed": ["速度", "Speed"], "afterH": ["之後", "Afterward"], "noteH": ["關於這張地圖", "About this map"], "refH": ["參考資料", "References"], "moreH": ["延伸閱讀", "Further reading"], "credH": ["肖像來源", "Portrait sources"], "bgH": ["背景", "Background"], "lRel1": ["專題：霧社事件", "Feature: The Musha Incident"], "lRel2": ["專題：乙未戰爭", "Feature: The 1895 war"], "h1": ["原住民族抗日 1896–1933", "Indigenous Resistance to Japanese Rule, 1896–1933"], "intro": ["日本統治初期，中央山脈與東部仍是原住民族的領域。為了樟腦與山林資源，總督府以隘勇線與軍警一步步進逼，太魯閣、泰雅、賽夏、阿美、布農、賽德克各族相繼抵抗，直到 1933 年布農族的拉荷・阿雷歸順。逐年看衝突在哪裡發生、統治線如何推進。", "In the early years of Japanese rule the Central Mountains and the east were still Indigenous land. Wanting camphor and timber, the colonial government pressed in with guarded lines, troops and police, and the Truku, Atayal, Saisiyat, Amis, Bunun and Seediq resisted in turn, until the Bunun leader Lahu Ali made peace in 1933. Watch where the fighting happened and how the frontier moved."], "bg1": ["日本把山地稱為「蕃地」，宣布為國有地，原住民族只被承認地上的使用權。樟腦是當時重要的外銷品，製腦業者與隘勇線不斷深入山區，土地、勞役與工資糾紛成為許多衝突的導火線。", "Japan declared the mountains “savage land” owned by the state and recognized only Indigenous use of the surface. Camphor was a key export, and camphor makers and guard lines pushed ever deeper into the hills; disputes over land, labour and pay set off many of the conflicts."], "bg2": ["這些抵抗多半以部落或族群為單位，日方則交替使用討伐、封鎖、誘降與遷社。太魯閣戰役後山地大多被納入警察統治，但布農族在深山堅持到 1933 年，霧社事件更顯示統治下的不滿從未消失。", "Most resistance was organized by village or people, and the Japanese alternated between punitive campaigns, blockades, offers of surrender and forced resettlement. After the Taroko war most of the mountains came under police rule, but the Bunun held out until 1933, and the Musha Incident showed the anger had never gone away."], "note": ["地圖上日本統治區與隘勇線的推進是依理蕃政策的時程整理的示意，不是精確界線：北部山區在五年理蕃計畫期間被納入，中南部山區的控制則晚得多；拉荷・阿雷據守的山區與 1930 年的霧社另外標示。地點位置、塔馬荷社的位置都是約略的。只收錄有可靠記載的事件，李崠山事件、大關山事件等尚未收錄。", "The spread of Japanese control and the guard-line frontier on the map is a schematic based on the timeline of the mountain policy, not an exact boundary: the northern ranges were taken during the Five-Year Plan, the central and southern ranges much later; Lahu Ali’s stronghold and Musha in 1930 are shown separately. Place positions, including Tamahe, are approximate. Only well-documented events are included; others, such as Lidongshan and Daguanshan, are not yet."]};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ================= shared helpers =================
+const COS = Math.cos(23.5*Math.PI/180);
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const smooth = (a,b,x) => { const t = clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };
+const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+const rgba = (c,a) => `rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a.toFixed(3)})`;
+const pw = (x, pts) => { if (x<=pts[0][0]) return pts[0][1]; for (let i=1;i<pts.length;i++) if (x<=pts[i][0]) { const [a,va]=pts[i-1],[b,vb]=pts[i]; return va+(vb-va)*(x-a)/(b-a); } return pts[pts.length-1][1]; };
+const C = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d' };
+const EMBER=hex('#e8743d'), VOC=hex('#f29a3a'), QING=hex('#ecd04f'), IND=hex('#5aa36f'), MILITIA=hex('#7fd3d0'), CRIMSON=hex('#d0473f'), BASE=hex('#34505d'), INK=hex('#ece6d6');
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+const MON = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
+const COAST = [[121.54,25.30],[121.62,25.24],[121.74,25.15],[121.85,25.11],[121.92,25.03],[121.83,24.90],[121.82,24.75],[121.86,24.59],[121.78,24.42],[121.70,24.28],[121.62,24.02],[121.58,23.85],[121.50,23.60],[121.45,23.38],[121.37,23.15],[121.25,22.92],[121.15,22.75],[121.02,22.58],[120.95,22.45],[120.90,22.30],[120.86,22.10],[120.85,21.92],[120.75,21.93],[120.70,21.95],[120.72,22.10],[120.62,22.30],[120.50,22.45],[120.38,22.52],[120.27,22.62],[120.20,22.78],[120.13,22.95],[120.10,23.10],[120.08,23.30],[120.13,23.50],[120.20,23.75],[120.30,23.95],[120.40,24.15],[120.52,24.35],[120.68,24.58],[120.85,24.80],[120.98,24.95],[121.10,25.05],[121.28,25.12],[121.40,25.18],[121.54,25.30]];
+const SPINE = [[121.55,24.75],[121.35,24.45],[121.18,24.05],[121.02,23.55],[120.90,23.05],[120.83,22.55],[120.79,22.18]];
+function pip(x,y,p){ let inside=false; for(let i=0,j=p.length-1;i<p.length;j=i++){ const [xi,yi]=p[i],[xj,yj]=p[j]; if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=!inside; } return inside; }
+function segDist(px,py,a,b){ const ax=a[0]*COS,ay=a[1],bx=b[0]*COS,by=b[1],x=px*COS; const dx=bx-ax,dy=by-ay; const t=clamp(((x-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy),0,1); return Math.hypot(x-(ax+t*dx), py-(ay+t*dy)); }
+const mountain = (lon,lat) => { let d=9; for (let i=0;i<SPINE.length-1;i++) d=Math.min(d, segDist(lon,lat,SPINE[i],SPINE[i+1])); const w=0.24+0.17*Math.exp(-(((lat-23.8)/0.6)**2)); return clamp(1-d/w,0,1); };
+const dist = (a, b) => Math.hypot((a[0]-b[0])*COS, a[1]-b[1]);
+function dotsIn(B, sp, extraOk){ const out=[]; for (let r=0, lat=B[3]; lat>B[1]; lat-=sp*0.866, r++) for (let lon=B[0]+(r%2?sp/COS/2:0); lon<B[2]; lon+=sp/COS) if (pip(lon,lat,COAST) && (!extraOk || extraOk(lon,lat))) out.push({ lon, lat, m:mountain(lon,lat), cr:BASE[0], cg:BASE[1], cb:BASE[2] }); return out; }
+
+let ctx, L, P, M;
+function wrap(text, maxW){
+  const toks = text.match(/[\p{Script=Latin}0-9.,;:!?%’'"“”()\/\-–]+|\s|./gu) || [];
+  const lines=[]; let line='';
+  for (const t of toks) { if (line && !/^[，。、；：！？）」』,.;:!?)]$/.test(t) && ctx.measureText(line+t).width > maxW) { lines.push(line.trimEnd()); line = t.trim() ? t : ''; } else line += t; }
+  if (line) lines.push(line); return lines;
+}
+function fitFont(text, weight, size, family, maxW, min=11){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+function label(zh, en, x, y, left, size=12.5, col=C.ink){
+  const u=L.u, lx=x+(left?-11:11);
+  ctx.textAlign = left ? 'right' : 'left'; ctx.font=font(600,size*u,F.b);
+  const nm = tx(zh,en);
+  ctx.lineWidth=3.5; ctx.strokeStyle=C.bg; ctx.strokeText(nm, lx, y+4.5); ctx.fillStyle=col; ctx.fillText(nm, lx, y+4.5);
+  if (lang==='bi') { ctx.font=font(400,(size-3)*u,F.b); ctx.strokeText(en, lx, y+4.5+12*u); ctx.fillStyle=C.muted; ctx.fillText(en, lx, y+4.5+12*u); }
+  ctx.textAlign='left';
+}
+const rrect = (x,y,w,h,r) => { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); };
+function arrow(a, b, q, col, dashed=false, w=2.4){
+  const [x0,y0]=P(...a), [x1,y1]=P(...b), xb=x0+(x1-x0)*q, yb=y0+(y1-y0)*q;
+  ctx.setLineDash(dashed?[4,5]:[]); ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(xb,yb);
+  if (!dashed) { ctx.strokeStyle=rgba(hex(C.bg),0.8); ctx.lineWidth=w+3; ctx.stroke(); }
+  ctx.strokeStyle=rgba(col,0.95); ctx.lineWidth=w; ctx.stroke(); ctx.setLineDash([]);
+  if (q<1) { const an=Math.atan2(y1-y0,x1-x0); ctx.fillStyle=rgba(col,1); ctx.beginPath(); ctx.moveTo(xb+Math.cos(an)*8, yb+Math.sin(an)*8); ctx.lineTo(xb+Math.cos(an+2.5)*8, yb+Math.sin(an+2.5)*8); ctx.lineTo(xb+Math.cos(an-2.5)*8, yb+Math.sin(an-2.5)*8); ctx.closePath(); ctx.fill(); }
+}
+function burst(p, q){ const [x,y]=P(...p); for (let i=0;i<3;i++) { ctx.strokeStyle=rgba(EMBER,(1-q)*0.9); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,(8+24*q)*(1+0.3*i),0,6.2832); ctx.stroke(); } }
+function pulse(p){ const [x,y]=P(...p), ph=(performance.now()/1000)%1; ctx.strokeStyle=rgba(INK,(1-ph)*0.85); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,9+ph*28,0,6.2832); ctx.stroke(); }
+
+// ================= chapter film =================
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1, title:{x:56,y:58}, date:{x:52,y:180,size:104}, year:{x:58,y:218}, phase:{x:58,y:278,size:34}, pdesc:{x:58,y:318,w:370,lh:27,max:4},
+    event:{x:58,y:478,w:370}, map:{x:450,y:24,w:600,h:800}, people:{x:1100,y:56,w:440,rh:92}, figs:{x:1100,y:476,w:440,rh:56}, strip:{x:56,y:846,w:1488,h:28} },
+  port: { W:720, H:2040, u:1.3, title:{x:28,y:50}, date:{x:24,y:140,size:84}, year:{x:30,y:178}, phase:{x:28,y:234,size:30}, pdesc:{x:28,y:274,w:664,lh:30,max:2},
+    map:{x:16,y:330,w:688,h:640}, event:{x:28,y:1020,w:664}, people:{x:28,y:1210,w:664,rh:96}, figs:{x:28,y:1620,w:664,rh:58}, strip:{x:28,y:1970,w:664,h:32} },
+};
+const films=[];
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function Film(S){
+  const cv=document.getElementById(S.id), c2=cv.getContext('2d'), stage=cv.parentElement;
+  const play=document.getElementById('play'+S.key), scrub=document.getElementById('scrub'+S.key), out=document.getElementById('out'+S.key), speed=document.getElementById('speed'+S.key);
+  const D = s => { const [y,m,d]=s.split('-').map(Number); return (Date.UTC(y,m-1,d)-S.T0)/864e5; };
+  const dateOf = t => { const dt=new Date(S.T0 + Math.floor(t)*864e5); return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()]; };
+  S.D=D; S.dateOf=dateOf; S.init && S.init(S);
+  const T_END=S.T_END, f={ t:0, playing:false, visible:true, started:false, Lay:null, Mm:{} };
+  const Pf = (lon,lat) => [f.Mm.ox+(lon-S.B[0])*COS*f.Mm.k, f.Mm.oy+(S.B[3]-lat)*f.Mm.k];
+  const phaseAt = t => S.PHASES.find(p => t>=p[0] && t<p[1]) || S.PHASES[S.PHASES.length-1];
+  const lastEvent = t => { let e=null; for (const x of S.EVENTS) if (x.d<=t) e=x; else break; return e; };
+  f.layout = () => {
+    const cw = stage.clientWidth || 1000;
+    f.Lay = cw < 720 ? LAYOUTS.port : LAYOUTS.land;
+    const scale = Math.min(2, window.devicePixelRatio||1) * cw / f.Lay.W;
+    cv.width=Math.round(f.Lay.W*scale); cv.height=Math.round(f.Lay.H*scale); c2.setTransform(scale,0,0,scale,0,0);
+    const r=f.Lay.map, gw=(S.B[2]-S.B[0])*COS, gh=S.B[3]-S.B[1];
+    f.Mm.k=Math.min(r.w/gw, r.h/gh); f.Mm.ox=r.x+(r.w-gw*f.Mm.k)/2; f.Mm.oy=r.y+(r.h-gh*f.Mm.k)/2; f.Mm.dot=S.SP*f.Mm.k*0.42; f.Mm.gh=gh*f.Mm.k;
+    for (const d of S.dots) [d.x,d.y]=Pf(d.lon,d.lat);
+  };
+  f.setPlaying = p => { f.playing=p; setK(play, p ? 'pause' : (f.t>=T_END ? 'replay' : 'play')); f.TG && f.TG.sync(); };
+  f.seek = t => { f.t=clamp(t,0,T_END); scrub.value=f.t; out.textContent=S.fmtOut(f.t); f.TG && f.TG.seek(); };
+  scrub.max=T_END;
+  play.addEventListener('click', ()=>{ f.started=true; if (!f.playing && f.t>=T_END) f.seek(0); if (!f.playing) f.TG.unlock(); f.setPlaying(!f.playing); });
+  // Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.
+  f.TG = TGNarration({ name:'indigenous', lang:()=>lang, getT:()=>f.t, isPlaying:()=>f.playing, setPlaying:p=>f.setPlaying(p), stage, playBtn:play,
+    cues:[...S.PHASES.map((p,i)=>({y:Math.max(p[0],0), id:'p'+i})), ...S.EVENTS.map((e,i)=>({y:e.d, id:'e'+i}))] });
+  scrub.addEventListener('input', ()=>{ f.started=true; f.seek(+scrub.value); if (f.playing) f.setPlaying(false); });
+  cv.setAttribute('tabindex','0');
+  cv.addEventListener('keydown', e=>{ if (e.key===' ') { e.preventDefault(); play.click(); } else if (e.key==='ArrowRight') f.seek(Math.floor(f.t)+1); else if (e.key==='ArrowLeft') f.seek(Math.floor(f.t)-1); });
+  const BASE_RATE = S.PHASES.map((p,i)=>(Math.min(p[1],T_END)-p[0])/(S.SHARE[i]*S.seconds));
+  const rate = x => { const base=BASE_RATE[S.PHASES.indexOf(phaseAt(x))]; let dmin=Infinity; for (const e of S.EVENTS) { const dd = x<e.d ? e.d-x : x-e.d-S.hold; dmin=Math.min(dmin, Math.max(0,dd)); } return Math.max(S.minRate, base*clamp(dmin/S.slow,0,1)); };
+  const sx = t => { const r=L.strip; let acc=0; for (let i=0;i<S.PHASES.length;i++) { const [a,b]=S.PHASES[i], bb=Math.min(b,T_END); if (t<=bb || i===S.PHASES.length-1) return r.x + r.w*(acc + S.SHARE[i]*clamp((t-a)/(bb-a),0,1)); acc+=S.SHARE[i]; } };
+  const evDate = e => e.lbl ? tx(e.lbl[0],e.lbl[1]) : (([Y,m,d]) => `${m}/${d}`)(dateOf(e.d));
+
+  function drawMap(t, dt){
+    const r=L.map, u=L.u, fk=1-Math.pow(0.004, dt);
+    ctx.save(); ctx.beginPath(); ctx.rect(r.x,r.y,r.w,r.h); ctx.clip();
+    ctx.strokeStyle=C.grid; ctx.lineWidth=1; ctx.font=font(400,11*u,F.m); ctx.fillStyle=C.faint;
+    for (const lon of S.gridLon) { const [x]=P(lon,0); ctx.beginPath(); ctx.moveTo(x,r.y); ctx.lineTo(x,r.y+r.h); ctx.stroke(); ctx.fillText(`${lon}°E`, x+4, r.y+r.h-8); }
+    for (const lat of S.gridLat) { const [,yy]=P(0,lat); ctx.beginPath(); ctx.moveTo(r.x,yy); ctx.lineTo(r.x+r.w,yy); ctx.stroke(); ctx.fillText(`${lat}°N`, r.x+r.w-50*u, yy-5); }
+    for (const d of S.dots) { const [c,a]=S.dotColor(d,t); d.cr+=(c[0]-d.cr)*fk; d.cg+=(c[1]-d.cg)*fk; d.cb+=(c[2]-d.cb)*fk; ctx.fillStyle=`rgba(${d.cr|0},${d.cg|0},${d.cb|0},${a.toFixed(3)})`; ctx.beginPath(); ctx.arc(d.x,d.y,M.dot,0,6.2832); ctx.fill(); }
+    S.extras(t);
+    for (const e of S.EVENTS) if (e.battle && t>=e.d && t<e.d+S.burstLen) burst(S.at(e.at), (t-e.d)/S.burstLen);
+    S.drawPlaces(t);
+    const e=lastEvent(t); if (e && e.at && t-e.d < S.pulseLen) pulse(S.at(e.at));
+    ctx.restore();
+    // legend
+    const items=S.legend, lh=(lang==='bi'?30:21)*u, w=(lang==='zh'?170:240)*u, h=items.length*lh+12, x=r.x+10, y=S.legendTop ? r.y+10 : r.y+r.h-h-30*u;
+    ctx.fillStyle='rgba(8,21,29,0.88)'; ctx.fillRect(x,y,w,h); ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.strokeRect(x,y,w,h);
+    items.forEach(([kind,col,zh,en],i)=>{ const yy=y+12+i*lh+8*u, sx0=x+10;
+      if (kind==='dot') { ctx.fillStyle=rgba(col,0.95); ctx.beginPath(); ctx.arc(sx0+6,yy-4,6,0,6.2832); ctx.fill(); }
+      else { ctx.setLineDash(kind==='dash'?[3,4]:[]); ctx.strokeStyle=rgba(col,1); ctx.lineWidth=2.4; ctx.beginPath(); ctx.moveTo(sx0,yy-4); ctx.lineTo(sx0+16,yy-4); ctx.stroke(); ctx.setLineDash([]); }
+      ctx.font=font(500,12*u,F.b); ctx.fillStyle=C.ink; ctx.fillText(tx(zh,en), sx0+24, yy);
+      if (lang==='bi') { ctx.font=font(400,10.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(en, sx0+24, yy+13*u); } });
+  }
+  function drawHeader(t){
+    const u=L.u, ph=phaseAt(t), [Y,m,d]=dateOf(t), bi=lang==='bi';
+    ctx.font=font(700,13*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx(...S.title), L.title.x, L.title.y);
+    const big = S.big ? S.big(t) : tx(`${m}月${d}日`, `${MON[m]} ${d}`); fitFont(big, 900, L.date.size, F.d, 390*u, 40); ctx.fillStyle=C.ink; ctx.fillText(big, L.date.x, L.date.y);
+    ctx.font=font(500,17*u,F.d); ctx.fillStyle=C.muted; const yl=S.yearLine(Y); ctx.fillText(S.sub ? S.sub(t) : (bi ? `${yl}　${MON[m]} ${d}, ${Y}` : yl), L.year.x, L.year.y);
+    const pn=tx(ph[2],ph[3]); fitFont(pn, 900, L.phase.size, F.d, L.pdesc.w, 18); ctx.fillStyle=ph[4]; ctx.fillText(pn, L.phase.x, L.phase.y);
+    if (bi) { const w=ctx.measureText(pn).width; ctx.font=font(500,17*u,F.d); if (w+12+ctx.measureText(ph[3]).width <= L.pdesc.w) { ctx.globalAlpha=0.85; ctx.fillText(ph[3], L.phase.x+w+12, L.phase.y); ctx.globalAlpha=1; } }
+    const pd=L.pdesc; ctx.font=font(400,(lang==='en'?15.5:16.5)*u,F.b); ctx.fillStyle=C.muted;
+    wrap(tx(ph[5],ph[6]), pd.w).slice(0,pd.max).forEach((ln,i)=>ctx.fillText(ln, pd.x, pd.y+i*pd.lh));
+  }
+  function drawEvent(t){
+    const r=L.event, u=L.u, bi=lang==='bi', port=L.W<1000;
+    ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+    ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('紀 事','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+    const idx=S.EVENTS.indexOf(lastEvent(t));
+    if (idx<0) { ctx.font=font(400,15*u,F.b); ctx.fillStyle=C.muted; wrap(tx(...S.prelude), r.w).forEach((ln,i)=>ctx.fillText(ln, r.x, r.y+24*u+i*24*u)); return; }
+    const e=S.EVENTS[idx], dl=evDate(e);
+    fitFont(dl, 600, 14*u, F.m, 82*u, 9); ctx.fillStyle=phaseAt(e.d)[4]; ctx.fillText(dl, r.x, r.y+24*u);
+    const title=tx(e.tz,e.te); fitFont(title, 700, 23*u, F.d, r.w-92*u, 14); ctx.fillStyle=C.ink; ctx.fillText(title, r.x+92*u, r.y+25*u);
+    let y=r.y+58*u;
+    if (bi) { fitFont(e.te, 500, 14*u, F.b, r.w-92*u, 10); ctx.fillStyle=C.muted; ctx.fillText(e.te, r.x+92*u, r.y+45*u); y=r.y+74*u; }
+    ctx.font=font(400,(lang==='en'?14.5:15.5)*u,F.b); ctx.fillStyle=C.muted;
+    const lines=wrap(tx(e.bz,e.be), r.w).slice(0, port?3:5); lines.forEach((ln,i)=>ctx.fillText(ln, r.x, y+i*24*u)); y+=lines.length*24*u+22*u;
+    for (let j=idx-1; j>=Math.max(0,idx-2) && !port; j--) { const p=S.EVENTS[j], s = bi ? `${p.tz} ${p.te}` : tx(p.tz,p.te); ctx.globalAlpha=0.6;
+      fitFont(evDate(p), 600, 12.5*u, F.m, 84*u, 9); ctx.fillStyle=C.muted; ctx.fillText(evDate(p), r.x, y);
+      fitFont(s, 500, 14*u, F.b, r.w-92*u, 10); ctx.fillStyle=C.ink; ctx.fillText(s, r.x+92*u, y); y+=24*u; ctx.globalAlpha=1; }
+  }
+  function drawPeople(t){
+    const r=L.people, u=L.u, bi=lang==='bi';
+    ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('人物','People'); ctx.fillText(tt, r.x, r.y);
+    if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('People', r.x+w+8, r.y); }
+    S.PEOPLE.forEach((pp,i)=>{
+      const y=r.y+14*u+i*r.rh, pw=56*u, ph=70*u, x0=r.x+pw+14*u;
+      let st=pp.st[0]; for (const s of pp.st) if (t>=s[0]) st=s;
+      const col=st[3]||pp.col;
+      ctx.save(); rrect(r.x,y,pw,ph,4); ctx.clip();
+      const im=pp.img && IMG[pp.img]; if (im && im.complete && im.naturalWidth) ctx.drawImage(im, r.x, y, pw, ph);
+      else { ctx.fillStyle=rgba(hex(pp.col),0.2); ctx.fillRect(r.x,y,pw,ph); ctx.fillStyle=pp.col; ctx.font=font(900,ph*0.45,F.d); ctx.textAlign='center'; ctx.fillText(pp.zh[0], r.x+pw/2, y+ph*0.66); ctx.textAlign='left'; }
+      ctx.restore(); ctx.strokeStyle=pp.col; ctx.lineWidth=1.5; rrect(r.x,y,pw,ph,4); ctx.stroke();
+      const nm=tx(pp.zh,pp.en); fitFont(nm, 900, 20*u, F.d, r.w-pw-150*u, 12); ctx.fillStyle=C.ink; ctx.fillText(nm, x0, y+20*u);
+      let yy=y+40*u; if (bi) { fitFont(pp.en, 500, 12*u, F.b, r.w-pw-140*u, 9); ctx.fillStyle=C.muted; ctx.fillText(pp.en, x0, yy); yy+=17*u; }
+      fitFont(tx(...pp.role), 400, 12.5*u, F.b, r.w-pw-24*u, 9); ctx.fillStyle=C.muted; ctx.fillText(tx(...pp.role), x0, yy);
+      if (st[1] !== '—') { const chip = bi ? `${st[1]} ${st[2]}` : tx(st[1],st[2]); ctx.font=font(700,12*u,F.b);
+      const cw=ctx.measureText(chip).width+16*u, cx=r.x+r.w-cw, cy=y+3*u;
+      ctx.fillStyle=rgba(hex(col),0.18); rrect(cx,cy,cw,22*u,11*u); ctx.fill(); ctx.strokeStyle=col; ctx.lineWidth=1.2; ctx.stroke(); ctx.fillStyle=col; ctx.fillText(chip, cx+8*u, cy+15.5*u); }
+      ctx.strokeStyle=C.grid; ctx.beginPath(); ctx.moveTo(r.x, y+ph+12*u); ctx.lineTo(r.x+r.w, y+ph+12*u); ctx.stroke();
+    });
+  }
+  function drawFigs(t){
+    const r=L.figs, u=L.u, bi=lang==='bi';
+    ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('數字','The figures'); ctx.fillText(tt, r.x, r.y);
+    if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('The figures', r.x+w+8, r.y); }
+    S.FIGS.forEach(([d,n,zh,en,col],i)=>{ const y=r.y+42*u+i*r.rh, on=t>=d;
+      fitFont(on?n:'—', 900, 28*u, F.d, 140*u, 14); ctx.fillStyle = on ? col : C.faint; ctx.fillText(on?n:'—', r.x, y);
+      fitFont(tx(zh,en), 500, 13*u, F.b, r.w-160*u, 9); ctx.fillStyle = on ? C.ink : C.faint; ctx.fillText(tx(zh,en), r.x+150*u, y-8*u);
+      if (bi) { fitFont(en, 400, 11*u, F.b, r.w-160*u, 8); ctx.fillStyle=C.muted; ctx.fillText(en, r.x+150*u, y+8*u); }
+      ctx.strokeStyle=C.grid; ctx.beginPath(); ctx.moveTo(r.x, y+16*u); ctx.lineTo(r.x+r.w, y+16*u); ctx.stroke(); });
+  }
+  function drawStrip(t){
+    const r=L.strip, u=L.u;
+    S.PHASES.forEach(p=>{ const x0=sx(p[0]), x1=sx(Math.min(p[1],T_END)), on=t>=p[0]&&t<p[1];
+      ctx.fillStyle=p[4]; ctx.globalAlpha=on?0.95:0.35; ctx.fillRect(x0,r.y,x1-x0-1.5,r.h); ctx.globalAlpha=1;
+      ctx.font=font(700,12.5*u,F.b); ctx.fillStyle=on?'#14090a':C.ink;
+      let lb = lang==='bi' ? `${p[2]} ${p[3]}` : tx(p[2],p[3]); if (ctx.measureText(lb).width > x1-x0-10) lb=tx(p[2],p[3]);
+      if (ctx.measureText(lb).width < x1-x0-10) ctx.fillText(lb, x0+6, r.y+r.h/2+4.5*u); });
+    ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted;
+    for (const [v,lb] of S.ticks) { const x=sx(v); ctx.fillRect(x, r.y+r.h, 1, 5); ctx.fillText(lb, x+3, r.y+r.h+15*u); }
+    ctx.fillStyle=C.ink; ctx.globalAlpha=0.55; for (const e of S.EVENTS) ctx.fillRect(sx(e.d)-0.5, r.y-6, 1, 4); ctx.globalAlpha=1;
+    const x=sx(t); ctx.fillStyle=C.ink; ctx.beginPath(); ctx.moveTo(x-6,r.y-10); ctx.lineTo(x+6,r.y-10); ctx.lineTo(x,r.y-2); ctx.closePath(); ctx.fill(); ctx.fillRect(x-1,r.y-2,2,r.h+4);
+  }
+  f.tick = dt => {
+    f.TG.tick();
+    if (f.playing) { f.t+=f.TG.step(dt*rate(f.t)*(+speed.value), performance.now()); if (f.t>=T_END) { f.t=T_END; if (!f.TG.busy()) f.setPlaying(false); } scrub.value=f.t; out.textContent=S.fmtOut(f.t); }
+    if (!f.visible) return;
+    ctx=c2; L=f.Lay; P=Pf; M=f.Mm;
+    ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
+    drawMap(f.t, dt); drawHeader(f.t); drawEvent(f.t); drawPeople(f.t); drawFigs(f.t); drawStrip(f.t);
+  };
+  new ResizeObserver(()=>f.layout()).observe(stage);
+  new IntersectionObserver(es=>{ for (const e of es) { f.visible=e.isIntersecting; if (e.isIntersecting && !f.started && !reduce && !f.TG.on()) { f.started=true; f.setPlaying(true); } } }, { threshold: 0.35 }).observe(cv);
+  f.layout(); f.seek(0); f.setPlaying(false);
+  films.push(f); return f;
+}
+const ev = list => list.map(e=>({ ds:e[0], tz:e[1], te:e[2], bz:e[3], be:e[4], at:e[5], lbl:e[6], battle:!!e[7] }));
+
+// ================= chapter: Indigenous resistance to Japanese rule, 1896–1933 =================
+{
+  const B=[119.95, 21.85, 121.95, 25.35];
+  const JPN=hex('#f0625a'), INDG=hex('#5aa36f'), LINE=hex('#ecd04f');
+  const GROUPS = { truku:['太魯閣族','Truku'], atayal:['泰雅族','Atayal'], saisiyat:['賽夏族','Saisiyat'], amis:['阿美族','Amis'], bunun:['布農族','Bunun'], seediq:['賽德克族','Seediq'] };
+  const PL = {
+    dabao:     { zh:'大豹社（三峽）', en:'Dabao (Sanxia)', p:[121.38,24.87], side:'l', g:'atayal' },
+    nanzhuang: { zh:'南庄', en:'Nanzhuang', p:[120.99,24.60], side:'l', g:'saisiyat' },
+    taroko:    { zh:'太魯閣（立霧溪）', en:'Taroko (Liwu River)', p:[121.50,24.18], side:'l', g:'truku' },
+    xincheng:  { zh:'新城', en:'Xincheng', p:[121.61,24.13], side:'r', dy:-10, g:'truku' },
+    weili:     { zh:'威里社', en:'Weili', p:[121.58,24.04], side:'r', dy:4, g:'truku' },
+    cikasuan:  { zh:'七腳川社（吉安）', en:'Cikasuan (Ji’an)', p:[121.56,23.96], side:'r', dy:16, g:'amis' },
+    wushe:     { zh:'霧社', en:'Musha', p:[121.13,24.03], side:'l', g:'seediq' },
+    dafen:     { zh:'大分（卓溪）', en:'Dafen (Zhuoxi)', p:[121.12,23.33], side:'r', g:'bunun' },
+    tamahe:    { zh:'塔馬荷（玉穗社，約略）', en:'Tamahe (approx.)', p:[120.93,23.22], side:'l', g:'bunun' },
+  };
+  const S = {
+    id:'find', key:'ind', T0:Date.UTC(1896,5,1), B, SP:0.034, seconds:46, hold:120, slow:500, minRate:40, burstLen:160, pulseLen:300,
+    gridLon:[120,121], gridLat:[22,23,24,25],
+    title:['原 住 民 族 抗 日　1896 — 1933','INDIGENOUS RESISTANCE TO JAPANESE RULE   1896 — 1933'],
+    big: t => String(S.dateOf(t)[0]),
+    sub: t => { const Y=S.dateOf(t)[0]; return Y<1912 ? tx(`明治 ${Y-1867} 年`,`Meiji ${Y-1867}`) : Y<1926 ? tx(`大正 ${Y-1911} 年`,`Taishō ${Y-1911}`) : tx(`昭和 ${Y-1925} 年`,`Shōwa ${Y-1925}`); },
+    yearLine: Y => String(Y),
+    fmtOut: t => { const [Y,m]=S.dateOf(t); return `${Y}/${m}`; },
+    prelude:['1895 年日本接收台灣，平地的抵抗在數年內被壓制，但中央山脈與東部仍是原住民族的領域。總督府覬覦山林的樟腦、木材與礦產，衝突隨之而來。','Japan took Taiwan in 1895 and crushed resistance on the plains within a few years, but the Central Mountains and the east were still Indigenous land. The colonial government wanted the camphor, timber and minerals of the mountains, and conflict followed.'],
+    at: k => PL[k].p,
+    legendTop:false,
+    legend:[['dot',JPN,'日本統治區（示意）','Under Japanese control (schematic)'],['dot',INDG,'原住民族領域','Indigenous land'],['dot',LINE,'隘勇線推進（示意）','Guard-line frontier (schematic)']],
+    init(S){
+      const D=S.D; S.T_END=D('1934-06-30');
+      S.dots = dotsIn(B, S.SP);
+      S.EVENTS = ev([
+        ['1896-12-23','新城事件','The Xincheng incident','駐守新城的日軍不尊重太魯閣族習俗、擅取立霧溪砂金，族人口述更指有婦女遭日兵侵犯。12 月 23 日族人襲擊監視哨，據記載殺死 13 名官兵。次年日軍多次討伐失利，5 月撤退。','Soldiers at Xincheng flouted Truku customs and took gold from the Liwu River, and Truku oral history says soldiers assaulted a woman. On December 23 the Truku attacked the watch post, reportedly killing 13 soldiers. Several punitive expeditions the next year failed, and the troops withdrew in May.','xincheng',null,true],
+        ['1900-08-01','大豹社事件','The Dabao incident','樟腦業者進入大豹溪流域，傳出工人侵犯婦女，引發衝突。總頭目瓦旦・燮促率泰雅族人抵抗，日軍損失慘重。','Camphor workers moved into the Dabao River valley and reportedly assaulted local women, sparking clashes. Paramount chief Watan Sekuh led the Atayal in resistance, and Japanese losses were heavy.','dabao',['1900','1900'],true],
+        ['1902-07-06','南庄事件','The Nanzhuang incident','因樟腦與土地糾紛，賽夏族頭目日阿拐率賽夏族與泰雅族人攻擊南庄支廳。','Over camphor and land disputes, Saisiyat chief Rih A-kuai led Saisiyat and Atayal fighters against the Nanzhuang branch office.','nanzhuang',null,true],
+        ['1902-12-17','南庄歸順式','The Nanzhuang surrender ceremony','總督府招撫抵抗者舉行「歸順式」，卻在現場槍殺 39 人，包括泰雅族頭目；日阿拐逃脫。','The government invited the fighters to a surrender ceremony and shot 39 of them there, including an Atayal chief; Rih A-kuai escaped.','nanzhuang'],
+        ['1906-08-01','威里事件','The Weili incident','賀田組在太魯閣地區製腦，雇用族人警備卻分配津貼不公，族人轉而怨恨日本人，發生馘首事件。','The Kada company, making camphor in Truku country, hired local men as guards but paid them unfairly; resentment turned on the Japanese and led to a headhunting attack.','weili',['1906/8','Aug 1906'],true],
+        ['1906-12-01','大豹社戰敗','Dabao defeated','長年作戰後，大豹社聯合勢力無力再戰而戰敗，此後被迫遷離故土。','After years of fighting, the Dabao coalition could no longer hold out and was defeated; its people were later forced from their land.','dabao',['1906','1906']],
+        ['1908-12-13','七腳川事件','The Cikasuan incident','19 名七腳川社隘勇因工資被扣集體脫逃，日方藉機出兵。七腳川社被攻破，近千人被迫遷移，衝突一直延續到 1914 年。','Nineteen Cikasuan guards fled after their wages were withheld, and the Japanese used it as a pretext for war. Cikasuan was destroyed, nearly a thousand people were forced to move, and the conflict dragged on until 1914.','cikasuan',null,true],
+        ['1909-12-01','吉野村','Yoshino village','七腳川社的土地成為台灣第一個官營日本移民村「吉野村」（今吉安鄉）。','Cikasuan land became Yoshino, Taiwan’s first government-run Japanese settler village (today’s Ji’an).','cikasuan',['1909','1909']],
+        ['1910-06-01','五年理蕃計畫','The Five-Year Plan','總督佐久間左馬太推動五年理蕃計畫，以軍警推進隘勇線，強行進入中央山脈。','Governor-General Sakuma Samata launched the Five-Year Plan to subdue the mountain peoples, pushing guard lines deep into the Central Mountains.','taroko',['1910','1910']],
+        ['1914-06-01','太魯閣戰役','The Taroko war','佐久間親自擔任討伐隊總司令，從 6 月 1 日到 8 月 31 日攻打太魯閣族；外太魯閣總頭目哈鹿閣那威率族人抵抗。','Sakuma personally commanded the campaign against the Truku from June 1 to August 31; Haruq Nawi, paramount chief of the outer Truku, led the resistance.','taroko',['1914/6/1–8/31','Jun 1–Aug 31, 1914'],true],
+        ['1915-05-17','大分事件','The Dafen incident','布農族頭目拉荷・阿雷與阿里曼・西肯等 56 人襲擊大分駐在所，殺死 12 名日警（其中 7 名為拉荷・阿雷所殺），隨後退入深山。','Bunun chief Lahu Ali, Alimang Sikan and 54 others attacked the Dafen police post and killed 12 policemen, seven of them by Lahu Ali’s own hand, then withdrew deep into the mountains.','dafen',null,true],
+        ['1915-08-01','建立塔馬荷社','Tamahe founded','拉荷・阿雷一族退到荖濃溪上游建立塔馬荷社，此後十多年日方都無法征服。','Lahu Ali’s people withdrew to the upper Laonong River and founded Tamahe, which the Japanese could not conquer for more than a decade.','tamahe',['1915 後','After 1915']],
+        ['1921-06-18','第二次大分事件','The second Dafen incident','日方以和解為名邀請抵抗者，卻將托西幼社 23 名壯丁處決。','Inviting the resisters to make peace, the authorities executed 23 young men of Tosiyu.','dafen',null,true],
+        ['1930-10-27','霧社事件','The Musha Incident','賽德克族在莫那・魯道領導下起事，遭飛機與毒氣鎮壓（另有專題）。','The Seediq rose under Mona Rudao and were crushed with aircraft and gas (see its own feature).','wushe',null,true],
+        ['1933-04-22','拉荷・阿雷歸順','Lahu Ali makes peace','堅持近二十年的拉荷・阿雷與約 80 名族人歸順（一說 4 月 22 日，一說 5 月），原住民族的武裝抗日至此結束。','After almost twenty years, Lahu Ali and about 80 of his people made peace (April 22 by one account, May by another), ending Indigenous armed resistance.','tamahe',['1933 春','Spring 1933']],
+      ]).map(e=>{ e.d=D(e.ds); return e; });
+      S.PHASES=[[0,D('1902-07-06'),'接收與初次衝突','First clashes','#8f9fa6','日本接收東部與山區邊緣，駐軍與樟腦業者進入原住民族領域，衝突隨即發生。','Japan took over the east and the mountain margins; soldiers and camphor men entered Indigenous land, and clashes followed.'],
+                [D('1902-07-06'),D('1910-06-01'),'樟腦與隘勇線','Camphor and guard lines','#e8a33d','為了樟腦利益，總督府以隘勇線包圍山地，南庄、大豹、威里、七腳川相繼爆發衝突。','To secure camphor, the government ringed the mountains with guarded lines, and conflict broke out at Nanzhuang, Dabao, Weili and Cikasuan.'],
+                [D('1910-06-01'),D('1915-09-01'),'五年理蕃計畫','The Five-Year Plan','#f0625a','佐久間總督以軍警全面進攻山地，太魯閣戰役是規模最大的一場。','Governor-General Sakuma sent troops and police into the mountains in force; the Taroko war was the largest campaign.'],
+                [D('1915-09-01'),D('1930-10-27'),'山地統治與零星抵抗','Rule and holdouts','#a8607a','山地大多被納入警察統治，但布農族拉荷・阿雷等人仍在深山堅持。','Most of the mountains came under police rule, but Lahu Ali and other Bunun held out deep in the ranges.'],
+                [D('1930-10-27'),S.T_END+1,'最後的抵抗','The last resistance','#5aa36f','霧社事件震驚日本；1933 年拉荷・阿雷歸順，武裝抗日結束。','The Musha Incident shocked Japan; in 1933 Lahu Ali made peace, and armed resistance ended.']];
+      S.SHARE=[0.17,0.24,0.20,0.24,0.15];
+      S.ticks=[1900,1905,1910,1915,1920,1925,1930].map(y=>[D(`${y}-01-01`), String(y)]);
+      S.PEOPLE=[
+        { zh:'瓦旦・燮促', en:'Watan Sekuh', role:['泰雅族大豹社總頭目','Atayal paramount chief of Dabao'], col:'#5aa36f', st:[[0,'大豹社頭目','Chief'],[D('1900-08-01'),'抵抗','Resisting'],[D('1906-12-01'),'戰敗','Defeated','#9fb2ba']] },
+        { zh:'日阿拐', en:'Rih A-kuai', role:['賽夏族頭目','Saisiyat chief'], col:'#5aa36f', st:[[0,'頭目','Chief'],[D('1902-07-06'),'起事','Rising'],[D('1902-12-17'),'逃脫','Escaped','#9fb2ba']] },
+        { zh:'拉荷・阿雷', en:'Lahu Ali', role:['布農族大分社頭目','Bunun chief of Dafen'], col:'#5aa36f', img:'lahu', st:[[0,'頭目','Chief'],[D('1915-05-17'),'抵抗','Resisting'],[D('1933-04-22'),'歸順','Made peace','#9fb2ba']] },
+        { zh:'佐久間左馬太', en:'Sakuma Samata', role:['台灣總督，推動五年理蕃計畫','Governor-General, Five-Year Plan'], col:'#f0625a', img:'sakuma', st:[[0,'—','—'],[D('1906-04-11'),'就任總督','Takes office'],[D('1914-06-01'),'親征太魯閣','Leads the Taroko war'],[D('1915-05-01'),'去職','Leaves office','#9fb2ba']] },
+      ];
+      S.FIGS=[[D('1896-12-23'),'13','新城事件日軍死亡（據記載）','Soldiers killed at Xincheng (reported)','#5aa36f'],
+              [D('1902-12-17'),'39','南庄歸順式遭槍殺','Shot at the Nanzhuang ceremony','#f0625a'],
+              [D('1908-12-13'),'≈1,000','七腳川社被迫遷移','Cikasuan people removed','#f0625a'],
+              [D('1915-05-17'),'12','大分事件日警死亡','Policemen killed at Dafen','#5aa36f'],
+              [D('1921-06-18'),'23','第二次大分事件遭處決','Executed in the second Dafen incident','#f0625a'],
+              [D('1933-04-22'),'≈80','最後歸順的布農族人','Bunun who finally made peace','#9fb2ba']];
+    },
+    dotColor(d, t){
+      const y = 1896.42 + t/365.25;
+      // the Five-Year Plan targeted the northern mountains; the central and southern ranges came under control much later
+      const north = pw(y, [[1896,0.40],[1903,0.48],[1906,0.56],[1910,0.66],[1912,0.82],[1915,1.02]]);
+      const south = pw(y, [[1896,0.40],[1906,0.48],[1915,0.58],[1922,0.72],[1930,0.88],[1933.4,1.02]]);
+      const mth = d.lat > 24.0 ? north : d.lat < 23.6 ? south : south + (north-south)*(d.lat-23.6)/0.4;
+      // Lahu Ali's mountains held out until 1933; Musha briefly in 1930
+      const holdout = y < 1933.31 && dist([d.lon,d.lat],[120.98,23.24]) < 0.13;
+      const musha = y > 1930.82 && y < 1931.2 && dist([d.lon,d.lat],[121.13,24.03]) < 0.1;
+      // the Truku heartland stayed Indigenous until the Taroko war ended (Aug 31, 1914)
+      const taroko = y < 1914.67 && dist([d.lon,d.lat],[121.42,24.16]) < 0.24 && d.m > 0.12;
+      if (holdout || musha || taroko) return [INDG, 0.75];
+      if (Math.abs(d.m - mth) < 0.035 && mth < 1) return [LINE, 0.85];
+      return d.m < mth ? [[0,1,2].map(j=>BASE[j]+(JPN[j]-BASE[j])*0.55), 0.6] : [INDG, 0.4+0.35*d.m];
+    },
+    extras(t){},
+    drawPlaces(t){
+      for (const k in PL) { const pl=PL[k], [x,y]=P(...pl.p); const first = S.EVENTS.find(e=>e.at===k); if (first && t < first.d-200) continue;
+        ctx.fillStyle=C.bg; ctx.strokeStyle=rgba(INDG,1); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,5,0,6.2832); ctx.fill(); ctx.stroke();
+        const g=GROUPS[pl.g]; label(`${pl.zh}・${g[0]}`, `${pl.en} · ${g[1]}`, x, y+(pl.dy||0), pl.side==='l', 11.5); }
+    },
+  };
+  Film(S);
+}
+
+// ================= after list, language, loop =================
+const AFTER = [["1930", "霧社事件，賽德克族起事，遭飛機與毒氣鎮壓。", "The Musha Incident: the Seediq rise and are crushed with aircraft and gas."], ["1954", "瓦旦・燮促之子樂信・瓦旦曾在戰後請求歸還大豹社祖地，後在白色恐怖中遭處決。", "Lo Hsin, son of Watan Sekuh, who had petitioned after the war for the return of Dabao land, is executed in the White Terror."], ["2016", "泰雅族人與學者重返大豹社舊地，推動設立紀念碑。", "Atayal people and scholars return to the old Dabao lands and push for a memorial."]];
+const CRED_EXTRA = {"lahu": ["拉荷・阿雷", "Lahu Ali", "出自《臺灣蕃界展望》，1935", "from Taiwan Banjie Zhanwang, 1935"], "sakuma": ["佐久間左馬太", "Sakuma Samata", "", ""]};
+const CRED_NOTE = ["瓦旦・燮促、日阿拐：無可用的自由授權肖像，以字卡代替。", "Watan Sekuh, Rih A-kuai: no freely licensed portrait; name cards are shown."];
+const ARIA = ["原住民族抗日逐年地圖動畫", "Year-by-year map animation of Indigenous resistance to Japanese rule"];
+const TITLE = ["原住民族抗日 1896–1933", "Indigenous Resistance to Japanese Rule, 1896–1933"];
+const afterOl=document.getElementById('after'), credUl=document.getElementById('credits');
+function applyLang(){
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.title = tx(...TITLE);
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
+  for (const f of films) f.setPlaying(f.playing); for (const f of films) f.TG.lang();
+  afterOl.innerHTML = AFTER.map(([y,zh,en])=>`<li><b>${y}</b><span>${uiHTML(zh,en)}</span></li>`).join('');
+  credUl.innerHTML = Object.keys(EMBED).map(k=>{ const c=EMBED[k], x=CRED_EXTRA[k]||['','','','']; return `<li>${esc(tx(x[0],x[1]))}: <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.file)}</a> (${esc(c.license)}${x[2]?'；'+esc(tx(x[2],x[3])):''})</li>`; }).join('')
+    + `<li>${esc(tx(...CRED_NOTE))}</li>`;
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  document.getElementById('find').setAttribute('aria-label', tx(...ARIA));
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+applyLang();
+let last=performance.now();
+function frame(now){ const dt=Math.min(0.1,(now-last)/1000); last=now; for (const f of films) f.tick(dt); requestAnimationFrame(frame); }
+requestAnimationFrame(n=>{ last=n; frame(n); });
+})();
+</script>
+</body>
+</html>

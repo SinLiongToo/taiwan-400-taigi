@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="清代分類械鬥：泉州、漳州、客家移民之間的著名械鬥，從 1721 年六堆、1782 年彰化，到 1853 年頂下郊拚與 1859 年北台大械鬥。Feuds between settler groups in Qing Taiwan, 1721–1862.">
+<title>清代分類械鬥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: two chapter "films" (Guo Huaiyi 1652 under the Dutch, Lin Shuangwen 1786–88 under the Qing), each a canvas with its own deck, then a reading column. Same sea-ink family as 台灣四百年; ember for the risings, VOC orange and Qing gold for the states, teal for militias that sided with the state. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --ember: #e8743d;
+  --gold: #ecd04f;
+  --focus: #7fd3d0;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 14px; }
+.wrap > * { min-width: 0; }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.back { color: var(--muted); font-size: 13.5px; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.chapters { display: flex; flex-wrap: wrap; gap: 8px; }
+.chapters a { color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 14px; }
+.chapters a:hover { border-color: var(--muted); }
+.chap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin: 26px 0 0; font-family: var(--f-display); font-size: clamp(21px, 2.6vw, 27px); letter-spacing: .04em; scroll-margin-top: 16px; }
+.chap small { font-family: var(--f-mono); font-size: 15px; color: var(--ember); font-weight: 600; letter-spacing: 0; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas.film { display: block; width: 100%; height: auto; max-width: 100%; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--ember); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 9ch; color: var(--ember); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--ember); color: #1d0b04; border-color: var(--ember); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #5e2610; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.read { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px 48px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 18px; }
+@media (max-width: 820px) { .read { grid-template-columns: minmax(0, 1fr); } }
+.read h2 { font-family: var(--f-display); font-size: 21px; margin: 0 0 12px; letter-spacing: .04em; }
+.read p { margin: 0 0 12px; max-width: 66ch; }
+.after { list-style: none; margin: 0; padding: 0; display: grid; }
+.after li { display: grid; grid-template-columns: 4.2em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.after li:last-child { border-bottom: 0; }
+.after b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ember); font-weight: 600; }
+.after span { min-width: 0; }
+.side { display: grid; gap: 26px; align-content: start; color: var(--muted); }
+.side p { margin: 0; }
+.side a { color: var(--ink); }
+.side ul, .side ol { margin: 0; padding-left: 1.3em; }
+.refs li { margin-bottom: 6px; font-size: 13.5px; }
+#credits { font-size: 12.5px; }
+#credits a { color: var(--muted); }
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
+.read h2 .en { font-family: var(--f-body); font-size: .62em; }
+.chap .en { font-family: var(--f-body); font-size: .6em; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="./" data-k="back"></a>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <h1 data-k="h1"></h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="ffeud" class="film" width="1600" height="900"></canvas></div>
+  <div class="deck">
+    <button id="playfeud" class="primary" type="button"></button>
+    <div class="scrub"><input id="scrubfeud" type="range" min="0" max="57000" step="1" value="0" aria-label="Date"><output id="outfeud" for="scrubfeud"></output></div>
+    <div class="grp"><label class="lbl" for="speedfeud" data-k="speed"></label><select id="speedfeud"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></div>
+  </div>
+
+  <section class="read">
+    <div>
+      <h2 data-k="bgH"></h2>
+      <p data-k="bg1"></p>
+      <p data-k="bg2"></p>
+      <h2 data-k="afterH"></h2>
+      <ol class="after" id="after"></ol>
+    </div>
+    <div class="side">
+      <div>
+        <h2 data-k="noteH"></h2>
+        <p data-k="note"></p>
+      </div>
+      <div>
+        <h2 data-k="refH"></h2>
+        <ol class="refs">
+          <li>林偉盛，《羅漢腳：清代臺灣社會與分類械鬥》，1993。</li>
+          <li>尹章義，《臺灣開發史研究》，1989。</li>
+          <li>莊永明，《臺北老街》，1992。</li>
+          <li>維基百科「漳泉械鬥」「頂下郊拚」條目。（2026 年 10 月查閱）</li>
+        </ol>
+      </div>
+      <div>
+        <h2 data-k="moreH"></h2>
+        <ul>
+          <li><a href="linshuangwen.html" data-k="lRel1"></a></li>
+          <li><a href="daichaochun.html" data-k="lRel2"></a></li>
+          <li><a href="https://zh.wikipedia.org/wiki/漳泉械鬥" target="_blank" rel="noopener">維基百科：漳泉械鬥</a></li>
+          <li><a href="https://zh.wikipedia.org/wiki/頂下郊拚" target="_blank" rel="noopener">維基百科：頂下郊拚</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 data-k="credH"></h2>
+        <ul id="credits"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="narration-feuds.js"></script>
+<script src="pictures.js"></script>
+<script src="tg.js"></script>
+<script>
+(() => {
+const EMBED = {};
+const IMG = {}; for (const k in EMBED) { const im=new Image(); im.src=EMBED[k].src; IMG[k]=im; }
+
+// ================= language (shared with 台灣四百年) =================
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;
+const UI = {"back": ["台灣四百年", "Taiwan: Four Centuries"], "langLbl": ["語言", "Language"], "play": ["播放", "Play"], "pause": ["暫停", "Pause"], "replay": ["重播", "Replay"], "speed": ["速度", "Speed"], "afterH": ["之後", "Afterward"], "noteH": ["關於這張地圖", "About this map"], "refH": ["參考資料", "References"], "moreH": ["延伸閱讀", "Further reading"], "credH": ["肖像來源", "Portrait sources"], "bgH": ["背景", "Background"], "lRel1": ["專題：林爽文事件", "Feature: The Lin Shuangwen rebellion"], "lRel2": ["專題：戴潮春事件", "Feature: The Dai Chaochun rebellion"], "h1": ["清代分類械鬥", "Feuds Between Settler Groups in Qing Taiwan"], "intro": ["清代台灣的移民依祖籍聚居，泉州、漳州、客家之間為了水源、土地與港口屢次爆發大規模械鬥。從 1721 年南部的閩客對立、1782 年彰化漳泉大械鬥，到 1853 年艋舺的頂下郊拚與 1859 年北台大械鬥，逐年看這些衝突在哪裡發生、如何改變城鎮。", "Settlers in Qing Taiwan lived by ancestral origin, and Quanzhou, Zhangzhou and Hakka communities fought repeated large feuds over water, land and harbours. From the Hoklo–Hakka split of 1721 and the great Changhua feud of 1782 to the Mengjia guild war of 1853 and the northern feud of 1859, see where they happened and how they reshaped towns."], "bg1": ["清代渡台的移民多是單身男性，官府控制力有限，地方秩序依賴宗族、祖籍與地方頭人。同一祖籍的人聚居互助，一旦與鄰近群體爭水爭地，就容易擴大成整個祖籍群之間的械鬥。", "Many Qing-era migrants were single men, government reach was thin, and local order rested on lineage, origin and local strongmen. People of one origin lived together for mutual help, so a quarrel over water or land with a neighbouring group could grow into a feud between whole origin groups."], "bg2": ["械鬥造成大量死傷與財產損失，也迫使弱勢一方遷徙或被同化，各地紛紛築起土牆、竹圍自保。艋舺的同安人遷往大稻埕後，大稻埕在開港後成為新的商業中心，這是械鬥改變城市版圖最著名的例子。", "Feuds cost many lives and much property, forced the weaker side to move or be absorbed, and led communities to wall themselves in with earth and bamboo. When Mengjia’s Tong’an people moved to Dadaocheng, it became the new commercial centre after the ports opened, the best-known case of a feud redrawing a city."], "note": ["地圖上的祖籍分布是依「泉州近海、漳州內陸、客家丘陵與六堆」原則畫出的示意，不是精確的族群分布，也會隨時代變化。只列出有可靠記載的械鬥；許多中小型械鬥沒有標出，大多數械鬥也沒有可靠的死傷統計。枋橋城的完工年份各來源不同。", "The origin pattern on the map follows the rule of thumb “Quanzhou on the coast, Zhangzhou inland, Hakka in the foothills and the Liudui.” It is schematic, not an exact map, and it changed over time. Only well-documented feuds are shown; many smaller ones are left out, and most have no reliable death toll. Sources differ on when the Banqiao wall was finished."]};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ================= shared helpers =================
+const COS = Math.cos(23.5*Math.PI/180);
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const smooth = (a,b,x) => { const t = clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };
+const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+const rgba = (c,a) => `rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a.toFixed(3)})`;
+const pw = (x, pts) => { if (x<=pts[0][0]) return pts[0][1]; for (let i=1;i<pts.length;i++) if (x<=pts[i][0]) { const [a,va]=pts[i-1],[b,vb]=pts[i]; return va+(vb-va)*(x-a)/(b-a); } return pts[pts.length-1][1]; };
+const C = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d' };
+const EMBER=hex('#e8743d'), VOC=hex('#f29a3a'), QING=hex('#ecd04f'), IND=hex('#5aa36f'), MILITIA=hex('#7fd3d0'), CRIMSON=hex('#d0473f'), BASE=hex('#34505d'), INK=hex('#ece6d6');
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+const MON = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
+const COAST = [[121.54,25.30],[121.62,25.24],[121.74,25.15],[121.85,25.11],[121.92,25.03],[121.83,24.90],[121.82,24.75],[121.86,24.59],[121.78,24.42],[121.70,24.28],[121.62,24.02],[121.58,23.85],[121.50,23.60],[121.45,23.38],[121.37,23.15],[121.25,22.92],[121.15,22.75],[121.02,22.58],[120.95,22.45],[120.90,22.30],[120.86,22.10],[120.85,21.92],[120.75,21.93],[120.70,21.95],[120.72,22.10],[120.62,22.30],[120.50,22.45],[120.38,22.52],[120.27,22.62],[120.20,22.78],[120.13,22.95],[120.10,23.10],[120.08,23.30],[120.13,23.50],[120.20,23.75],[120.30,23.95],[120.40,24.15],[120.52,24.35],[120.68,24.58],[120.85,24.80],[120.98,24.95],[121.10,25.05],[121.28,25.12],[121.40,25.18],[121.54,25.30]];
+const SPINE = [[121.55,24.75],[121.35,24.45],[121.18,24.05],[121.02,23.55],[120.90,23.05],[120.83,22.55],[120.79,22.18]];
+function pip(x,y,p){ let inside=false; for(let i=0,j=p.length-1;i<p.length;j=i++){ const [xi,yi]=p[i],[xj,yj]=p[j]; if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=!inside; } return inside; }
+function segDist(px,py,a,b){ const ax=a[0]*COS,ay=a[1],bx=b[0]*COS,by=b[1],x=px*COS; const dx=bx-ax,dy=by-ay; const t=clamp(((x-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy),0,1); return Math.hypot(x-(ax+t*dx), py-(ay+t*dy)); }
+const mountain = (lon,lat) => { let d=9; for (let i=0;i<SPINE.length-1;i++) d=Math.min(d, segDist(lon,lat,SPINE[i],SPINE[i+1])); const w=0.24+0.17*Math.exp(-(((lat-23.8)/0.6)**2)); return clamp(1-d/w,0,1); };
+const dist = (a, b) => Math.hypot((a[0]-b[0])*COS, a[1]-b[1]);
+function dotsIn(B, sp, extraOk){ const out=[]; for (let r=0, lat=B[3]; lat>B[1]; lat-=sp*0.866, r++) for (let lon=B[0]+(r%2?sp/COS/2:0); lon<B[2]; lon+=sp/COS) if (pip(lon,lat,COAST) && (!extraOk || extraOk(lon,lat))) out.push({ lon, lat, m:mountain(lon,lat), cr:BASE[0], cg:BASE[1], cb:BASE[2] }); return out; }
+
+let ctx, L, P, M;
+function wrap(text, maxW){
+  const toks = text.match(/[\p{Script=Latin}0-9.,;:!?%’'"“”()\/\-–]+|\s|./gu) || [];
+  const lines=[]; let line='';
+  for (const t of toks) { if (line && !/^[，。、；：！？）」』,.;:!?)]$/.test(t) && ctx.measureText(line+t).width > maxW) { lines.push(line.trimEnd()); line = t.trim() ? t : ''; } else line += t; }
+  if (line) lines.push(line); return lines;
+}
+function fitFont(text, weight, size, family, maxW, min=11){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+function label(zh, en, x, y, left, size=12.5, col=C.ink){
+  const u=L.u, lx=x+(left?-11:11);
+  ctx.textAlign = left ? 'right' : 'left'; ctx.font=font(600,size*u,F.b);
+  const nm = tx(zh,en);
+  ctx.lineWidth=3.5; ctx.strokeStyle=C.bg; ctx.strokeText(nm, lx, y+4.5); ctx.fillStyle=col; ctx.fillText(nm, lx, y+4.5);
+  if (lang==='bi') { ctx.font=font(400,(size-3)*u,F.b); ctx.strokeText(en, lx, y+4.5+12*u); ctx.fillStyle=C.muted; ctx.fillText(en, lx, y+4.5+12*u); }
+  ctx.textAlign='left';
+}
+const rrect = (x,y,w,h,r) => { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); };
+function arrow(a, b, q, col, dashed=false, w=2.4){
+  const [x0,y0]=P(...a), [x1,y1]=P(...b), xb=x0+(x1-x0)*q, yb=y0+(y1-y0)*q;
+  ctx.setLineDash(dashed?[4,5]:[]); ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(xb,yb);
+  if (!dashed) { ctx.strokeStyle=rgba(hex(C.bg),0.8); ctx.lineWidth=w+3; ctx.stroke(); }
+  ctx.strokeStyle=rgba(col,0.95); ctx.lineWidth=w; ctx.stroke(); ctx.setLineDash([]);
+  if (q<1) { const an=Math.atan2(y1-y0,x1-x0); ctx.fillStyle=rgba(col,1); ctx.beginPath(); ctx.moveTo(xb+Math.cos(an)*8, yb+Math.sin(an)*8); ctx.lineTo(xb+Math.cos(an+2.5)*8, yb+Math.sin(an+2.5)*8); ctx.lineTo(xb+Math.cos(an-2.5)*8, yb+Math.sin(an-2.5)*8); ctx.closePath(); ctx.fill(); }
+}
+function burst(p, q){ const [x,y]=P(...p); for (let i=0;i<3;i++) { ctx.strokeStyle=rgba(EMBER,(1-q)*0.9); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,(8+24*q)*(1+0.3*i),0,6.2832); ctx.stroke(); } }
+function pulse(p){ const [x,y]=P(...p), ph=(performance.now()/1000)%1; ctx.strokeStyle=rgba(INK,(1-ph)*0.85); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,9+ph*28,0,6.2832); ctx.stroke(); }
+
+// ================= chapter film =================
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1, title:{x:56,y:58}, date:{x:52,y:180,size:104}, year:{x:58,y:218}, phase:{x:58,y:278,size:34}, pdesc:{x:58,y:318,w:370,lh:27,max:4},
+    event:{x:58,y:478,w:370}, map:{x:450,y:24,w:600,h:800}, people:{x:1100,y:56,w:440,rh:92}, figs:{x:1100,y:476,w:440,rh:56}, strip:{x:56,y:846,w:1488,h:28} },
+  port: { W:720, H:2040, u:1.3, title:{x:28,y:50}, date:{x:24,y:140,size:84}, year:{x:30,y:178}, phase:{x:28,y:234,size:30}, pdesc:{x:28,y:274,w:664,lh:30,max:2},
+    map:{x:16,y:330,w:688,h:640}, event:{x:28,y:1020,w:664}, people:{x:28,y:1210,w:664,rh:96}, figs:{x:28,y:1620,w:664,rh:58}, strip:{x:28,y:1970,w:664,h:32} },
+};
+const films=[];
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function Film(S){
+  const cv=document.getElementById(S.id), c2=cv.getContext('2d'), stage=cv.parentElement;
+  const play=document.getElementById('play'+S.key), scrub=document.getElementById('scrub'+S.key), out=document.getElementById('out'+S.key), speed=document.getElementById('speed'+S.key);
+  const D = s => { const [y,m,d]=s.split('-').map(Number); return (Date.UTC(y,m-1,d)-S.T0)/864e5; };
+  const dateOf = t => { const dt=new Date(S.T0 + Math.floor(t)*864e5); return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()]; };
+  S.D=D; S.dateOf=dateOf; S.init && S.init(S);
+  const T_END=S.T_END, f={ t:0, playing:false, visible:true, started:false, Lay:null, Mm:{} };
+  const Pf = (lon,lat) => [f.Mm.ox+(lon-S.B[0])*COS*f.Mm.k, f.Mm.oy+(S.B[3]-lat)*f.Mm.k];
+  const phaseAt = t => S.PHASES.find(p => t>=p[0] && t<p[1]) || S.PHASES[S.PHASES.length-1];
+  const lastEvent = t => { let e=null; for (const x of S.EVENTS) if (x.d<=t) e=x; else break; return e; };
+  f.layout = () => {
+    const cw = stage.clientWidth || 1000;
+    f.Lay = cw < 720 ? LAYOUTS.port : LAYOUTS.land;
+    const scale = Math.min(2, window.devicePixelRatio||1) * cw / f.Lay.W;
+    cv.width=Math.round(f.Lay.W*scale); cv.height=Math.round(f.Lay.H*scale); c2.setTransform(scale,0,0,scale,0,0);
+    const r=f.Lay.map, gw=(S.B[2]-S.B[0])*COS, gh=S.B[3]-S.B[1];
+    f.Mm.k=Math.min(r.w/gw, r.h/gh); f.Mm.ox=r.x+(r.w-gw*f.Mm.k)/2; f.Mm.oy=r.y+(r.h-gh*f.Mm.k)/2; f.Mm.dot=S.SP*f.Mm.k*0.42; f.Mm.gh=gh*f.Mm.k;
+    for (const d of S.dots) [d.x,d.y]=Pf(d.lon,d.lat);
+  };
+  f.setPlaying = p => { f.playing=p; setK(play, p ? 'pause' : (f.t>=T_END ? 'replay' : 'play')); f.TG && f.TG.sync(); };
+  f.seek = t => { f.t=clamp(t,0,T_END); scrub.value=f.t; out.textContent=S.fmtOut(f.t); f.TG && f.TG.seek(); };
+  scrub.max=T_END;
+  play.addEventListener('click', ()=>{ f.started=true; if (!f.playing && f.t>=T_END) f.seek(0); if (!f.playing) f.TG.unlock(); f.setPlaying(!f.playing); });
+  // Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.
+  f.TG = TGNarration({ name:'feuds', lang:()=>lang, getT:()=>f.t, isPlaying:()=>f.playing, setPlaying:p=>f.setPlaying(p), stage, playBtn:play,
+    cues:[...S.PHASES.map((p,i)=>({y:Math.max(p[0],0), id:'p'+i})), ...S.EVENTS.map((e,i)=>({y:e.d, id:'e'+i}))] });
+  scrub.addEventListener('input', ()=>{ f.started=true; f.seek(+scrub.value); if (f.playing) f.setPlaying(false); });
+  cv.setAttribute('tabindex','0');
+  cv.addEventListener('keydown', e=>{ if (e.key===' ') { e.preventDefault(); play.click(); } else if (e.key==='ArrowRight') f.seek(Math.floor(f.t)+1); else if (e.key==='ArrowLeft') f.seek(Math.floor(f.t)-1); });
+  const BASE_RATE = S.PHASES.map((p,i)=>(Math.min(p[1],T_END)-p[0])/(S.SHARE[i]*S.seconds));
+  const rate = x => { const base=BASE_RATE[S.PHASES.indexOf(phaseAt(x))]; let dmin=Infinity; for (const e of S.EVENTS) { const dd = x<e.d ? e.d-x : x-e.d-S.hold; dmin=Math.min(dmin, Math.max(0,dd)); } return Math.max(S.minRate, base*clamp(dmin/S.slow,0,1)); };
+  const sx = t => { const r=L.strip; let acc=0; for (let i=0;i<S.PHASES.length;i++) { const [a,b]=S.PHASES[i], bb=Math.min(b,T_END); if (t<=bb || i===S.PHASES.length-1) return r.x + r.w*(acc + S.SHARE[i]*clamp((t-a)/(bb-a),0,1)); acc+=S.SHARE[i]; } };
+  const evDate = e => e.lbl ? tx(e.lbl[0],e.lbl[1]) : (([Y,m,d]) => `${m}/${d}`)(dateOf(e.d));
+
+  function drawMap(t, dt){
+    const r=L.map, u=L.u, fk=1-Math.pow(0.004, dt);
+    ctx.save(); ctx.beginPath(); ctx.rect(r.x,r.y,r.w,r.h); ctx.clip();
+    ctx.strokeStyle=C.grid; ctx.lineWidth=1; ctx.font=font(400,11*u,F.m); ctx.fillStyle=C.faint;
+    for (const lon of S.gridLon) { const [x]=P(lon,0); ctx.beginPath(); ctx.moveTo(x,r.y); ctx.lineTo(x,r.y+r.h); ctx.stroke(); ctx.fillText(`${lon}°E`, x+4, r.y+r.h-8); }
+    for (const lat of S.gridLat) { const [,yy]=P(0,lat); ctx.beginPath(); ctx.moveTo(r.x,yy); ctx.lineTo(r.x+r.w,yy); ctx.stroke(); ctx.fillText(`${lat}°N`, r.x+r.w-50*u, yy-5); }
+    for (const d of S.dots) { const [c,a]=S.dotColor(d,t); d.cr+=(c[0]-d.cr)*fk; d.cg+=(c[1]-d.cg)*fk; d.cb+=(c[2]-d.cb)*fk; ctx.fillStyle=`rgba(${d.cr|0},${d.cg|0},${d.cb|0},${a.toFixed(3)})`; ctx.beginPath(); ctx.arc(d.x,d.y,M.dot,0,6.2832); ctx.fill(); }
+    S.extras(t);
+    for (const e of S.EVENTS) if (e.battle && t>=e.d && t<e.d+S.burstLen) burst(S.at(e.at), (t-e.d)/S.burstLen);
+    S.drawPlaces(t);
+    const e=lastEvent(t); if (e && e.at && t-e.d < S.pulseLen) pulse(S.at(e.at));
+    ctx.restore();
+    // legend
+    const items=S.legend, lh=(lang==='bi'?30:21)*u, w=(lang==='zh'?170:240)*u, h=items.length*lh+12, x=r.x+10, y=S.legendTop ? r.y+10 : r.y+r.h-h-30*u;
+    ctx.fillStyle='rgba(8,21,29,0.88)'; ctx.fillRect(x,y,w,h); ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.strokeRect(x,y,w,h);
+    items.forEach(([kind,col,zh,en],i)=>{ const yy=y+12+i*lh+8*u, sx0=x+10;
+      if (kind==='dot') { ctx.fillStyle=rgba(col,0.95); ctx.beginPath(); ctx.arc(sx0+6,yy-4,6,0,6.2832); ctx.fill(); }
+      else { ctx.setLineDash(kind==='dash'?[3,4]:[]); ctx.strokeStyle=rgba(col,1); ctx.lineWidth=2.4; ctx.beginPath(); ctx.moveTo(sx0,yy-4); ctx.lineTo(sx0+16,yy-4); ctx.stroke(); ctx.setLineDash([]); }
+      ctx.font=font(500,12*u,F.b); ctx.fillStyle=C.ink; ctx.fillText(tx(zh,en), sx0+24, yy);
+      if (lang==='bi') { ctx.font=font(400,10.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(en, sx0+24, yy+13*u); } });
+  }
+  function drawHeader(t){
+    const u=L.u, ph=phaseAt(t), [Y,m,d]=dateOf(t), bi=lang==='bi';
+    ctx.font=font(700,13*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx(...S.title), L.title.x, L.title.y);
+    const big = S.big ? S.big(t) : tx(`${m}月${d}日`, `${MON[m]} ${d}`); fitFont(big, 900, L.date.size, F.d, 390*u, 40); ctx.fillStyle=C.ink; ctx.fillText(big, L.date.x, L.date.y);
+    ctx.font=font(500,17*u,F.d); ctx.fillStyle=C.muted; const yl=S.yearLine(Y); ctx.fillText(S.sub ? S.sub(t) : (bi ? `${yl}　${MON[m]} ${d}, ${Y}` : yl), L.year.x, L.year.y);
+    const pn=tx(ph[2],ph[3]); fitFont(pn, 900, L.phase.size, F.d, L.pdesc.w, 18); ctx.fillStyle=ph[4]; ctx.fillText(pn, L.phase.x, L.phase.y);
+    if (bi) { const w=ctx.measureText(pn).width; ctx.font=font(500,17*u,F.d); if (w+12+ctx.measureText(ph[3]).width <= L.pdesc.w) { ctx.globalAlpha=0.85; ctx.fillText(ph[3], L.phase.x+w+12, L.phase.y); ctx.globalAlpha=1; } }
+    const pd=L.pdesc; ctx.font=font(400,(lang==='en'?15.5:16.5)*u,F.b); ctx.fillStyle=C.muted;
+    wrap(tx(ph[5],ph[6]), pd.w).slice(0,pd.max).forEach((ln,i)=>ctx.fillText(ln, pd.x, pd.y+i*pd.lh));
+  }
+  function drawEvent(t){
+    const r=L.event, u=L.u, bi=lang==='bi', port=L.W<1000;
+    ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+    ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('紀 事','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+    const idx=S.EVENTS.indexOf(lastEvent(t));
+    if (idx<0) { ctx.font=font(400,15*u,F.b); ctx.fillStyle=C.muted; wrap(tx(...S.prelude), r.w).forEach((ln,i)=>ctx.fillText(ln, r.x, r.y+24*u+i*24*u)); return; }
+    const e=S.EVENTS[idx], dl=evDate(e);
+    fitFont(dl, 600, 14*u, F.m, 82*u, 9); ctx.fillStyle=phaseAt(e.d)[4]; ctx.fillText(dl, r.x, r.y+24*u);
+    const title=tx(e.tz,e.te); fitFont(title, 700, 23*u, F.d, r.w-92*u, 14); ctx.fillStyle=C.ink; ctx.fillText(title, r.x+92*u, r.y+25*u);
+    let y=r.y+58*u;
+    if (bi) { fitFont(e.te, 500, 14*u, F.b, r.w-92*u, 10); ctx.fillStyle=C.muted; ctx.fillText(e.te, r.x+92*u, r.y+45*u); y=r.y+74*u; }
+    ctx.font=font(400,(lang==='en'?14.5:15.5)*u,F.b); ctx.fillStyle=C.muted;
+    const lines=wrap(tx(e.bz,e.be), r.w).slice(0, port?3:5); lines.forEach((ln,i)=>ctx.fillText(ln, r.x, y+i*24*u)); y+=lines.length*24*u+22*u;
+    for (let j=idx-1; j>=Math.max(0,idx-2) && !port; j--) { const p=S.EVENTS[j], s = bi ? `${p.tz} ${p.te}` : tx(p.tz,p.te); ctx.globalAlpha=0.6;
+      fitFont(evDate(p), 600, 12.5*u, F.m, 84*u, 9); ctx.fillStyle=C.muted; ctx.fillText(evDate(p), r.x, y);
+      fitFont(s, 500, 14*u, F.b, r.w-92*u, 10); ctx.fillStyle=C.ink; ctx.fillText(s, r.x+92*u, y); y+=24*u; ctx.globalAlpha=1; }
+  }
+  function drawPeople(t){
+    const r=L.people, u=L.u, bi=lang==='bi';
+    ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('人物','People'); ctx.fillText(tt, r.x, r.y);
+    if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('People', r.x+w+8, r.y); }
+    S.PEOPLE.forEach((pp,i)=>{
+      const y=r.y+14*u+i*r.rh, pw=56*u, ph=70*u, x0=r.x+pw+14*u;
+      let st=pp.st[0]; for (const s of pp.st) if (t>=s[0]) st=s;
+      const col=st[3]||pp.col;
+      ctx.save(); rrect(r.x,y,pw,ph,4); ctx.clip();
+      const im=pp.img && IMG[pp.img]; if (im && im.complete && im.naturalWidth) ctx.drawImage(im, r.x, y, pw, ph);
+      else { ctx.fillStyle=rgba(hex(pp.col),0.2); ctx.fillRect(r.x,y,pw,ph); ctx.fillStyle=pp.col; ctx.font=font(900,ph*0.45,F.d); ctx.textAlign='center'; ctx.fillText(pp.zh[0], r.x+pw/2, y+ph*0.66); ctx.textAlign='left'; }
+      ctx.restore(); ctx.strokeStyle=pp.col; ctx.lineWidth=1.5; rrect(r.x,y,pw,ph,4); ctx.stroke();
+      const nm=tx(pp.zh,pp.en); fitFont(nm, 900, 20*u, F.d, r.w-pw-150*u, 12); ctx.fillStyle=C.ink; ctx.fillText(nm, x0, y+20*u);
+      let yy=y+40*u; if (bi) { fitFont(pp.en, 500, 12*u, F.b, r.w-pw-140*u, 9); ctx.fillStyle=C.muted; ctx.fillText(pp.en, x0, yy); yy+=17*u; }
+      fitFont(tx(...pp.role), 400, 12.5*u, F.b, r.w-pw-24*u, 9); ctx.fillStyle=C.muted; ctx.fillText(tx(...pp.role), x0, yy);
+      if (st[1] !== '—') { const chip = bi ? `${st[1]} ${st[2]}` : tx(st[1],st[2]); ctx.font=font(700,12*u,F.b);
+      const cw=ctx.measureText(chip).width+16*u, cx=r.x+r.w-cw, cy=y+3*u;
+      ctx.fillStyle=rgba(hex(col),0.18); rrect(cx,cy,cw,22*u,11*u); ctx.fill(); ctx.strokeStyle=col; ctx.lineWidth=1.2; ctx.stroke(); ctx.fillStyle=col; ctx.fillText(chip, cx+8*u, cy+15.5*u); }
+      ctx.strokeStyle=C.grid; ctx.beginPath(); ctx.moveTo(r.x, y+ph+12*u); ctx.lineTo(r.x+r.w, y+ph+12*u); ctx.stroke();
+    });
+  }
+  function drawFigs(t){
+    const r=L.figs, u=L.u, bi=lang==='bi';
+    ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('數字','The figures'); ctx.fillText(tt, r.x, r.y);
+    if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('The figures', r.x+w+8, r.y); }
+    S.FIGS.forEach(([d,n,zh,en,col],i)=>{ const y=r.y+42*u+i*r.rh, on=t>=d;
+      fitFont(on?n:'—', 900, 28*u, F.d, 140*u, 14); ctx.fillStyle = on ? col : C.faint; ctx.fillText(on?n:'—', r.x, y);
+      fitFont(tx(zh,en), 500, 13*u, F.b, r.w-160*u, 9); ctx.fillStyle = on ? C.ink : C.faint; ctx.fillText(tx(zh,en), r.x+150*u, y-8*u);
+      if (bi) { fitFont(en, 400, 11*u, F.b, r.w-160*u, 8); ctx.fillStyle=C.muted; ctx.fillText(en, r.x+150*u, y+8*u); }
+      ctx.strokeStyle=C.grid; ctx.beginPath(); ctx.moveTo(r.x, y+16*u); ctx.lineTo(r.x+r.w, y+16*u); ctx.stroke(); });
+  }
+  function drawStrip(t){
+    const r=L.strip, u=L.u;
+    S.PHASES.forEach(p=>{ const x0=sx(p[0]), x1=sx(Math.min(p[1],T_END)), on=t>=p[0]&&t<p[1];
+      ctx.fillStyle=p[4]; ctx.globalAlpha=on?0.95:0.35; ctx.fillRect(x0,r.y,x1-x0-1.5,r.h); ctx.globalAlpha=1;
+      ctx.font=font(700,12.5*u,F.b); ctx.fillStyle=on?'#14090a':C.ink;
+      let lb = lang==='bi' ? `${p[2]} ${p[3]}` : tx(p[2],p[3]); if (ctx.measureText(lb).width > x1-x0-10) lb=tx(p[2],p[3]);
+      if (ctx.measureText(lb).width < x1-x0-10) ctx.fillText(lb, x0+6, r.y+r.h/2+4.5*u); });
+    ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted;
+    for (const [v,lb] of S.ticks) { const x=sx(v); ctx.fillRect(x, r.y+r.h, 1, 5); ctx.fillText(lb, x+3, r.y+r.h+15*u); }
+    ctx.fillStyle=C.ink; ctx.globalAlpha=0.55; for (const e of S.EVENTS) ctx.fillRect(sx(e.d)-0.5, r.y-6, 1, 4); ctx.globalAlpha=1;
+    const x=sx(t); ctx.fillStyle=C.ink; ctx.beginPath(); ctx.moveTo(x-6,r.y-10); ctx.lineTo(x+6,r.y-10); ctx.lineTo(x,r.y-2); ctx.closePath(); ctx.fill(); ctx.fillRect(x-1,r.y-2,2,r.h+4);
+  }
+  f.tick = dt => {
+    f.TG.tick();
+    if (f.playing) { f.t+=f.TG.step(dt*rate(f.t)*(+speed.value), performance.now()); if (f.t>=T_END) { f.t=T_END; if (!f.TG.busy()) f.setPlaying(false); } scrub.value=f.t; out.textContent=S.fmtOut(f.t); }
+    if (!f.visible) return;
+    ctx=c2; L=f.Lay; P=Pf; M=f.Mm;
+    ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
+    drawMap(f.t, dt); drawHeader(f.t); drawEvent(f.t); drawPeople(f.t); drawFigs(f.t); drawStrip(f.t);
+  };
+  new ResizeObserver(()=>f.layout()).observe(stage);
+  new IntersectionObserver(es=>{ for (const e of es) { f.visible=e.isIntersecting; if (e.isIntersecting && !f.started && !reduce && !f.TG.on()) { f.started=true; f.setPlaying(true); } } }, { threshold: 0.35 }).observe(cv);
+  f.layout(); f.seek(0); f.setPlaying(false);
+  films.push(f); return f;
+}
+const ev = list => list.map(e=>({ ds:e[0], tz:e[1], te:e[2], bz:e[3], be:e[4], at:e[5], lbl:e[6], battle:!!e[7] }));
+
+// ================= chapter: Qing-era feuds between settler groups, 1721–1862 =================
+{
+  const B=[119.95, 21.85, 121.95, 25.35];
+  // west coast longitude by latitude (from the island outline), used for the coastal Quanzhou band
+  const WEST = [[21.9,120.72],[22.3,120.62],[22.62,120.27],[22.95,120.13],[23.3,120.08],[23.5,120.13],[23.95,120.30],[24.35,120.52],[24.8,120.85],[25.05,121.10],[25.3,121.54]];
+  const westLon = lat => pw(lat, WEST);
+  const ORIGIN = { quan:hex('#5b95f5'), zhang:hex('#e8a33d'), hakka:hex('#5fbf9a'), ind:hex('#3c6854') };
+  const PL = {
+    liudui:   { zh:'六堆（客家）', en:'Liudui (Hakka)', p:[120.56,22.72], side:'r' },
+    changhua: { zh:'彰化', en:'Changhua', p:[120.54,24.08], side:'r' },
+    lugang:   { zh:'鹿港', en:'Lugang', p:[120.43,24.06], side:'l' },
+    houlong:  { zh:'後壟', en:'Houlong', p:[120.78,24.61], side:'l' },
+    hsinchu:  { zh:'竹塹（新竹）', en:'Zhuqian (Hsinchu)', p:[120.97,24.80], side:'l' },
+    taipei:   { zh:'台北盆地', en:'Taipei Basin', p:[121.50,25.04], side:'r' },
+    zhuluo:   { zh:'諸羅（嘉義）', en:'Zhuluo (Chiayi)', p:[120.45,23.48], side:'l' },
+  };
+  // Taipei basin inset places
+  const TP = {
+    mengjia:   { zh:'艋舺', en:'Mengjia', p:[121.500,25.036], side:'l' },
+    dadaocheng:{ zh:'大稻埕', en:'Dadaocheng', p:[121.512,25.060], side:'r' },
+    xinzhuang: { zh:'新莊', en:'Xinzhuang', p:[121.450,25.036], side:'l' },
+    banqiao:   { zh:'枋橋（板橋）', en:'Banqiao', p:[121.460,25.012], side:'l' },
+    shilin:    { zh:'士林', en:'Shilin', p:[121.525,25.090], side:'r' },
+  };
+  const INB = [121.40, 24.99, 121.57, 25.11];
+  const S = {
+    id:'ffeud', key:'feud', T0:Date.UTC(1715,0,1), B, SP:0.034, seconds:44, hold:220, slow:1500, minRate:180, burstLen:260, pulseLen:700,
+    gridLon:[120,121], gridLat:[22,23,24,25],
+    title:['清 代 分 類 械 鬥　1721 — 1862','FEUDS BETWEEN SETTLER GROUPS   1721 — 1862'],
+    big: t => String(S.dateOf(t)[0]),
+    sub: t => { const Y=S.dateOf(t)[0]; const R=[[1862,'同治',1861,'Tongzhi'],[1851,'咸豐',1850,'Xianfeng'],[1821,'道光',1820,'Daoguang'],[1796,'嘉慶',1795,'Jiaqing'],[1736,'乾隆',1735,'Qianlong'],[1723,'雍正',1722,'Yongzheng'],[1662,'康熙',1661,'Kangxi']]; for (const [a,z,o,e] of R) if (Y>=a) return tx(`清${z} ${Y-o} 年前後`, `Around ${e} ${Y-o}`); return ''; },
+    yearLine: Y => String(Y),
+    fmtOut: t => String(S.dateOf(t)[0]),
+    prelude:['清代來台的移民多依祖籍聚居：泉州人多在沿海與港口，漳州人在內陸平原，客家人在丘陵與南部的六堆。爭水、爭地、爭港口的衝突，常演變成整個祖籍群之間的「分類械鬥」。','Settlers in Qing Taiwan lived by ancestral origin: Quanzhou people on the coast and in the ports, Zhangzhou people on the inland plains, Hakka in the foothills and the southern Liudui. Quarrels over water, land and harbours often turned into feuds between whole origin groups.'],
+    at: k => (PL[k] || TP[k]).p,
+    legendTop:false,
+    legend:[['dot',ORIGIN.quan,'泉州人（示意）','Quanzhou (schematic)'],['dot',ORIGIN.zhang,'漳州人（示意）','Zhangzhou (schematic)'],['dot',ORIGIN.hakka,'客家人（示意）','Hakka (schematic)'],['dot',ORIGIN.ind,'原住民族地區','Indigenous land']],
+    init(S){
+      const D=S.D; S.T_END=D('1870-12-31');
+      S.dots = dotsIn(B, S.SP).map(d=>{
+        const east = d.lat<24.45 && d.lon > pw(d.lat, SPINE.map(p=>[p[1],p[0]]).reverse())+0.03;
+        let o;
+        if (d.m > 0.42 || east) o='ind';
+        else if ((d.lat>24.45 && d.lat<24.98 && d.m>0.10) || (d.lat>24.15 && d.lat<24.35 && d.m>0.18) || (d.lat>22.40 && d.lat<22.95 && d.lon>120.45)) o='hakka';
+        else if (d.lon < westLon(d.lat)+0.13) o='quan';
+        else o='zhang';
+        return { ...d, o };
+      });
+      S.EVENTS = ev([
+        ['1721-06-01','朱一貴事件與六堆','Zhu Yigui and the Liudui','朱一貴事件中閩粵分裂，南部客家人組成「六堆」民兵協助清軍，閩客對立從此成為南台灣的長期問題。','During the Zhu Yigui revolt Hoklo and Hakka split; the southern Hakka formed the Liudui militia to help the Qing, and Hoklo–Hakka hostility became a lasting fact of the south.','liudui',['1721','1721'],true],
+        ['1782-09-01','彰化漳泉大械鬥','The great Changhua feud','彰化一帶漳泉械鬥延續三個多月，福建水師提督黃仕簡來台才平定，官方報告處斬 290 多人、流放 320 多人。','A Zhangzhou–Quanzhou feud around Changhua lasted more than three months and ended only when Fujian naval commander Huang Shijian came over; official reports list over 290 executed and over 320 exiled.','changhua',['1782','1782'],true],
+        ['1787-01-16','林爽文事件中的分類','Origin lines in the Lin Shuangwen revolt','以漳州人為主的林爽文起事，泉州人與客家人多組成義民協助清軍，民變與分類對立交織。','Lin Shuangwen’s revolt was led largely by Zhangzhou settlers, while most Quanzhou and Hakka settlers formed loyal militias for the Qing; rebellion and origin feud became tangled.','changhua',['1787','1787']],
+        ['1806-06-01','竹塹、鹿港、後壟械鬥','Feuds at Zhuqian, Lugang and Houlong','嘉慶年間的漳泉械鬥波及竹塹、鹿港與後壟，泉州方面據稱損失 400 多人。','Zhangzhou–Quanzhou fighting in the Jiaqing years spread to Zhuqian, Lugang and Houlong, where the Quanzhou side reportedly lost over 400 people.','houlong',['1806–09','1806–09'],true],
+        ['1853-09-01','頂下郊拚','The Upper and Lower Guilds feud','艋舺的泉州三邑人（頂郊）與同安人（下郊）爭奪碼頭。三邑人借道焚燒安溪人的祖師廟，攻破同安人的八甲庄。','In Mengjia, Quanzhou’s Sanyi people (the Upper Guild) fought the Tong’an people (the Lower Guild) for the wharves. The Sanyi side burned the Anxi people’s Zushi temple on the way and overran the Tong’an village of Bajia.','mengjia',['1853','1853'],true],
+        ['1853-12-01','同安人遷往大稻埕','Tong’an people move to Dadaocheng','戰敗的同安人在林佑藻帶領下遷往大稻埕。新竹進士鄭用錫寫下〈勸和論〉勸告各籍和睦。','The defeated Tong’an people moved to Dadaocheng under Lin Youzao. Hsinchu scholar Zheng Yongxi wrote his “Essay Urging Harmony.”','dadaocheng',['1853','1853']],
+        ['1859-06-01','北台漳泉大械鬥','The great northern feud','漳泉械鬥延燒整個台北盆地，士林舊街被毀；板橋林家據枋橋城反攻新莊。','Zhangzhou–Quanzhou fighting engulfed the Taipei Basin; Shilin’s old street was destroyed, and the Lin family of Banqiao struck back from their walled town toward Xinzhuang.','xinzhuang',['1859–60','1859–60'],true],
+        ['1859-12-01','霞海城隍廟落成','Xiahai City God Temple built','同安人在大稻埕建成霞海城隍廟，大稻埕逐漸取代艋舺，成為台北的商業中心。','The Tong’an people completed the Xiahai City God Temple in Dadaocheng, which gradually overtook Mengjia as Taipei’s commercial centre.','dadaocheng',['1859','1859']],
+        ['1862-04-15','戴潮春事件中的分類','Origin lines in the Dai Chaochun revolt','戴潮春起事後曾攻擊泉州人的村莊，鹿港的泉州人組織抵抗，分類對立再次與民變交纏。','After Dai Chaochun rose, his men attacked Quanzhou villages and the Quanzhou people of Lugang organized resistance; origin feud and revolt were tangled once more.','lugang',['1862','1862']],
+      ]).map(e=>{ e.d=D(e.ds); return e; });
+      S.PHASES=[[0,D('1760-01-01'),'閩粵分立','Hoklo and Hakka part ways','#5fbf9a','朱一貴事件後，南部閩客對立；客家人在下淡水溪以東組成六堆自保。','After the Zhu Yigui revolt, Hoklo and Hakka in the south became rivals, and the Hakka formed the Liudui east of the Lower Tamsui River.'],
+                [D('1760-01-01'),D('1820-01-01'),'中部漳泉相爭','Feuds of the centre','#e8a33d','中部平原開墾飽和，漳泉為爭水爭地屢起大型械鬥，並與林爽文事件交纏。','As the central plains filled up, Zhangzhou and Quanzhou settlers fought large feuds over water and land, tangled with the Lin Shuangwen revolt.'],
+                [D('1820-01-01'),D('1851-01-01'),'械鬥北移','Moving north','#c9a0e8','開墾重心北移，竹塹、台北一帶的械鬥逐漸增加。','As settlement shifted north, feuds grew around Zhuqian and Taipei.'],
+                [D('1851-01-01'),D('1861-01-01'),'台北盆地之爭','The Taipei Basin','#5b95f5','頂下郊拚與北台大械鬥重塑了台北：同安人轉往大稻埕，板橋林家築城自衛。','The Upper and Lower Guilds feud and the great northern feud reshaped Taipei: the Tong’an people moved to Dadaocheng, and the Lin family walled Banqiao.'],
+                [D('1861-01-01'),S.T_END+1,'開港之後','After the ports opened','#9fb2ba','1860 年開港後，茶葉貿易帶來新的財富與共同利益，大型分類械鬥逐漸減少。','After the ports opened in 1860, the tea trade brought new wealth and shared interests, and large feuds slowly faded.']];
+      S.SHARE=[0.18,0.30,0.12,0.28,0.12];
+      S.ticks=[1720,1760,1800,1820,1851,1861].map(y=>[D(`${y}-01-01`), String(y)]);
+      S.PEOPLE=[
+        { zh:'黃仕簡', en:'Huang Shijian', role:['福建水師提督，平定 1782 年械鬥','Fujian naval commander in 1782'], col:'#ecd04f', st:[[0,'—','—'],[D('1782-09-01'),'渡台平亂','Crosses to restore order'],[D('1783-06-01'),'—','—']] },
+        { zh:'林佑藻', en:'Lin Youzao', role:['同安人領袖','Leader of the Tong’an people'], col:'#5b95f5', st:[[0,'—','—'],[D('1853-09-01'),'戰敗','Defeated'],[D('1853-12-01'),'遷大稻埕','Moves to Dadaocheng']] },
+        { zh:'鄭用錫', en:'Zheng Yongxi', role:['竹塹進士，〈勸和論〉作者','Hsinchu scholar, “Urging Harmony”'], col:'#9fb2ba', st:[[0,'—','—'],[D('1853-12-01'),'作〈勸和論〉','Writes his essay']] },
+        { zh:'林國芳', en:'Lin Guofang', role:['板橋林家（林本源）','Lin Benyuan family of Banqiao'], col:'#e8a33d', st:[[0,'—','—'],[D('1859-06-01'),'據枋橋城反攻','Strikes back from Banqiao']] },
+      ];
+      S.FIGS=[[D('1782-09-01'),'290+','1782 年處斬人數','Executed after the 1782 feud','#e8a33d'],
+              [D('1782-09-01'),'320+','1782 年流放人數','Exiled after the 1782 feud','#e8a33d'],
+              [D('1806-06-01'),'400+','1806–09 年泉州方面損失','Quanzhou losses, 1806–09','#5b95f5'],
+              [D('1853-12-01'),'艋舺 → 大稻埕','同安人遷徙','Tong’an people move','#5b95f5'],
+              [D('1859-06-01'),'?','多數械鬥沒有可靠的死傷統計','No reliable totals for most feuds','#9fb2ba']];
+    },
+    dotColor(d, t){ const c=ORIGIN[d.o]; return [c, d.o==='ind' ? 0.4 : 0.55]; },
+    extras(t){
+      const D=S.D, r=L.map, u=L.u;
+      // Taipei basin inset (shown from 1820 on)
+      const a = smooth(D('1820-01-01'), D('1825-01-01'), t); if (a<=0) return;
+      const I={ x:r.x+10, y:r.y+10, w:205*u, h:168*u };
+      ctx.globalAlpha=a;
+      ctx.fillStyle='rgba(8,21,29,0.94)'; ctx.fillRect(I.x,I.y,I.w,I.h); ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.strokeRect(I.x,I.y,I.w,I.h);
+      const k=Math.min(I.w/((INB[2]-INB[0])*COS), (I.h-24*u)/(INB[3]-INB[1])), ox=I.x+(I.w-(INB[2]-INB[0])*COS*k)/2, oy=I.y+20*u;
+      const Q=(lon,lat)=>[ox+(lon-INB[0])*COS*k, oy+(INB[3]-lat)*k];
+      // Tamsui river, schematic
+      ctx.strokeStyle=rgba(hex('#5f9bb8'),0.8); ctx.lineWidth=3; ctx.beginPath(); [[121.43,25.11],[121.47,25.08],[121.505,25.055],[121.495,25.03],[121.47,25.01],[121.44,24.99]].forEach((p,i)=>{ const [x,y]=Q(...p); i?ctx.lineTo(x,y):ctx.moveTo(x,y); }); ctx.stroke();
+      ctx.font=font(700,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(lang==='bi'?'台北盆地 Taipei Basin':tx('台北盆地','Taipei Basin'), I.x+8, I.y+15*u);
+      // the 1853 move and the 1859 counterattack
+      const ar=(a2,b2,s,e,col)=>{ if (t<D(s)) return; const q=smooth(D(s),D(e),t), [x0,y0]=Q(...a2), [x1,y1]=Q(...b2), xb=x0+(x1-x0)*q, yb=y0+(y1-y0)*q; ctx.strokeStyle=rgba(col,0.95); ctx.lineWidth=2.4; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(xb,yb); ctx.stroke(); ctx.setLineDash([]); };
+      ar(TP.mengjia.p, TP.dadaocheng.p, '1853-10-01', '1853-12-01', ORIGIN.quan);
+      ar(TP.banqiao.p, TP.xinzhuang.p, '1859-07-01', '1859-11-01', ORIGIN.zhang);
+      for (const k2 in TP) { const pl=TP[k2], [x,y]=Q(...pl.p); const col = k2==='banqiao'||k2==='shilin' ? ORIGIN.zhang : ORIGIN.quan;
+        ctx.fillStyle=rgba(col,1); ctx.strokeStyle=C.ink; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(x,y,4.5,0,6.2832); ctx.fill(); ctx.stroke();
+        const sv=L; L={...L, u:L.u*0.9}; label(pl.zh, pl.en, x, y, pl.side==='l', 11.5); L=sv; }
+      for (const e of S.EVENTS) if (TP[e.at] && e.battle && t>=e.d && t<e.d+S.burstLen) { const [x,y]=Q(...TP[e.at].p), q=(t-e.d)/S.burstLen; for (let i=0;i<3;i++) { ctx.strokeStyle=rgba(EMBER,(1-q)*0.9); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,(6+18*q)*(1+0.3*i),0,6.2832); ctx.stroke(); } }
+      // leader line to Taipei on the main map
+      const [tx0,ty0]=P(...PL.taipei.p); ctx.strokeStyle=rgba(INK,0.35); ctx.setLineDash([3,4]); ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(I.x+I.w, I.y+I.h*0.5); ctx.lineTo(tx0-8, ty0); ctx.stroke(); ctx.setLineDash([]);
+      ctx.globalAlpha=1;
+    },
+    drawPlaces(t){
+      for (const k in PL) { const pl=PL[k], [x,y]=P(...pl.p); const seen = S.EVENTS.some(e=>e.at===k && t>=e.d-300) || k==='taipei';
+        if (!seen) continue;
+        ctx.fillStyle=C.bg; ctx.strokeStyle=C.ink; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(x,y,4.5,0,6.2832); ctx.fill(); ctx.stroke();
+        label(pl.zh, pl.en, x, y, pl.side==='l', 12); }
+    },
+  };
+  Film(S);
+}
+
+// ================= after list, language, loop =================
+const AFTER = [["1860", "淡水開港，艋舺與大稻埕成為通商口岸；茶葉貿易帶動大稻埕崛起。", "Tamsui opens to foreign trade with Mengjia and Dadaocheng as its ports; the tea trade makes Dadaocheng boom."], ["1874", "清廷改採積極治台政策，官府控制力增強，大型分類械鬥逐漸減少。", "The Qing adopt a more active policy toward Taiwan; with stronger government, large feuds slowly fade."], ["今日", "「頂下郊拚」等歷史，留在龍山寺、霞海城隍廟與各地義民廟的信仰與地名中。", "The memory of these feuds lives on in Longshan Temple, the Xiahai City God Temple, the militia shrines and local place names."]];
+const CRED_EXTRA = {};
+const CRED_NOTE = ["黃仕簡、林佑藻、鄭用錫、林國芳：無可用的自由授權肖像，以字卡代替。", "Huang Shijian, Lin Youzao, Zheng Yongxi, Lin Guofang: no freely licensed portrait; name cards are shown."];
+const ARIA = ["清代分類械鬥逐年地圖動畫", "Year-by-year map animation of feuds in Qing Taiwan"];
+const TITLE = ["清代分類械鬥", "Feuds Between Settler Groups in Qing Taiwan"];
+const afterOl=document.getElementById('after'), credUl=document.getElementById('credits');
+function applyLang(){
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.title = tx(...TITLE);
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
+  for (const f of films) f.setPlaying(f.playing); for (const f of films) f.TG.lang();
+  afterOl.innerHTML = AFTER.map(([y,zh,en])=>`<li><b>${y}</b><span>${uiHTML(zh,en)}</span></li>`).join('');
+  credUl.innerHTML = Object.keys(EMBED).map(k=>{ const c=EMBED[k], x=CRED_EXTRA[k]||['','','','']; return `<li>${esc(tx(x[0],x[1]))}: <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.file)}</a> (${esc(c.license)}${x[2]?'；'+esc(tx(x[2],x[3])):''})</li>`; }).join('')
+    + `<li>${esc(tx(...CRED_NOTE))}</li>`;
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  document.getElementById('ffeud').setAttribute('aria-label', tx(...ARIA));
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+applyLang();
+let last=performance.now();
+function frame(now){ const dt=Math.min(0.1,(now-last)/1000); last=now; for (const f of films) f.tick(dt); requestAnimationFrame(frame); }
+requestAnimationFrame(n=>{ last=n; frame(n); });
+})();
+</script>
+</body>
+</html>

@@ -9,6 +9,12 @@ The map, charts, rulers and 中文 / EN / 中英 text are unchanged; this copy a
 - 台灣四百年・台語旁白 — <https://sinliongtoo.github.io/taiwan-400-taigi/>
 - 二二八與白色恐怖・台語旁白 — <https://sinliongtoo.github.io/taiwan-400-taigi/228.html>
 
+Feature pages with the same narration, read-along subtitles and pictures (all under the same address):
+`dutch.html` 荷西時期, `guo.html` 郭懷一事件, `koxinga.html` 鄭成功攻台, `feuds.html` 清代分類械鬥,
+`linshuangwen.html` 林爽文事件, `daichaochun.html` 戴潮春事件, `yiwei.html` 乙未戰爭,
+`indigenous.html` 原住民族抗日, `tapani.html` 西來庵事件, `wushe.html` 霧社事件, `airraids.html` 美軍大空襲.
+Only the English guide (`intro.html`) still opens on the original site.
+
 The 228 page has two films (the 228 Incident day by day, the White Terror year by year). They share
 one voice: starting one film pauses the other. With narration on, the films wait for 播放 instead of
 starting by themselves when scrolled into view.
@@ -59,6 +65,25 @@ The pictures are part of the page, not the film, so they are not in a recorded v
 
 To view locally with sound and recording: `python -m http.server 8400`, then open
 <http://localhost:8400/>.
+
+## How the feature pages are wired
+
+The eleven feature pages are copies from `taiwan-400` with one shared module, `tg.js`, installed by
+`python tools/add_narration.py <path to taiwan-400> <page> ...`. The module adds the narration button,
+the subtitle box and the picture panel, and makes the page's clock wait for the voice. Each page has
+
+- `tools/narration_<page>.json` (Taigi script) -> `narration-<page>.js` and `audio/<page>/*.mp3`,
+  made with `python tools/make_narration.py --script tools/narration_<page>.json`;
+- a list in `tools/pictures.json` under the page's name, where `at` is the clip at which a picture appears.
+
+Clip ids are positions, not dates: `p0`, `p1`, ... for the page's phase texts and `e0`, `e1`, ... for its
+events, in the order they appear in the page. If `taiwan-400` adds or reorders events, renumber the script.
+The five pages built on the shared rebellion engine (guo, linshuangwen, daichaochun, feuds, indigenous)
+have one opening passage (`p0`) instead of one per phase. `tools/narration_common.json` holds
+pronunciation fixes shared by all feature pages.
+
+To pick up a changed page from `taiwan-400`, run `tools/add_narration.py` again for that page; it stops
+with a message if the page's playback code no longer matches what it expects.
 
 ## Changing the narration
 

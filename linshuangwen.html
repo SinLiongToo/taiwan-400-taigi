@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="林爽文事件 1786–1788：清代規模最大的民變，城鎮控制、義民與福康安平亂的逐日地圖。The Lin Shuangwen rebellion, the largest of the Qing era, mapped day by day.">
+<title>林爽文事件 1786–1788</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: two chapter "films" (Guo Huaiyi 1652 under the Dutch, Lin Shuangwen 1786–88 under the Qing), each a canvas with its own deck, then a reading column. Same sea-ink family as 台灣四百年; ember for the risings, VOC orange and Qing gold for the states, teal for militias that sided with the state. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --ember: #e8743d;
+  --gold: #ecd04f;
+  --focus: #7fd3d0;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 14px; }
+.wrap > * { min-width: 0; }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.back { color: var(--muted); font-size: 13.5px; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.chapters { display: flex; flex-wrap: wrap; gap: 8px; }
+.chapters a { color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 4px; padding: 5px 12px; font-size: 14px; }
+.chapters a:hover { border-color: var(--muted); }
+.chap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin: 26px 0 0; font-family: var(--f-display); font-size: clamp(21px, 2.6vw, 27px); letter-spacing: .04em; scroll-margin-top: 16px; }
+.chap small { font-family: var(--f-mono); font-size: 15px; color: var(--ember); font-weight: 600; letter-spacing: 0; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas.film { display: block; width: 100%; height: auto; max-width: 100%; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--ember); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 9ch; color: var(--ember); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--ember); color: #1d0b04; border-color: var(--ember); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #5e2610; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.read { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px 48px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 18px; }
+@media (max-width: 820px) { .read { grid-template-columns: minmax(0, 1fr); } }
+.read h2 { font-family: var(--f-display); font-size: 21px; margin: 0 0 12px; letter-spacing: .04em; }
+.read p { margin: 0 0 12px; max-width: 66ch; }
+.after { list-style: none; margin: 0; padding: 0; display: grid; }
+.after li { display: grid; grid-template-columns: 4.2em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.after li:last-child { border-bottom: 0; }
+.after b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ember); font-weight: 600; }
+.after span { min-width: 0; }
+.side { display: grid; gap: 26px; align-content: start; color: var(--muted); }
+.side p { margin: 0; }
+.side a { color: var(--ink); }
+.side ul, .side ol { margin: 0; padding-left: 1.3em; }
+.refs li { margin-bottom: 6px; font-size: 13.5px; }
+#credits { font-size: 12.5px; }
+#credits a { color: var(--muted); }
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
+.read h2 .en { font-family: var(--f-body); font-size: .62em; }
+.chap .en { font-family: var(--f-body); font-size: .6em; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="./" data-k="back"></a>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <h1 data-k="h1"></h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="flin" class="film" width="1600" height="900"></canvas></div>
+  <div class="deck">
+    <button id="playlin" class="primary" type="button"></button>
+    <div class="scrub"><input id="scrublin" type="range" min="0" max="480" step="0.1" value="0" aria-label="Date"><output id="outlin" for="scrublin"></output></div>
+    <div class="grp"><label class="lbl" for="speedlin" data-k="speed"></label><select id="speedlin"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></div>
+  </div>
+
+  <section class="read">
+    <div>
+      <h2 data-k="bgH"></h2>
+      <p data-k="bg1"></p>
+      <p data-k="bg2"></p>
+      <h2 data-k="afterH"></h2>
+      <ol class="after" id="after"></ol>
+    </div>
+    <div class="side">
+      <div>
+        <h2 data-k="noteH"></h2>
+        <p data-k="note"></p>
+      </div>
+      <div>
+        <h2 data-k="refH"></h2>
+        <ol class="refs">
+          <li>《欽定平定臺灣紀略》（清代官修）。</li>
+          <li>劉寧顏編，《重修臺灣省通志》，1994。</li>
+          <li>John R. Shepherd, <i>Statecraft and Political Economy on the Taiwan Frontier, 1600–1800</i>. Stanford: Stanford University Press, 1993.</li>
+          <li>謝國興，《清代台灣三大民變》。</li>
+          <li>維基百科「林爽文事件」條目；Wikipedia, “Lin Shuangwen rebellion.”（2026 年 10 月查閱；兩語版本數字不同處，頁面並列）</li>
+        </ol>
+      </div>
+      <div>
+        <h2 data-k="moreH"></h2>
+        <ul>
+          <li><a href="guo.html" data-k="lRel1"></a></li>
+          <li><a href="daichaochun.html" data-k="lRel2"></a></li>
+          <li><a href="https://zh.wikipedia.org/wiki/林爽文事件" target="_blank" rel="noopener">維基百科：林爽文事件</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Lin_Shuangwen_rebellion" target="_blank" rel="noopener">Wikipedia: Lin Shuangwen rebellion</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 data-k="credH"></h2>
+        <ul id="credits"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="narration-linshuangwen.js"></script>
+<script src="pictures.js"></script>
+<script src="tg.js"></script>
+<script>
+(() => {
+const EMBED = {"fuk": {"file": "Fuk'anggan_(福康安).jpg", "license": "Public domain", "artist": "Qing dynasty painter", "url": "https://commons.wikimedia.org/wiki/File:Fuk%27anggan_(%E7%A6%8F%E5%BA%B7%E5%AE%89).jpg", "src": "data:image/jpeg;base64,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"}};
+const IMG = {}; for (const k in EMBED) { const im=new Image(); im.src=EMBED[k].src; IMG[k]=im; }
+
+// ================= language (shared with 台灣四百年) =================
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;
+const UI = {"back": ["台灣四百年", "Taiwan: Four Centuries"], "langLbl": ["語言", "Language"], "play": ["播放", "Play"], "pause": ["暫停", "Pause"], "replay": ["重播", "Replay"], "speed": ["速度", "Speed"], "afterH": ["之後", "Afterward"], "noteH": ["關於這張地圖", "About this map"], "refH": ["參考資料", "References"], "moreH": ["延伸閱讀", "Further reading"], "credH": ["肖像來源", "Portrait source"], "bgH": ["背景", "Background"], "lRel1": ["專題：郭懷一事件", "Feature: The Guo Huaiyi rebellion"], "lRel2": ["專題：戴潮春事件", "Feature: The Dai Chaochun rebellion"], "h1": ["林爽文事件 1786–1788", "The Lin Shuangwen Rebellion, 1786–1788"], "intro": ["1787 年初，天地會首領林爽文在大里杙起事，半個月內攻下彰化、竹塹，與南部的莊大田一度控制中南部大半。清廷動員數萬大軍，並倚賴客家與泉州移民組成的義民，一年多後才平定。", "Early in 1787 Lin Shuangwen, leader of the Heaven and Earth Society, rose at Dali and within two weeks took Changhua and Zhuqian; with Zhuang Datian in the south he held much of central and southern Taiwan. The Qing needed tens of thousands of troops, and loyal Hakka and Quanzhou militias, to end it more than a year later."], "bg1": ["十八世紀的台灣移民社會以祖籍分群，漳州、泉州與客家移民之間常有械鬥。天地會在漳州移民間擴張，官府取締時逮捕林爽文的叔伯，成為起事的導火線。", "Eighteenth-century settler society in Taiwan was divided by ancestral origin, and Zhangzhou, Quanzhou and Hakka settlers often fought one another. The Heaven and Earth Society spread among the Zhangzhou settlers; when officials cracked down and arrested Lin’s uncles, the revolt began."], "bg2": ["戰事中，泉州人與客家人多半站在清廷一邊組成「義民」，諸羅城軍民死守近一年。乾隆將平台列為「十全武功」之一，並改諸羅為嘉義、賜客家義民「褒忠」之名，這些地名與信仰延續至今。", "Most Quanzhou and Hakka settlers sided with the Qing as “loyal militias,” and Zhuluo held out for nearly a year. Qianlong counted the campaign among his Ten Great Campaigns, renamed Zhuluo as Chiayi, and honoured the Hakka militias as “loyal”; those names and shrines remain today."], "note": ["城鎮控制狀態為依史料整理的示意。標示月份、「年底」「春」者沒有確切日期。起事人數與清軍兵力中英文來源不同，頁面並列；雙方傷亡沒有可靠的總數。", "Town states are schematic. Entries labelled by month, “late 1787” or “spring” have no exact date. Chinese and English sources differ on rebel numbers and Qing troop strength; both are shown. There is no reliable total for deaths."]};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ================= shared helpers =================
+const COS = Math.cos(23.5*Math.PI/180);
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const smooth = (a,b,x) => { const t = clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };
+const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+const rgba = (c,a) => `rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a.toFixed(3)})`;
+const pw = (x, pts) => { if (x<=pts[0][0]) return pts[0][1]; for (let i=1;i<pts.length;i++) if (x<=pts[i][0]) { const [a,va]=pts[i-1],[b,vb]=pts[i]; return va+(vb-va)*(x-a)/(b-a); } return pts[pts.length-1][1]; };
+const C = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d' };
+const EMBER=hex('#e8743d'), VOC=hex('#f29a3a'), QING=hex('#ecd04f'), IND=hex('#5aa36f'), MILITIA=hex('#7fd3d0'), CRIMSON=hex('#d0473f'), BASE=hex('#34505d'), INK=hex('#ece6d6');
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+const MON = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
+const COAST = [[121.54,25.30],[121.62,25.24],[121.74,25.15],[121.85,25.11],[121.92,25.03],[121.83,24.90],[121.82,24.75],[121.86,24.59],[121.78,24.42],[121.70,24.28],[121.62,24.02],[121.58,23.85],[121.50,23.60],[121.45,23.38],[121.37,23.15],[121.25,22.92],[121.15,22.75],[121.02,22.58],[120.95,22.45],[120.90,22.30],[120.86,22.10],[120.85,21.92],[120.75,21.93],[120.70,21.95],[120.72,22.10],[120.62,22.30],[120.50,22.45],[120.38,22.52],[120.27,22.62],[120.20,22.78],[120.13,22.95],[120.10,23.10],[120.08,23.30],[120.13,23.50],[120.20,23.75],[120.30,23.95],[120.40,24.15],[120.52,24.35],[120.68,24.58],[120.85,24.80],[120.98,24.95],[121.10,25.05],[121.28,25.12],[121.40,25.18],[121.54,25.30]];
+const SPINE = [[121.55,24.75],[121.35,24.45],[121.18,24.05],[121.02,23.55],[120.90,23.05],[120.83,22.55],[120.79,22.18]];
+function pip(x,y,p){ let inside=false; for(let i=0,j=p.length-1;i<p.length;j=i++){ const [xi,yi]=p[i],[xj,yj]=p[j]; if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=!inside; } return inside; }
+function segDist(px,py,a,b){ const ax=a[0]*COS,ay=a[1],bx=b[0]*COS,by=b[1],x=px*COS; const dx=bx-ax,dy=by-ay; const t=clamp(((x-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy),0,1); return Math.hypot(x-(ax+t*dx), py-(ay+t*dy)); }
+const mountain = (lon,lat) => { let d=9; for (let i=0;i<SPINE.length-1;i++) d=Math.min(d, segDist(lon,lat,SPINE[i],SPINE[i+1])); const w=0.24+0.17*Math.exp(-(((lat-23.8)/0.6)**2)); return clamp(1-d/w,0,1); };
+const dist = (a, b) => Math.hypot((a[0]-b[0])*COS, a[1]-b[1]);
+function dotsIn(B, sp, extraOk){ const out=[]; for (let r=0, lat=B[3]; lat>B[1]; lat-=sp*0.866, r++) for (let lon=B[0]+(r%2?sp/COS/2:0); lon<B[2]; lon+=sp/COS) if (pip(lon,lat,COAST) && (!extraOk || extraOk(lon,lat))) out.push({ lon, lat, m:mountain(lon,lat), cr:BASE[0], cg:BASE[1], cb:BASE[2] }); return out; }
+
+let ctx, L, P, M;
+function wrap(text, maxW){
+  const toks = text.match(/[\p{Script=Latin}0-9.,;:!?%’'"“”()\/\-–]+|\s|./gu) || [];
+  const lines=[]; let line='';
+  for (const t of toks) { if (line && !/^[，。、；：！？）」』,.;:!?)]$/.test(t) && ctx.measureText(line+t).width > maxW) { lines.push(line.trimEnd()); line = t.trim() ? t : ''; } else line += t; }
+  if (line) lines.push(line); return lines;
+}
+function fitFont(text, weight, size, family, maxW, min=11){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+function label(zh, en, x, y, left, size=12.5, col=C.ink){
+  const u=L.u, lx=x+(left?-11:11);
+  ctx.textAlign = left ? 'right' : 'left'; ctx.font=font(600,size*u,F.b);
+  const nm = tx(zh,en);
+  ctx.lineWidth=3.5; ctx.strokeStyle=C.bg; ctx.strokeText(nm, lx, y+4.5); ctx.fillStyle=col; ctx.fillText(nm, lx, y+4.5);
+  if (lang==='bi') { ctx.font=font(400,(size-3)*u,F.b); ctx.strokeText(en, lx, y+4.5+12*u); ctx.fillStyle=C.muted; ctx.fillText(en, lx, y+4.5+12*u); }
+  ctx.textAlign='left';
+}
+const rrect = (x,y,w,h,r) => { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); };
+function arrow(a, b, q, col, dashed=false, w=2.4){
+  const [x0,y0]=P(...a), [x1,y1]=P(...b), xb=x0+(x1-x0)*q, yb=y0+(y1-y0)*q;
+  ctx.setLineDash(dashed?[4,5]:[]); ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(xb,yb);
+  if (!dashed) { ctx.strokeStyle=rgba(hex(C.bg),0.8); ctx.lineWidth=w+3; ctx.stroke(); }
+  ctx.strokeStyle=rgba(col,0.95); ctx.lineWidth=w; ctx.stroke(); ctx.setLineDash([]);
+  if (q<1) { const an=Math.atan2(y1-y0,x1-x0); ctx.fillStyle=rgba(col,1); ctx.beginPath(); ctx.moveTo(xb+Math.cos(an)*8, yb+Math.sin(an)*8); ctx.lineTo(xb+Math.cos(an+2.5)*8, yb+Math.sin(an+2.5)*8); ctx.lineTo(xb+Math.cos(an-2.5)*8, yb+Math.sin(an-2.5)*8); ctx.closePath(); ctx.fill(); }
+}
+function burst(p, q){ const [x,y]=P(...p); for (let i=0;i<3;i++) { ctx.strokeStyle=rgba(EMBER,(1-q)*0.9); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,(8+24*q)*(1+0.3*i),0,6.2832); ctx.stroke(); } }
+function pulse(p){ const [x,y]=P(...p), ph=(performance.now()/1000)%1; ctx.strokeStyle=rgba(INK,(1-ph)*0.85); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,9+ph*28,0,6.2832); ctx.stroke(); }
+
+// ================= chapter film =================
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1, title:{x:56,y:58}, date:{x:52,y:180,size:104}, year:{x:58,y:218}, phase:{x:58,y:278,size:34}, pdesc:{x:58,y:318,w:370,lh:27,max:4},
+    event:{x:58,y:478,w:370}, map:{x:450,y:24,w:600,h:800}, people:{x:1100,y:56,w:440,rh:92}, figs:{x:1100,y:476,w:440,rh:56}, strip:{x:56,y:846,w:1488,h:28} },
+  port: { W:720, H:2040, u:1.3, title:{x:28,y:50}, date:{x:24,y:140,size:84}, year:{x:30,y:178}, phase:{x:28,y:234,size:30}, pdesc:{x:28,y:274,w:664,lh:30,max:2},
+    map:{x:16,y:330,w:688,h:640}, event:{x:28,y:1020,w:664}, people:{x:28,y:1210,w:664,rh:96}, figs:{x:28,y:1620,w:664,rh:58}, strip:{x:28,y:1970,w:664,h:32} },
+};
+const films=[];
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function Film(S){
+  const cv=document.getElementById(S.id), c2=cv.getContext('2d'), stage=cv.parentElement;
+  const play=document.getElementById('play'+S.key), scrub=document.getElementById('scrub'+S.key), out=document.getElementById('out'+S.key), speed=document.getElementById('speed'+S.key);
+  const D = s => { const [y,m,d]=s.split('-').map(Number); return (Date.UTC(y,m-1,d)-S.T0)/864e5; };
+  const dateOf = t => { const dt=new Date(S.T0 + Math.floor(t)*864e5); return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()]; };
+  S.D=D; S.dateOf=dateOf; S.init && S.init(S);
+  const T_END=S.T_END, f={ t:0, playing:false, visible:true, started:false, Lay:null, Mm:{} };
+  const Pf = (lon,lat) => [f.Mm.ox+(lon-S.B[0])*COS*f.Mm.k, f.Mm.oy+(S.B[3]-lat)*f.Mm.k];
+  const phaseAt = t => S.PHASES.find(p => t>=p[0] && t<p[1]) || S.PHASES[S.PHASES.length-1];
+  const lastEvent = t => { let e=null; for (const x of S.EVENTS) if (x.d<=t) e=x; else break; return e; };
+  f.layout = () => {
+    const cw = stage.clientWidth || 1000;
+    f.Lay = cw < 720 ? LAYOUTS.port : LAYOUTS.land;
+    const scale = Math.min(2, window.devicePixelRatio||1) * cw / f.Lay.W;
+    cv.width=Math.round(f.Lay.W*scale); cv.height=Math.round(f.Lay.H*scale); c2.setTransform(scale,0,0,scale,0,0);
+    const r=f.Lay.map, gw=(S.B[2]-S.B[0])*COS, gh=S.B[3]-S.B[1];
+    f.Mm.k=Math.min(r.w/gw, r.h/gh); f.Mm.ox=r.x+(r.w-gw*f.Mm.k)/2; f.Mm.oy=r.y+(r.h-gh*f.Mm.k)/2; f.Mm.dot=S.SP*f.Mm.k*0.42; f.Mm.gh=gh*f.Mm.k;
+    for (const d of S.dots) [d.x,d.y]=Pf(d.lon,d.lat);
+  };
+  f.setPlaying = p => { f.playing=p; setK(play, p ? 'pause' : (f.t>=T_END ? 'replay' : 'play')); f.TG && f.TG.sync(); };
+  f.seek = t => { f.t=clamp(t,0,T_END); scrub.value=f.t; out.textContent=S.fmtOut(f.t); f.TG && f.TG.seek(); };
+  scrub.max=T_END;
+  play.addEventListener('click', ()=>{ f.started=true; if (!f.playing && f.t>=T_END) f.seek(0); if (!f.playing) f.TG.unlock(); f.setPlaying(!f.playing); });
+  // Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.
+  f.TG = TGNarration({ name:'linshuangwen', lang:()=>lang, getT:()=>f.t, isPlaying:()=>f.playing, setPlaying:p=>f.setPlaying(p), stage, playBtn:play,
+    cues:[...S.PHASES.map((p,i)=>({y:Math.max(p[0],0), id:'p'+i})), ...S.EVENTS.map((e,i)=>({y:e.d, id:'e'+i}))] });
+  scrub.addEventListener('input', ()=>{ f.started=true; f.seek(+scrub.value); if (f.playing) f.setPlaying(false); });
+  cv.setAttribute('tabindex','0');
+  cv.addEventListener('keydown', e=>{ if (e.key===' ') { e.preventDefault(); play.click(); } else if (e.key==='ArrowRight') f.seek(Math.floor(f.t)+1); else if (e.key==='ArrowLeft') f.seek(Math.floor(f.t)-1); });
+  const BASE_RATE = S.PHASES.map((p,i)=>(Math.min(p[1],T_END)-p[0])/(S.SHARE[i]*S.seconds));
+  const rate = x => { const base=BASE_RATE[S.PHASES.indexOf(phaseAt(x))]; let dmin=Infinity; for (const e of S.EVENTS) { const dd = x<e.d ? e.d-x : x-e.d-S.hold; dmin=Math.min(dmin, Math.max(0,dd)); } return Math.max(S.minRate, base*clamp(dmin/S.slow,0,1)); };
+  const sx = t => { const r=L.strip; let acc=0; for (let i=0;i<S.PHASES.length;i++) { const [a,b]=S.PHASES[i], bb=Math.min(b,T_END); if (t<=bb || i===S.PHASES.length-1) return r.x + r.w*(acc + S.SHARE[i]*clamp((t-a)/(bb-a),0,1)); acc+=S.SHARE[i]; } };
+  const evDate = e => e.lbl ? tx(e.lbl[0],e.lbl[1]) : (([Y,m,d]) => `${m}/${d}`)(dateOf(e.d));
+
+  function drawMap(t, dt){
+    const r=L.map, u=L.u, fk=1-Math.pow(0.004, dt);
+    ctx.save(); ctx.beginPath(); ctx.rect(r.x,r.y,r.w,r.h); ctx.clip();
+    ctx.strokeStyle=C.grid; ctx.lineWidth=1; ctx.font=font(400,11*u,F.m); ctx.fillStyle=C.faint;
+    for (const lon of S.gridLon) { const [x]=P(lon,0); ctx.beginPath(); ctx.moveTo(x,r.y); ctx.lineTo(x,r.y+r.h); ctx.stroke(); ctx.fillText(`${lon}°E`, x+4, r.y+r.h-8); }
+    for (const lat of S.gridLat) { const [,yy]=P(0,lat); ctx.beginPath(); ctx.moveTo(r.x,yy); ctx.lineTo(r.x+r.w,yy); ctx.stroke(); ctx.fillText(`${lat}°N`, r.x+r.w-50*u, yy-5); }
+    for (const d of S.dots) { const [c,a]=S.dotColor(d,t); d.cr+=(c[0]-d.cr)*fk; d.cg+=(c[1]-d.cg)*fk; d.cb+=(c[2]-d.cb)*fk; ctx.fillStyle=`rgba(${d.cr|0},${d.cg|0},${d.cb|0},${a.toFixed(3)})`; ctx.beginPath(); ctx.arc(d.x,d.y,M.dot,0,6.2832); ctx.fill(); }
+    S.extras(t);
+    for (const e of S.EVENTS) if (e.battle && t>=e.d && t<e.d+S.burstLen) burst(S.at(e.at), (t-e.d)/S.burstLen);
+    S.drawPlaces(t);
+    const e=lastEvent(t); if (e && e.at && t-e.d < S.pulseLen) pulse(S.at(e.at));
+    ctx.restore();
+    // legend
+    const items=S.legend, lh=(lang==='bi'?30:21)*u, w=(lang==='zh'?170:240)*u, h=items.length*lh+12, x=r.x+10, y=S.legendTop ? r.y+10 : r.y+r.h-h-30*u;
+    ctx.fillStyle='rgba(8,21,29,0.88)'; ctx.fillRect(x,y,w,h); ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.strokeRect(x,y,w,h);
+    items.forEach(([kind,col,zh,en],i)=>{ const yy=y+12+i*lh+8*u, sx0=x+10;
+      if (kind==='dot') { ctx.fillStyle=rgba(col,0.95); ctx.beginPath(); ctx.arc(sx0+6,yy-4,6,0,6.2832); ctx.fill(); }
+      else { ctx.setLineDash(kind==='dash'?[3,4]:[]); ctx.strokeStyle=rgba(col,1); ctx.lineWidth=2.4; ctx.beginPath(); ctx.moveTo(sx0,yy-4); ctx.lineTo(sx0+16,yy-4); ctx.stroke(); ctx.setLineDash([]); }
+      ctx.font=font(500,12*u,F.b); ctx.fillStyle=C.ink; ctx.fillText(tx(zh,en), sx0+24, yy);
+      if (lang==='bi') { ctx.font=font(400,10.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(en, sx0+24, yy+13*u); } });
+  }
+  function drawHeader(t){
+    const u=L.u, ph=phaseAt(t), [Y,m,d]=dateOf(t), bi=lang==='bi';
+    ctx.font=font(700,13*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx(...S.title), L.title.x, L.title.y);
+    const big = S.big ? S.big(t) : tx(`${m}月${d}日`, `${MON[m]} ${d}`); fitFont(big, 900, L.date.size, F.d, 390*u, 40); ctx.fillStyle=C.ink; ctx.fillText(big, L.date.x, L.date.y);
+    ctx.font=font(500,17*u,F.d); ctx.fillStyle=C.muted; const yl=S.yearLine(Y); ctx.fillText(S.sub ? S.sub(t) : (bi ? `${yl}　${MON[m]} ${d}, ${Y}` : yl), L.year.x, L.year.y);
+    const pn=tx(ph[2],ph[3]); fitFont(pn, 900, L.phase.size, F.d, L.pdesc.w, 18); ctx.fillStyle=ph[4]; ctx.fillText(pn, L.phase.x, L.phase.y);
+    if (bi) { const w=ctx.measureText(pn).width; ctx.font=font(500,17*u,F.d); if (w+12+ctx.measureText(ph[3]).width <= L.pdesc.w) { ctx.globalAlpha=0.85; ctx.fillText(ph[3], L.phase.x+w+12, L.phase.y); ctx.globalAlpha=1; } }
+    const pd=L.pdesc; ctx.font=font(400,(lang==='en'?15.5:16.5)*u,F.b); ctx.fillStyle=C.muted;
+    wrap(tx(ph[5],ph[6]), pd.w).slice(0,pd.max).forEach((ln,i)=>ctx.fillText(ln, pd.x, pd.y+i*pd.lh));
+  }
+  function drawEvent(t){
+    const r=L.event, u=L.u, bi=lang==='bi', port=L.W<1000;
+    ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+    ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('紀 事','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+    const idx=S.EVENTS.indexOf(lastEvent(t));
+    if (idx<0) { ctx.font=font(400,15*u,F.b); ctx.fillStyle=C.muted; wrap(tx(...S.prelude), r.w).forEach((ln,i)=>ctx.fillText(ln, r.x, r.y+24*u+i*24*u)); return; }
+    const e=S.EVENTS[idx], dl=evDate(e);
+    fitFont(dl, 600, 14*u, F.m, 82*u, 9); ctx.fillStyle=phaseAt(e.d)[4]; ctx.fillText(dl, r.x, r.y+24*u);
+    const title=tx(e.tz,e.te); fitFont(title, 700, 23*u, F.d, r.w-92*u, 14); ctx.fillStyle=C.ink; ctx.fillText(title, r.x+92*u, r.y+25*u);
+    let y=r.y+58*u;
+    if (bi) { fitFont(e.te, 500, 14*u, F.b, r.w-92*u, 10); ctx.fillStyle=C.muted; ctx.fillText(e.te, r.x+92*u, r.y+45*u); y=r.y+74*u; }
+    ctx.font=font(400,(lang==='en'?14.5:15.5)*u,F.b); ctx.fillStyle=C.muted;
+    const lines=wrap(tx(e.bz,e.be), r.w).slice(0, port?3:5); lines.forEach((ln,i)=>ctx.fillText(ln, r.x, y+i*24*u)); y+=lines.length*24*u+22*u;
+    for (let j=idx-1; j>=Math.max(0,idx-2) && !port; j--) { const p=S.EVENTS[j], s = bi ? `${p.tz} ${p.te}` : tx(p.tz,p.te); ctx.globalAlpha=0.6;
+      fitFont(evDate(p), 600, 12.5*u, F.m, 84*u, 9); ctx.fillStyle=C.muted; ctx.fillText(evDate(p), r.x, y);
+      fitFont(s, 500, 14*u, F.b, r.w-92*u, 10); ctx.fillStyle=C.ink; ctx.fillText(s, r.x+92*u, y); y+=24*u; ctx.globalAlpha=1; }
+  }
+  function drawPeople(t){
+    const r=L.people, u=L.u, bi=lang==='bi';
+    ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('人物','People'); ctx.fillText(tt, r.x, r.y);
+    if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('People', r.x+w+8, r.y); }
+    S.PEOPLE.forEach((pp,i)=>{
+      const y=r.y+14*u+i*r.rh, pw=56*u, ph=70*u, x0=r.x+pw+14*u;
+      let st=pp.st[0]; for (const s of pp.st) if (t>=s[0]) st=s;
+      const col=st[3]||pp.col;
+      ctx.save(); rrect(r.x,y,pw,ph,4); ctx.clip();
+      const im=pp.img && IMG[pp.img]; if (im && im.complete && im.naturalWidth) ctx.drawImage(im, r.x, y, pw, ph);
+      else { ctx.fillStyle=rgba(hex(pp.col),0.2); ctx.fillRect(r.x,y,pw,ph); ctx.fillStyle=pp.col; ctx.font=font(900,ph*0.45,F.d); ctx.textAlign='center'; ctx.fillText(pp.zh[0], r.x+pw/2, y+ph*0.66); ctx.textAlign='left'; }
+      ctx.restore(); ctx.strokeStyle=pp.col; ctx.lineWidth=1.5; rrect(r.x,y,pw,ph,4); ctx.stroke();
+      const nm=tx(pp.zh,pp.en); fitFont(nm, 900, 20*u, F.d, r.w-pw-150*u, 12); ctx.fillStyle=C.ink; ctx.fillText(nm, x0, y+20*u);
+      let yy=y+40*u; if (bi) { fitFont(pp.en, 500, 12*u, F.b, r.w-pw-140*u, 9); ctx.fillStyle=C.muted; ctx.fillText(pp.en, x0, yy); yy+=17*u; }
+      fitFont(tx(...pp.role), 400, 12.5*u, F.b, r.w-pw-24*u, 9); ctx.fillStyle=C.muted; ctx.fillText(tx(...pp.role), x0, yy);
+      if (st[1] !== '—') { const chip = bi ? `${st[1]} ${st[2]}` : tx(st[1],st[2]); ctx.font=font(700,12*u,F.b);
+      const cw=ctx.measureText(chip).width+16*u, cx=r.x+r.w-cw, cy=y+3*u;
+      ctx.fillStyle=rgba(hex(col),0.18); rrect(cx,cy,cw,22*u,11*u); ctx.fill(); ctx.strokeStyle=col; ctx.lineWidth=1.2; ctx.stroke(); ctx.fillStyle=col; ctx.fillText(chip, cx+8*u, cy+15.5*u); }
+      ctx.strokeStyle=C.grid; ctx.beginPath(); ctx.moveTo(r.x, y+ph+12*u); ctx.lineTo(r.x+r.w, y+ph+12*u); ctx.stroke();
+    });
+  }
+  function drawFigs(t){
+    const r=L.figs, u=L.u, bi=lang==='bi';
+    ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('數字','The figures'); ctx.fillText(tt, r.x, r.y);
+    if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('The figures', r.x+w+8, r.y); }
+    S.FIGS.forEach(([d,n,zh,en,col],i)=>{ const y=r.y+42*u+i*r.rh, on=t>=d;
+      fitFont(on?n:'—', 900, 28*u, F.d, 140*u, 14); ctx.fillStyle = on ? col : C.faint; ctx.fillText(on?n:'—', r.x, y);
+      fitFont(tx(zh,en), 500, 13*u, F.b, r.w-160*u, 9); ctx.fillStyle = on ? C.ink : C.faint; ctx.fillText(tx(zh,en), r.x+150*u, y-8*u);
+      if (bi) { fitFont(en, 400, 11*u, F.b, r.w-160*u, 8); ctx.fillStyle=C.muted; ctx.fillText(en, r.x+150*u, y+8*u); }
+      ctx.strokeStyle=C.grid; ctx.beginPath(); ctx.moveTo(r.x, y+16*u); ctx.lineTo(r.x+r.w, y+16*u); ctx.stroke(); });
+  }
+  function drawStrip(t){
+    const r=L.strip, u=L.u;
+    S.PHASES.forEach(p=>{ const x0=sx(p[0]), x1=sx(Math.min(p[1],T_END)), on=t>=p[0]&&t<p[1];
+      ctx.fillStyle=p[4]; ctx.globalAlpha=on?0.95:0.35; ctx.fillRect(x0,r.y,x1-x0-1.5,r.h); ctx.globalAlpha=1;
+      ctx.font=font(700,12.5*u,F.b); ctx.fillStyle=on?'#14090a':C.ink;
+      let lb = lang==='bi' ? `${p[2]} ${p[3]}` : tx(p[2],p[3]); if (ctx.measureText(lb).width > x1-x0-10) lb=tx(p[2],p[3]);
+      if (ctx.measureText(lb).width < x1-x0-10) ctx.fillText(lb, x0+6, r.y+r.h/2+4.5*u); });
+    ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted;
+    for (const [v,lb] of S.ticks) { const x=sx(v); ctx.fillRect(x, r.y+r.h, 1, 5); ctx.fillText(lb, x+3, r.y+r.h+15*u); }
+    ctx.fillStyle=C.ink; ctx.globalAlpha=0.55; for (const e of S.EVENTS) ctx.fillRect(sx(e.d)-0.5, r.y-6, 1, 4); ctx.globalAlpha=1;
+    const x=sx(t); ctx.fillStyle=C.ink; ctx.beginPath(); ctx.moveTo(x-6,r.y-10); ctx.lineTo(x+6,r.y-10); ctx.lineTo(x,r.y-2); ctx.closePath(); ctx.fill(); ctx.fillRect(x-1,r.y-2,2,r.h+4);
+  }
+  f.tick = dt => {
+    f.TG.tick();
+    if (f.playing) { f.t+=f.TG.step(dt*rate(f.t)*(+speed.value), performance.now()); if (f.t>=T_END) { f.t=T_END; if (!f.TG.busy()) f.setPlaying(false); } scrub.value=f.t; out.textContent=S.fmtOut(f.t); }
+    if (!f.visible) return;
+    ctx=c2; L=f.Lay; P=Pf; M=f.Mm;
+    ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
+    drawMap(f.t, dt); drawHeader(f.t); drawEvent(f.t); drawPeople(f.t); drawFigs(f.t); drawStrip(f.t);
+  };
+  new ResizeObserver(()=>f.layout()).observe(stage);
+  new IntersectionObserver(es=>{ for (const e of es) { f.visible=e.isIntersecting; if (e.isIntersecting && !f.started && !reduce && !f.TG.on()) { f.started=true; f.setPlaying(true); } } }, { threshold: 0.35 }).observe(cv);
+  f.layout(); f.seek(0); f.setPlaying(false);
+  films.push(f); return f;
+}
+const ev = list => list.map(e=>({ ds:e[0], tz:e[1], te:e[2], bz:e[3], be:e[4], at:e[5], lbl:e[6], battle:!!e[7] }));
+
+// ================= chapter: Lin Shuangwen, 1786–1788 =================
+{
+  const B=[119.98, 21.85, 121.28, 25.02];
+  const TOWNS = {
+    dali:     { zh:'大里杙（林爽文據點）', en:'Dali (Lin’s base)', p:[120.68,24.10], side:'r' },
+    changhua: { zh:'彰化', en:'Changhua', p:[120.54,24.08], side:'l', dy:-22 },
+    lugang:   { zh:'鹿港', en:'Lugang', p:[120.43,24.06], side:'l', dy:16 },
+    zhuqian:  { zh:'竹塹', en:'Zhuqian (Hsinchu)', p:[120.97,24.80], side:'l' },
+    xinpu:    { zh:'新埔（客家義民）', en:'Xinpu (Hakka militia)', p:[121.07,24.83], side:'r' },
+    zhuluo:   { zh:'諸羅', en:'Zhuluo', p:[120.45,23.48], side:'l' },
+    fucheng:  { zh:'府城（台灣府）', en:'Taiwan-fu (Tainan)', p:[120.20,22.99], side:'l' },
+    fengshan: { zh:'鳳山', en:'Fengshan', p:[120.30,22.68], side:'l' },
+    liudui:   { zh:'六堆（客家義民）', en:'Liudui (Hakka militia)', p:[120.56,22.72], side:'r' },
+    laoquqi:  { zh:'老衢崎', en:'Laoquqi', p:[120.86,24.66], side:'l' },
+    langqiao: { zh:'琅嶠', en:'Langqiao', p:[120.75,22.02], side:'r' },
+  };
+  const S = {
+    id:'flin', key:'lin', T0:Date.UTC(1787,0,1), B, SP:0.03, seconds:44, hold:1.5, slow:5, minRate:1.2, burstLen:3, pulseLen:6,
+    gridLon:[120,121], gridLat:[22,23,24,25],
+    title:['林 爽 文 事 件　1786 — 1788','THE LIN SHUANGWEN REBELLION   1786 — 1788'],
+    yearLine: Y => tx(`${Y}・清乾隆 ${Y-1735} 年`, `${Y} · Qianlong ${Y-1735}`),
+    fmtOut: t => { const [Y,m,d]=S.dateOf(t); return `${Y}/${m}/${d}`; },
+    prelude:['1786 年，清廷在台取締秘密結社天地會。天地會在彰化大里杙一帶勢力龐大，首領林爽文的叔伯被捕入獄。','1786: the Qing authorities in Taiwan crack down on the secret Heaven and Earth Society, strong around Dali in Changhua; relatives of its leader Lin Shuangwen are jailed.'],
+    at: k => TOWNS[k].p,
+    legendTop:true,
+    legend:[['dot',EMBER,'起事軍控制','Held by rebels'],['dot',CRIMSON,'被圍城市','Under siege'],['dot',QING,'清軍控制','Held by the Qing'],['dot',MILITIA,'義民（客家、泉州）','Loyal militias'],['line',QING,'福康安大軍','Fukang’an’s army']],
+    init(S){
+      const D=S.D; S.T_END=D('1788-04-15');
+      S.dots = dotsIn(B, S.SP);
+      // town states over time: q = Qing, r = rebel, s = siege, m = militia
+      S.STATE = {
+        dali:[[0,'q'],[D('1787-01-16'),'r'],[D('1787-12-30'),'q']],
+        changhua:[[0,'q'],[D('1787-01-18'),'r'],[D('1787-12-12'),'q']],
+        zhuqian:[[0,'q'],[D('1787-01-20'),'r'],[D('1787-02-20'),'m']],
+        lugang:[[0,'q']],
+        xinpu:[[0,'q'],[D('1787-01-25'),'m']],
+        zhuluo:[[0,'q'],[D('1787-02-01'),'s'],[D('1787-12-14'),'q']],
+        fucheng:[[0,'q'],[D('1787-02-01'),'s'],[D('1788-01-15'),'q']],
+        fengshan:[[0,'q'],[D('1787-01-25'),'r'],[D('1788-02-20'),'q']],
+        liudui:[[0,'q'],[D('1787-01-25'),'m']],
+        laoquqi:[[0,'q']], langqiao:[[0,'q']],
+      };
+      S.EVENTS = ev([
+        ['1787-01-16','大里杙起事','The rising at Dali','官府取締天地會、逮捕林爽文的叔伯，林爽文率眾劫獄起事，部眾迅速增加到約五萬人。','When officials suppressed the society and arrested Lin’s uncles, Lin led a jailbreak and rose in revolt; his followers soon numbered about 50,000.','dali',null,true],
+        ['1787-01-18','攻陷彰化','Changhua falls','起事軍攻下彰化城，殺死台灣知府孫景燧等官員。','The rebels took Changhua and killed Prefect Sun Jingsui and other officials.','changhua',null,true],
+        ['1787-01-20','攻下竹塹','Zhuqian falls','北路的王作、李同攻下竹塹，殺死淡水同知程峻。','In the north Wang Zuo and Li Tong took Zhuqian and killed Subprefect Cheng Jun.','zhuqian',null,true],
+        ['1787-01-25','莊大田起兵','Zhuang Datian rises','南路的莊大田在鳳山響應起事，與林爽文南北呼應。','In the south Zhuang Datian rose at Fengshan in support, so the revolt ran from north to south.','fengshan',['1787/1','Jan 1787'],true],
+        ['1787-02-01','諸羅、府城被圍；義民組成','Sieges and loyal militias','起事軍控制中南部大半，諸羅與府城被圍。泉州移民與桃竹苗、六堆的客家人組成義民，協助清軍。','The rebels held most of central and southern Taiwan and besieged Zhuluo and Taiwan-fu. Quanzhou settlers and Hakka from the north and from Liudui formed loyal militias to help the Qing.','zhuluo',['1787/2','Feb 1787']],
+        ['1787-04-01','清軍援軍陸續渡台','Qing reinforcements','恆瑞等率清軍約 4,000 人渡台，此後又增派上萬人，但仍無法打破僵局。','Hengrui and others crossed with about 4,000 Qing troops, and more than 10,000 followed, but the stalemate held.','lugang',['1787 春','Spring 1787']],
+        ['1787-06-15','諸羅苦守','Zhuluo holds out','總兵柴大紀率軍民死守諸羅城，被圍長達數月，糧食斷絕。','General Chai Daji and the townspeople held Zhuluo through a months-long siege as food ran out.','zhuluo',['1787 夏','Summer 1787']],
+        ['1787-12-10','福康安鹿港登陸','Fukang’an lands at Lugang','乾隆派福康安、海蘭察率大軍從鹿港登台，綠營約 8,000 人，另有團練約 6,000 人（另說派兵 2 萬）。','Qianlong sent Fukang’an and Hailancha, who landed at Lugang with about 8,000 regulars and 6,000 militia (20,000 by another account).','lugang'],
+        ['1787-12-14','諸羅解圍，賜名嘉義','Zhuluo relieved, renamed Chiayi','福康安大軍解諸羅之圍。乾隆為嘉許城中軍民死守的義行，下詔改諸羅為嘉義。','Fukang’an’s army lifted the siege of Zhuluo; to honour the defenders’ loyalty, Qianlong renamed the town Chiayi.','zhuluo',['1787/12','Dec 1787'],true],
+        ['1787-12-30','攻破大里杙','Dali stormed','清軍攻破林爽文的據點大里杙，林爽文向北逃入山區。','Qing troops stormed Lin’s stronghold at Dali, and Lin fled north into the hills.','dali',['1787 年底','Late 1787'],true],
+        ['1788-02-10','林爽文被捕','Lin Shuangwen captured','林爽文在老衢崎（今苗栗崎頂一帶）被生擒，押往北京凌遲處死。','Lin Shuangwen was taken alive at Laoquqi (near today’s Qiding, Miaoli) and sent to Beijing, where he was executed by slow slicing.','laoquqi'],
+        ['1788-03-10','莊大田被捕','Zhuang Datian captured','南路的莊大田兵敗，在琅嶠一帶被水師擒獲，在台處死。','Zhuang Datian was defeated in the south, caught by the navy near Langqiao and executed in Taiwan.','langqiao',['1788 春','Spring 1788']],
+      ]).map(e=>{ e.d=D(e.ds); return e; });
+      S.PHASES=[[0,D('1787-01-16'),'天地會與取締','The society and the crackdown','#8f9fa6','天地會在漳州移民間擴張，官府取締並逮捕成員。','The Heaven and Earth Society spread among Zhangzhou settlers, and officials moved to arrest its members.'],
+                [D('1787-01-16'),D('1787-02-01'),'起事','The rising','#e8743d','林爽文起事後半個月內，彰化、竹塹、鳳山相繼失守。','Within two weeks of Lin’s rising, Changhua, Zhuqian and Fengshan had fallen.'],
+                [D('1787-02-01'),D('1787-12-10'),'圍城與義民','Sieges and militias','#d0473f','起事軍圍攻諸羅與府城；清軍援兵與義民苦撐近一年。','The rebels besieged Zhuluo and Taiwan-fu; Qing reinforcements and loyal militias held on for nearly a year.'],
+                [D('1787-12-10'),D('1788-02-10'),'福康安平亂','Fukang’an’s campaign','#ecd04f','福康安大軍登陸後兩個月內解圍、攻破大里杙，追捕林爽文。','Within two months of landing, Fukang’an relieved the sieges, stormed Dali and ran Lin down.'],
+                [D('1788-02-10'),S.T_END+1,'收場','The end','#9fb2ba','首領相繼被捕處死，乾隆將此役列為「十全武功」之一。','The leaders were caught and executed one by one, and Qianlong counted the campaign among his “Ten Great Campaigns.”']];
+      S.SHARE=[0.08,0.14,0.40,0.24,0.14];
+      S.ticks=[['1787-01-16','1/16'],['1787-04-01','4月'],['1787-07-01','7月'],['1787-10-01','10月'],['1787-12-10','12/10'],['1788-02-10','1788/2/10']].map(([s,l])=>[D(s), lang==='en' ? l.replace('月','') : l]);
+      S.PEOPLE=[
+        { zh:'林爽文', en:'Lin Shuangwen', role:['天地會首領，漳州移民','Society leader, Zhangzhou settler'], col:'#e8743d', st:[[0,'天地會首領','Society leader'],[D('1787-01-16'),'起事','Rising'],[D('1788-02-10'),'被捕','Captured','#9fb2ba']] },
+        { zh:'莊大田', en:'Zhuang Datian', role:['南路首領，鳳山','Southern leader, Fengshan'], col:'#e8743d', st:[[0,'—','—'],[D('1787-01-25'),'起兵','Rising'],[D('1788-03-10'),'被捕處死','Captured, executed','#9fb2ba']] },
+        { zh:'柴大紀', en:'Chai Daji', role:['台灣鎮總兵，守諸羅','Garrison general at Zhuluo'], col:'#ecd04f', st:[[0,'總兵','General'],[D('1787-02-01'),'守城','Holding Zhuluo'],[D('1787-12-14'),'解圍','Relieved']] },
+        { zh:'福康安', en:'Fukang’an', role:['協辦大學士，平台主帥','Qing commander in Taiwan'], col:'#ecd04f', img:'fuk', st:[[0,'在北京','In Beijing'],[D('1787-12-10'),'登陸鹿港','Landed'],[D('1788-02-10'),'平定','Victorious']] },
+      ];
+      S.FIGS=[[D('1787-01-16'),'≈50,000','起事軍（一說多達 30 萬）','Rebels (up to 300,000 by one claim)','#e8743d'],
+              [D('1787-04-01'),'4,000+','第一批清軍援兵','First Qing reinforcements','#ecd04f'],
+              [D('1787-12-10'),'≈14,000','福康安所率兵力（另說 2 萬）','Fukang’an’s force (or 20,000)','#ecd04f'],
+              [D('1788-02-10'),'< 40,000','清軍總投入兵力','Total Qing troops committed','#ecd04f'],
+              [D('1788-02-10'),'?','雙方死亡人數（無可靠統計）','Deaths on both sides (no reliable total)','#9fb2ba']];
+    },
+    stateAt(k, t){ let s='q'; for (const [d,v] of S.STATE[k]) if (t>=d) s=v; return s; },
+    dotColor(d, t){
+      if (d.m > 0.42 || d.lon > 121.0 && d.lat < 24.4) return [[60,104,84], 0.45];          // mountains & east: Indigenous land
+      let best=0.32, col=QING, ww=0;
+      for (const k in TOWNS) { const s=S.stateAt(k,t), dd=dist([d.lon,d.lat],TOWNS[k].p), rr=0.32; if (dd>rr) continue; const w=1-dd/rr; if (w>ww) { ww=w; col = s==='r'?EMBER : s==='s'?CRIMSON : s==='m'?MILITIA : QING; } }
+      const c=[0,1,2].map(j=>BASE[j]+(col[j]-BASE[j])*(0.25+0.7*ww)); return [c, 0.42+0.45*ww];
+    },
+    extras(t){
+      const D=S.D, T=TOWNS;
+      // siege rings
+      for (const k of ['zhuluo','fucheng']) if (S.stateAt(k,t)==='s') { const [x,y]=P(...T[k].p); ctx.setLineDash([4,4]); ctx.strokeStyle=rgba(EMBER,0.9); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,16,0,6.2832); ctx.stroke(); ctx.setLineDash([]); }
+      // Fukang'an's campaign
+      const seg=(a,b,s,e)=>{ if (t>=D(s)) arrow(a,b,smooth(D(s),D(e),t),QING); };
+      seg([120.05,24.15], T.lugang.p, '1787-12-06','1787-12-10');
+      seg(T.lugang.p, T.changhua.p, '1787-12-10','1787-12-12');
+      seg(T.changhua.p, T.zhuluo.p, '1787-12-12','1787-12-14');
+      seg(T.changhua.p, T.dali.p, '1787-12-20','1787-12-30');
+      seg(T.dali.p, T.laoquqi.p, '1788-01-15','1788-02-10');
+      seg(T.fucheng.p, T.fengshan.p, '1788-01-25','1788-02-20');
+      seg(T.fengshan.p, T.langqiao.p, '1788-02-20','1788-03-10');
+    },
+    drawPlaces(t){
+      for (const k in TOWNS) { const tw=TOWNS[k], [x,y]=P(...tw.p), s=S.stateAt(k,t);
+        if ((k==='laoquqi' && t<S.D('1788-01-15')) || (k==='langqiao' && t<S.D('1788-02-20'))) continue;
+        let nm=tw.zh, ne=tw.en; if (k==='zhuluo' && t>=S.D('1787-12-14')) { nm='嘉義（原諸羅）'; ne='Chiayi (former Zhuluo)'; }
+        ctx.fillStyle = rgba(s==='r'?EMBER : s==='s'?CRIMSON : s==='m'?MILITIA : QING, 1); ctx.strokeStyle=C.ink; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(x,y,5,0,6.2832); ctx.fill(); ctx.stroke();
+        label(nm, ne, x, y+(tw.dy||0), tw.side==='l', 12); }
+    },
+  };
+  Film(S);
+}
+
+// ================= after list, language, loop =================
+const AFTER = [["1788", "諸羅改名嘉義；乾隆賜客家義民「褒忠」之名，此後北台灣各地興建義民廟祭祀戰死者。", "Zhuluo becomes Chiayi; Qianlong honours the Hakka militias as “loyal,” and shrines to the militia dead are later built across northern Taiwan."], ["1862", "戴潮春事件，清代另一次大規模民變，同樣與天地會有關。", "The Dai Chaochun rebellion, another major Qing-era revolt, again tied to the Heaven and Earth Society."]];
+const CRED_EXTRA = {"fuk": ["福康安", "Fukang’an", "出自《平定臺灣二十功臣像贊》", "from the portraits of twenty meritorious officials of the Taiwan campaign"]};
+const CRED_NOTE = ["林爽文、莊大田、柴大紀：無可用的自由授權肖像，以字卡代替。", "Lin Shuangwen, Zhuang Datian, Chai Daji: no freely licensed portrait; name cards are shown."];
+const ARIA = ["林爽文事件逐日地圖動畫", "Day-by-day map animation of the Lin Shuangwen rebellion"];
+const TITLE = ["林爽文事件 1786–1788", "The Lin Shuangwen Rebellion, 1786–1788"];
+const afterOl=document.getElementById('after'), credUl=document.getElementById('credits');
+function applyLang(){
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.title = tx(...TITLE);
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
+  for (const f of films) f.setPlaying(f.playing); for (const f of films) f.TG.lang();
+  afterOl.innerHTML = AFTER.map(([y,zh,en])=>`<li><b>${y}</b><span>${uiHTML(zh,en)}</span></li>`).join('');
+  credUl.innerHTML = Object.keys(EMBED).map(k=>{ const c=EMBED[k], x=CRED_EXTRA[k]||['','','','']; return `<li>${esc(tx(x[0],x[1]))}: <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.file)}</a> (${esc(c.license)}${x[2]?'；'+esc(tx(x[2],x[3])):''})</li>`; }).join('')
+    + `<li>${esc(tx(...CRED_NOTE))}</li>`;
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  document.getElementById('flin').setAttribute('aria-label', tx(...ARIA));
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+applyLang();
+let last=performance.now();
+function frame(now){ const dt=Math.min(0.1,(now-last)/1000); last=now; for (const f of films) f.tick(dt); requestAnimationFrame(frame); }
+requestAnimationFrame(n=>{ last=n; frame(n); });
+})();
+</script>
+</body>
+</html>

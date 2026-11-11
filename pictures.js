@@ -710,5 +710,191 @@ window.PICTURES = {
    "artist": "Unknown authorUnknown author",
    "url": "https://commons.wikimedia.org/wiki/File:Debris_in_Kiirun_circa_1945.jpg"
   }
+ ],
+ "guo": [
+  {
+   "at": "p0",
+   "key": "zeelandia-1635",
+   "zh": "熱蘭遮城與大員市鎮，約 1635 年。1652 年荷蘭人就是從這裡渡海到對岸的赤崁救援。",
+   "en": "Fort Zeelandia and Tayouan, about 1635. In 1652 the Dutch crossed from here to relieve Saccam on the far shore.",
+   "w": 960,
+   "h": 534,
+   "license": "Public domain",
+   "artist": "Johannes Vingboons",
+   "url": "https://commons.wikimedia.org/wiki/File:Zeelandia_from_Dutch.jpg"
+  },
+  {
+   "at": "e3",
+   "key": "formosans-1670",
+   "zh": "歐洲人筆下的福爾摩沙人（達波，1670 年）。荷蘭靠新港社等原住民盟軍平定起事。",
+   "en": "Formosans as Europeans drew them (Dapper, 1670). The Dutch relied on Indigenous allies such as Sinkan to put down the rising.",
+   "w": 960,
+   "h": 784,
+   "license": "Public domain",
+   "artist": "Olfert Dapper",
+   "url": "https://commons.wikimedia.org/wiki/File:Formosans.jpg"
+  }
+ ],
+ "linshuangwen": [
+  {
+   "at": "p0",
+   "key": "pacification-taiwan",
+   "zh": "《平定臺灣得勝圖》之一，乾隆朝為紀念平定林爽文事件所製的銅版畫，約 1793 年。",
+   "en": "From The Pacification of Taiwan, copperplate prints made for the Qianlong court to celebrate the suppression of Lin Shuangwen, about 1793.",
+   "w": 960,
+   "h": 597,
+   "license": "Public domain",
+   "artist": "unknown",
+   "url": "https://commons.wikimedia.org/wiki/File:The_Pacification_of_Taiwan.jpg"
+  },
+  {
+   "at": "e6",
+   "key": "zhuluo-siege",
+   "zh": "《平定臺灣得勝圖》：解諸羅之圍。",
+   "en": "The Pacification of Taiwan: the relief of Zhuluo.",
+   "w": 960,
+   "h": 557,
+   "license": "Public domain",
+   "artist": "Yao Wen-han, Miao Bing-tai, Yang Da-zhang, Jia Quan, Xie Sui, Zhuang Yu-de, and Li Ming",
+   "url": "https://commons.wikimedia.org/wiki/File:NTMoFA_-_Pacification_of_Taiwan_(I)_-_Zhuluo_Siege_-_Google_Arts_and_Culture.jpg"
+  },
+  {
+   "at": "e7",
+   "key": "crossing-ocean",
+   "zh": "《平定臺灣得勝圖》：渡海凱旋。",
+   "en": "The Pacification of Taiwan: crossing the sea and returning in triumph.",
+   "w": 960,
+   "h": 587,
+   "license": "Public domain",
+   "artist": "A collaboration between Chinese and European painters. The Jesuit missionaries involved in",
+   "url": "https://commons.wikimedia.org/wiki/File:Crossing_the_ocean_and_triumphant_return.jpg"
+  },
+  {
+   "at": "e9",
+   "key": "xiaobantian",
+   "zh": "《平定臺灣得勝圖》：攻克小半天山。",
+   "en": "The Pacification of Taiwan: the attack on Xiaobantian mountain.",
+   "w": 960,
+   "h": 586,
+   "license": "Public domain",
+   "artist": "A collaboration between Chinese and European painters. The Jesuit missionaries involved in",
+   "url": "https://commons.wikimedia.org/wiki/File:Attack_on_the_mountain_Xiaobantian.jpg"
+  },
+  {
+   "at": "e10",
+   "key": "capture-lin",
+   "zh": "《平定臺灣得勝圖》：生擒林爽文。",
+   "en": "The Pacification of Taiwan: the capture of Lin Shuangwen.",
+   "w": 960,
+   "h": 588,
+   "license": "Public domain",
+   "artist": "A collaboration between Chinese and European painters. The Jesuit missionaries involved in",
+   "url": "https://commons.wikimedia.org/wiki/File:Capture_of_the_rebel_chief_Lin_Shuangwen.jpg"
+  }
+ ],
+ "daichaochun": [
+  {
+   "at": "e3",
+   "key": "wufeng-lin",
+   "zh": "霧峰林家宅第，日治時期所攝。林家因協助平定戴潮春事件而崛起。",
+   "en": "The Wufeng Lin family mansion, photographed under Japanese rule. The family rose by helping to put down the rebellion.",
+   "w": 960,
+   "h": 640,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:A_building_of_Wufeng_Lin_Family_Mansion_and_Garden.jpg"
+  }
+ ],
+ "feuds": [
+  {
+   "at": "p0",
+   "key": "kangxi-map",
+   "zh": "《康熙臺灣輿圖》局部，約 1700 年前後。移民依祖籍聚居成庄。",
+   "en": "A detail of the Kangxi Map of Taiwan, about 1700. Settlers formed villages by place of origin.",
+   "w": 531,
+   "h": 410,
+   "license": "Public domain",
+   "artist": "uploader User:Winertai",
+   "url": "https://commons.wikimedia.org/wiki/File:%E5%BA%B7%E7%86%99%E8%87%BA%E7%81%A3%E8%BC%BF%E5%9C%96.jpg"
+  },
+  {
+   "at": "e4",
+   "key": "longshan-1920s",
+   "zh": "艋舺龍山寺，1920 年代。泉州三邑人以龍山寺為中心，頂下郊拚就發生在艋舺。",
+   "en": "Longshan Temple in Bangka, 1920s. It was the centre of the Sanyi people from Quanzhou; the guild war of 1853 was fought in Bangka.",
+   "w": 960,
+   "h": 639,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:1920_to_1929_the_Li%C3%B4ng-san_Temple_in_Taihoku.jpg"
+  }
+ ],
+ "indigenous": [
+  {
+   "at": "p0",
+   "key": "guard-line-wire",
+   "zh": "隘勇線上的鐵絲網，1908 年。總督府蕃務課攝。",
+   "en": "Wire entanglements on the guard line, 1908. Photo by the Government-General’s aborigine affairs section.",
+   "w": 960,
+   "h": 643,
+   "license": "Public domain",
+   "artist": "臺灣總督府民政部警察本署蕃務課",
+   "url": "https://commons.wikimedia.org/wiki/File:%E9%9A%98%E5%8B%87%E7%B7%9A_%E9%90%B5%E7%B5%B2%E7%B6%B2.jpg"
+  },
+  {
+   "at": "e8",
+   "key": "guard-line-battery",
+   "zh": "隘勇線上的砲台，1908 年。總督府蕃務課攝。",
+   "en": "A gun emplacement on the guard line, 1908. Photo by the Government-General’s aborigine affairs section.",
+   "w": 960,
+   "h": 641,
+   "license": "Public domain",
+   "artist": "臺灣總督府民政部警察本署蕃務課",
+   "url": "https://commons.wikimedia.org/wiki/File:%E9%9A%98%E5%8B%87%E7%B7%9A_%E7%A0%B2%E8%87%BA.jpg"
+  },
+  {
+   "at": "e9",
+   "key": "sakuma-1914",
+   "zh": "1914 年 5 月太魯閣戰役，總督佐久間左馬太乘轎隨軍，圖為部隊的營地。",
+   "en": "May 1914, the Taroko war: the troops’ camp, with Governor-General Sakuma Samata travelling by sedan chair.",
+   "w": 960,
+   "h": 662,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Sakuma_Samata_on_the_Sedan_Chair_1914.jpg"
+  },
+  {
+   "at": "e10",
+   "key": "lahu-ali",
+   "zh": "布農族領袖拉荷・阿雷。",
+   "en": "The Bunun leader Lahu Ali.",
+   "w": 688,
+   "h": 955,
+   "license": "Public domain",
+   "artist": "鈴木秀夫",
+   "url": "https://commons.wikimedia.org/wiki/File:%E5%B8%83%E8%BE%B2%E6%97%8F%E9%A0%98%E8%A2%96%E6%8B%89%E8%8D%B7%E9%98%BF%E9%9B%B7.jpg"
+  },
+  {
+   "at": "e13",
+   "key": "mona-rudao",
+   "zh": "莫那．魯道（中）與賽德克族頭目，1930 年以前。",
+   "en": "Mona Rudao (centre) with Seediq leaders, before 1930.",
+   "w": 600,
+   "h": 857,
+   "license": "Public domain",
+   "artist": "Unknown photographer",
+   "url": "https://commons.wikimedia.org/wiki/File:Mona_Rudao_and_Seediq_tribal_leaders.jpg"
+  },
+  {
+   "at": "e14",
+   "key": "lahu-ali-1933",
+   "zh": "1933 年，拉荷・阿雷與日本視學官合影。",
+   "en": "1933: Lahu Ali with a Japanese education inspector.",
+   "w": 443,
+   "h": 640,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Raho_Ari_and_a_Japanese_educational_inspector.jpg"
+  }
  ]
 };
