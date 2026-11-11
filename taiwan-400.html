@@ -1,0 +1,1368 @@
+<title>台灣四百年・台語旁白</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single "film" canvas (map + charts + timeline, recordable as video) with a control deck beneath it. One deliberate dark sea-ink look. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --gold: #ecd04f;
+  --focus: #7fd3d0;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 48px; display: grid; gap: 14px; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas#film { display: block; width: 100%; height: auto; max-width: 100%; }
+.wrap > * { min-width: 0; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.deck .grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--gold); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 4ch; color: var(--gold); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--gold); color: #1a1505; border-color: var(--gold); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #4a3f10; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.eras { display: flex; flex-wrap: wrap; gap: 8px; }
+.eras button { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+.eras i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+.rec { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--muted); font-size: 13px; }
+.rec a { color: var(--gold); font-weight: 700; }
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px 32px; color: var(--muted); font-size: 13.5px; border-top: 1px solid var(--line); padding-top: 16px; }
+.notes h2 { font-family: var(--f-display); color: var(--ink); font-size: 16px; margin: 0 0 4px; letter-spacing: .05em; }
+.notes p, .notes ul { margin: 0; }
+.notes ul { padding-left: 1.1em; }
+.notes > div { min-width: 0; }
+.notes summary { cursor: pointer; color: var(--ink); margin-top: 6px; }
+.notes .credits, .notes .refs { grid-column: 1 / -1; }
+.notes .refs ol { columns: 2 320px; column-gap: 32px; margin: 8px 0 0; padding-left: 1.3em; }
+.notes .refs li { break-inside: avoid; margin-bottom: 6px; }
+#credits { columns: 2 280px; column-gap: 32px; font-size: 12.5px; margin-top: 8px; }
+#credits li { break-inside: avoid; }
+#credits a { color: var(--muted); }
+.feature { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 6px 22px; align-items: center; padding: 16px 18px; border: 1px solid #5a2a31; border-radius: 6px; background: #1a1418; color: var(--ink); text-decoration: none; }
+.feature:hover { border-color: #c8323c; }
+.feature .f-date { font-family: var(--f-mono); color: #e06a70; font-weight: 600; font-variant-numeric: tabular-nums; }
+.feature strong { display: block; font-family: var(--f-display); font-size: 19px; letter-spacing: .04em; }
+.feature .f-body > span { color: var(--muted); font-size: 14px; display: block; }
+.feature .f-go { font-size: 22px; color: #e06a70; }
+.feature .en { display: block; margin-left: 0; }
+.feature.guide { border-color: #5c5320; background: #15170f; }
+.feature.guide:hover { border-color: var(--gold); }
+.feature.guide .f-date, .feature.guide .f-go { color: var(--gold); }
+@media (max-width: 560px) { .feature { grid-template-columns: minmax(0, 1fr) auto; } .feature .f-date { grid-column: 1 / -1; } }
+/* Taigi narration: the line being spoken, in Han characters with POJ romanization under it */
+.sub { border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 6px; background: var(--panel); padding: 12px 16px; min-height: 5.2em; display: grid; gap: 4px; align-content: center; }
+.sub[hidden] { display: none; }
+.sub p { margin: 0; overflow-wrap: anywhere; }
+.sub .s-han { font-family: var(--f-display); font-size: clamp(17px, 2.1vw, 21px); line-height: 1.6; letter-spacing: .03em; }
+.sub .s-poj { color: var(--muted); font-size: 14px; line-height: 1.55; }
+/* read-along: characters not yet spoken are dim, spoken ones are full ink, the one being spoken is gold */
+.sub.live .s-han span { color: #6f858f; transition: color .12s linear; }
+.sub.live .s-han span.done { color: var(--ink); }
+.sub.live .s-han span.now { color: var(--gold); text-shadow: 0 0 14px rgba(236,208,79,.45); }
+.sub.live .s-poj span { transition: color .15s linear; }
+.sub.live .s-poj span.now { color: var(--ink); }
+.sub.idle .s-han { font-family: var(--f-body); font-size: 15px; color: var(--muted); letter-spacing: 0; }
+button#narr[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+/* bilingual: English rides beside or under the Chinese */
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, h2 .en, summary .en { display: block; margin-left: 0; }
+h2 .en { font-family: var(--f-body); font-size: .78em; }
+</style>
+
+<main class="wrap">
+  <div class="head">
+    <h1 data-k="h1">台灣四百年</h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="film" width="1600" height="900" aria-label="Taiwan history animation"></canvas></div>
+
+  <div class="sub idle" id="sub" aria-live="off">
+    <p class="s-han" id="subHan" lang="nan-Hant"></p>
+    <p class="s-poj" id="subPoj" lang="nan-Latn"></p>
+  </div>
+
+  <div class="deck">
+    <button id="play" class="primary" type="button">播放</button>
+    <button id="narr" type="button" aria-pressed="true"></button>
+    <div class="scrub">
+      <input id="scrub" type="range" min="1600" max="2026" step="0.1" value="1600" aria-label="Year">
+      <output id="yearOut" for="scrub">1600</output>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="speed" data-k="speed"></label>
+      <select id="speed">
+        <option value="0.5">0.5×</option>
+        <option value="1" selected>1×</option>
+        <option value="2">2×</option>
+        <option value="4">4×</option>
+      </select>
+    </div>
+    <div class="grp">
+      <span class="lbl" data-k="ethLbl"></span>
+      <div class="seg" role="group" aria-label="Population chart">
+        <button id="modePct" type="button" aria-pressed="true" data-k="pct"></button>
+        <button id="modeAbs" type="button" aria-pressed="false" data-k="abs"></button>
+      </div>
+    </div>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="eras" id="eras" aria-label="Jump to era"></nav>
+
+  <div class="rec">
+    <button id="rec" type="button" data-k="rec"></button>
+    <span id="recMsg"></span>
+    <a id="dl" hidden></a>
+  </div>
+
+  <a class="feature guide" href="https://sinliongtoo.github.io/taiwan-400/intro.html">
+    <span class="f-date">EN GUIDE</span>
+    <span class="f-body">
+      <strong data-k="guideT"></strong>
+      <span data-k="guideD"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/dutch.html">
+    <span class="f-date">1622 – 1662</span>
+    <span class="f-body">
+      <strong data-k="feat7T"></strong>
+      <span data-k="feat7D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/guo.html">
+    <span class="f-date">1652</span>
+    <span class="f-body">
+      <strong data-k="feat9T"></strong>
+      <span data-k="feat9D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/koxinga.html">
+    <span class="f-date">1661 – 1662</span>
+    <span class="f-body">
+      <strong data-k="feat4T"></strong>
+      <span data-k="feat4D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/feuds.html">
+    <span class="f-date">1721 – 1862</span>
+    <span class="f-body">
+      <strong data-k="feat12T"></strong>
+      <span data-k="feat12D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/linshuangwen.html">
+    <span class="f-date">1786 – 1788</span>
+    <span class="f-body">
+      <strong data-k="feat10T"></strong>
+      <span data-k="feat10D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/daichaochun.html">
+    <span class="f-date">1862 – 1865</span>
+    <span class="f-body">
+      <strong data-k="feat11T"></strong>
+      <span data-k="feat11D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/yiwei.html">
+    <span class="f-date">1895</span>
+    <span class="f-body">
+      <strong data-k="feat5T"></strong>
+      <span data-k="feat5D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/indigenous.html">
+    <span class="f-date">1896 – 1933</span>
+    <span class="f-body">
+      <strong data-k="feat13T"></strong>
+      <span data-k="feat13D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/tapani.html">
+    <span class="f-date">1915</span>
+    <span class="f-body">
+      <strong data-k="feat2T"></strong>
+      <span data-k="feat2D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/wushe.html">
+    <span class="f-date">1930</span>
+    <span class="f-body">
+      <strong data-k="feat6T"></strong>
+      <span data-k="feat6D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/airraids.html">
+    <span class="f-date">1943 – 1945</span>
+    <span class="f-body">
+      <strong data-k="feat3T"></strong>
+      <span data-k="feat3D"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <a class="feature" href="https://sinliongtoo.github.io/taiwan-400/228.html">
+    <span class="f-date">1947 – 1992</span>
+    <span class="f-body">
+      <strong data-k="featT"></strong>
+      <span data-k="featD"></span>
+    </span>
+    <span class="f-go" aria-hidden="true">→</span>
+  </a>
+
+  <section class="notes">
+    <div>
+      <h2 data-k="n1h"></h2>
+      <p data-k="n1"></p>
+    </div>
+    <div>
+      <h2 data-k="n2h"></h2>
+      <p data-k="n2"></p>
+    </div>
+    <div>
+      <h2 data-k="n3h"></h2>
+      <ul>
+        <li data-k="n3a"></li>
+        <li data-k="n3b"></li>
+        <li><span data-k="n3c"></span> <code>ffmpeg -i taiwan-400.mp4 taiwan-400.mov</code></li>
+      </ul>
+    </div>
+    <div class="refs">
+      <h2 data-k="refH"></h2>
+      <p data-k="refP"></p>
+      <ol>
+        <li>Tonio Andrade, <i>How Taiwan Became Chinese: Dutch, Spanish, and Han Colonization in the Seventeenth Century</i>. New York: Columbia University Press, 2008.</li>
+        <li>John R. Shepherd, <i>Statecraft and Political Economy on the Taiwan Frontier, 1600–1800</i>. Stanford: Stanford University Press, 1993.</li>
+        <li>Paul D. Barclay, <i>Outcasts of Empire: Japan’s Rule on Taiwan’s “Savage Border,” 1874–1945</i>. Oakland: University of California Press, 2018 (open access).</li>
+        <li>臺灣總督府，《臨時臺灣戶口調查》，1905。</li>
+        <li>內政部戶政司，人口統計資料（ris.gov.tw）；原住民族委員會，原住民人口統計（cip.gov.tw）。</li>
+        <li>陳第，《東番記》，1603。</li>
+        <li>行政院研究二二八事件小組，《「二二八事件」研究報告》，臺北：時報文化，1994。</li>
+        <li>康豹（Paul R. Katz），《染血的山谷：日治時期的噍吧哖事件》，臺北：三民書局，2006。</li>
+        <li>統治者與在位年代：維基百科各統治者條目與「臺灣總督」「中華民國總統」列表；肖像來自維基共享資源，逐張來源見下方。</li>
+      </ol>
+    </div>
+    <div class="credits">
+      <h2 data-k="n4h"></h2>
+      <p data-k="n4"></p>
+      <details>
+        <summary data-k="n4s"></summary>
+        <ul id="credits"></ul>
+      </details>
+    </div>
+  </section>
+</main>
+
+<script src="portraits.js"></script>
+<script src="narration.js"></script>
+<script>
+(() => {
+// ---------- language ----------
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;                          // one language
+const bil = (zh, en) => lang==='en' ? en : lang==='bi' ? `${zh} ${en}` : zh; // inline pair
+
+const UI = {
+  h1: ['台灣四百年', 'Taiwan: Four Centuries'],
+  intro: ['1600–2026：從南島語族的島嶼，到荷西、明鄭、清、日本與中華民國。看國家權力如何從海岸一路推進到山地，人口組成又如何改變。',
+          '1600–2026: from an Austronesian island through Dutch, Spanish, Zheng, Qing, Japanese and Republic of China rule. Watch state power move from the coast into the mountains, and the population change with it.'],
+  play: ['播放','Play'], pause: ['暫停','Pause'], replay: ['重播','Replay'],
+  speed: ['速度','Speed'], ethLbl: ['族群圖','Population'], pct: ['比例','Share'], abs: ['人數','Count'], langLbl: ['語言','Language'],
+  rec: ['錄製影片（1920×1080）','Record video (1920×1080)'], recStop: ['停止錄製','Stop recording'],
+  recHint: ['從 1600 年完整播放一次並錄下畫面，約 1 分鐘。錄製時請保持此分頁在前景。','Plays once from 1600 and records it, about a minute. Keep this tab in front while recording.'],
+  narrOn: ['🔊 台語旁白：開','🔊 Taigi narration: on'], narrOff: ['🔇 台語旁白：關','🔇 Taigi narration: off'],
+  narrHint: ['按「播放」開始。台語旁白會跟著動畫念，每講完一段，年份才繼續往前走。','Press Play to begin. The Taiwanese (Taigi) narration follows the animation, and the years move on when each passage ends.'],
+  narrBlocked: ['瀏覽器擋住了聲音，請再按一次「播放」。','The browser blocked the sound. Press Play again.'],
+  narrMissing: ['找不到旁白音檔（audio 資料夾），動畫照常播放。','Narration audio (the audio folder) was not found; the animation plays without it.'],
+  recHintN: ['從 1600 年完整播放一次並錄下畫面與台語旁白，約 {m} 分鐘。錄製時請保持此分頁在前景。直接開啟本機檔案（file://）時只能錄到畫面，要錄進旁白請從網址（http）開啟。','Plays once from 1600 and records the picture with the Taigi narration, about {m} minutes. Keep this tab in front. Opened as a local file (file://) only the picture is recorded; open the page over http to record the narration too.'],
+  recNo: ['這個瀏覽器不支援錄製，請改用 Chrome 或 Edge。','This browser can’t record video. Use Chrome or Edge.'],
+  recFail: ['無法啟動錄製：','Recording could not start: '],
+  recOn: ['錄製中⋯ 請勿切換分頁。','Recording… keep this tab in front.'],
+  recDone: ['錄製完成。若在 claude.ai 上無法下載，請用電腦直接開啟這個 HTML 檔錄製。','Done. If the download does nothing on claude.ai, open the HTML file on your computer and record there.'],
+  dl: ['下載影片','Download video'],
+  n1h: ['地圖怎麼讀','Reading the map'],
+  n1: ['每一個點約代表 3 公里見方的土地。綠色是原住民族自主的領域（淺綠為平原、深綠為山地）；其他顏色是當時的統治政權，點越亮越大，代表統治越深入。「國家有效掌握範圍」曲線就是由這些點即時加總出來的。',
+       'Each dot is about 3 km square. Green is land under Indigenous self-rule (light for plains, dark for mountains); other colors are the ruling state, and brighter, larger dots mean deeper control. The state-control curve is summed from these dots.'],
+  n2h: ['方法與限制','Method and limits'],
+  n2: ['統治範圍是依史料整理的示意模型（如清代漢番界線北推、1875 開山撫番、日治理蕃計畫），不是精確疆界。族群人口為各時期估計：1905 年後依日治戶口調查與戰後戶政統計，更早為學界推估。戰後平埔族群多被登記為漢人，並非人口消失。',
+       'Control areas are a schematic model drawn from the historical record (the Qing frontier moving north, the 1875 mountain policy, Japan’s aborigine campaigns), not exact borders. Population figures are estimates: censuses from 1905 on, scholarly estimates before. After 1945 most Plains Indigenous people were registered as Han; they did not disappear.'],
+  n3h: ['操作','Controls'],
+  n3a: ['空白鍵：播放／暫停','Space: play / pause'],
+  n3b: ['← →：前後一年；按住 Shift 為十年','← →: one year; hold Shift for ten'],
+  n3c: ['錄好的影片若需要 .mov，可用 ffmpeg 轉檔：','To get a .mov file, convert with ffmpeg:'],
+  n4h: ['統治者照片','Ruler portraits'],
+  n4: ['肖像與照片來自維基共享資源（Wikimedia Commons），多為公有領域，近代總統照片依原授權標示出處。沒有可用自由授權肖像的人物以姓氏字卡代替。',
+       'Portraits come from Wikimedia Commons, mostly public domain; recent presidential photos are credited under their licenses. Rulers without a freely licensed portrait get a name card instead.'],
+  n4s: ['逐張來源與授權','Source and license for each image'],
+  featT: ['專題：二二八與白色恐怖','Feature: 228 and the White Terror'],
+  refH: ['參考資料','References'],
+  refP: ['本頁是綜合整理的教育用視覺化。統治範圍與人口是依下列研究整理的示意與估計，不是精確數據。','This page is an educational visualization compiled from the works below. Control areas and population figures are schematic estimates, not exact data.'],
+  feat2T: ['專題：余清芳與西來庵事件','Feature: Yu Qingfang and the Tapani Incident'],
+  feat3T: ['專題：美軍大空襲','Feature: The Allied air raids'],
+  guideT: ['英文導覽：如何介紹台灣歷史','Introducing Taiwan’s History in English'],
+  guideD: ['30 秒講稿、六個時代各一句、關鍵詞彙、謹慎用語與常見問答；英文為主，附中文對照。','A 30-second script, one sentence per era, key terms, careful phrasing and answers to common questions, with Chinese alongside.'],
+  feat7T: ['專題：荷西時期','Feature: Dutch and Spanish Formosa'],
+  feat7D: ['荷蘭東印度公司從大員擴張到西南平原，西班牙佔據北部。逐年看控制範圍、地方會議、鹿皮與蔗糖貿易。','The Dutch East India Company spread from Tayouan across the southwestern plains while Spain held the north. Follow their reach, the Landdag, and the deerskin and sugar trade, year by year.'],
+  feat12T: ['專題：清代分類械鬥','Feature: Feuds between settler groups'],
+  feat12D: ['泉州、漳州、客家移民之間的著名械鬥：1782 年彰化、1853 年頂下郊拚、1859 年北台大械鬥，以及它們如何改變台北。','Famous feuds between Quanzhou, Zhangzhou and Hakka settlers: Changhua in 1782, the Mengjia guild war of 1853, the northern feud of 1859, and how they reshaped Taipei.'],
+  feat13T: ['專題：原住民族抗日','Feature: Indigenous resistance'],
+  feat13D: ['新城、大豹社、南庄、七腳川、太魯閣戰役、大分到拉荷・阿雷歸順：日治時期原住民族的抵抗與隘勇線推進。','From Xincheng, Dabao, Nanzhuang and Cikasuan to the Taroko war, Dafen and Lahu Ali’s peace: Indigenous resistance and the advancing guard lines under Japan.'],
+  feat9T: ['專題：郭懷一事件','Feature: The Guo Huaiyi rebellion'],
+  feat9D: ['1652 年赤崁一帶的漢人農民反抗荷蘭東印度公司，不到兩週就被荷軍與原住民盟軍鎮壓。','In 1652 Chinese farmers around Saccam rose against the Dutch East India Company and were crushed within two weeks by Dutch troops and Indigenous allies.'],
+  feat10T: ['專題：林爽文事件','Feature: The Lin Shuangwen rebellion'],
+  feat10D: ['清代規模最大的民變：天地會起事、諸羅苦守、義民與福康安平亂。','The largest revolt of the Qing era: the society’s rising, the siege of Zhuluo, loyal militias and Fukang’an’s campaign.'],
+  feat11T: ['專題：戴潮春事件','Feature: The Dai Chaochun rebellion'],
+  feat11D: ['1862–1865 年中部的天地會起事，彰化、大甲、嘉義圍城，霧峰林家因平亂崛起。','The 1862–65 society rising in central Taiwan: the sieges of Changhua, Dajia and Chiayi, and the rise of the Wufeng Lin family.'],
+  feat4T: ['專題：鄭成功攻台','Feature: Koxinga takes Taiwan'],
+  feat5T: ['專題：乙未戰爭','Feature: The 1895 war'],
+  feat5D: ['日軍從澳底登陸，五個月內由北而南攻下台灣，台灣民主國與各地義軍抵抗。逐日看戰線南移。','Japan landed at Aodi and took Taiwan from north to south in five months against the Republic of Formosa and local militias. Watch the front move, day by day.'],
+  feat6T: ['專題：霧社事件','Feature: The Musha Incident'],
+  feat6D: ['賽德克族德固達雅群在莫那．魯道領導下起事，遭飛機與毒氣鎮壓，倖存者最後被遷往川中島。','The Seediq Tgdaya rose under Mona Rudao, were crushed with aircraft and gas, and the survivors were finally removed to Kawanakajima.'],
+  feat4D: ['1661 年鄭軍從鹿耳門駛入台江內海，九個月圍城後迫使熱蘭遮城的荷蘭人投降。重繪當年的沙洲與堡壘，逐日呈現。','In 1661 Zheng’s fleet slipped through Luermen into the Taijiang lagoon and, after a nine-month siege, forced the Dutch in Fort Zeelandia to surrender. The lagoon’s old sandbars and forts are redrawn, day by day.'],
+  feat3D: ['二戰末期盟軍轟炸台灣：從新竹空襲、台灣沖航空戰到台北大空襲，逐日看轟炸機的來向與目標。','The Allied bombing of Taiwan at the end of the Second World War, from the Hsinchu raid and the Formosa Air Battle to the Raid on Taipei, day by day.'],
+  feat2D: ['日治時期最大規模的漢人武裝抗日：台南山區逐日地圖、人物與臨時法院審判。','The largest Han armed uprising of Japanese rule: a day-by-day map of the Tainan hills, the leaders, and the special court.'],
+  featD: ['1947 年二二八的逐日地圖，以及 1949–1992 年白色恐怖的監獄、刑場與政治案件，和之後的轉型正義。','A day-by-day map of 1947, the prisons, execution grounds and political cases of the 1949–1992 White Terror, and the road to redress.'],
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const uiText = k => tx(UI[k][0], UI[k][1]);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ---------- palette (canvas) ----------
+const COL = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d', tropic:'#c9a64a' };
+const REG = {
+  IND:  { n:'原住民族自主領域', e:'Indigenous self-rule', c:'#5aa36f' },
+  MING: { n:'明朝（澎湖巡防）', e:'Ming (Penghu patrols)', c:'#b39a7a' },
+  VOC:  { n:'荷蘭東印度公司', e:'Dutch East India Co.', c:'#f29a3a' },
+  ESP:  { n:'西班牙', e:'Spain', c:'#e57fa8' },
+  ZHENG:{ n:'明鄭・東寧', e:'Zheng / Tungning', c:'#b28be6' },
+  QING: { n:'大清帝國', e:'Qing Empire', c:'#ecd04f' },
+  TWR:  { n:'台灣民主國', e:'Republic of Formosa', c:'#7fd3d0' },
+  JPN:  { n:'日本・台灣總督府', e:'Japan (Government-General)', c:'#f0625a' },
+  ROC:  { n:'中華民國', e:'Republic of China', c:'#5b95f5' },
+};
+const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+for (const k in REG) REG[k].rgb = hex(REG[k].c);
+const IND_LOW = hex('#9ccc84'), IND_HIGH = hex('#3b8a5a');
+const REG_KEYS = Object.keys(REG);
+
+// ---------- helpers ----------
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const smooth = (a,b,x) => { const t = clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };
+const pw = (y, pts) => {
+  if (y <= pts[0][0]) return pts[0][1];
+  for (let i=1;i<pts.length;i++) if (y <= pts[i][0]) {
+    const [x0,v0]=pts[i-1],[x1,v1]=pts[i]; return v0 + (v1-v0)*(y-x0)/(x1-x0);
+  }
+  return pts[pts.length-1][1];
+};
+const COS = Math.cos(23.7*Math.PI/180);
+const dist = (c, lon, lat) => Math.hypot((c.lon-lon)*COS, c.lat-lat);
+
+// ---------- geography ----------
+const COAST = [[121.54,25.30],[121.62,25.24],[121.74,25.15],[121.85,25.11],[121.92,25.03],[121.83,24.90],[121.82,24.75],[121.86,24.59],[121.78,24.42],[121.70,24.28],[121.62,24.02],[121.58,23.85],[121.50,23.60],[121.45,23.38],[121.37,23.15],[121.25,22.92],[121.15,22.75],[121.02,22.58],[120.95,22.45],[120.90,22.30],[120.86,22.10],[120.85,21.92],[120.75,21.93],[120.70,21.95],[120.72,22.10],[120.62,22.30],[120.50,22.45],[120.38,22.52],[120.27,22.62],[120.20,22.78],[120.13,22.95],[120.10,23.10],[120.08,23.30],[120.13,23.50],[120.20,23.75],[120.30,23.95],[120.40,24.15],[120.52,24.35],[120.68,24.58],[120.85,24.80],[120.98,24.95],[121.10,25.05],[121.28,25.12],[121.40,25.18],[121.54,25.30]];
+const SPINE = [[121.55,24.75],[121.35,24.45],[121.18,24.05],[121.02,23.55],[120.90,23.05],[120.83,22.55],[120.79,22.18]];
+function pip(x,y,p){ let inside=false; for(let i=0,j=p.length-1;i<p.length;j=i++){ const [xi,yi]=p[i],[xj,yj]=p[j]; if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=!inside; } return inside; }
+function segDist(px,py,a,b){ const ax=a[0]*COS,ay=a[1],bx=b[0]*COS,by=b[1],x=px*COS; const dx=bx-ax,dy=by-ay; const t=clamp(((x-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy),0,1); return Math.hypot(x-(ax+t*dx), py-(ay+t*dy)); }
+function spineLon(lat){ const pts=SPINE.map(p=>[p[1],p[0]]).reverse(); return pw(lat,pts); }
+
+const SP = 0.032, DLON = SP/COS, DLAT = SP*0.866;
+const cells = [];
+for (let r=0, lat=25.34; lat>21.88; lat-=DLAT, r++) {
+  for (let lon=119.95+(r%2?DLON/2:0); lon<122.0; lon+=DLON) {
+    if (!pip(lon,lat,COAST)) continue;
+    let d=9; for(let i=0;i<SPINE.length-1;i++) d=Math.min(d, segDist(lon,lat,SPINE[i],SPINE[i+1]));
+    const w = 0.24 + 0.17*Math.exp(-(((lat-23.8)/0.6)**2));
+    let m = clamp(1 - d/w, 0, 1);
+    m = clamp(m + 0.07*Math.sin(lon*41)*Math.cos(lat*33), 0, 1);
+    const yilan = lat>24.45 && lat<24.95 && lon>121.62;
+    if (yilan) m *= 0.3;
+    const east = lat<24.45 && lon > spineLon(lat)+0.03;
+    const lagoon = ((lon-120.19)/0.045)**2 + ((lat-23.04)/0.1)**2 < 1;
+    cells.push({lon,lat,m,east,yilan,lagoon});
+  }
+}
+const ISLES = [
+  ...[[119.56,23.66],[119.60,23.63],[119.64,23.60],[119.60,23.57],[119.56,23.57],[119.52,23.60],[119.66,23.56],[119.58,23.53],[119.62,23.53],[119.45,23.52],[119.52,23.38],[119.43,23.21]].map(p=>({isle:'penghu',p})),
+  ...[[121.53,22.05],[121.56,22.03],[121.54,22.01]].map(p=>({isle:'lanyu',p})),
+  ...[[121.49,22.66],[121.48,22.64]].map(p=>({isle:'green',p})),
+  {isle:'liuqiu',p:[120.37,22.34]},
+];
+for (const s of ISLES) cells.push({lon:s.p[0],lat:s.p[1],m:0,east:false,yilan:false,lagoon:false,isle:s.isle});
+for (const c of cells) { c.R='IND'; c.K=0; const b=indRGB(c); c.cr=b[0]; c.cg=b[1]; c.cb=b[2]; c.ca=0.5; c.cs=0.8; }
+function indRGB(c){ const t=smooth(0.1,0.8,c.m); return [IND_LOW[0]+(IND_HIGH[0]-IND_LOW[0])*t, IND_LOW[1]+(IND_HIGH[1]-IND_LOW[1])*t, IND_LOW[2]+(IND_HIGH[2]-IND_LOW[2])*t]; }
+
+// ---------- control model ----------
+let R='IND', K=0;
+const set = (r,k) => { R=r; K=k; };
+const IND = () => set('IND',0);
+
+function dutchEra(c,y){
+  if (y>=1626.4 && y<1642.7) {
+    const rk = 0.05 + 0.09*clamp((y-1626.4)/4,0,1);
+    if (dist(c,121.74,25.14) < rk) return set('ESP',0.65);
+    if (y>=1628.5 && dist(c,121.44,25.17) < 0.11*clamp((y-1628.5)/2,0.4,1)) return set('ESP',0.6);
+  }
+  if (y>=1642.7) {
+    if (dist(c,121.74,25.14)<0.13 || dist(c,121.44,25.17)<0.12) return set('VOC',0.6);
+    if (y>=1644 && c.lat>24.9 && c.m<0.3 && dist(c,121.5,25.05)<0.25) return set('VOC',0.3);
+  }
+  if (y>=1638 && c.m<0.35 && dist(c,121.14,22.76)<0.09) return set('VOC',0.3);
+  const ry = pw(y,[[1624.6,0.05],[1630,0.14],[1635,0.22],[1636,0.45],[1642,0.75],[1645,0.95],[1655,1.05]]);
+  if (!c.east && c.m<0.3) {
+    const d = Math.hypot((c.lat-23.05)/ry, (c.lon-120.2)/(ry*0.6+0.04));
+    if (d<1) return set('VOC', 0.3 + 0.55*(1-smooth(0.55,1,d)));
+  }
+  return IND();
+}
+function zheng(c,y){
+  if (y<1662.09 && dist(c,120.16,23.0)<0.035) return set('VOC',0.9);
+  const N = pw(y,[[1661,23.3],[1665,23.6],[1683,23.95]]);
+  if (!c.east && !c.yilan && c.m<0.26 && c.lat<N && c.lat>22.42) return set('ZHENG', 0.35 + 0.45*smooth(0,0.25,N-c.lat));
+  return IND();
+}
+function qing(c,y,key){
+  const mth = pw(y,[[1683,0.2],[1760,0.28],[1850,0.34],[1875,0.42],[1895,0.46]]);
+  const N = pw(y,[[1683,23.5],[1704,23.75],[1723,24.25],[1735,24.7],[1750,25.05],[1760,25.4]]);
+  const S = y>=1875 ? 21.8 : 22.38;
+  if (c.east) { if (y>=1875 && c.m<0.32) return set(key, 0.3 + 0.2*clamp((y-1875)/13,0,1)); return IND(); }
+  if (c.yilan) { if (y>=1812 && c.m<0.45) return set(key, 0.7); return IND(); }
+  if (c.m<mth && c.lat<N && c.lat>S) return set(key, 0.35 + 0.45*smooth(0,0.3,N-c.lat)*smooth(0,0.12,mth-c.m));
+  return IND();
+}
+function japan(c,y){
+  if (y>1930.82 && y<1931.4 && dist(c,121.13,24.03)<0.1) return IND();
+  const mth = pw(y,[[1895,0.46],[1903,0.52],[1906,0.6],[1910,0.7],[1912,0.85],[1915,1.01]]);
+  if (c.m < mth) {
+    const k = c.m<0.46 ? 0.6 + 0.4*clamp((y-1895.4)/7,0,1) : 0.45 + 0.55*clamp((y-1910)/22,0,1);
+    return set('JPN', k);
+  }
+  return IND();
+}
+function isle(c,y){
+  switch (c.isle) {
+    case 'penghu':
+      if (y>=1895.2) return set('JPN',1);
+      if (y>=1683.55) return set('QING',0.8);
+      if (y>=1662.1) return set('ZHENG',0.8);
+      if (y>=1624.6) return set('MING',0.5);
+      if (y>=1622.5) return set('VOC',0.6);
+      return set('MING',0.4);
+    case 'liuqiu':
+      if (y>=1895.8) return set('JPN',1);
+      if (y>=1895.39) return set('TWR',0.6);
+      if (y>=1683.6) return set('QING',0.7);
+      if (y>=1662.1) return set('ZHENG',0.6);
+      if (y>=1636.3) return set('VOC',0.8);
+      return IND();
+    case 'green':
+      if (y>=1895.8) return set('JPN',0.9);
+      if (y>=1895.39) return set('TWR',0.4);
+      if (y>=1875) return set('QING',0.4);
+      return IND();
+    case 'lanyu':
+      if (y>=1903) return set('JPN', 0.4 + 0.5*clamp((y-1903)/20,0,1));
+      return IND();
+  }
+}
+function ctl(c,y){
+  if (y>=1945.82) return set('ROC',1);
+  if (c.isle) return isle(c,y);
+  if (y>=1895.41) {
+    const front = 25.45 - clamp((y-1895.41)/(1895.80-1895.41),0,1)*3.7;
+    if (y>=1895.80 || c.lat>=front) return japan(c,y);
+    return qing(c,1895.3,'TWR');
+  }
+  if (y>=1895.39) return qing(c,y,'TWR');
+  if (y>=1683.6) return qing(c,y,'QING');
+  if (y>=1661.33) return zheng(c,y);
+  if (y>=1624.6) return dutchEra(c,y);
+  return IND();
+}
+
+// precompute control share series
+const Y0=1600, Y1=2026, SERIES_STEP=0.5;
+const ctrlSeries = [];
+for (let y=Y0; y<=Y1+1e-6; y+=SERIES_STEP) {
+  const sum = {}; let tot=0, n=0;
+  for (const c of cells) { if (c.isle) continue; n++; ctl(c,y); if (R!=='IND') { sum[R]=(sum[R]||0)+K; tot+=K; } }
+  let dom='IND', best=0; for (const k in sum) if (sum[k]>best) { best=sum[k]; dom=k; }
+  ctrlSeries.push({ y, pct: tot/n, dom });
+}
+const ctrlAt = y => ctrlSeries[clamp(Math.round((y-Y0)/SERIES_STEP),0,ctrlSeries.length-1)];
+
+// ---------- population (thousands) ----------
+const ETH = [
+  { k:'hi', n:'高山原住民族', e:'Highland Indigenous', c:'#3f9a6e' },
+  { k:'pl', n:'平埔族群', e:'Plains Indigenous', c:'#a6d18a' },
+  { k:'ho', n:'福佬（閩南）', e:'Hoklo', c:'#e8a85a' },
+  { k:'ha', n:'客家', e:'Hakka', c:'#c0664c' },
+  { k:'co', n:'荷西人・日本人', e:'Dutch, Spanish, Japanese', c:'#d9d3e8' },
+  { k:'ml', n:'戰後移民（外省）', e:'Postwar mainlanders', c:'#6f97e6' },
+  { k:'ni', n:'新住民', e:'New immigrants', c:'#d38ad6' },
+];
+const PY = [1600,1624,1650,1662,1684,1700,1750,1782,1811,1850,1893,1905,1920,1943,1946,1956,1970,1990,2000,2010,2026];
+const POP = {
+  hi:[100,100,100,100,100,105,110,110,110,115,120,115,130,162,165,200,250,350,400,512,610],
+  pl:[100,100,95,90,90,85,75,65,55,50,45,46,48,62,60,0,0,0,0,0,0],
+  ho:[0.5,1.5,20,35,100,115,450,750,1620,1950,2100,2492,2890,5000,5100,7000,10600,14900,16200,16700,16600],
+  ha:[0,0,0,0,5,15,90,150,300,350,420,397,470,830,840,1150,1800,2650,2900,3000,3000],
+  co:[0,0.3,2,0,0,0,0,0,0,0,0.5,57,165,397,0,0,0,0,0,0,0],
+  ml:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,1150,2050,2500,2650,2700,2400],
+  ni:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,150,450,620],
+};
+const popAt = y => ETH.map(e => pw(y, PY.map((py,i)=>[py, POP[e.k][i]])));
+const popSeries = []; for (let y=Y0; y<=Y1; y+=1) popSeries.push({ y, v: popAt(y) });
+
+// ---------- eras: start, end, name, short, regime, [from, zh, en] descriptions ----------
+const ERAS = [
+  { a:1600, b:1624.6, n:'原住民族的島嶼', ne:'An Indigenous Island', s:'原住民族', se:'Indigenous', r:'IND', d:[
+    [0,'南島語族各族群分布全島，以部落為單位自治。漢人漁民、海商與海盜往來沿海，明朝僅在澎湖巡防，台灣本島不在任何國家版圖內。',
+       'Austronesian peoples lived across the island, each village governing itself. Chinese fishermen, traders and pirates worked the coast. The Ming only patrolled Penghu; Taiwan itself belonged to no state.']] },
+  { a:1624.6, b:1662.09, n:'荷西時期', ne:'Dutch & Spanish Era', s:'荷西', se:'Dutch', r:'VOC', d:[
+    [0,'荷蘭東印度公司以大員（今安平）為據點，經營鹿皮、蔗糖與轉口貿易，招募漢人來台開墾；西班牙佔北部雞籠、淡水，1642 年被荷蘭逐出。',
+       'The Dutch East India Company ruled from Tayouan (today’s Anping), trading deerskins and sugar and bringing Chinese settlers to farm. Spain held Keelung and Tamsui in the north until the Dutch drove it out in 1642.']] },
+  { a:1662.09, b:1683.6, n:'明鄭時期', ne:'Zheng Kingdom', s:'明鄭', se:'Zheng', r:'ZHENG', d:[
+    [0,'鄭成功逐荷，鄭經建立東寧政權，沿用永曆年號。實施屯田，設承天府，漢人大量移入南部平原，台灣首次出現漢人政權。',
+       'Koxinga expelled the Dutch, and his son Zheng Jing built the Kingdom of Tungning under the Ming calendar. Military farms brought large Han migration to the southern plains: the first Han Chinese state on Taiwan.']] },
+  { a:1683.6, b:1895.39, n:'清領時期', ne:'Qing Rule', s:'清領', se:'Qing', r:'QING', d:[
+    [0,'清初消極治台並頒渡台禁令，但移民仍持續越界開墾，由南向北、由西向東推進，以「土牛溝」劃定漢番界線。',
+       'The early Qing ruled reluctantly and restricted migration, yet settlers kept crossing and farming north and east. Earthen boundary ditches marked where Han land ended and Indigenous land began.'],
+    [1875,'牡丹社事件後改採積極政策：開山撫番、增設府縣，1885 年建省，劉銘傳推動鐵路與電報。',
+       'After the Mudan Incident the Qing changed course: roads through the mountains, new prefectures, and in 1885 a province. Governor Liu Mingchuan built railways and telegraphs.']] },
+  { a:1895.39, b:1945.82, n:'日治時期', ne:'Japanese Rule', s:'日治', se:'Japan', r:'JPN', d:[
+    [0,'馬關條約割台，台灣民主國短暫抵抗。總督府建立戶口、警察、鐵路與現代教育，並以「理蕃」武力推進山地，首次將全島納入國家統治。',
+       'The Treaty of Shimonoseki ceded Taiwan to Japan; the Republic of Formosa resisted briefly. The Government-General built police, registers, railways and schools, and forced its way into the mountains, ruling the whole island for the first time.'],
+    [1937,'中日戰爭爆發，推行皇民化運動：改日本姓名、禁漢文、徵召台籍軍人與軍伕。',
+       'War with China began. The Kōminka movement pressed Japanese names and language, closed Chinese-language papers, and drafted Taiwanese as soldiers and laborers.']] },
+  { a:1945.82, b:2026.01, n:'戰後・中華民國', ne:'Postwar Republic of China', s:'中華民國', se:'ROC', r:'ROC', d:[
+    [0,'日本戰敗，國民政府接收台灣。1947 年二二八事件爆發，鎮壓擴及全島。',
+       'Japan surrendered and the Nationalist government took over Taiwan. The February 28 Incident of 1947 set off island-wide unrest and a brutal crackdown.'],
+    [1949.38,'1949 年實施戒嚴、中央政府遷台，約百萬軍民隨之來台。戒嚴長達 38 年，白色恐怖時期言論與結社受到嚴格管制。',
+       'Martial law began in 1949 as the central government retreated to Taiwan with about a million soldiers and civilians. It lasted 38 years; the White Terror policed speech and association.'],
+    [1987.54,'1987 年解嚴，國會全面改選、1996 年總統直選、2000 年首次政黨輪替。原住民族、客家運動推動正名與語言復振。',
+       'Martial law ended in 1987. The legislature was fully re-elected, direct presidential votes began in 1996, and power changed parties in 2000. Indigenous and Hakka movements won recognition and language revival.']] },
+];
+const eraAt = y => ERAS.find(e => y>=e.a && y<e.b) || ERAS[ERAS.length-1];
+const descAt = (e,y) => { let t=e.d[0]; for (const d of e.d) if (y>=d[0]) t=d; return t; };
+
+// [year, zh title, zh text, lon, lat, en title, en text]
+const EVENTS = [
+  [1603,'陳第《東番記》','隨明軍來台的陳第記錄西拉雅人的部落、狩獵與婚俗，是最早的台灣民族誌之一。',120.2,23.1,'Chen Di’s Account of Dongfan','Sailing with a Ming fleet, Chen Di described Siraya villages, hunting and marriage: one of the earliest ethnographies of Taiwan.'],
+  [1622.5,'荷蘭人佔領澎湖','荷蘭東印度公司在澎湖築城，與明朝對峙兩年。',119.6,23.57,'The Dutch seize Penghu','The VOC fortified Penghu and faced off with the Ming for two years.'],
+  [1624.6,'熱蘭遮城動工','荷明議和，荷蘭人退出澎湖，轉往台灣大員建立據點。',120.16,23.0,'Fort Zeelandia begun','Under a truce with the Ming, the Dutch left Penghu and built a base at Tayouan on Taiwan.'],
+  [1626.4,'西班牙佔領雞籠','西班牙人在社寮島築聖薩爾瓦多城，與荷蘭南北對峙。',121.74,25.15,'Spain takes Keelung','The Spanish built Fort San Salvador, splitting Taiwan between north and south.'],
+  [1629,'淡水聖多明哥城','西班牙勢力延伸到淡水河口。',121.43,25.17,'Fort Santo Domingo, Tamsui','Spanish power reached the mouth of the Tamsui River.'],
+  [1636.3,'小琉球事件','荷蘭軍隊攻擊小琉球，島上原住民幾乎全數被殺或遷走。',120.37,22.34,'Lamey Island massacre','Dutch troops attacked Xiaoliuqiu; nearly all its Indigenous people were killed or removed.'],
+  [1641,'第一次地方會議','荷蘭召集各社長老舉行「地方會議」（Landdag），授予權杖，建立間接統治。',120.25,23.05,'The first Landdag','The Dutch gathered village elders and handed out staffs of office, ruling through local leaders.'],
+  [1642.7,'荷蘭逐出西班牙','荷軍攻下雞籠，台灣西部與北部歸荷蘭東印度公司。',121.74,25.15,'The Dutch expel Spain','The Dutch took Keelung; western and northern Taiwan fell to the VOC.'],
+  [1652.7,'郭懷一事件','漢人農民不滿重稅起事，遭荷軍與原住民聯軍鎮壓，死者數千。',120.25,23.0,'Guo Huaiyi Rebellion','Chinese farmers rose against heavy taxes and were crushed by Dutch and Indigenous forces; thousands died.'],
+  [1661.33,'鄭成功登陸鹿耳門','鄭軍兩萬五千人渡海，包圍熱蘭遮城九個月。',120.15,23.04,'Koxinga lands at Luermen','Some 25,000 Zheng troops crossed the strait and besieged Fort Zeelandia for nine months.'],
+  [1662.09,'荷蘭投降','荷蘭結束在台 38 年的統治，鄭成功設承天府，鄭氏政權（後稱東寧）在台建立。',120.16,23.0,'The Dutch surrender','Thirty-eight years of Dutch rule ended; Koxinga set up Chengtian Prefecture, and the Zheng state, later called Tungning, took over.'],
+  [1666,'台灣第一座孔廟','陳永華建孔廟、設學校，引入科舉與儒學教育。',120.2,22.99,'Taiwan’s first Confucius Temple','Chen Yonghua built the temple and schools, bringing Confucian learning and exams to Taiwan.'],
+  [1683.55,'澎湖海戰・鄭克塽降清','施琅率清軍攻克澎湖，東寧政權投降。',119.6,23.57,'Battle of Penghu','Shi Lang’s Qing fleet took Penghu, and the Tungning state surrendered.'],
+  [1684.3,'設台灣府，隸福建省','清廷將台灣納入版圖，設一府三縣，並頒渡台禁令。',120.2,23.0,'Taiwan Prefecture, Fujian','The Qing annexed Taiwan as one prefecture with three counties and restricted migration.'],
+  [1721.37,'朱一貴事件','民變一度攻下府城，事後清廷劃定漢番界線、限制開墾。',120.3,22.8,'Zhu Yigui Uprising','Rebels briefly took the capital; afterward the Qing drew Han–Indigenous boundaries.'],
+  [1723,'增設彰化縣、淡水廳','中北部開墾加速，行政區隨著移民北推。',120.54,24.08,'Changhua and Tamsui created','Settlement of central and northern Taiwan sped up, and government followed the migrants north.'],
+  [1738,'艋舺龍山寺創建','台北盆地成為新的移民與商業中心。',121.5,25.04,'Longshan Temple, Bangka','The Taipei Basin grew into a new center of migration and trade.'],
+  [1787.04,'林爽文事件','清代規模最大的民變，清廷調兵數萬才平定。',120.6,24.1,'Lin Shuangwen Rebellion','The largest uprising of Qing Taiwan; tens of thousands of troops were sent to end it.'],
+  [1812,'設噶瑪蘭廳','漢人自 1796 年入墾宜蘭，清廷隨後正式設治。',121.75,24.75,'Kavalan Subprefecture','Han settlers entered the Yilan plain in 1796; the Qing formally annexed it in 1812.'],
+  [1823,'台江內海陸化','大風雨帶來泥沙，台南外海潟湖迅速淤積成陸地，海岸線西移。',120.2,23.05,'The Taijiang lagoon silts up','Storms washed sediment into the Tainan lagoon, which turned to land and pushed the coast west.'],
+  [1860,'開港通商','天津條約後安平、淡水、打狗、雞籠陸續開港，茶、糖、樟腦外銷。',121.44,25.17,'Treaty ports open','After the Treaty of Tianjin, four ports opened; tea, sugar and camphor went abroad.'],
+  [1874.4,'牡丹社事件','日軍以琉球漂民遇害為由出兵恆春半島，清廷開始重視台灣防務。',120.8,22.13,'Mudan Incident','Japan invaded the Hengchun Peninsula over murdered Ryukyuan sailors, and the Qing took Taiwan’s defense seriously.'],
+  [1875,'開山撫番','開闢通往東部的山路，增設台北府、恆春縣，解除渡台禁令。',121.0,23.6,'Opening the mountains','Roads were cut to the east coast, Taipei and Hengchun were created, and the migration ban was lifted.'],
+  [1885.8,'台灣建省','劉銘傳任首任巡撫，推動鐵路、電報、清丈土地。',121.5,25.04,'Taiwan becomes a province','Liu Mingchuan, the first governor, began railways, telegraphs and a land survey.'],
+  [1891,'基隆—台北鐵路通車','台灣第一條鐵路。',121.6,25.1,'Keelung–Taipei railway','Taiwan’s first railway opens.'],
+  [1895.29,'馬關條約','甲午戰敗，清廷將台灣與澎湖割讓給日本。',null,null,'Treaty of Shimonoseki','Defeated by Japan, the Qing ceded Taiwan and Penghu.'],
+  [1895.41,'日軍登陸澳底','台灣民主國成立四天後，日軍自東北角登陸，一路南進。',121.92,25.03,'Japanese land at Aodi','Four days after the Republic of Formosa was declared, Japanese troops landed in the northeast and marched south.'],
+  [1895.8,'台南陷落','乙未戰爭結束，日本宣告全島平定，但各地抗日持續數年。',120.2,23.0,'Tainan falls','The 1895 war ended and Japan declared the island pacified, though resistance went on for years.'],
+  [1908.3,'縱貫鐵路全線通車','基隆到打狗一日可達，西部平原連成一體。',120.6,24.0,'West Coast railway completed','Keelung to Takao in a single day; the western plains became one connected region.'],
+  [1910,'理蕃五年計畫','總督佐久間左馬太以軍警推進隘勇線，強行進入中央山脈。',121.2,24.3,'Five-Year Aborigine Plan','Governor Sakuma pushed guard lines and troops deep into the Central Mountains.'],
+  [1915.6,'西來庵事件','最後一次大規模漢人武裝抗日，上千人被判刑。',120.45,23.15,'Tapani Incident','The last large Han armed uprising against Japan; more than a thousand people were sentenced.'],
+  [1921,'台灣文化協會成立','議會設置請願運動展開，從武裝抗日轉向政治與文化運動。',121.5,25.04,'Taiwan Cultural Association','A petition for a Taiwan parliament began; resistance moved from arms to politics and culture.'],
+  [1930.82,'霧社事件','賽德克族人起事反抗，遭日軍以飛機、毒氣鎮壓。',121.13,24.03,'Musha Incident','Seediq people rose against Japanese rule and were crushed with aircraft and poison gas.'],
+  [1937.6,'皇民化運動','中日戰爭爆發，總督府推行同化政策與戰時動員。',null,null,'Kōminka movement','With war in China, the colonial government pushed assimilation and wartime mobilization.'],
+  [1944.78,'台灣沖航空戰','美軍航艦與 B-29 連日攻擊台灣機場，日軍失去台灣上空的制空權。',120.29,22.79,'The Formosa Air Battle','US carriers and B-29s hit Taiwan’s airfields for days, and Japan lost control of the air over Taiwan.'],
+  [1945.41,'台北大空襲','117 架 B-24 轟炸台北，總督府中彈。死亡人數多數說法超過 3,000 人，各方紀錄不一。',121.51,25.04,'The Raid on Taipei','117 B-24s bombed Taipei and hit the Governor-General’s Office. Most accounts put the dead above 3,000; records differ.'],
+  [1945.82,'國民政府接收台灣','10 月 25 日於台北公會堂舉行受降，其後約 46 萬日本軍民分批遣返。',121.5,25.04,'The ROC takes over Taiwan','The surrender was accepted in Taipei on October 25; about 460,000 Japanese soldiers and civilians were later sent home.'],
+  [1947.16,'二二八事件','緝菸衝突引發全島抗爭，軍隊鎮壓造成大量傷亡。',121.51,25.05,'February 28 Incident','A clash over contraband cigarettes sparked island-wide protest, met by a deadly military crackdown.'],
+  [1949.38,'戒嚴・中央政府遷台','台灣進入長達 38 年的戒嚴時期，大量軍民隨政府來台。',121.5,25.04,'Martial law; the government moves to Taiwan','Taiwan entered 38 years of martial law as soldiers and civilians followed the government across the strait.'],
+  [1971.8,'退出聯合國','聯合國大會通過 2758 號決議，中華民國失去代表權。',null,null,'The ROC leaves the UN','UN Resolution 2758 gave China’s seat to the People’s Republic.'],
+  [1979.95,'美麗島事件','高雄人權遊行遭鎮壓，成為民主運動轉折點。',120.3,22.62,'Kaohsiung Incident','A human rights rally in Kaohsiung was suppressed, a turning point for the democracy movement.'],
+  [1984.95,'原住民權利促進會','原住民族運動興起，推動正名、還我土地。',121.5,25.04,'Alliance of Taiwan Aborigines','The Indigenous rights movement began, campaigning for recognition and land.'],
+  [1987.54,'解除戒嚴','解嚴後陸續開放赴大陸探親、解除報禁與黨禁。',121.5,25.04,'Martial law lifted','Family visits to China, new newspapers and new parties were allowed in the years that followed.'],
+  [1988.98,'還我母語運動','客家族群走上街頭，爭取母語在媒體與教育中的地位。',121.5,25.04,'Return My Mother Tongue','Hakka people marched for their language in media and schools.'],
+  [1994.6,'「原住民」入憲','修憲以「原住民」取代「山胞」稱呼。',null,null,'Indigenous peoples in the Constitution','An amendment replaced “mountain compatriots” with “Indigenous peoples.”'],
+  [1996.23,'首次總統直選','台灣人民首度直接選出總統。',null,null,'First direct presidential election','Voters in Taiwan chose their president directly for the first time.'],
+  [2000.21,'首次政黨輪替','執政超過半世紀的國民黨交出政權，和平移轉。',null,null,'First transfer of power','The KMT, in power for over fifty years, handed over government peacefully.'],
+  [2005.1,'原住民族基本法','確立原住民族自治、土地與文化權利。',null,null,'Indigenous Peoples Basic Law','The law set out Indigenous rights to self-government, land and culture.'],
+  [2007.1,'高速鐵路通車','台北到高雄 90 分鐘，西部成為一日生活圈。',120.7,24.0,'High-speed rail opens','Taipei to Kaohsiung in 90 minutes; the west coast became a day trip.'],
+  [2016.58,'總統向原住民族道歉','政府正式就四百年來的不公道歉，成立轉型正義委員會。',null,null,'Apology to Indigenous peoples','The president formally apologized for four centuries of injustice and set up a transitional justice commission.'],
+  [2019.38,'同性婚姻合法化','亞洲第一個同婚合法的國家。',null,null,'Same-sex marriage legalized','The first in Asia.'],
+  [2024.04,'第八次總統直選','民主選舉成為常態，族群與國家認同持續變化。',null,null,'Eighth direct presidential election','Democratic elections are routine, while ethnic and national identities keep shifting.'],
+];
+const PLACES = [
+  { p:[120.16,23.0], n:[[1624.6,'大員','Tayouan'],[1662.09,'承天府','Chengtian'],[1684.3,'台灣府','Taiwan-fu'],[1887,'台南','Tainan']] },
+  { p:[121.74,25.13], n:[[1626.4,'雞籠','Kelang'],[1875,'基隆','Keelung']] },
+  { p:[121.44,25.17], n:[[1628.5,'淡水','Tamsui']] },
+  { p:[121.50,25.04], n:[[1738,'艋舺','Bangka'],[1875,'台北','Taipei']] },
+  { p:[120.97,24.80], n:[[1733,'竹塹','Tek-tsham'],[1875,'新竹','Hsinchu']] },
+  { p:[120.54,24.08], n:[[1723,'彰化','Changhua']] },
+  { p:[120.68,24.14], n:[[1889,'台中','Taichung']], side:'r' },
+  { p:[120.45,23.48], n:[[1704,'諸羅','Tsulo'],[1787.9,'嘉義','Chiayi']] },
+  { p:[120.29,22.62], n:[[1863,'打狗','Takao'],[1920,'高雄','Kaohsiung']] },
+  { p:[120.75,22.00], n:[[1875,'恆春','Hengchun']] },
+  { p:[121.75,24.75], n:[[1812,'噶瑪蘭','Kavalan'],[1875,'宜蘭','Yilan']] },
+  { p:[121.60,23.98], n:[[1875,'奇萊','Kilai'],[1909,'花蓮','Hualien']] },
+  { p:[121.14,22.76], n:[[1638,'卑南','Puyuma'],[1888,'台東','Taitung']] },
+  { p:[119.57,23.57], n:[[1600,'澎湖','Penghu']] },
+];
+const RAIL = [ [[121.74,25.13],1891],[[121.50,25.04],1891],[[121.30,24.99],1893],[[120.97,24.80],1893],[[120.82,24.57],1903],[[120.68,24.14],1905],[[120.54,24.08],1905],[[120.45,23.48],1904],[[120.21,22.99],1900],[[120.29,22.62],1900] ];
+const EAST_RAIL = [[121.60,23.98],[121.32,23.30],[121.14,22.76]];
+const HSR = [[121.52,25.05],[121.22,25.01],[121.04,24.81],[120.62,24.11],[120.42,23.46],[120.29,22.92],[120.31,22.69]];
+
+// ---------- rulers: [from, role, zh name, zh note, years, portrait key, en name, en note] ----------
+const ROLE_EN = {
+  '統治者':'Rule', '荷蘭台灣長官':'Dutch Governor', '延平郡王':'Prince of Yanping', '延平王・東寧':'King of Tungning',
+  '大清皇帝':'Qing Emperor', '台灣民主國總統':'President, Rep. of Formosa', '台灣民主國大將軍':'Commander, Rep. of Formosa',
+  '台灣總督':'Governor-General', '國民政府主席':'Chairman, Nationalist Govt.', '中華民國總統':'ROC President', '中華民國代總統':'Acting ROC President',
+  '北部':'North', '圍城':'Siege', '台灣巡撫':'Governor', '日本台灣總督':'Japanese Gov.-General', '天皇':'Emperor',
+  '台灣省行政長官':'Chief Executive', '台灣省主席':'Provincial Chairman', '國民黨總裁':'KMT leader', '行政院長':'Premier',
+};
+const ORD = n => n + (n%10===1&&n!==11 ? 'st' : n%10===2&&n!==12 ? 'nd' : n%10===3&&n!==13 ? 'rd' : 'th');
+const GG = (n, extraZh, extraEn) => [`第 ${n} 任${extraZh?'・'+extraZh:''}`, `${ORD(n)}${extraEn?' · '+extraEn:''}`];
+const RULERS = [
+  [1600,'統治者','各部落自治','頭目與長老會議議事；中部有跨部落的大肚王國','—',null,'Village self-rule','Chiefs and elders’ councils; the multi-village Middag kingdom in the center'],
+  [1624.6,'荷蘭台灣長官','宋克','Martinus Sonck','1624–1625',null,'Martinus Sonck',''],
+  [1625.75,'荷蘭台灣長官','德・韋特','Gerard de With','1625–1627',null,'Gerard de With',''],
+  [1627.5,'荷蘭台灣長官','納茨','Pieter Nuyts','1627–1629','Pieter Nuyts','Pieter Nuyts',''],
+  [1629.5,'荷蘭台灣長官','普特曼斯','Hans Putmans','1629–1636',null,'Hans Putmans',''],
+  [1636.8,'荷蘭台灣長官','范・德・勃格','Johan van der Burgh','1636–1640',null,'Johan van der Burgh',''],
+  [1640.3,'荷蘭台灣長官','陶德','Paulus Traudenius','1640–1643',null,'Paulus Traudenius',''],
+  [1643.1,'荷蘭台灣長官','麥爾','Maximiliaan le Maire','1643–1644',null,'Maximiliaan le Maire',''],
+  [1644.6,'荷蘭台灣長官','卡隆','François Caron','1644–1646',null,'François Caron',''],
+  [1646.9,'荷蘭台灣長官','歐沃德華特','Pieter Overtwater','1646–1650','Pieter Anthoniszoon Overtwater','Pieter Overtwater',''],
+  [1650.6,'荷蘭台灣長官','費爾堡','Nicolaes Verburg','1650–1653',null,'Nicolaes Verburg',''],
+  [1653.4,'荷蘭台灣長官','凱撒','Cornelis Caesar','1653–1656',null,'Cornelis Caesar',''],
+  [1656.5,'荷蘭台灣長官','揆一','Frederick Coyett・末任長官','1656–1662','Frederick Coyett','Frederick Coyett','The last Dutch governor'],
+  [1662.09,'延平郡王','鄭成功','國姓爺 Koxinga','1661–1662','Koxinga','Zheng Chenggong','Known in the West as Koxinga'],
+  [1662.47,'延平王・東寧','鄭經','鄭成功長子','1662–1681','Zheng Jing','Zheng Jing','Koxinga’s eldest son'],
+  [1681.2,'延平王・東寧','鄭克塽','鄭經次子，降清','1681–1683','Zheng Keshuang','Zheng Keshuang','Zheng Jing’s son; surrendered to the Qing'],
+  [1683.6,'大清皇帝','康熙帝','愛新覺羅・玄燁','在位 1661–1722','Kangxi Emperor','Kangxi Emperor','Aisin-Gioro Xuanye'],
+  [1722.96,'大清皇帝','雍正帝','愛新覺羅・胤禛','在位 1722–1735','Yongzheng Emperor','Yongzheng Emperor','Aisin-Gioro Yinzhen'],
+  [1735.7,'大清皇帝','乾隆帝','愛新覺羅・弘曆','在位 1735–1796','Qianlong Emperor','Qianlong Emperor','Aisin-Gioro Hongli'],
+  [1796.0,'大清皇帝','嘉慶帝','愛新覺羅・顒琰','在位 1796–1820','Jiaqing Emperor','Jiaqing Emperor','Aisin-Gioro Yongyan'],
+  [1820.7,'大清皇帝','道光帝','愛新覺羅・旻寧','在位 1820–1850','Daoguang Emperor','Daoguang Emperor','Aisin-Gioro Minning'],
+  [1850.1,'大清皇帝','咸豐帝','愛新覺羅・奕詝','在位 1850–1861','Xianfeng Emperor','Xianfeng Emperor','Aisin-Gioro Yizhu'],
+  [1861.6,'大清皇帝','同治帝','愛新覺羅・載淳','在位 1861–1875','Tongzhi Emperor','Tongzhi Emperor','Aisin-Gioro Zaichun'],
+  [1875.0,'大清皇帝','光緒帝','愛新覺羅・載湉','在位 1875–1908','Guangxu Emperor','Guangxu Emperor','Aisin-Gioro Zaitian'],
+  [1895.39,'台灣民主國總統','唐景崧','原台灣巡撫，十餘日後內渡','1895.5–6','Tang Jingsong','Tang Jingsong','Former Qing governor; fled within two weeks'],
+  [1895.43,'台灣民主國大將軍','劉永福','黑旗軍統領，坐鎮台南','1895.6–10','Liu Yongfu','Liu Yongfu','Black Flag Army leader, held Tainan'],
+  [1895.8,'台灣總督','樺山資紀',...GG(1),'1895–1896','Kabayama Sukenori','Kabayama Sukenori'],
+  [1896.45,'台灣總督','桂太郎',...GG(2),'1896','Katsura Tarō','Katsura Tarō'],
+  [1896.8,'台灣總督','乃木希典',...GG(3),'1896–1898','Nogi Maresuke','Nogi Maresuke'],
+  [1898.15,'台灣總督','兒玉源太郎',...GG(4,'民政長官後藤新平','civil chief Gotō Shinpei'),'1898–1906','Kodama Gentarō','Kodama Gentarō'],
+  [1906.3,'台灣總督','佐久間左馬太',...GG(5,'推動理蕃計畫','led the mountain campaigns'),'1906–1915','Sakuma Samata','Sakuma Samata'],
+  [1915.33,'台灣總督','安東貞美',...GG(6),'1915–1918','Andō Teibi','Andō Teibi'],
+  [1918.45,'台灣總督','明石元二郎',...GG(7),'1918–1919','Akashi Motojirō','Akashi Motojirō'],
+  [1919.8,'台灣總督','田健治郎',...GG(8,'首位文官總督','first civilian governor'),'1919–1923','Den Kenjirō','Den Kenjirō'],
+  [1923.7,'台灣總督','內田嘉吉',...GG(9),'1923–1924','Uchida Kakichi','Uchida Kakichi'],
+  [1924.7,'台灣總督','伊澤多喜男',...GG(10),'1924–1926','Izawa Takio','Izawa Takio'],
+  [1926.7,'台灣總督','上山滿之進',...GG(11),'1926–1928','Kamiyama Mitsunoshin','Kamiyama Mitsunoshin'],
+  [1928.45,'台灣總督','川村竹治',...GG(12),'1928–1929','Kawamura Takeji','Kawamura Takeji'],
+  [1929.55,'台灣總督','石塚英藏',...GG(13,'霧社事件後去職','resigned after Musha'),'1929–1931','Ishizuka Eizō','Ishizuka Eizō'],
+  [1931.05,'台灣總督','太田政弘',...GG(14),'1931–1932','Ōta Masahiro','Ōta Masahiro'],
+  [1932.2,'台灣總督','南弘',...GG(15),'1932','Minami Hiroshi','Minami Hiroshi'],
+  [1932.4,'台灣總督','中川健藏',...GG(16),'1932–1936','Nakagawa Kenzō','Nakagawa Kenzō'],
+  [1936.7,'台灣總督','小林躋造',...GG(17,'恢復武官總督','military governors return'),'1936–1940','Seizō Kobayashi','Kobayashi Seizō'],
+  [1940.9,'台灣總督','長谷川清',...GG(18),'1940–1944',null,'Hasegawa Kiyoshi'],
+  [1944.95,'台灣總督','安藤利吉',...GG(19,'末代總督','the last governor'),'1944–1945','Rikichi Andō','Andō Rikichi'],
+  [1945.82,'國民政府主席','蔣中正','蔣介石','1943–1948','Chiang Kai-shek','Chiang Kai-shek',''],
+  [1948.38,'中華民國總統','蔣中正','行憲後第一任總統','1948–1949','Chiang Kai-shek','Chiang Kai-shek','First president under the constitution'],
+  [1949.06,'中華民國代總統','李宗仁','1949 年底赴美，未曾來台','1949–1950','Li Zongren','Li Zongren','Left for the US in 1949; never came to Taiwan'],
+  [1950.17,'中華民國總統','蔣中正','1950 年在台復行視事','1950–1975','Chiang Kai-shek','Chiang Kai-shek','Resumed the presidency in Taiwan, 1950'],
+  [1975.26,'中華民國總統','嚴家淦','繼任蔣中正剩餘任期','1975–1978','Yen Chia-kan','Yen Chia-kan','Served out Chiang’s term'],
+  [1978.39,'中華民國總統','蔣經國','任內解除戒嚴','1978–1988','Chiang Ching-kuo','Chiang Ching-kuo','Lifted martial law'],
+  [1988.04,'中華民國總統','李登輝','首位台灣出生的總統','1988–2000','Lee Teng-hui','Lee Teng-hui','First Taiwan-born president'],
+  [2000.38,'中華民國總統','陳水扁','首次政黨輪替','2000–2008','Chen Shui-bian','Chen Shui-bian','First transfer of power'],
+  [2008.38,'中華民國總統','馬英九','','2008–2016','Ma Ying-jeou','Ma Ying-jeou',''],
+  [2016.38,'中華民國總統','蔡英文','首位女性總統','2016–2024','Tsai Ing-wen','Tsai Ing-wen','First woman president'],
+  [2024.38,'中華民國總統','賴清德','','2024–','Lai Ching-te','Lai Ching-te',''],
+];
+// GG() fills both note slots, so move its en note to the end for those rows
+for (const r of RULERS) if (r.length===8 && /^第 \d+ 任/.test(r[3]) && typeof r[4]==='string' && !/^\d{4}/.test(r[4])) {
+  const [a,role,name,zhN,enN,yrs,key,enName] = r; r.splice(0, r.length, a,role,name,zhN,yrs,key,enName,enN);
+}
+// second line on the card: [from, to, role, zh name, portrait key, en name]; the last match wins
+const SUBS = [
+  [1626.4,1642.7,'北部','西班牙・雞籠與淡水',null,'Spanish Keelung & Tamsui'],
+  [1661.33,1662.09,'圍城','鄭成功圍攻熱蘭遮城','Koxinga','Koxinga besieges Zeelandia'],
+  [1885.8,1891.3,'台灣巡撫','劉銘傳','Liu Mingchuan','Liu Mingchuan'],
+  [1891.3,1894.8,'台灣巡撫','邵友濂',null,'Shao Youlian'],
+  [1894.8,1895.39,'台灣巡撫','唐景崧','Tang Jingsong','Tang Jingsong'],
+  [1895.39,1895.8,'日本台灣總督','樺山資紀','Kabayama Sukenori','Kabayama Sukenori'],
+  [1895.8,1912.58,'天皇','明治天皇','Emperor Meiji','Emperor Meiji'],
+  [1912.58,1926.98,'天皇','大正天皇','Emperor Taishō','Emperor Taishō'],
+  [1926.98,1945.82,'天皇','昭和天皇','Hirohito','Emperor Shōwa (Hirohito)'],
+  [1945.82,1947.37,'台灣省行政長官','陳儀','Chen Yi (Kuomintang)','Chen Yi'],
+  [1947.37,1949.0,'台灣省主席','魏道明','Wei Tao-ming','Wei Tao-ming'],
+  [1949.0,1949.97,'台灣省主席','陳誠','Chen Cheng','Chen Cheng'],
+  [1949.06,1950.17,'國民黨總裁','蔣中正主導遷台','Chiang Kai-shek','Chiang Kai-shek leads the retreat'],
+  [1975.26,1978.39,'行政院長','蔣經國','Chiang Ching-kuo','Chiang Ching-kuo'],
+];
+const PORTRAITS = window.PORTRAITS || {};
+const IMG = {};
+for (const k in PORTRAITS) { const im = new Image(); im.src = PORTRAITS[k].src; IMG[k] = im; }
+const rulerAt = y => { let r = RULERS[0]; for (const x of RULERS) if (y >= x[0]) r = x; else break; return r; };
+const subAt = y => { let s = null; for (const x of SUBS) if (y >= x[0] && y < x[1]) s = x; return s; };
+
+function reign(y){
+  const Y=Math.floor(y), f=n=>n===1?'元':n, out=(zh,en,n)=>tx(`${zh} ${f(n)} 年`, `${en} ${n}`);
+  if (y>=1945.82) return Y>=1912 ? out('民國','Minguo',Y-1911) : '';
+  if (y>=1895.41) { if (Y<1912) return out('明治','Meiji',Y-1867); if (Y<1926) return out('大正','Taishō',Y-1911); return out('昭和','Shōwa',Y-1925); }
+  if (y>=1683.6) { const RG=[[1875,'光緒','Guangxu'],[1862,'同治','Tongzhi'],[1851,'咸豐','Xianfeng'],[1821,'道光','Daoguang'],[1796,'嘉慶','Jiaqing'],[1736,'乾隆','Qianlong'],[1723,'雍正','Yongzheng'],[1662,'康熙','Kangxi']]; for (const [a,z,e] of RG) if (Y>=a) return out(z,e,Y-a+1); }
+  if (y>=1661.33) return out('永曆','Yongli',Y-1646);
+  return '';
+}
+function gov(y){
+  const g = (zh,en) => [zh,en];
+  if (y<1624.6) return g('各部落自治・明朝僅巡防澎湖','Self-governing villages · Ming patrols Penghu');
+  if (y<1661.33) return (y>=1626.4 && y<1642.7) ? g('荷蘭：大員商館／西班牙：雞籠、淡水','Dutch at Tayouan · Spanish at Keelung, Tamsui') : g('荷蘭東印度公司・大員商館','Dutch East India Company · Tayouan');
+  if (y<1683.6) return g('東寧政權・承天府','Tungning · Chengtian Prefecture');
+  if (y<1885.8) return g('大清帝國・福建省台灣府','Qing Empire · Taiwan Prefecture, Fujian');
+  if (y<1895.39) return g('大清帝國・福建台灣省','Qing Empire · Fujian-Taiwan Province');
+  if (y<1895.8) return g('台灣民主國抵抗・日軍南進','Republic of Formosa resists · Japan advances');
+  if (y<1945.82) return g('大日本帝國・台灣總督府','Empire of Japan · Government-General of Taiwan');
+  if (y<1947.3) return g('中華民國・台灣省行政長官公署','ROC · Taiwan Provincial Administration');
+  if (y<1949.38) return g('中華民國・台灣省政府','ROC · Taiwan Provincial Government');
+  if (y<1987.54) return g('中華民國・中央政府遷台・戒嚴時期','ROC · Government in Taiwan · martial law');
+  if (y<1996.23) return g('中華民國・解嚴與民主轉型','ROC · Democratic transition');
+  return g('中華民國（台灣）・總統直選民主體制','ROC (Taiwan) · Direct presidential democracy');
+}
+
+// ---------- layout ----------
+const cv = document.getElementById('film'), ctx = cv.getContext('2d');
+const stage = cv.parentElement;
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1,
+    title:{x:56,y:58}, year:{x:50,y:205,size:150}, reign:{x:60,y:236}, era:{x:58,y:292,size:42}, gov:{x:60,y:328},
+    desc:{x:60,y:372,w:370,lh:29,size:17,max:6}, event:{x:60,y:575,w:370}, legend:{x:60,y:730,w:380,cols:2},
+    map:{x:450,y:24,w:600,h:800}, ruler:{x:466,y:34,w:272,s:1}, ctrl:{x:1100,y:96,w:440,h:180}, eth:{x:1100,y:370,w:440,h:220}, list:{x:1100,y:640,w:440,cols:2},
+    band:{x:56,y:846,w:1488,h:28} },
+  port: { W:720, H:1960, u:1.3,
+    title:{x:28,y:50}, year:{x:24,y:158,size:110}, reign:{x:30,y:192}, era:{x:28,y:244,size:36}, gov:{x:28,y:282},
+    desc:{x:28,y:322,w:664,lh:31,size:21,max:4}, ruler:{x:348,y:58,w:356,s:1.12}, map:{x:16,y:440,w:688,h:640},
+    event:{x:28,y:1110,w:664}, legend:{x:28,y:1262,w:664,cols:2},
+    ctrl:{x:28,y:1440,w:664,h:120}, eth:{x:28,y:1620,w:664,h:140}, list:{x:28,y:1800,w:664,cols:2},
+    band:{x:28,y:1910,w:664,h:34} },
+};
+let L = LAYOUTS.land, M = {}, recording = false;
+const LON0=119.3, LON1=122.15, LAT0=21.8, LAT1=25.45;
+function setLayout(){
+  const cw = stage.clientWidth || 1000;
+  L = (!recording && cw < 720) ? LAYOUTS.port : LAYOUTS.land;
+  const scale = recording ? 1920/L.W : Math.min(2, window.devicePixelRatio||1) * cw / L.W;
+  cv.width = Math.round(L.W*scale); cv.height = Math.round(L.H*scale);
+  ctx.setTransform(scale,0,0,scale,0,0);
+  const r = L.map, gw=(LON1-LON0)*COS, gh=LAT1-LAT0;
+  M.k = Math.min(r.w/gw, r.h/gh); M.ox = r.x + (r.w-gw*M.k)/2; M.oy = r.y + (r.h-gh*M.k)/2;
+  for (const c of cells) { [c.x,c.y] = P(c.lon,c.lat); }
+  M.dot = SP*M.k*0.42;
+}
+const P = (lon,lat) => [M.ox+(lon-LON0)*COS*M.k, M.oy+(LAT1-lat)*M.k];
+
+// ---------- drawing ----------
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+function wrap(text, maxW){
+  const toks = text.match(/[\p{Script=Latin}0-9.,;:!?%’'"“”()\/\-–]+|\s|./gu) || [];
+  const lines=[]; let line='';
+  for (const t of toks) {
+    if (line && !/^[，。、；：！？）」』,.;:!?)]$/.test(t) && ctx.measureText(line+t).width > maxW) { lines.push(line.trimEnd()); line = t.trim() ? t : ''; }
+    else line += t;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+function rgba(rgb,a){ return `rgba(${rgb[0]|0},${rgb[1]|0},${rgb[2]|0},${a.toFixed(3)})`; }
+function fitFont(text, weight, size, family, maxW, min=12){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+
+function drawMap(y, dt){
+  const r=L.map, u=L.u;
+  ctx.save(); ctx.beginPath(); ctx.rect(r.x,r.y,r.w,r.h); ctx.clip();
+  ctx.strokeStyle=COL.grid; ctx.lineWidth=1; ctx.font=font(400,11*u,F.m); ctx.fillStyle=COL.faint;
+  for (let lon=120; lon<=122; lon++) { const [x]=P(lon,0); ctx.beginPath(); ctx.moveTo(x,r.y); ctx.lineTo(x,r.y+r.h); ctx.stroke(); ctx.fillText(`${lon}°E`, x+4, r.y+r.h-8); }
+  for (let lat=22; lat<=25; lat++) { const [,yy]=P(0,lat); ctx.beginPath(); ctx.moveTo(r.x,yy); ctx.lineTo(r.x+r.w,yy); ctx.stroke(); ctx.fillText(`${lat}°N`, r.x+6, yy-5); }
+  const [,ty]=P(0,23.44); ctx.setLineDash([6,6]); ctx.strokeStyle=rgba(hex(COL.tropic),0.45); ctx.beginPath(); ctx.moveTo(r.x,ty); ctx.lineTo(r.x+r.w,ty); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle=rgba(hex(COL.tropic),0.7); ctx.font=font(500,11.5*u,F.b); ctx.textAlign='right'; ctx.fillText(tx('北回歸線','Tropic of Cancer')+' 23.4°N', r.x+r.w-8, ty-6); if (lang==='bi') { ctx.font=font(400,10*u,F.b); ctx.fillText('Tropic of Cancer', r.x+r.w-8, ty+14*u); } ctx.textAlign='left';
+  ctx.restore();
+
+  const f = 1 - Math.pow(0.0015, dt);
+  const counts = {};
+  for (const c of cells) {
+    ctl(c,y); c.R=R; c.K=K;
+    let tr, ta, ts;
+    if (R==='IND') { tr=indRGB(c); ta=0.38+0.42*c.m; ts=0.78; }
+    else { tr=REG[R].rgb; ta=0.35+0.65*K; ts=0.78+0.3*K; counts[R]=(counts[R]||0)+1; }
+    if (c.lagoon) ta *= smooth(1823,1850,y);
+    c.cr+=(tr[0]-c.cr)*f; c.cg+=(tr[1]-c.cg)*f; c.cb+=(tr[2]-c.cb)*f; c.ca+=(ta-c.ca)*f; c.cs+=(ts-c.cs)*f;
+    if (c.ca<0.02) continue;
+    ctx.fillStyle = `rgba(${c.cr|0},${c.cg|0},${c.cb|0},${c.ca.toFixed(3)})`;
+    ctx.beginPath(); ctx.arc(c.x,c.y,M.dot*c.cs*(c.isle?1.25:1),0,6.2832); ctx.fill();
+  }
+  if (y<1850) {
+    const [lx,ly]=P(120.0,23.07); ctx.font=font(500,11.5*L.u,F.b); ctx.fillStyle=rgba(hex(COL.muted), y<1823?0.9:clamp((1850-y)/27,0,1)*0.9);
+    ctx.textAlign='right'; ctx.fillText(tx('台江內海','Taijiang Lagoon'), lx, ly);
+    if (lang==='bi') { ctx.font=font(400,10*L.u,F.b); ctx.fillText('Taijiang Lagoon', lx, ly+14*L.u); }
+    ctx.textAlign='left';
+  }
+
+  ctx.lineCap='round';
+  ctx.strokeStyle=rgba(hex(COL.ink),0.75); ctx.lineWidth=1.6;
+  for (let i=0;i<RAIL.length-1;i++) { const ya=Math.max(RAIL[i][1],RAIL[i+1][1]); if (y<ya) continue; const [x0,y0]=P(...RAIL[i][0]), [x1,y1]=P(...RAIL[i+1][0]); ctx.globalAlpha=smooth(ya,ya+1,y); ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y1); ctx.stroke(); }
+  if (y>=1926) { ctx.globalAlpha=smooth(1926,1927,y); ctx.beginPath(); EAST_RAIL.forEach((p,i)=>{const [x,yy]=P(...p); i?ctx.lineTo(x,yy):ctx.moveTo(x,yy);}); ctx.stroke(); }
+  if (y>=2007.1) { ctx.globalAlpha=smooth(2007.1,2008,y); ctx.strokeStyle='#ffffff'; ctx.lineWidth=2.4; ctx.setLineDash([2,5]); ctx.beginPath(); HSR.forEach((p,i)=>{const [x,yy]=P(p[0]-0.06,p[1]); i?ctx.lineTo(x,yy):ctx.moveTo(x,yy);}); ctx.stroke(); ctx.setLineDash([]); }
+  ctx.globalAlpha=1;
+
+  const capital = y<1624.6 ? null : (y<1885.8 ? PLACES[0] : PLACES[3]);
+  for (const pl of PLACES) {
+    let nm=null; for (const n of pl.n) if (y>=n[0]) nm=n; if (!nm) continue;
+    const a = smooth(pl.n[0][0], pl.n[0][0]+1.5, y);
+    const [x,yy]=P(...pl.p);
+    ctx.globalAlpha=a;
+    ctx.fillStyle=COL.bg; ctx.strokeStyle=COL.ink; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.arc(x,yy,pl===capital?5.5:3.2,0,6.2832); ctx.fill(); ctx.stroke();
+    if (pl===capital) { ctx.fillStyle=COL.ink; ctx.beginPath(); ctx.arc(x,yy,2.2,0,6.2832); ctx.fill(); }
+    const left = pl.side ? pl.side==='l' : pl.p[0] < 120.9;
+    const lx = x+(left?-9:9);
+    ctx.textAlign = left ? 'right' : 'left';
+    ctx.font=font(500,12.5*L.u,F.b);
+    const main = tx(nm[1], nm[2]);
+    ctx.lineWidth=3.5; ctx.strokeStyle=COL.bg; ctx.strokeText(main, lx, yy+4.5); ctx.fillStyle=COL.ink; ctx.fillText(main, lx, yy+4.5);
+    if (lang==='bi') {
+      ctx.font=font(400,10*L.u,F.b);
+      ctx.strokeText(nm[2], lx, yy+4.5+12*L.u); ctx.fillStyle=COL.muted; ctx.fillText(nm[2], lx, yy+4.5+12*L.u);
+    }
+  }
+  ctx.textAlign='left'; ctx.globalAlpha=1;
+
+  const ev = currentEvent(y);
+  if (ev && ev.e[3]!=null && ev.age<5) {
+    const [x,yy]=P(ev.e[3],ev.e[4]); const ph=(performance.now()/1100)%1;
+    ctx.strokeStyle=rgba([255,255,255], (1-ph)*0.8*(1-ev.age/5)); ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(x,yy,8+ph*26,0,6.2832); ctx.stroke();
+  }
+
+  const kmPx = 50/111*M.k, sx=r.x+r.w-kmPx-24, sy=r.y+r.h-34;
+  ctx.strokeStyle=COL.muted; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(sx,sy-4); ctx.lineTo(sx,sy); ctx.lineTo(sx+kmPx,sy); ctx.lineTo(sx+kmPx,sy-4); ctx.stroke();
+  ctx.fillStyle=COL.muted; ctx.font=font(400,11*L.u,F.m); ctx.textAlign='center'; ctx.fillText('50 km', sx+kmPx/2, sy-8); ctx.textAlign='left';
+  return counts;
+}
+
+function currentEvent(y){
+  let best=null; for (const e of EVENTS) if (e[0]<=y) best=e; else break;
+  if (!best) return null; const age=y-best[0]; return age<9 ? {e:best, age} : null;
+}
+
+function drawHeader(y){
+  const u=L.u, era=eraAt(y), col=REG[era.r].c, bi=lang==='bi';
+  ctx.textBaseline='alphabetic';
+  ctx.font=font(700,13*u,F.b); ctx.fillStyle=COL.muted;
+  ctx.fillText(tx('台 灣 四 百 年　1600 — 2026','TAIWAN · FOUR CENTURIES   1600 — 2026'), L.title.x, L.title.y);
+  ctx.font=font(900,L.year.size,F.d); ctx.fillStyle=COL.ink; ctx.fillText(String(Math.floor(y)), L.year.x, L.year.y);
+  const rg=reign(y); if (rg) { ctx.font=font(500,17*u,F.d); ctx.fillStyle=COL.muted; ctx.fillText(rg, L.reign.x, L.reign.y); }
+  fitFont(tx(era.n, era.ne), 900, L.era.size, F.d, L.desc.w, 20); ctx.fillStyle=col; ctx.fillText(tx(era.n, era.ne), L.era.x, L.era.y);
+  const off = bi ? 26*u : 0;
+  if (bi) { ctx.font=font(500,17*u,F.d); ctx.fillStyle=col; ctx.globalAlpha=0.8; ctx.fillText(era.ne, L.era.x+2, L.era.y+24*u); ctx.globalAlpha=1; }
+  const g=gov(y); ctx.font=font(500,15*u,F.b); ctx.fillStyle=COL.ink; ctx.globalAlpha=0.85; ctx.fillText(tx(g[0],g[1]), L.gov.x, L.gov.y+off); ctx.globalAlpha=1;
+  const d=L.desc, de=descAt(era,y); ctx.font=font(400, lang==='en' ? d.size*0.94 : d.size, F.b); ctx.fillStyle=COL.muted;
+  const lh = lang==='en' ? d.lh*0.92 : d.lh;
+  wrap(tx(de[1],de[2]), d.w).slice(0, d.max-(bi?1:0)).forEach((ln,i)=>ctx.fillText(ln, d.x, d.y+off+i*lh));
+}
+
+function drawEvent(y){
+  const r=L.event, u=L.u, ev=currentEvent(y), bi=lang==='bi';
+  ctx.strokeStyle=COL.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=COL.muted; ctx.fillText(tx('大 事 記','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+  if (!ev) return;
+  const e=ev.e, a = ev.age<6 ? 1 : clamp((9-ev.age)/3,0,1);
+  ctx.globalAlpha=a;
+  ctx.font=font(600,14*u,F.m); ctx.fillStyle=REG[eraAt(e[0]).r].c; ctx.fillText(String(Math.floor(e[0])), r.x, r.y+24*u);
+  const title=tx(e[1],e[5]); fitFont(title, 700, 23*u, F.d, r.w-58*u, 14); ctx.fillStyle=COL.ink; ctx.fillText(title, r.x+58*u, r.y+25*u);
+  let ty = r.y+58*u, maxL = 3;
+  if (bi) { fitFont(e[5], 500, 14*u, F.b, r.w-58*u, 11); ctx.fillStyle=COL.muted; ctx.fillText(e[5], r.x+58*u, r.y+45*u); ty = r.y+74*u; maxL = 2; }
+  ctx.font=font(400, lang==='en' ? 14.5*u : 15.5*u, F.b); ctx.fillStyle=COL.muted;
+  wrap(tx(e[2],e[6]), r.w).slice(0,maxL).forEach((ln,i)=>ctx.fillText(ln, r.x, ty+i*(lang==='en'?22:25)*u));
+  ctx.globalAlpha=1;
+}
+
+function drawLegend(counts, y){
+  const r=L.legend, u=L.u, bi=lang==='bi', items=[['IND',REG.IND.n,REG.IND.e]];
+  for (const k of REG_KEYS) if (k!=='IND' && counts[k]) items.push([k, REG[k].n, REG[k].e]);
+  if (y>=1891) items.push(['rail','鐵路','Railway']);
+  if (y>=2007.1) items.push(['hsr','高速鐵路','High-speed rail']);
+  const cw=r.w/r.cols, rh=(bi?36:27)*u;
+  items.forEach(([k,n,e],i)=>{
+    const x=r.x+(i%r.cols)*cw, yy=r.y+Math.floor(i/r.cols)*rh;
+    if (k==='rail' || k==='hsr') {
+      ctx.strokeStyle = k==='rail' ? COL.ink : '#ffffff'; ctx.lineWidth = k==='rail'?1.6:2.4; ctx.setLineDash(k==='hsr'?[2,4]:[]);
+      ctx.beginPath(); ctx.moveTo(x,yy-5); ctx.lineTo(x+18,yy-5); ctx.stroke(); ctx.setLineDash([]);
+    } else if (k==='IND') {
+      ctx.fillStyle=rgba(IND_LOW,0.85); ctx.beginPath(); ctx.arc(x+4,yy-5,5,0,6.2832); ctx.fill();
+      ctx.fillStyle=rgba(IND_HIGH,0.95); ctx.beginPath(); ctx.arc(x+15,yy-5,5,0,6.2832); ctx.fill();
+    } else { ctx.fillStyle=REG[k].c; ctx.beginPath(); ctx.arc(x+9,yy-5,6,0,6.2832); ctx.fill(); }
+    fitFont(tx(n,e), 500, 13.5*u, F.b, cw-34, 10); ctx.fillStyle=COL.ink; ctx.fillText(tx(n,e), x+28, yy);
+    if (bi) { fitFont(e, 400, 11*u, F.b, cw-34, 9); ctx.fillStyle=COL.muted; ctx.fillText(e, x+28, yy+14*u); }
+  });
+}
+
+const xOf = (r,y) => r.x + (y-Y0)/(Y1-Y0)*r.w;
+function axisX(r){
+  const u=L.u; ctx.font=font(400,11*u,F.m); ctx.fillStyle=COL.muted; ctx.textAlign='center';
+  for (const t of [1600,1700,1800,1900,2000]) { const x=xOf(r,t); ctx.fillText(String(t), x, r.y+r.h+16*u); ctx.strokeStyle=COL.grid; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x,r.y); ctx.lineTo(x,r.y+r.h); ctx.stroke(); }
+  ctx.textAlign='left';
+}
+function chartTitle(r, zh, en, value, subZh, subEn){
+  const u=L.u;
+  let vw=0; if (value) { ctx.font=font(600,26*u,F.m); vw=ctx.measureText(value).width; ctx.fillStyle=COL.ink; ctx.textAlign='right'; ctx.fillText(value, r.x+r.w, r.y-26*u); ctx.textAlign='left'; }
+  fitFont(tx(zh,en), 700, 14*u, F.b, r.w-vw-12, 10); ctx.fillStyle=COL.ink; ctx.fillText(tx(zh,en), r.x, r.y-32*u);
+  const sub = lang==='bi' ? `${en} · ${subZh}` : tx(subZh, subEn);
+  fitFont(sub, 400, 11.5*u, F.b, r.w-vw-12, 9); ctx.fillStyle=COL.muted; ctx.fillText(sub, r.x, r.y-12*u);
+}
+function cursor(r,y){ const x=xOf(r,y); ctx.strokeStyle=COL.ink; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(x,r.y-6); ctx.lineTo(x,r.y+r.h); ctx.stroke(); }
+
+function drawCtrl(y){
+  const r=L.ctrl, u=L.u, cur=ctrlAt(y);
+  chartTitle(r, '國家有效掌握範圍（占本島面積）', 'State control, share of main island', `${Math.round(cur.pct*100)}%`, '由地圖上的點加總的示意模型', 'modeled from the map dots');
+  axisX(r);
+  ctx.strokeStyle=COL.grid; for (const v of [0.5,1]) { const yy=r.y+r.h*(1-v); ctx.beginPath(); ctx.moveTo(r.x,yy); ctx.lineTo(r.x+r.w,yy); ctx.stroke(); }
+  ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=COL.muted; ctx.textAlign='right'; ctx.fillText('100%', r.x+r.w, r.y-3); ctx.fillText('50%', r.x+r.w, r.y+r.h/2-3); ctx.textAlign='left';
+  const bw = r.w/(ctrlSeries.length-1)+0.6;
+  for (const s of ctrlSeries) {
+    if (s.dom==='IND') continue;
+    const x=xOf(r,s.y), h=s.pct*r.h;
+    ctx.fillStyle=REG[s.dom].c; ctx.globalAlpha = s.y<=y ? 0.9 : 0.14;
+    ctx.fillRect(x, r.y+r.h-h, bw, h);
+  }
+  ctx.globalAlpha=1;
+  ctx.strokeStyle=COL.faint; ctx.beginPath(); ctx.moveTo(r.x,r.y+r.h); ctx.lineTo(r.x+r.w,r.y+r.h); ctx.stroke();
+  cursor(r,y);
+}
+
+let ethMode='pct';
+function fmtPop(v){ // v in thousands
+  if (lang==='en') return v>=1000 ? `${(v/1000).toFixed(1)}M` : v>=10 ? `${Math.round(v)}k` : `≈${Math.max(100,Math.round(v*10)*100).toLocaleString()}`;
+  return v>=10 ? `${Math.round(v/10).toLocaleString()} 萬` : `約 ${Math.max(100,Math.round(v*10)*100).toLocaleString()} 人`;
+}
+function drawEth(y){
+  const r=L.eth, u=L.u, cur=popAt(y), tot=cur.reduce((a,b)=>a+b,0);
+  const totTxt = lang==='en' ? (tot>=1000 ? `${(tot/1000).toFixed(2)}M` : `≈${Math.round(tot)}k`) : (tot>=1000 ? `${(tot/1000).toFixed(tot>=10000?1:2)} 百萬` : `約 ${Math.round(tot/10)} 萬`);
+  chartTitle(r, '族群人口組成（估計）', 'Population by group, estimated', totTxt,
+    ethMode==='pct'?'各族群所占比例':'總人口（萬人）', ethMode==='pct'?'share of each group':'total population');
+  axisX(r);
+  const maxAbs=24000;
+  const yv = v => r.y + r.h*(1 - v);
+  const drawLayers = () => {
+    const base = popSeries.map(()=>0);
+    ETH.forEach((e,ei)=>{
+      ctx.fillStyle=e.c; ctx.beginPath();
+      const top = popSeries.map((s,i)=>{ const t = ethMode==='pct' ? s.v.reduce((a,b)=>a+b,0) : maxAbs; return [(base[i]+s.v[ei])/t, base[i]/t]; });
+      popSeries.forEach((s,i)=>{ const x=xOf(r,s.y), yy=yv(top[i][0]); i?ctx.lineTo(x,yy):ctx.moveTo(x,yy); });
+      for (let i=popSeries.length-1;i>=0;i--) ctx.lineTo(xOf(r,popSeries[i].y), yv(top[i][1]));
+      ctx.closePath(); ctx.fill();
+      popSeries.forEach((s,i)=>{ base[i]+=s.v[ei]; });
+    });
+  };
+  ctx.save(); ctx.globalAlpha=0.16; drawLayers(); ctx.restore();
+  ctx.save(); ctx.beginPath(); ctx.rect(r.x, r.y-2, xOf(r,y)-r.x, r.h+4); ctx.clip(); ctx.globalAlpha=0.92; drawLayers(); ctx.restore();
+  ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=COL.muted; ctx.textAlign='right';
+  if (ethMode==='pct') { ctx.fillText('100%', r.x+r.w, r.y-3); }
+  else { ctx.fillText(tx('2,400 萬','24M'), r.x+r.w, r.y-3); ctx.strokeStyle=COL.grid; const yy=yv(1000/2400); ctx.beginPath(); ctx.moveTo(r.x,yy); ctx.lineTo(r.x+r.w,yy); ctx.stroke(); ctx.fillText(tx('1,000 萬','10M'), r.x+r.w, yy-3); }
+  ctx.textAlign='left';
+  cursor(r,y);
+
+  const lr=L.list, cw=lr.w/lr.cols, rh=(lang==='bi'?36:30)*u;
+  ETH.forEach((e,i)=>{
+    const x=lr.x+(i%lr.cols)*cw, yy=lr.y+Math.floor(i/lr.cols)*rh, v=cur[i], p=tot?v/tot:0;
+    const off = v<0.05, merged = e.k==='pl' && y>1950;
+    ctx.globalAlpha = off && !merged ? 0.38 : 1;
+    ctx.fillStyle=e.c; ctx.fillRect(x, yy-11*u, 10*u, 10*u);
+    let val;
+    if (merged) val=tx('併入漢人統計','counted as Han');
+    else if (off) val='—';
+    else if (ethMode==='pct') val = p<0.001 ? '<0.1%' : `${(p*100).toFixed(1)}%`;
+    else val = fmtPop(v);
+    ctx.font=font(400,13*u,merged?F.b:F.m); const vw=ctx.measureText(val).width;
+    ctx.fillStyle=COL.muted; ctx.textAlign='right'; ctx.fillText(val, x+cw-18*u, yy); ctx.textAlign='left';
+    fitFont(tx(e.n,e.e), 500, 13.5*u, F.b, cw-36*u-vw-8, 9); ctx.fillStyle=COL.ink; ctx.fillText(tx(e.n,e.e), x+18*u, yy);
+    if (lang==='bi') { fitFont(e.e, 400, 11*u, F.b, cw-36*u, 9); ctx.fillStyle=COL.muted; ctx.fillText(e.e, x+18*u, yy+14*u); }
+  });
+  ctx.globalAlpha=1;
+}
+
+function drawBand(y){
+  const r=L.band, u=L.u;
+  ERAS.forEach(e=>{
+    const x0=xOf(r,e.a), x1=xOf(r,Math.min(e.b,Y1)), active = y>=e.a && y<e.b;
+    ctx.fillStyle=REG[e.r].c; ctx.globalAlpha = active ? 0.95 : 0.35; ctx.fillRect(x0, r.y, x1-x0-1.5, r.h);
+    ctx.globalAlpha=1; ctx.font=font(700,12.5*u,F.b); ctx.fillStyle = active ? '#0b151b' : COL.ink;
+    let label = bil(e.s, e.se); if (ctx.measureText(label).width >= x1-x0-10) label = tx(e.s, e.se);
+    if (ctx.measureText(label).width < x1-x0-10) ctx.fillText(label, x0+6, r.y+r.h/2+4.5*u);
+  });
+  const mx0=xOf(r,1949.38), mx1=xOf(r,1987.54);
+  ctx.fillStyle=COL.ink; ctx.globalAlpha=0.55; ctx.fillRect(mx0, r.y+r.h+3, mx1-mx0, 3); ctx.globalAlpha=1;
+  if (L.u===1) { ctx.font=font(400,10*u,F.b); ctx.fillStyle=COL.muted; ctx.fillText(bil('戒嚴','martial law'), mx0, r.y+r.h+17); }
+  ctx.fillStyle=COL.ink; ctx.globalAlpha=0.5;
+  for (const e of EVENTS) { const x=xOf(r,e[0]); ctx.fillRect(x-0.5, r.y-6, 1, 4); }
+  ctx.globalAlpha=1;
+  const x=xOf(r,y);
+  ctx.fillStyle=COL.ink; ctx.beginPath(); ctx.moveTo(x-6,r.y-10); ctx.lineTo(x+6,r.y-10); ctx.lineTo(x,r.y-2); ctx.closePath(); ctx.fill();
+  ctx.fillRect(x-1, r.y-2, 2, r.h+4);
+}
+
+let shownRuler = null, prevRuler = null, rulerT = 0;
+function rrect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function photo(key, name, x, y, w, h, col){
+  ctx.save(); rrect(x,y,w,h,3*w/96); ctx.clip();
+  const im = key && IMG[key];
+  if (im && im.complete && im.naturalWidth) ctx.drawImage(im, x, y, w, h);
+  else {
+    ctx.fillStyle = col; ctx.globalAlpha *= 0.22; ctx.fillRect(x,y,w,h); ctx.globalAlpha /= 0.22;
+    ctx.fillStyle = col; ctx.font = font(900, h*0.42, F.d); ctx.textAlign='center'; ctx.fillText(name[0], x+w/2, y+h*0.64); ctx.textAlign='left';
+  }
+  ctx.restore();
+  ctx.strokeStyle = col; ctx.lineWidth = 1.2; rrect(x,y,w,h,3*w/96); ctx.stroke();
+}
+function rulerBody(rl, a, r, col){
+  if (!rl || a<=0) return;
+  const s=r.s, pad=12*s, pw=96*s, ph=120*s, tx0=r.x+pad+pw+14*s, tw=r.x+r.w-pad-tx0, en=lang==='en', bi=lang==='bi';
+  const [, role, zhName, zhNote, yrs, key, enName, enNote] = rl;
+  ctx.globalAlpha=a;
+  photo(key, en ? enName : zhName, r.x+pad, r.y+pad, pw, ph, col);
+  ctx.globalAlpha=a;
+  const roleTxt = tx(role, ROLE_EN[role]||role);
+  fitFont(roleTxt, 700, 12*s, F.b, tw, 9); ctx.fillStyle=col; ctx.fillText(roleTxt, tx0, r.y+pad+13*s);
+  const name = en ? enName : zhName;
+  fitFont(name, 900, 27*s, F.d, tw, 13); ctx.fillStyle=COL.ink; ctx.fillText(name, tx0, r.y+pad+46*s);
+  let yy = r.y+pad+68*s;
+  if (bi) { fitFont(enName, 500, 13*s, F.b, tw, 10); ctx.fillStyle=COL.muted; ctx.fillText(enName, tx0, yy); yy += 20*s; }
+  ctx.font=font(500,12.5*s,F.m); ctx.fillStyle=COL.ink; ctx.globalAlpha=a*0.8;
+  ctx.fillText(en ? yrs.replace('在位 ','r. ') : yrs, tx0, yy); ctx.globalAlpha=a;
+  const note = en ? enNote : (bi && zhNote===enName ? '' : zhNote);
+  if (note) { ctx.font=font(400,12.5*s,F.b); ctx.fillStyle=COL.muted; wrap(note, tw).slice(0, bi?1:3).forEach((ln,i)=>ctx.fillText(ln, tx0, yy+22*s+i*17*s)); }
+  ctx.globalAlpha=1;
+}
+function drawRuler(y, now){
+  const r=L.ruler, s=r.s, rl=rulerAt(y), sb=subAt(y), col=REG[eraAt(y).r].c;
+  if (rl!==shownRuler) { prevRuler=shownRuler; shownRuler=rl; rulerT=now; }
+  const a = reduce ? 1 : clamp((now-rulerT)/450, 0, 1);
+  const h = (12+120+12 + (sb?40:0))*s;
+  ctx.fillStyle='rgba(8,21,29,0.86)'; rrect(r.x,r.y,r.w,h,6*s); ctx.fill();
+  ctx.strokeStyle=COL.faint; ctx.lineWidth=1; ctx.stroke();
+  if (a<1) rulerBody(prevRuler, 1-a, r, col);
+  rulerBody(rl, a, r, col);
+  if (sb) {
+    const yy=r.y+(12+120+10)*s, pad=12*s;
+    ctx.strokeStyle=COL.faint; ctx.beginPath(); ctx.moveTo(r.x+pad, yy-2*s); ctx.lineTo(r.x+r.w-pad, yy-2*s); ctx.stroke();
+    let x=r.x+pad;
+    if (sb[4]) { photo(sb[4], sb[3], x, yy+4*s, 24*s, 30*s, col); x += 34*s; }
+    const role = tx(sb[2], ROLE_EN[sb[2]]||sb[2]);
+    ctx.font=font(600,11.5*s,F.b); ctx.fillStyle=COL.muted; ctx.fillText(role, x, yy+(lang==='bi'?17:24)*s);
+    const rw=ctx.measureText(role).width;
+    const nm = tx(sb[3], sb[5]);
+    fitFont(nm, 700, 14*s, F.d, r.x+r.w-pad-(x+rw+10*s), 10); ctx.fillStyle=COL.ink; ctx.fillText(nm, x+rw+10*s, yy+(lang==='bi'?17:24)*s);
+    if (lang==='bi') { fitFont(sb[5], 400, 11*s, F.b, r.x+r.w-pad-x, 9); ctx.fillStyle=COL.muted; ctx.fillText(sb[5], x, yy+32*s); }
+  }
+}
+
+function render(y, dt){
+  ctx.fillStyle=COL.bg; ctx.fillRect(0,0,L.W,L.H);
+  const [gx,gy]=P(120.9,23.6); const g=ctx.createRadialGradient(gx,gy,10,gx,gy,M.k*2.2);
+  g.addColorStop(0,'rgba(30,70,90,0.35)'); g.addColorStop(1,'rgba(8,21,29,0)'); ctx.fillStyle=g; ctx.fillRect(L.map.x,L.map.y,L.map.w,L.map.h);
+  const counts = drawMap(y, dt);
+  drawHeader(y); drawEvent(y); drawLegend(counts, y); drawCtrl(y); drawEth(y); drawBand(y); drawRuler(y, performance.now());
+}
+
+// ---------- playback ----------
+const playBtn=document.getElementById('play'), scrub=document.getElementById('scrub'), out=document.getElementById('yearOut'), speedSel=document.getElementById('speed');
+const recBtn=document.getElementById('rec'), recMsg=document.getElementById('recMsg'), dl=document.getElementById('dl');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let year=1600, playing=!reduce, last=performance.now(), holdUntil=0, recMsgKey='recHint', dlExt='';
+const rate = y => (y<1620 ? 14 : y<1683.6 ? 5 : y<1860 ? 9 : y<1950 ? 6 : 7);
+function setPlaying(p){ playing=p; setK(playBtn, p ? 'pause' : (year>=Y1 ? 'replay' : 'play')); syncVoice(); }
+function seek(y){ year=clamp(y,Y0,Y1); scrub.value=year; out.textContent=Math.floor(year); stopVoice(); resetCues(); }
+playBtn.addEventListener('click', ()=>{ if (!playing && year>=Y1) seek(Y0); if (!playing) unlockVoice(); setPlaying(!playing); });
+
+// ---------- Taigi narration ----------
+// One clip per era text and per event (audio/<id>.mp3, listed in narration.js). While a clip is
+// speaking the years keep moving, but they wait just before the next cue until the clip has ended.
+const NARR = window.NARRATION || {};
+const narrBtn=document.getElementById('narr'), subBox=document.getElementById('sub'), subHan=document.getElementById('subHan'), subPoj=document.getElementById('subPoj');
+const voice = typeof Audio==='function' ? new Audio() : null;
+const CUES = [];
+for (const e of ERAS) for (const d of e.d) { const y=d[0]||e.a, id='era-'+y; if (NARR[id]) CUES.push({y, id}); }
+for (const e of EVENTS) { const id='ev-'+e[0]; if (NARR[id]) CUES.push({y:e[0], id}); }
+CUES.sort((a,b)=> a.y-b.y || (a.id<b.id ? -1 : 1));   // at the same year the era text comes before the event
+const hasNarr = !!voice && CUES.length>0;
+const NARR_MIN = Math.round((CUES.reduce((s,c)=>s+NARR[c.id].dur, 0) + 75) / 60);
+const SILENCE = 'data:audio/wav;base64,UklGRjQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YRAAAAAAAAAAAAAAAAAAAAAAAAAA';
+let narrOn = hasNarr, cueIdx = 0, speaking = null, shown = null, gapUntil = 0, unlocked = false, subKey = 'narrHint';
+try { if (localStorage.getItem('tw400-narr')==='off') narrOn = false; } catch (e) {}
+function resetCues(){ cueIdx = CUES.findIndex(c => c.y >= year-0.02); if (cueIdx<0) cueIdx = CUES.length; }
+function showSub(){
+  subBox.hidden = !hasNarr || !narrOn;
+  subBox.classList.toggle('idle', !shown);
+  const n = shown && NARR[shown.id];
+  subBox.classList.toggle('live', !!(n && n.segs));
+  hl = null;
+  if (n && n.segs) buildReadAlong(n);
+  else if (n) { subHan.textContent = n.han; subPoj.textContent = n.poj; }
+  else { subHan.innerHTML = uiHTML(...UI[subKey]); subPoj.textContent = ''; }
+}
+// Read-along highlight. narration.js gives each clause's start and end time in the clip
+// (segs: [han, punctuation, poj, start, end]); inside a clause the characters share the time evenly.
+const SPOKEN = /[㐀-鿿\u{20000}-\u{2fa1f}A-Za-z0-9]/u;
+let hl = null;
+function buildReadAlong(n){
+  subHan.textContent = ''; subPoj.textContent = '';
+  const chars = [], segs = [];
+  n.segs.forEach(([h, p, poj, a, b], si)=>{
+    const mine = [];
+    for (const ch of Array.from(h + p)) {
+      const s = document.createElement('span'); s.textContent = ch; subHan.appendChild(s);
+      const c = { el:s, si, t:0, state:'' }; chars.push(c);
+      if (SPOKEN.test(ch)) mine.push(c); else c.follow = true;       // punctuation lights up with the character before it
+    }
+    mine.forEach((c,i)=>{ c.t = a + (b-a)*i/mine.length; });
+    const ps = document.createElement('span'); ps.textContent = poj + (/[。！？]/.test(p) ? '. ' : p ? ', ' : ' '); subPoj.appendChild(ps);
+    segs.push({ el:ps, a, b, on:false });
+  });
+  let t = 0; for (const c of chars) { if (c.follow) c.t = t; else t = c.t; }
+  hl = { chars, segs };
+  updateReadAlong();
+}
+function updateReadAlong(){
+  if (!hl || !voice) return;
+  const t = speaking ? voice.currentTime : Infinity;      // after the clip ends everything stays lit
+  let cur = -1; for (let i=0; i<hl.chars.length; i++) { if (hl.chars[i].t <= t) cur = i; else break; }
+  while (cur > 0 && hl.chars[cur].follow) cur--;
+  const curSeg = cur >= 0 && speaking ? hl.chars[cur].si : -1;
+  hl.chars.forEach((c,i)=>{
+    const st = !speaking || i < cur ? 'done' : i === cur ? 'now' : c.follow && c.t <= t ? 'done' : '';
+    if (st !== c.state) { c.state = st; c.el.className = st; }
+  });
+  hl.segs.forEach((s,i)=>{ const on = i === curSeg; if (on !== s.on) { s.on = on; s.el.className = on ? 'now' : ''; } });
+}
+function stopVoice(){ if (!voice) return; voice.pause(); speaking = null; shown = null; gapUntil = 0; showSub(); }
+function unlockVoice(){   // phones only let a page start sound from inside a tap
+  if (!hasNarr || !narrOn || unlocked || speaking) return;
+  unlocked = true; voice.src = SILENCE; const p = voice.play(); if (p) p.catch(()=>{});
+}
+function speak(cue){
+  speaking = shown = cue; subKey = 'narrHint'; showSub();
+  voice.src = 'audio/' + cue.id + '.mp3';
+  const p = voice.play();
+  if (p) p.catch(err => {
+    if (speaking !== cue || err.name==='AbortError') return;
+    speaking = shown = null; subKey = err.name==='NotAllowedError' ? 'narrBlocked' : 'narrMissing'; showSub();
+    if (err.name==='NotAllowedError') { unlocked = false; cueIdx = Math.max(0, CUES.indexOf(cue)); setPlaying(false); }
+  });
+}
+function syncVoice(){
+  if (!voice || !speaking) return;
+  if (playing && narrOn) { if (voice.paused) { const p = voice.play(); if (p) p.catch(()=>{}); } }
+  else voice.pause();
+}
+function setNarr(on){
+  narrOn = hasNarr && on; try { localStorage.setItem('tw400-narr', narrOn ? 'on' : 'off'); } catch (e) {}
+  stopVoice(); resetCues(); applyNarr();
+}
+function applyNarr(){
+  narrBtn.hidden = !hasNarr; narrBtn.setAttribute('aria-pressed', narrOn);
+  narrBtn.innerHTML = uiHTML(...UI[narrOn ? 'narrOn' : 'narrOff']);
+  showSub();
+}
+if (voice) {
+  voice.preload = 'auto';
+  voice.addEventListener('ended', ()=>{ if (speaking) { speaking = null; gapUntil = performance.now() + 450; } });
+  voice.addEventListener('error', ()=>{ if (speaking) { speaking = shown = null; subKey = 'narrMissing'; showSub(); } });
+}
+narrBtn.addEventListener('click', ()=>{ setNarr(!narrOn); if (narrOn && playing) unlockVoice(); });
+// how far the year may move this frame; starts the next clip when its year is reached
+function narrStep(step, now){
+  const next = CUES[cueIdx];
+  if (speaking) step = Math.max(0, Math.min(step, speaking.y + 6 - year));   // stay near the event being read, while its card is still on screen
+  if (!next || year + step < next.y) return step;
+  if (speaking || now < gapUntil) return Math.max(0, next.y - 0.0005 - year);
+  cueIdx++; speak(next);
+  return next.y - year;
+}
+scrub.addEventListener('input', ()=>{ seek(+scrub.value); if (playing && !recording) setPlaying(false); });
+document.addEventListener('keydown', e=>{
+  if (e.target.matches('input,select') && e.key!==' ') return;
+  if (e.key===' ') { e.preventDefault(); playBtn.click(); }
+  else if (e.key==='ArrowRight') { seek(Math.floor(year)+(e.shiftKey?10:1)); }
+  else if (e.key==='ArrowLeft') { seek(Math.floor(year)-(e.shiftKey?10:1)); }
+});
+const pctB=document.getElementById('modePct'), absB=document.getElementById('modeAbs');
+function setMode(m){ ethMode=m; pctB.setAttribute('aria-pressed', m==='pct'); absB.setAttribute('aria-pressed', m==='abs'); }
+pctB.addEventListener('click', ()=>setMode('pct')); absB.addEventListener('click', ()=>setMode('abs'));
+
+// ---------- language switching (DOM) ----------
+const nav=document.getElementById('eras'), credUl=document.getElementById('credits');
+const JUMPS = [...ERAS.map(e=>[e.a, e.n, e.ne, REG[e.r].c]), [1949.38,'戒嚴','Martial law',REG.ROC.c], [1987.54,'解嚴','Martial law lifted',REG.ROC.c]];
+JUMPS.forEach(j=>{ const b=document.createElement('button'); b.type='button'; b.addEventListener('click', ()=>seek(j[0]+0.01)); nav.appendChild(b); j.el=b; });
+function applyLang(){
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  setPlaying(playing);
+  recBtn.innerHTML = uiHTML(...UI[recording?'recStop':'rec']);
+  setRecMsg(recMsgKey);
+  applyNarr();
+  if (dlExt) dl.textContent = `${uiText('dl')} (.${dlExt})`;
+  JUMPS.forEach(([a,zh,en,c,],i)=>{ JUMPS[i].el.innerHTML = `<i style="background:${c}"></i>${Math.floor(a)} ${uiHTML(zh,en)}`; });
+  credUl.innerHTML='';
+  const seen=new Set();
+  for (const r of RULERS) {
+    const key=r[5]; if (!key || !PORTRAITS[key] || seen.has(key)) continue; seen.add(key);
+    addCredit(key, bil(r[2], r[6]));
+  }
+  for (const s of SUBS) { const key=s[4]; if (!key || !PORTRAITS[key] || seen.has(key)) continue; seen.add(key); addCredit(key, bil(s[3], s[5])); }
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  cv.setAttribute('aria-label', tx('台灣歷史動畫：地圖、統治者、國家掌握範圍與族群組成','Taiwan history animation: map, rulers, state control and population'));
+}
+function addCredit(key, name){
+  const p=PORTRAITS[key], li=document.createElement('li'), a=document.createElement('a');
+  a.href=p.url; a.target='_blank'; a.rel='noopener'; a.textContent=p.file;
+  li.append(`${name}: `, a, ` (${p.license}${p.artist ? ', ' + p.artist : ''})`);
+  credUl.appendChild(li);
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+
+function frame(now){
+  const dt = Math.min(0.1, (now-last)/1000); last=now;
+  if (playing) {
+    const step = dt * rate(year) * (+speedSel.value);
+    year += narrOn ? narrStep(step, now) : step;
+    if (year>=Y1) { year=Y1; if (narrOn && speaking) { /* let the last clip finish */ } else if (recording) { if (!holdUntil) holdUntil=now+2500; } else setPlaying(false); }
+    scrub.value=year; out.textContent=Math.floor(year);
+  }
+  updateReadAlong();
+  if (recording && holdUntil && now>holdUntil) stopRecording();
+  render(year, dt);
+  requestAnimationFrame(frame);
+}
+
+// ---------- recording ----------
+let rec=null, chunks=[];
+function setRecMsg(k, extra=''){
+  recMsgKey=k; const key = k==='recHint' && hasNarr && narrOn ? 'recHintN' : k;
+  recMsg.textContent = uiText(key).replace('{m}', NARR_MIN) + extra;
+}
+// the narration as a recordable audio track (needs http/https: a file:// page gives silence)
+let actx=null, adest=null;
+function voiceTrack(){
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!hasNarr || !narrOn || !AC || location.protocol==='file:') return null;
+  if (!actx) { actx=new AC(); const src=actx.createMediaElementSource(voice); adest=actx.createMediaStreamDestination(); src.connect(adest); src.connect(actx.destination); }
+  actx.resume();
+  return adest.stream.getAudioTracks()[0] || null;
+}
+recBtn.addEventListener('click', ()=>{
+  if (recording) { stopRecording(); return; }
+  if (!cv.captureStream || !window.MediaRecorder) { setRecMsg('recNo'); return; }
+  const types=['video/mp4;codecs=avc1','video/mp4','video/webm;codecs=vp9','video/webm'];
+  const mime=types.find(t=>MediaRecorder.isTypeSupported(t)) || '';
+  recording=true; holdUntil=0; setLayout(); seek(Y0); unlockVoice();
+  chunks=[];
+  try {
+    const stream=cv.captureStream(30);
+    let track=null; try { track=voiceTrack(); } catch (err) {}
+    if (track) stream.addTrack(track);
+    try { rec=new MediaRecorder(stream, mime?{mimeType:mime, videoBitsPerSecond:10e6}:{}); }
+    catch (err) { if (!track) throw err; rec=new MediaRecorder(stream, {videoBitsPerSecond:10e6}); }   // let the browser pick a format that carries sound
+  }
+  catch (err) { recording=false; setLayout(); setRecMsg('recFail', err.message); return; }
+  rec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+  rec.onstop = () => {
+    const type = rec.mimeType || mime || 'video/webm'; dlExt = type.includes('mp4') ? 'mp4' : 'webm';
+    dl.href = URL.createObjectURL(new Blob(chunks, {type})); dl.download=`taiwan-400.${dlExt}`;
+    dl.textContent=`${uiText('dl')} (.${dlExt})`; dl.hidden=false;
+    setRecMsg('recDone');
+  };
+  rec.start(500);
+  recBtn.innerHTML = uiHTML(...UI.recStop); setRecMsg('recOn'); dl.hidden=true;
+  setPlaying(true);
+});
+function stopRecording(){
+  if (!recording) return;
+  recording=false; holdUntil=0;
+  if (rec && rec.state!=='inactive') rec.stop();
+  recBtn.innerHTML = uiHTML(...UI.rec); setPlaying(false); setLayout();
+}
+
+// ---------- boot ----------
+new ResizeObserver(()=>{ if (!recording) setLayout(); }).observe(stage);
+if (narrOn) playing = false;   // sound needs a tap, so the narrated film waits for Play
+setLayout(); applyLang(); setPlaying(playing); seek(Y0);
+requestAnimationFrame(t=>{ last=t; frame(t); });
+})();
+</script>
