@@ -1,0 +1,226 @@
+{
+ "_comment": "Pictures shown under the films. t = when the picture starts showing (main and cwt: year; c228: day number, 0 = Feb 27, 1 = Feb 28, 2 = Mar 1 ...). file = exact file name on Wikimedia Commons. After editing run python tools/fetch_images.py.",
+ "main": [
+  {
+   "t": 1600,
+   "key": "formosans-1670",
+   "file": "Formosans.jpg",
+   "zh": "歐洲人筆下的福爾摩沙人。達波（Olfert Dapper）1670 年著作中的銅版畫，畫的是想像多於寫實。",
+   "en": "Formosans as Europeans imagined them: an engraving from Olfert Dapper’s book of 1670."
+  },
+  {
+   "t": 1624.6,
+   "key": "zeelandia-1635",
+   "file": "Zeelandia from Dutch.jpg",
+   "zh": "熱蘭遮城與大員市鎮，芬伯翁斯（Johannes Vingboons）約 1635 年繪。",
+   "en": "Fort Zeelandia and the town of Tayouan, painted by Johannes Vingboons about 1635."
+  },
+  {
+   "t": 1662.09,
+   "key": "zeelandia-surrender",
+   "file": "Surrender of Zeelandia.jpg",
+   "zh": "荷蘭人向鄭成功投降。1675 年荷蘭出版品中的版畫，出自當時歐洲人的想像。",
+   "en": "The Dutch surrender to Koxinga, an engraving from a Dutch book of 1675, drawn as Europeans imagined the scene."
+  },
+  {
+   "t": 1683.6,
+   "key": "kangxi-map",
+   "file": "康熙臺灣輿圖.jpg",
+   "zh": "《康熙臺灣輿圖》局部，約 1700 年前後繪製，畫出村社、河流與山。",
+   "en": "A detail of the Kangxi Map of Taiwan, drawn around 1700, showing villages, rivers and hills."
+  },
+  {
+   "t": 1738,
+   "key": "deer-hunt",
+   "file": "Taiwanese aborigines hunting deer.jpg",
+   "zh": "平埔族人捕鹿。清代巡台御史六十七約 1740 年代命人繪製的《番社采風圖》。",
+   "en": "Plains Indigenous hunters chasing deer, from an album of village life painted for a Qing censor in the 1740s."
+  },
+  {
+   "t": 1875,
+   "key": "north-gate-1895",
+   "file": "A view of the north gate tower and a portion of the streets of Taipeh.jpg",
+   "zh": "台北城北門與城內街道。城牆 1884 年完工，照片為 1895 年日本陸地測量部所攝。",
+   "en": "The North Gate of Taipei and the streets inside the wall, finished in 1884; photographed by the Japanese army survey in 1895."
+  },
+  {
+   "t": 1895.39,
+   "key": "troops-north-gate-1895",
+   "file": "The 5th Regiment of Japanese Army resting in near the north gate of Taipeh.jpg",
+   "zh": "1895 年，日軍在台北城北門附近休息。日本陸地測量部攝。",
+   "en": "Japanese troops resting near Taipei’s North Gate in 1895; photographed by the army survey."
+  },
+  {
+   "t": 1908.3,
+   "key": "railway-1908",
+   "file": "Opening ceremony of the Jukan Railway Line at Taichu Park.jpg",
+   "zh": "1908 年 10 月，縱貫鐵路全線通車典禮在台中公園舉行。",
+   "en": "October 1908: the ceremony at Taichung Park for the completed West Coast railway."
+  },
+  {
+   "t": 1921,
+   "key": "cultural-association",
+   "file": "文化協會第一屆理事會 (cropped).jpg",
+   "zh": "台灣文化協會第一回理事會合影，1926 年。",
+   "en": "The first board meeting of the Taiwan Cultural Association, 1926."
+  },
+  {
+   "t": 1937,
+   "key": "taiwan-shrine",
+   "file": "Taiwan Grand Shrine2.jpg",
+   "zh": "台北劍潭山上的臺灣神社，1933 年。皇民化時期，神社參拜成為動員的一環。",
+   "en": "Taiwan Shrine on the hill at Jiantan, Taipei, 1933. Shrine visits became part of wartime assimilation."
+  },
+  {
+   "t": 1945.82,
+   "key": "retrocession-1945",
+   "file": "Retrocession day 1945.jpg",
+   "zh": "1945 年 10 月 25 日受降典禮當天，聚集在台北公會堂外的民眾。",
+   "en": "October 25, 1945: the crowd outside Taipei City Public Auditorium on the day of the surrender ceremony."
+  },
+  {
+   "t": 1947.16,
+   "key": "228-crowd",
+   "file": "228 Incident h.jpg",
+   "zh": "1947 年 2 月 28 日，民眾聚集在專賣局台北分局前，焚燒局內的物品。",
+   "en": "February 28, 1947: a crowd outside the Monopoly Bureau’s Taipei branch, burning goods from the building."
+  },
+  {
+   "t": 1949.38,
+   "key": "martial-law-1949",
+   "file": "Martial law order taiwan may 1949.jpg",
+   "zh": "1949 年 5 月的戒嚴令。台灣省政府與台灣省警備總司令部布告。",
+   "en": "The martial law order of May 1949, issued by the provincial government and the Taiwan Garrison Command."
+  },
+  {
+   "t": 1987.54,
+   "key": "martial-law-lifted",
+   "file": "台湾解严令.jpg",
+   "zh": "1987 年 7 月，總統蔣經國公布的解嚴令。",
+   "en": "The order lifting martial law, promulgated by President Chiang Ching-kuo in July 1987."
+  },
+  {
+   "t": 1990.2,
+   "key": "wild-lily",
+   "file": "Wild-lily-movement.jpg",
+   "zh": "1990 年 3 月，野百合學運。學生靜坐要求國會全面改選。",
+   "en": "March 1990: the Wild Lily student movement. Students sat in to demand a fully elected legislature."
+  },
+  {
+   "t": 2000.21,
+   "key": "taipei-2014",
+   "file": "Taipei skyline 2014.jpg",
+   "zh": "台北市與台北 101，2014 年。",
+   "en": "Taipei and Taipei 101, 2014."
+  }
+ ],
+ "c228": [
+  {
+   "t": 0,
+   "key": "inspection-woodcut",
+   "file": "228 by Li Jun (cropped).jpg",
+   "zh": "黃榮燦木刻版畫《恐怖的檢查》，1947 年。畫的是 2 月 27 日天馬茶房前的緝菸衝突。",
+   "en": "Huang Rong-can’s woodcut The Terrible Inspection (1947), showing the cigarette raid of February 27."
+  },
+  {
+   "t": 1,
+   "key": "228-crowd",
+   "file": "228 Incident h.jpg",
+   "zh": "2 月 28 日，民眾聚集在專賣局台北分局前，焚燒局內的物品。",
+   "en": "February 28: a crowd outside the Monopoly Bureau’s Taipei branch, burning goods from the building."
+  },
+  {
+   "t": 8,
+   "key": "committee-news",
+   "file": "二二八事件處理委員會要求陳儀承諾縣市長直接民選 Taiwanese People asked for People-elected Mayors after the 228 Incident in 1947 (cropped).png",
+   "zh": "1947 年 3 月上旬的《台灣新生報》：陳儀廣播，承諾長官公署改為省政府、縣市長 7 月 1 日民選。幾天後援軍登陸。",
+   "en": "Taiwan Shin Sheng Daily News, early March 1947: Chen Yi’s broadcast promising a provincial government and elected mayors from July 1. Days later the troops landed."
+  },
+  {
+   "t": 14,
+   "key": "tang-de-zhang",
+   "file": "湯德章律師.jpg",
+   "zh": "律師湯德章，3 月 13 日在台南民生綠園遭公開槍決。",
+   "en": "Lawyer Tang De-zhang, shot in public in Tainan on March 13."
+  },
+  {
+   "t": 21,
+   "key": "purge-proclamation",
+   "file": "為實施清鄉告民眾書 (cropped).jpg",
+   "zh": "陳儀 3 月 20 日發布的《為實施清鄉告民眾書》。",
+   "en": "Chen Yi’s proclamation of March 20 announcing the purges."
+  },
+  {
+   "t": 26,
+   "key": "chen-cheng-po",
+   "file": "Chen Chengpo 1927d Summer Street.jpg",
+   "zh": "陳澄波〈夏日街景〉，1927 年，畫的是嘉義街頭。1947 年 3 月 25 日，他在嘉義車站前遭槍決。",
+   "en": "Chen Cheng-po, Summer Street (1927), a street in Chiayi. He was shot in front of Chiayi Station on March 25, 1947."
+  }
+ ],
+ "cwt": [
+  {
+   "t": 1949,
+   "key": "martial-law-1949",
+   "file": "Martial law order taiwan may 1949.jpg",
+   "zh": "1949 年 5 月的戒嚴令。台灣省政府與台灣省警備總司令部布告。",
+   "en": "The martial law order of May 1949, issued by the provincial government and the Taiwan Garrison Command."
+  },
+  {
+   "t": 1950.44,
+   "key": "machangding",
+   "file": "Machangding Memorial Park, Taipei.jpg",
+   "zh": "台北馬場町紀念公園。1950 年代，這片河濱是槍決政治犯的刑場。",
+   "en": "Machangding Memorial Park, Taipei. In the 1950s this riverbank was the execution ground for political prisoners."
+  },
+  {
+   "t": 1951.4,
+   "key": "new-life-camp",
+   "file": "新生訓導處 01.jpg",
+   "zh": "綠島新生訓導處。國家人權博物館提供。",
+   "en": "The New Life Correction Center on Green Island. Photo: National Human Rights Museum."
+  },
+  {
+   "t": 1960.68,
+   "key": "lei-chen",
+   "file": "Hu Shih and Lei Chen.jpg",
+   "zh": "胡適與雷震，1959 年。隔年雷震因籌組反對黨入獄十年。",
+   "en": "Hu Shih and Lei Chen, 1959. A year later Lei was jailed for ten years for trying to found an opposition party."
+  },
+  {
+   "t": 1968.5,
+   "key": "jingmei",
+   "file": "景美人權文化園區.jpg",
+   "zh": "新店景美的軍法處看守所，今日的白色恐怖景美紀念園區。",
+   "en": "The military detention center at Jingmei, Xindian, today a White Terror memorial park."
+  },
+  {
+   "t": 1972.3,
+   "key": "oasis-villa",
+   "file": "綠洲山莊監獄 Lüdao Lodge (Oasis Villa) prison of TAIWAN.jpg",
+   "zh": "綠島的國防部感訓監獄「綠洲山莊」，1972 年啟用。",
+   "en": "Oasis Villa, the Defense Ministry prison on Green Island, opened in 1972."
+  },
+  {
+   "t": 1987.54,
+   "key": "martial-law-lifted",
+   "file": "台湾解严令.jpg",
+   "zh": "1987 年 7 月，總統蔣經國公布的解嚴令。",
+   "en": "The order lifting martial law, promulgated by President Chiang Ching-kuo in July 1987."
+  },
+  {
+   "t": 1989.27,
+   "key": "nylon-deng-statue",
+   "file": "鄭南榕銅像.jpg",
+   "zh": "鄭南榕胸像。1989 年，他為爭取百分之百的言論自由自焚。",
+   "en": "A bust of Nylon Deng, who set himself on fire in 1989 for complete freedom of speech."
+  },
+  {
+   "t": 1991.39,
+   "key": "white-terror-memorial",
+   "file": "Taipei Taiwan Memorial-to-the-Victims-of-the-White-Terror-01.jpg",
+   "zh": "台北凱達格蘭大道旁的白色恐怖政治受難者紀念碑，2008 年落成。",
+   "en": "The memorial to the victims of the White Terror on Ketagalan Boulevard, Taipei, unveiled in 2008."
+  }
+ ]
+}

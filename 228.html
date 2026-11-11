@@ -77,6 +77,19 @@ h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-
 p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
 .read h2 .en { font-family: var(--f-body); font-size: .62em; }
 .chap .en { font-family: var(--f-body); font-size: .6em; }
+/* a historical picture for the moment on screen, beside the narration line (under it on phones) */
+.under { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 14px; align-items: stretch; }
+.under > .sub[hidden] + .pic { grid-column: 1 / -1; }
+@media (max-width: 760px) { .under { grid-template-columns: minmax(0, 1fr); } }
+.pic { margin: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 10px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pic[hidden] { display: none; }
+.pic .p-img { display: block; height: 210px; background: #061017; border-radius: 4px; overflow: hidden; }
+.pic img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.pic figcaption { font-size: 13px; line-height: 1.55; color: var(--muted); }
+.pic .p-cap { display: block; color: var(--ink); }
+.pic .p-cap .en { display: block; margin-left: 0; }
+.pic .p-credit { display: block; font-size: 11.5px; margin-top: 4px; overflow-wrap: anywhere; }
+.pic .p-credit a { color: var(--muted); }
 /* Taigi narration: the line being spoken, in Han characters with POJ romanization under it */
 .sub { border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 6px; background: var(--panel); padding: 12px 16px; min-height: 5.2em; display: grid; gap: 4px; align-content: center; }
 .sub[hidden] { display: none; }
@@ -118,9 +131,15 @@ button#narr[aria-pressed="true"] { border-color: var(--gold); color: var(--gold)
 
   <h2 class="chap" id="c228"><span data-k="ch1"></span><small>1947.2.27 – 5.16</small></h2>
   <div class="stage"><canvas id="f228" class="film" width="1600" height="900"></canvas></div>
-  <div class="sub idle" id="sub228" aria-live="off">
-    <p class="s-han" lang="nan-Hant"></p>
-    <p class="s-poj" lang="nan-Latn"></p>
+  <div class="under">
+    <div class="sub idle" id="sub228" aria-live="off">
+      <p class="s-han" lang="nan-Hant"></p>
+      <p class="s-poj" lang="nan-Latn"></p>
+    </div>
+    <figure class="pic" id="pic228" hidden>
+      <a class="p-img" target="_blank" rel="noopener"><img alt=""></a>
+      <figcaption><span class="p-cap"></span><span class="p-credit"></span></figcaption>
+    </figure>
   </div>
   <div class="deck">
     <button id="play228" class="primary" type="button"></button>
@@ -136,9 +155,15 @@ button#narr[aria-pressed="true"] { border-color: var(--gold); color: var(--gold)
 
   <h2 class="chap" id="cwt"><span data-k="ch2"></span><small>1949 – 1992</small></h2>
   <div class="stage"><canvas id="fwt" class="film" width="1600" height="900"></canvas></div>
-  <div class="sub idle" id="subwt" aria-live="off">
-    <p class="s-han" lang="nan-Hant"></p>
-    <p class="s-poj" lang="nan-Latn"></p>
+  <div class="under">
+    <div class="sub idle" id="subwt" aria-live="off">
+      <p class="s-han" lang="nan-Hant"></p>
+      <p class="s-poj" lang="nan-Latn"></p>
+    </div>
+    <figure class="pic" id="picwt" hidden>
+      <a class="p-img" target="_blank" rel="noopener"><img alt=""></a>
+      <figcaption><span class="p-cap"></span><span class="p-credit"></span></figcaption>
+    </figure>
   </div>
   <div class="deck">
     <button id="playwt" class="primary" type="button"></button>
@@ -198,6 +223,7 @@ button#narr[aria-pressed="true"] { border-color: var(--gold); color: var(--gold)
 </main>
 
 <script src="narration-228.js"></script>
+<script src="pictures.js"></script>
 <script>
 (() => {
 // ================= language (shared with 台灣四百年) =================
@@ -331,6 +357,21 @@ function pulse(lonlat){
 
 // ================= film harness =================
 const films = [];
+// One picture for the moment on screen (pictures.js, made by tools/fetch_images.py), with its caption and credit.
+function pictureBox(id, list){
+  const box=document.getElementById(id), a=box.querySelector('a'), img=box.querySelector('img'), cap=box.querySelector('.p-cap'), cred=box.querySelector('.p-credit');
+  let shown;
+  return (t, force) => {
+    let p=null; for (const x of list) { if (x.t<=t) p=x; else break; }
+    if (p===shown && !force) return;
+    shown=p; box.hidden=!p; if (!p) return;
+    img.src='images/'+p.key+'.jpg'; img.alt=tx(p.zh,p.en); a.href=p.url;
+    cap.innerHTML=uiHTML(p.zh,p.en);
+    cred.textContent=(/unknown/i.test(p.artist)||!p.artist ? '' : p.artist+' · ')+p.license+' · ';
+    const l=document.createElement('a'); l.href=p.url; l.target='_blank'; l.rel='noopener'; l.textContent='Wikimedia Commons'; cred.appendChild(l);
+    const n=list[list.indexOf(p)+1]; if (n && typeof Image==='function') new Image().src='images/'+n.key+'.jpg';   // have the next one ready
+  };
+}
 // ---------- Taigi narration ----------
 // One clip per phase text and per event (audio/228/<id>.mp3, listed in narration-228.js). The two films
 // share one voice: while a clip is speaking, that film's clock waits just before its next cue.
@@ -447,6 +488,7 @@ function Film(o){
     o.onLayout && o.onLayout(f);
   };
   narrate(f, o);
+  const showPic = pictureBox(o.pic, (window.PICTURES||{})[o.pics] || []); f.showPic = force => showPic(f.t, force);
   f.setPlaying = p => { f.playing=p; setK(play, p ? 'pause' : (f.t>=o.t1 ? 'replay' : 'play')); f.syncVoice(); };
   f.seek = t => { f.t=clamp(t,o.t0,o.t1); scrub.value=f.t; out.textContent=o.out(f.t); f.stopVoice(); f.resetCues(); };
   play.addEventListener('click', ()=>{ f.started=true; if (!f.playing && f.t>=o.t1) f.seek(o.t0); if (!f.playing) { unlockVoice(); if (narrOn) for (const g of films) if (g!==f && g.playing) g.setPlaying(false); } f.setPlaying(!f.playing); });
@@ -459,7 +501,7 @@ function Film(o){
   });
   f.tick = (dt) => {
     if (f.playing) { const step=dt*o.rate(f.t)*(+speed.value); f.t += narrOn ? f.narrStep(step, performance.now()) : step; if (f.t>=o.t1) { f.t=o.t1; if (!(narrOn && f.speaking)) f.setPlaying(false); } scrub.value=f.t; out.textContent=o.out(f.t); }
-    f.readAlong();
+    f.readAlong(); f.showPic();
     if (!f.visible) return;
     ctx=c2; L=f.L; P=f.P; M=f.M;
     ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
@@ -597,7 +639,7 @@ function table228(t){
   });
 }
 Film({
-  id:'f228', ctl:{play:'play228', scrub:'scrub228', out:'out228', speed:'speed228'}, t0:0, t1:78, sub:'sub228',
+  id:'f228', ctl:{play:'play228', scrub:'scrub228', out:'out228', speed:'speed228'}, t0:0, t1:78, sub:'sub228', pic:'pic228', pics:'c228',
   cues: [...PH228.map((p,i)=>({y:p[0], id:'p228-'+i})), ...EV228.map(e=>({y:e.d, id:'e228-'+e.md}))],
   rate: t => t<24 ? 0.9 : 6,
   out: t => { const [m,d]=dateOf(t); return `${m}/${d}`; },
@@ -747,7 +789,7 @@ function tableWT(t){
   });
 }
 Film({
-  id:'fwt', ctl:{play:'playwt', scrub:'scrubwt', out:'outwt', speed:'speedwt'}, t0:1949, t1:1992.6, sub:'subwt',
+  id:'fwt', ctl:{play:'playwt', scrub:'scrubwt', out:'outwt', speed:'speedwt'}, t0:1949, t1:1992.6, sub:'subwt', pic:'picwt', pics:'cwt',
   cues: [...PHWT.map((p,i)=>({y:p[0], id:'pwt-'+i})), ...EVWT.map(e=>({y:e.d, id:'ewt-'+e.d}))],
   rate: () => 1.5,
   out: t => String(Math.floor(t)),
@@ -793,7 +835,7 @@ function applyLang(){
   document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
   const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
   for (const f of films) f.setPlaying(f.playing);
-  applyNarr();
+  applyNarr(); for (const f of films) f.showPic(true);
   afterOl.innerHTML = AFTER.map(([y,zh,en])=>`<li><b>${y}</b><span>${uiHTML(zh,en)}</span></li>`).join('');
   for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
   document.getElementById('f228').setAttribute('aria-label', tx('二二八事件逐日地圖動畫','Day-by-day map animation of the February 28 Incident'));

@@ -29,6 +29,18 @@ starting by themselves when scrolled into view.
 - 錄製影片 records the narration into the video when the page is opened over http(s).
   Opened as a local file (`file://`), browsers only allow the picture to be recorded.
 
+## Pictures under the films
+
+Beside the narration line (under it on phones) each film shows one historical picture for the moment
+on screen, with a caption and a credit that links to its Wikimedia Commons page: 16 on the main page
+(from Dapper's 1670 engraving to Taipei today), 6 for the 228 Incident and 9 for the White Terror.
+Most are public domain; five are Creative Commons and are credited by author and licence.
+
+To change them, edit `tools/pictures.json` (`t` = when the picture starts showing, `file` = the exact
+file name on Commons, plus the two captions) and run `python tools/fetch_images.py`. It downloads
+into `images/` and rewrites `pictures.js`; files that are missing or not freely licensed are skipped.
+The pictures are part of the page, not the film, so they are not in a recorded video.
+
 ## Files
 
 | File | Purpose |
