@@ -896,5 +896,128 @@ window.PICTURES = {
    "artist": "Unknown authorUnknown author",
    "url": "https://commons.wikimedia.org/wiki/File:Raho_Ari_and_a_Japanese_educational_inspector.jpg"
   }
+ ],
+ "poj": [
+  {
+   "at": "p0",
+   "key": "medhurst",
+   "zh": "麥都思（左）與助手，1838 年的版畫（George Baxter）。",
+   "en": "Walter Henry Medhurst (left) with his assistants, a print of 1838 by George Baxter.",
+   "w": 960,
+   "h": 1142,
+   "license": "Public domain",
+   "artist": "George Baxter",
+   "url": "https://commons.wikimedia.org/wiki/File:Walter_Medhurst.jpeg"
+  },
+  {
+   "at": "e3",
+   "key": "talmage-primer",
+   "zh": "打馬字《唐話番字初學》封面，1852 年。",
+   "en": "The cover of Talmage’s primer, Tn̂g-oē Hoan-jī Chho͘-ha̍k, 1852.",
+   "w": 960,
+   "h": 1583,
+   "license": "Public domain",
+   "artist": "Rev. John Van Nest Talmage (1819-1892)",
+   "url": "https://commons.wikimedia.org/wiki/File:Cover_of_Introduction_to_Amoy_Alphabets_(Tn%CC%82g-u%C4%93_huan-j%C4%AB_tshoo-ha%CC%8Dk).jpg"
+  },
+  {
+   "at": "e4",
+   "key": "doty-manual",
+   "zh": "羅啻《翻譯英華廈腔語彙》扉頁，1853 年。",
+   "en": "The frontispiece of Doty’s Anglo-Chinese Manual, 1853.",
+   "w": 495,
+   "h": 785,
+   "license": "Public domain",
+   "artist": "Original illustration by Elihu Doty (1853), scanned by taiwantaffy.",
+   "url": "https://commons.wikimedia.org/wiki/File:Doty_frontispiece.png"
+  },
+  {
+   "at": "e5",
+   "key": "maxwell",
+   "zh": "馬雅各（James Laidlaw Maxwell），英國長老教會第一位駐台灣的宣教師。",
+   "en": "James Laidlaw Maxwell, the English Presbyterian Church’s first missionary in Taiwan.",
+   "w": 707,
+   "h": 1024,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:%E8%8B%B1%E5%9C%8B%E9%95%B7%E8%80%81%E6%95%99%E6%9C%83%E7%AC%AC%E4%B8%80%E4%BD%8D%E9%A7%90%E8%87%BA%E7%81%A3%E5%AE%A3%E6%95%99%E5%B8%AB%E9%A6%AC%E9%9B%85%E5%90%84%E7%89%A7%E5%B8%AB%EF%BC%88James_Laidlaw_Maxwell,_MD).jpg"
+  },
+  {
+   "at": "e8",
+   "key": "church-news-1885",
+   "zh": "《台灣府城教會報》創刊號，1885 年 7 月，全用白話字。",
+   "en": "The first issue of the Tâi-oân-hú-siâⁿ Kàu-hōe-pò, July 1885, entirely in POJ.",
+   "w": 960,
+   "h": 1427,
+   "license": "Public domain",
+   "artist": "Thomas Barclay, Taiwan Church Press",
+   "url": "https://commons.wikimedia.org/wiki/File:Tai-Oan-Hu-Sia-Kau-Hoe-Po.jpg"
+  },
+  {
+   "at": "e11",
+   "key": "chhoa-poe-hoe",
+   "zh": "蔡培火，1945 年以前。",
+   "en": "Chhoà Pôe-hóe (Tsai Pei-huo), before 1945.",
+   "w": 940,
+   "h": 1304,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Tshu%C3%A0_Pu%C3%AA-Hu%C3%A9.jpg"
+  },
+  {
+   "at": "e12",
+   "key": "chap-hang-koan-kian",
+   "zh": "蔡培火《十項管見》（Cha̍p-hāng Koán-kiàn），1925 年。",
+   "en": "Chhoà Pôe-hóe’s Cha̍p-hāng Koán-kiàn, 1925.",
+   "w": 960,
+   "h": 641,
+   "license": "Public domain",
+   "artist": "蔡培火",
+   "url": "https://commons.wikimedia.org/wiki/File:Cha%CC%8Dp-h%C4%81ng_Ko%C3%A1n-ki%C3%A0n.jpg"
+  },
+  {
+   "at": "e13",
+   "key": "church-news-1937",
+   "zh": "《台灣教會公報》1937 年 12 月號封面。四年多之後被迫停刊。",
+   "en": "The cover of the Taiwan Church News for December 1937. A little over four years later it was forced to stop.",
+   "w": 855,
+   "h": 1280,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Cover_page_of_T%C3%A2i-o%C3%A2n_K%C3%A0u-h%C5%8De_Kong-p%C3%B2_1937-12.jpg"
+  },
+  {
+   "at": "e16",
+   "key": "ban-1955",
+   "zh": "台灣省政府 1955 年禁止教會使用羅馬字拼音的公文。",
+   "en": "The Taiwan Provincial Government’s 1955 order forbidding churches to use romanization.",
+   "w": 960,
+   "h": 1152,
+   "license": "Public domain",
+   "artist": "Taiwan Provincial Government",
+   "url": "https://commons.wikimedia.org/wiki/File:Banning_of_POJ.gif"
+  },
+  {
+   "at": "e20",
+   "key": "taiwanese-bibles",
+   "zh": "幾種台語聖經，紅色封面的是「紅皮聖經」。戴開世攝，2008 年。",
+   "en": "Bibles in Taiwanese; the one with the red cover is the “Red Cover Bible”. Photo by Kaihsu Tai, 2008.",
+   "w": 960,
+   "h": 1280,
+   "license": "Public domain",
+   "artist": "Kaihsu Tai",
+   "url": "https://commons.wikimedia.org/wiki/File:Bibles_in_Taiwanese.jpg"
+  },
+  {
+   "at": "e24",
+   "key": "poj-books",
+   "zh": "使用白話字的書籍。",
+   "en": "Books printed in Pe̍h-ōe-jī.",
+   "w": 960,
+   "h": 965,
+   "license": "CC BY-SA 3.0",
+   "artist": "Taiwantaffy",
+   "url": "https://commons.wikimedia.org/wiki/File:Books_which_use_the_Pe%CC%8Dh-%C5%8De-j%C4%AB_romanisation_system_for_Southern_Min-Taiwanese.jpg"
+  }
  ]
 };

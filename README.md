@@ -15,6 +15,11 @@ Feature pages with the same narration, read-along subtitles and pictures (all un
 `indigenous.html` 原住民族抗日, `tapani.html` 西來庵事件, `wushe.html` 霧社事件, `airraids.html` 美軍大空襲.
 Only the English guide (`intro.html`) still opens on the original site.
 
+`poj.html` 白話字的歷史 (The Story of Pe̍h-ōe-jī, 1832–2006) is a page written for this site, not copied
+from `taiwan-400`: a timeline film of 25 milestones in seven periods, with the wartime and post-war bans
+marked in red, a list of the bans, notes on where sources disagree, and a Sources section. It is a
+complete page (edit it directly); its narration script is `tools/narration_poj.json`.
+
 The 228 page has two films (the 228 Incident day by day, the White Terror year by year). They share
 one voice: starting one film pauses the other. With narration on, the films wait for 播放 instead of
 starting by themselves when scrolled into view.

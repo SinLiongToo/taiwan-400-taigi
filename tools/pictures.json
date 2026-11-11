@@ -580,5 +580,84 @@
    "zh": "1933 年，拉荷・阿雷與日本視學官合影。",
    "en": "1933: Lahu Ali with a Japanese education inspector."
   }
+ ],
+ "poj": [
+  {
+   "at": "p0",
+   "key": "medhurst",
+   "file": "Walter Medhurst.jpeg",
+   "zh": "麥都思（左）與助手，1838 年的版畫（George Baxter）。",
+   "en": "Walter Henry Medhurst (left) with his assistants, a print of 1838 by George Baxter."
+  },
+  {
+   "at": "e3",
+   "key": "talmage-primer",
+   "file": "Cover of Introduction to Amoy Alphabets (Tn̂g-uē huan-jī tshoo-ha̍k).jpg",
+   "zh": "打馬字《唐話番字初學》封面，1852 年。",
+   "en": "The cover of Talmage’s primer, Tn̂g-oē Hoan-jī Chho͘-ha̍k, 1852."
+  },
+  {
+   "at": "e4",
+   "key": "doty-manual",
+   "file": "Doty frontispiece.png",
+   "zh": "羅啻《翻譯英華廈腔語彙》扉頁，1853 年。",
+   "en": "The frontispiece of Doty’s Anglo-Chinese Manual, 1853."
+  },
+  {
+   "at": "e5",
+   "key": "maxwell",
+   "file": "英國長老教會第一位駐臺灣宣教師馬雅各牧師（James Laidlaw Maxwell, MD).jpg",
+   "zh": "馬雅各（James Laidlaw Maxwell），英國長老教會第一位駐台灣的宣教師。",
+   "en": "James Laidlaw Maxwell, the English Presbyterian Church’s first missionary in Taiwan."
+  },
+  {
+   "at": "e8",
+   "key": "church-news-1885",
+   "file": "Tai-Oan-Hu-Sia-Kau-Hoe-Po.jpg",
+   "zh": "《台灣府城教會報》創刊號，1885 年 7 月，全用白話字。",
+   "en": "The first issue of the Tâi-oân-hú-siâⁿ Kàu-hōe-pò, July 1885, entirely in POJ."
+  },
+  {
+   "at": "e11",
+   "key": "chhoa-poe-hoe",
+   "file": "Tshuà Puê-Hué.jpg",
+   "zh": "蔡培火，1945 年以前。",
+   "en": "Chhoà Pôe-hóe (Tsai Pei-huo), before 1945."
+  },
+  {
+   "at": "e12",
+   "key": "chap-hang-koan-kian",
+   "file": "Cha̍p-hāng Koán-kiàn.jpg",
+   "zh": "蔡培火《十項管見》（Cha̍p-hāng Koán-kiàn），1925 年。",
+   "en": "Chhoà Pôe-hóe’s Cha̍p-hāng Koán-kiàn, 1925."
+  },
+  {
+   "at": "e13",
+   "key": "church-news-1937",
+   "file": "Cover page of Tâi-oân Kàu-hōe Kong-pò 1937-12.jpg",
+   "zh": "《台灣教會公報》1937 年 12 月號封面。四年多之後被迫停刊。",
+   "en": "The cover of the Taiwan Church News for December 1937. A little over four years later it was forced to stop."
+  },
+  {
+   "at": "e16",
+   "key": "ban-1955",
+   "file": "Banning of POJ.gif",
+   "zh": "台灣省政府 1955 年禁止教會使用羅馬字拼音的公文。",
+   "en": "The Taiwan Provincial Government’s 1955 order forbidding churches to use romanization."
+  },
+  {
+   "at": "e20",
+   "key": "taiwanese-bibles",
+   "file": "Bibles in Taiwanese.jpg",
+   "zh": "幾種台語聖經，紅色封面的是「紅皮聖經」。戴開世攝，2008 年。",
+   "en": "Bibles in Taiwanese; the one with the red cover is the “Red Cover Bible”. Photo by Kaihsu Tai, 2008."
+  },
+  {
+   "at": "e24",
+   "key": "poj-books",
+   "file": "Books which use the Pe̍h-ōe-jī romanisation system for Southern Min-Taiwanese.jpg",
+   "zh": "使用白話字的書籍。",
+   "en": "Books printed in Pe̍h-ōe-jī."
+  }
  ]
 }

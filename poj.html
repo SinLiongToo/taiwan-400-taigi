@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="白話字的歷史 1832–2006：從南洋、廈門到台灣的教會羅馬字，如何成為台語的文字，又如何在日治末期與戰後被禁。The story of Pe̍h-ōe-jī, 1832–2006: how a missionary romanization became a way of writing Taiwanese, and how it was banned.">
+<title>白話字的歷史 1832–2006</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one "film" canvas (year, period and the current event on the left, every milestone as a list on the right with the bans in red, period strip below), then a reading column with the list of bans and the sources. Same sea-ink family as 台灣四百年. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --gold: #ecd04f;
+  --ban: #e0555c;
+  --focus: #7fd3d0;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 14px; }
+.wrap > * { min-width: 0; }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.back { color: var(--muted); font-size: 13.5px; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas.film { display: block; width: 100%; height: auto; max-width: 100%; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--gold); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 4ch; color: var(--gold); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--gold); color: #1a1505; border-color: var(--gold); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #4a3f10; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.read { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px 48px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 8px; }
+@media (max-width: 820px) { .read { grid-template-columns: minmax(0, 1fr); } }
+.read h2 { font-family: var(--f-display); font-size: 21px; margin: 0 0 12px; letter-spacing: .04em; }
+.read p { margin: 0 0 12px; max-width: 66ch; }
+.read .gap { margin-top: 26px; }
+.after { list-style: none; margin: 0; padding: 0; display: grid; }
+.after li { display: grid; grid-template-columns: 5.2em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.after li:last-child { border-bottom: 0; }
+.after b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ban); font-weight: 600; }
+.after span { min-width: 0; }
+.side { display: grid; gap: 26px; align-content: start; color: var(--muted); }
+.side p { margin: 0 0 10px; }
+.side a { color: var(--ink); }
+.side ul, .side ol { margin: 0; padding-left: 1.3em; }
+.refs li { margin-bottom: 7px; font-size: 13.5px; overflow-wrap: anywhere; }
+.sample { font-family: var(--f-display); font-size: 19px; color: var(--ink); line-height: 1.6; margin: 0 0 4px; }
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
+.read h2 .en { font-family: var(--f-body); font-size: .62em; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="./" data-k="back"></a>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <h1 data-k="h1"></h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="film" class="film" width="1600" height="900"></canvas></div>
+  <div class="deck">
+    <button id="play" class="primary" type="button"></button>
+    <div class="scrub">
+      <input id="scrub" type="range" min="1828" max="2008" step="0.05" value="1828" aria-label="Year">
+      <output id="out" for="scrub">1828</output>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="speed" data-k="speed"></label>
+      <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+    </div>
+  </div>
+
+  <section class="read">
+    <div>
+      <h2 data-k="whatH"></h2>
+      <p class="sample" lang="nan-Latn">Pe̍h-ōe-jī sī chi̍t khoán iōng Lô-má-jī siá Tâi-oân-ōe ê bûn-jī.</p>
+      <p data-k="what0"></p>
+      <p data-k="what1"></p>
+      <p data-k="what2"></p>
+      <h2 class="gap" data-k="banH"></h2>
+      <p data-k="banP"></p>
+      <ol class="after" id="bans"></ol>
+    </div>
+    <div class="side">
+      <div>
+        <h2 data-k="noteH"></h2>
+        <p data-k="note1"></p>
+        <p data-k="note2"></p>
+      </div>
+      <div>
+        <h2 data-k="refH"></h2>
+        <p data-k="refP"></p>
+        <ol class="refs">
+          <li>Henning Klöter, <i>Written Taiwanese</i>. Wiesbaden: Harrassowitz, 2005. ISBN 978-3-447-05093-7.</li>
+          <li>Chang Yu-hong（張裕宏）, <i>Principles of POJ or the Taiwanese Orthography</i>. Taipei: Crane, 2001. ISBN 978-957-2053-07-2.</li>
+          <li>Alvin Lin, “Writing Taiwanese: The Development of Modern Written Taiwanese.” <i>Sino-Platonic Papers</i> 89, 1999. <a href="https://web.archive.org/web/20110719184638/http://www.sino-platonic.org/complete/spp089_taiwanese.pdf" target="_blank" rel="noopener">PDF</a></li>
+          <li>Todd L. Sandel, “Linguistic capital in Taiwan: The KMT’s Mandarin language policy and its perceived impact on language practices of bilingual Mandarin and Tai-gi speakers.” <i>Language in Society</i> 32 (4), 2003: 523–551.</li>
+          <li>Ann Heylen, “Romanizing Taiwanese: Codification and Standardization of Dictionaries in Southern Min (1837–1923).” In Ku Wei-ying and Koen De Ridder, eds., <i>Authentic Chinese Christianity</i>. Leuven University Press, 2001.</li>
+          <li>蔣為文（Chiung Wi-vun Taiffalo）, <i>Language, Identity and Decolonization</i>. 台南：國立成功大學, 2005. ISBN 978-957-8845-85-5.</li>
+          <li>張學謙，〈白話字 kap 台語文的現代化〉，2004 台灣羅馬字國際研討會論文集。</li>
+          <li>酒井亨，〈台語羅馬字的衰退係外來政權鎮壓的後果〉，2003。</li>
+          <li>Edward Band, <i>Barclay of Formosa</i>. Tokyo: Christian Literature Society, 1936.</li>
+          <li>原始文獻：Walter H. Medhurst, <i>Dictionary of the Hok-këèn Dialect of the Chinese Language</i> (Macau, 1832)；打馬字《唐話番字初學》(1852)；Elihu Doty, <i>Anglo-Chinese Manual with Romanized Colloquial in the Amoy Dialect</i> (1853)；Carstairs Douglas, <i>Chinese–English Dictionary of the Vernacular or Spoken Language of Amoy</i> (London, 1873)；甘為霖《廈門音新字典》(台南, 1913)；蔡培火《十項管見》(1925)；Bernard L. M. Embree, <i>A Dictionary of Southern Min</i> (Hong Kong, 1973)。</li>
+          <li>臺灣省政府 1955 年禁止教會使用羅馬字拼音的公文影像：<a href="https://commons.wikimedia.org/wiki/File:Banning_of_POJ.gif" target="_blank" rel="noopener">Wikimedia Commons</a>。</li>
+          <li>教育部，〈臺灣閩南語羅馬字拼音方案〉，2006 年 10 月 14 日公告。</li>
+          <li>維基百科：<a href="https://zh.wikipedia.org/zh-tw/白話字" target="_blank" rel="noopener">白話字</a>、<a href="https://zh.wikipedia.org/zh-tw/台灣教會公報" target="_blank" rel="noopener">台灣教會公報</a>；Wikipedia: <a href="https://en.wikipedia.org/wiki/Pe%CC%8Dh-%C5%8De-j%C4%AB" target="_blank" rel="noopener">Pe̍h-ōe-jī</a>, <a href="https://en.wikipedia.org/wiki/Taiwan_Church_News" target="_blank" rel="noopener">Taiwan Church News</a>（2026 年 11 月查閱）。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="narration-poj.js"></script>
+<script src="pictures.js"></script>
+<script src="tg.js"></script>
+<script>
+(() => {
+// ---------- language ----------
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;
+const UI = {
+  back: ['台灣四百年', 'Taiwan: Four Centuries'],
+  langLbl: ['語言','Language'],
+  h1: ['白話字的歷史', 'The Story of Pe̍h-ōe-jī'],
+  intro: ['1832–2006：傳教士為閩南語設計的羅馬字，從南洋、廈門傳到台灣，成為台灣第一份報紙、第一批現代醫學與數學課本所用的文字；又在日治末期與戰後戒嚴時期一再被禁。',
+          '1832–2006: a romanization that missionaries made for Southern Min travelled from Southeast Asia to Amoy and on to Taiwan, where it carried the island’s first newspaper and its first modern textbooks, and was banned again and again under wartime Japan and post-war martial law.'],
+  play: ['播放','Play'], pause: ['暫停','Pause'], replay: ['重播','Replay'], speed: ['速度','Speed'],
+  whatH: ['白話字是什麼', 'What Pe̍h-ōe-jī is'],
+  what0: ['上面這句用白話字寫的話是：「白話字是一款用羅馬字寫台灣話的文字。」', 'The sentence above, written in Pe̍h-ōe-jī, says: “Pe̍h-ōe-jī is a way of writing Taiwanese in Roman letters.”'],
+  what1: ['白話字（Pe̍h-ōe-jī，簡稱 POJ）又叫教會羅馬字。它用 17 個子音、6 個母音和幾個聲調符號，把閩南語的每個音節照實寫下來，不必先學會幾千個漢字。「白話」指的是口語，相對於當時讀書人寫的文言文。',
+          'Pe̍h-ōe-jī (POJ), also called Church Romanization, writes each syllable of Southern Min as it is spoken, with 17 consonants, 6 vowels and a few tone marks, so a reader does not first have to learn thousands of characters. Pe̍h-ōe means the spoken language, as against the classical Chinese that educated people then wrote.'],
+  what2: ['19 世紀的傳教士發現，不識字的信徒幾個星期就能學會用它讀寫。聖經、報紙、小說、醫學與數學課本都曾用白話字出版；1955 年有人估計，台灣、福建與東南亞共有約 11 萬 5 千人能讀寫白話字。今天學校教的「台羅」拼音，就是以白話字為基礎修改而成。',
+          'Nineteenth-century missionaries found that people who could not read learned it in a few weeks. The Bible, newspapers, novels and medical and arithmetic textbooks were printed in it; one estimate for 1955 put the number of people literate in POJ across Taiwan, Fujian and Southeast Asia at about 115,000. Tâi-lô, the romanization taught in Taiwan’s schools today, is POJ with small changes.'],
+  banH: ['被禁的年代', 'The years it was banned'],
+  banP: ['白話字先後被兩個政權壓制，理由相同：推行「國語」。日治末期的國語是日語，戰後的國語是華語。', 'Two governments suppressed POJ for the same stated reason, promoting the “national language”: Japanese in the last years of Japanese rule, Mandarin after the war.'],
+  noteH: ['說明與限制', 'Notes and limits'],
+  note1: ['各家資料對幾個年份的說法不一，本頁照下列方式處理：麥都思的字典有 1832、1837 兩說，採字典本身的出版年 1832；《台灣府城教會報》創刊有 6 月與 7 月 12 日兩說，採創刊號上的 7 月 12 日；Embree 辭典 1973 年出版、1974 年被禁；1957 年的禁令，有的資料說是禁用羅馬字聖經，有的說是禁止教會公報使用白話字，本頁兩種都列出。',
+          'Sources disagree on a few dates, handled here as follows. Medhurst’s dictionary is given as 1832 or 1837; this page uses 1832, the date on the book. The first Church News is given as June or July 12, 1885; this page uses July 12, the date on the first issue. Embree’s dictionary was published in 1973 and banned in 1974. For the 1957 order some sources speak of romanized Bibles and others of POJ in the Church News; both are mentioned.'],
+  note2: ['蔡培火申請開辦白話字講習會被駁回的年份，各資料寫法不同（1920 年代到 1930 年代初），本頁只記在文化協會推廣白話字的 1924 年之下，不另列年份。旁白是語音合成的台語，白話字字幕由程式從漢字轉寫，個別字的讀音可能有誤。',
+          'The years in which Chhoà Pôe-hóe’s applications to run POJ classes were refused are given differently in different sources (the 1920s to the early 1930s); this page mentions them under 1924, when the Cultural Association took up POJ, without separate dates. The narration is synthesized Taiwanese, and the POJ subtitles are converted from characters by a program, so individual readings may be wrong.'],
+  refH: ['參考資料', 'Sources'],
+  refP: ['本頁的年份與事實整理自下列著作；禁令部分主要依據第 1 至 4 項。', 'Dates and facts on this page are compiled from the works below; the bans rest mainly on items 1 to 4.'],
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ---------- data ----------
+// kind: pub = books and papers, teach = people and teaching, ban = restriction, free = restriction lifted
+const KIND = { pub:'#ecd04f', teach:'#7fd3d0', ban:'#e0555c', free:'#8fd08a' };
+const T0 = 1828, T_END = 2008;
+const EVENTS = [
+  [1832,'pub','麥都思《福建方言字典》','Medhurst’s Hokkien dictionary','英國傳教士麥都思在麻六甲向福建移民學閩南語，1832 年在澳門出版字典，用羅馬字標音並加上聲調符號，是白話字的前身。','The English missionary Walter Medhurst learned Hokkien from migrants in Malacca. His dictionary, printed in Macau in 1832, spelled the sounds in Roman letters with tone marks: the forerunner of POJ.'],
+  [1842,'teach','南京條約：廈門開港','Treaty of Nanking opens Amoy','鴉片戰爭後廈門成為通商口岸，傳教士從南洋移入，此後白話字以廈門話為拼寫標準。','After the Opium War Amoy (Xiamen) became a treaty port. Missionaries moved in from Southeast Asia, and Amoy speech became the standard the spelling followed.'],
+  [1850,'teach','廈門教會開始教白話字','POJ taught in the Amoy churches','打馬字、羅啻、養雅各等傳教士在廈門的教會與學校教信徒用羅馬字讀寫。','The missionaries John Van Nest Talmage, Elihu Doty and James Young began teaching converts in Amoy to read and write in Roman letters.'],
+  [1852,'pub','打馬字《唐話番字初學》','Talmage’s primer','第一本白話字入門課本。','The first primer for learning POJ.'],
+  [1853,'pub','羅啻《翻譯英華廈腔語彙》','Doty’s Anglo-Chinese Manual','這本手冊所用的聲調符號，一直沿用到今天的白話字。','The tone marks used in this manual are the ones POJ still uses.'],
+  [1865,'teach','馬雅各到台南','Maxwell arrives in Tainan','英國長老教會的醫療傳教士馬雅各在台南設立據點，開始在台灣推行白話字。','James Laidlaw Maxwell, a medical missionary of the English Presbyterian Church, set up a mission in Tainan and began to spread POJ in Taiwan.'],
+  [1873,'pub','白話字新約聖經；杜嘉德《廈英大辭典》','The New Testament in POJ; Douglas’s dictionary','白話字新約聖經出版。同年杜嘉德在倫敦出版《廈英大辭典》，是之後幾十年最重要的閩南語辭典。','The New Testament appeared in POJ. The same year Carstairs Douglas published in London the dictionary of Amoy speech that remained the standard for decades.'],
+  [1884,'pub','聚珍堂開始印刷','The mission press starts printing','馬雅各在 1880 年捐贈印刷機，巴克禮回英國學會操作，1884 年在台南的聚珍堂開始印刷。同年白話字舊約聖經出版。','Maxwell had given a printing press in 1880; Thomas Barclay went home to learn to run it, and in 1884 the press in Tainan began printing. The Old Testament in POJ appeared the same year.'],
+  [1885.53,'pub','《台灣府城教會報》創刊','The first Taiwan Church News','7 月 12 日，巴克禮創辦《台灣府城教會報》，全部用白話字印刷。這是台灣第一份印刷的報紙。','On July 12 Barclay brought out the Tâi-oân-hú-siâⁿ Kàu-hōe-pò, printed entirely in POJ. It was the first printed newspaper in Taiwan.'],
+  [1913,'pub','甘為霖《廈門音新字典》','Campbell’s dictionary','甘為霖在台南出版《廈門音新字典》，至今仍在重印。','William Campbell published his dictionary in Tainan; it is still reprinted.'],
+  [1917,'pub','戴仁壽《內外科看護學》','A nursing textbook in POJ','醫師戴仁壽用白話字寫成的醫學教科書。更早還有 1897 年的數學課本《筆算个初學》。','A medical textbook written in POJ by Dr George Gushue-Taylor. An arithmetic textbook in POJ had appeared in 1897.'],
+  [1924,'teach','文化協會推廣白話字','The Cultural Association takes up POJ','蔡培火主張用白話字普及知識，台灣文化協會把推廣白話字列為主要工作。但他申請開辦講習會，都被總督府駁回。','Chhoà Pôe-hóe argued that POJ could spread knowledge quickly, and the Taiwan Cultural Association made it a main task. His applications to run classes were refused by the colonial government.'],
+  [1925.7,'pub','白話字文學','Writing in POJ','蔡培火出版社會評論《十項管見》，隔年鄭溪泮出版小說《出死線》。','Chhoà Pôe-hóe published his essays Cha̍p-hāng Koán-kiàn, and the next year Tēⁿ Khe-phoàn published the novel Chhut Sí-sòaⁿ.'],
+  [1937.5,'ban','戰時壓制','Wartime suppression','中日戰爭爆發後推行皇民化與「國語（日語）運動」，羅馬字的台語文受到取締。','After war with China began, the Kōminka and “national language” (Japanese) campaigns followed, and romanized Taiwanese was suppressed.'],
+  [1942.2,'ban','《台灣教會公報》被迫停刊','The Church News is stopped','傳教士被驅離，印刷所關閉，《台灣教會公報》在 1942 年 3 月之後停刊。','The missionaries were expelled and the press closed; the Church News stopped after March 1942.'],
+  [1945.95,'free','教會公報復刊','The Church News returns','戰後《台灣教會公報》在 1945 年 12 月復刊，仍用白話字。','After the war the Church News resumed in December 1945, still in POJ.'],
+  [1955.3,'ban','禁止教會用羅馬字傳教','Romanization banned in mission work','台灣省政府公告，禁止教會使用羅馬字拼音傳教。','The Taiwan Provincial Government announced that churches must not use romanization in preaching.'],
+  [1957,'ban','禁用羅馬字聖經','Romanized Bibles forbidden','政府進一步禁止傳教士使用羅馬字聖經，也禁止教會公報使用白話字。1959 年聖經的禁令放寬，但當局仍「勸導」教會改用漢字聖經。','The government went on to forbid missionaries to use romanized Bibles and the Church News to use POJ. The Bible ban was relaxed in 1959, though churches were “encouraged” to use character Bibles.'],
+  [1969.25,'ban','教會公報禁用白話字','POJ banned from the Church News','《台灣教會公報》被禁止用白話字印刷，4 月到 11 月停刊，12 月復刊後改用中文。','The Church News was forbidden to print in POJ. It stopped from April to November and came back in December in Chinese characters.'],
+  [1974,'ban','《台英辭典》被禁','A dictionary is banned','Embree 編的台語辭典 1973 年在香港出版，使用白話字，隔年被新聞局查禁。','Bernard Embree’s Dictionary of Southern Min, published in Hong Kong in 1973 with POJ spellings, was banned by the Government Information Office the next year.'],
+  [1975,'ban','查扣台語聖經','Taiwanese Bibles seized','天主教與基督教合作新譯的台語新約聖經（俗稱「紅皮聖經」）與泰雅語聖經被查扣。','The new Taiwanese New Testament translated jointly by Catholics and Protestants (the “Red Cover Bible”) and an Atayal Bible were confiscated.'],
+  [1984,'ban','再次禁止用羅馬字傳教','Romanization forbidden again','教育部函請內政部，制止教會使用方言與羅馬字拼音傳教。','The Ministry of Education asked the Ministry of the Interior to stop churches using “dialects” and romanization in their work.'],
+  [1987.54,'free','解嚴','Martial law ends','1987 年解除戒嚴，對本土語言的限制逐漸取消。1991 年起《台灣教會公報》設立母語版。','Martial law was lifted in 1987 and the restrictions on local languages were quietly dropped. From 1991 the Church News carried a mother-tongue section.'],
+  [2004.5,'free','白話字符號收入 Unicode','POJ characters enter Unicode','2004 年提案通過，Unicode 4.1 收入白話字 o͘ 右上那一點所需的符號，電腦從此可以完整顯示白話字。','A proposal was accepted in 2004 and Unicode 4.1 added the mark needed for the dot of o͘, so computers could show POJ in full.'],
+  [2006.79,'free','教育部公布「台羅」','The Ministry adopts Tâi-lô','10 月 14 日教育部公布臺灣閩南語羅馬字拼音方案，以白話字為基礎小幅修改，成為學校教的拼音。','On October 14 the Ministry of Education published the Taiwanese Romanization System, POJ with small changes, as the spelling taught in schools.'],
+].map(e=>({ d:e[0], kind:e[1], tz:e[2], te:e[3], bz:e[4], be:e[5] }));
+const PHASES = [
+  [1815, 1842, '南洋起源', 'Origins in Southeast Asia', '#b39a7a', '清朝禁止傳教，傳教士在麻六甲、巴達維亞的福建移民之間工作，開始用羅馬字記錄閩南語。', 'With China closed to missionaries, they worked among Hokkien migrants in Malacca and Batavia and began writing the language in Roman letters.'],
+  [1842, 1865, '在廈門成形', 'Taking shape in Amoy', '#7fd3d0', '廈門開港後，白話字在教會裡定型，課本與手冊陸續出版。', 'Once Amoy opened, the system settled into shape in the churches, and primers and manuals followed.'],
+  [1865, 1895, '傳入台灣', 'Arrival in Taiwan', '#ecd04f', '長老教會把白話字帶到台南，有了聖經、印刷所與報紙。', 'The Presbyterian mission brought POJ to Tainan: a Bible, a press and a newspaper.'],
+  [1895, 1937, '日治時期的發展', 'Growth under Japanese rule', '#e8a33d', '白話字走出教會，出現字典、醫學課本、評論與小說；但推廣到社會的嘗試受到總督府阻擋。', 'POJ moved beyond the church into dictionaries, textbooks, essays and novels, but attempts to teach it widely were blocked by the colonial government.'],
+  [1937, 1945.6, '戰時壓制', 'Wartime suppression', '#c8323c', '皇民化時期只許使用日語，白話字刊物被迫停刊。', 'In the Kōminka years only Japanese was acceptable, and POJ publications were forced to stop.'],
+  [1945.6, 1987.54, '戰後的禁令', 'Post-war bans', '#e0555c', '國民政府推行國語（華語）政策，從 1955 年起一步步禁止教會使用羅馬字，查扣聖經與辭典。', 'The Nationalist government promoted Mandarin and, from 1955, step by step forbade the churches to use romanization and seized Bibles and dictionaries.'],
+  [1987.54, 2010, '解禁與復振', 'Lifting and revival', '#8fd08a', '解嚴後禁令取消，台語文運動興起，白話字進入電腦與學校。', 'After martial law the bans lapsed, a movement to write Taiwanese grew, and POJ reached computers and schools.'],
+];
+const SHARE = [1,1,1,1,1,1,1];
+const phaseAt = t => PHASES.find(p => t>=p[0] && t<p[1]) || PHASES[PHASES.length-1];
+const BANS = EVENTS.filter(e => e.kind==='ban');
+
+// ---------- canvas ----------
+const cv=document.getElementById('film'), ctx=cv.getContext('2d'), stage=cv.parentElement;
+const C = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d' };
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1, title:{x:56,y:58}, year:{x:50,y:205,size:150}, phase:{x:58,y:268,size:36}, pdesc:{x:58,y:312,w:430,lh:27,max:4},
+          event:{x:58,y:478,w:430}, list:{x:570,y:58,w:974,rh:30.5,size:17}, strip:{x:56,y:856,w:1488,h:22} },
+  port: { W:720, H:2010, u:1.3, title:{x:28,y:50}, year:{x:24,y:158,size:110}, phase:{x:28,y:214,size:32}, pdesc:{x:28,y:256,w:664,lh:30,max:3},
+          event:{x:28,y:400,w:664}, list:{x:28,y:690,w:664,rh:48,size:21}, strip:{x:28,y:1950,w:664,h:30} },
+};
+let L = LAYOUTS.land;
+function layout(){
+  const cw = stage.clientWidth || 1000;
+  L = cw < 720 ? LAYOUTS.port : LAYOUTS.land;
+  const scale = Math.min(2, window.devicePixelRatio||1) * cw / L.W;
+  cv.width=Math.round(L.W*scale); cv.height=Math.round(L.H*scale); ctx.setTransform(scale,0,0,scale,0,0);
+}
+function wrap(text, maxW){
+  const out=[]; let line='';
+  const toks = /[　-鿿]/.test(text) ? text.match(/[A-Za-z0-9,.\-–]+|./gu) : text.split(/(?<= )/);   // keep a year or a Latin word in one piece
+  for (const tk of toks) {
+    if (ctx.measureText(line+tk).width > maxW && line) {
+      if (/^[，。、；：！？）」』》]/.test(tk)) { line += tk; continue; }   // never start a line with punctuation
+      out.push(line); line = tk.trimStart();
+    } else line += tk;
+  }
+  if (line) out.push(line); return out;
+}
+function fitFont(text, weight, size, family, maxW, min=11){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+const hexA = (h,a) => `rgba(${parseInt(h.slice(1,3),16)},${parseInt(h.slice(3,5),16)},${parseInt(h.slice(5,7),16)},${a})`;
+function lastEvent(t){ let e=null; for (const x of EVENTS) { if (x.d<=t) e=x; else break; } return e; }
+
+function drawHeader(t){
+  const u=L.u, ph=phaseAt(t), bi=lang==='bi';
+  ctx.textBaseline='alphabetic'; ctx.textAlign='left';
+  ctx.font=font(700,13*u,F.b); ctx.fillStyle=C.muted;
+  ctx.fillText(tx('白 話 字 的 歷 史　1832 — 2006','THE STORY OF PE̍H-ŌE-JĪ   1832 — 2006'), L.title.x, L.title.y);
+  ctx.font=font(900,L.year.size,F.d); ctx.fillStyle=C.ink; ctx.fillText(String(Math.floor(t)), L.year.x, L.year.y);
+  fitFont(tx(ph[2],ph[3]), 900, L.phase.size, F.d, L.pdesc.w, 20); ctx.fillStyle=ph[4]; ctx.fillText(tx(ph[2],ph[3]), L.phase.x, L.phase.y);
+  let y = L.pdesc.y;
+  if (bi) { ctx.font=font(500,16*u,F.d); ctx.globalAlpha=0.8; ctx.fillText(ph[3], L.phase.x+2, L.phase.y+24*u); ctx.globalAlpha=1; y += 22*u; }
+  ctx.font=font(400,(lang==='en'?16:17)*u,F.b); ctx.fillStyle=C.muted;
+  wrap(tx(ph[5],ph[6]), L.pdesc.w).slice(0, L.pdesc.max+(lang==='en'?1:0)).forEach((ln,i)=>ctx.fillText(ln, L.pdesc.x, y+i*L.pdesc.lh*(lang==='en'?0.9:1)));
+}
+function drawEvent(t){
+  const r=L.event, u=L.u, bi=lang==='bi', e=lastEvent(t);
+  ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('紀 事','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+  if (!e) return;
+  const col=KIND[e.kind];
+  ctx.font=font(600,14*u,F.m); ctx.fillStyle=col; ctx.fillText(String(Math.floor(e.d)), r.x, r.y+24*u);
+  if (e.kind==='ban') { const w=ctx.measureText(String(Math.floor(e.d))).width; ctx.font=font(700,11*u,F.b); ctx.fillText(tx('　禁令','  BAN'), r.x+w+2, r.y+23*u); }
+  let ty = r.y+54*u;
+  ctx.font=font(700,22*u,F.d); ctx.fillStyle=C.ink;
+  for (const ln of wrap(tx(e.tz,e.te), r.w).slice(0,2)) { ctx.fillText(ln, r.x, ty); ty += 29*u; }
+  if (bi) { ctx.font=font(500,14*u,F.b); ctx.fillStyle=C.muted; for (const ln of wrap(e.te, r.w).slice(0,2)) { ctx.fillText(ln, r.x, ty-4*u); ty += 20*u; } }
+  ty += 6*u;
+  ctx.font=font(400,(lang==='en'?14.5:15.5)*u,F.b); ctx.fillStyle=C.muted;
+  const maxL = L===LAYOUTS.port ? 5 : (bi ? 7 : 9);
+  wrap(tx(e.bz,e.be), r.w).slice(0,maxL).forEach((ln,i)=>ctx.fillText(ln, r.x, ty+i*(lang==='en'?22:25)*u));
+}
+function drawList(t){
+  const r=L.list, u=L.u, bi=lang==='bi', cur=lastEvent(t), port=L===LAYOUTS.port;
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.textAlign='left';
+  ctx.fillText(tx('年 表','TIMELINE')+(bi?'  TIMELINE':''), r.x, r.y-12*u);
+  // legend
+  const leg=[['pub',tx('出版','Publications')],['teach',tx('推行','People and teaching')],['ban',tx('禁令','Bans')],['free',tx('解禁','Bans lifted')]];
+  let lx = r.x + r.w; ctx.textAlign='right'; ctx.font=font(500,11.5*u,F.b);
+  for (const [k,label] of leg.slice().reverse()) { ctx.fillStyle=C.muted; ctx.fillText(label, lx, r.y-12*u); lx -= ctx.measureText(label).width+8*u; ctx.fillStyle=KIND[k]; ctx.beginPath(); ctx.arc(lx, r.y-16*u, 4*u, 0, 6.3); ctx.fill(); lx -= 16*u; }
+  ctx.textAlign='left';
+  const yearW = (port?64:58)*u, dotX = r.x+yearW+8*u, textX = dotX+18*u;
+  ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(dotX, r.y+r.rh*0.5); ctx.lineTo(dotX, r.y+r.rh*(EVENTS.length-0.5)); ctx.stroke();
+  EVENTS.forEach((e,i)=>{
+    const y = r.y + r.rh*(i+0.5), past = e.d<=t, on = e===cur, col=KIND[e.kind];
+    if (on) { ctx.fillStyle=hexA(col,0.13); ctx.fillRect(r.x-8*u, y-r.rh/2+1, r.w+16*u, r.rh-2); ctx.fillStyle=col; ctx.fillRect(r.x-8*u, y-r.rh/2+1, 3*u, r.rh-2); }
+    ctx.globalAlpha = on ? 1 : past ? 0.82 : 0.3;
+    ctx.textBaseline='middle';
+    ctx.font=font(600,(port?17:14.5)*u/(port?1.3:1)*(port?1.3:1),F.m); ctx.fillStyle = past ? col : C.muted; ctx.fillText(String(Math.floor(e.d)), r.x, y+1);
+    ctx.fillStyle = past ? col : C.faint; ctx.beginPath(); ctx.arc(dotX, y, (on?6:4.2)*u, 0, 6.3); ctx.fill();
+    if (e.kind==='ban' && past) { ctx.strokeStyle=C.bg; ctx.lineWidth=1.6*u; ctx.beginPath(); ctx.moveTo(dotX-2.4*u,y-2.4*u); ctx.lineTo(dotX+2.4*u,y+2.4*u); ctx.moveTo(dotX+2.4*u,y-2.4*u); ctx.lineTo(dotX-2.4*u,y+2.4*u); ctx.stroke(); }
+    const zh=tx(e.tz,e.te), avail=r.x+r.w-textX;
+    ctx.font=font(on?700:500, r.size, lang==='en'?F.b:F.d);
+    let w=ctx.measureText(zh).width;
+    if (w>avail) { fitFont(zh, on?700:500, r.size, lang==='en'?F.b:F.d, avail, 12); w=ctx.measureText(zh).width; }
+    ctx.fillStyle = e.kind==='ban' && past ? '#f0a3a7' : C.ink; ctx.fillText(zh, textX, y+1);
+    if (bi && !port) { const rest=avail-w-14*u; if (rest>120) { fitFont(e.te, 400, 13.5*u, F.b, rest, 10.5); ctx.fillStyle=C.muted; ctx.fillText(e.te, textX+w+14*u, y+1.5); } }
+    ctx.globalAlpha=1;
+  });
+  ctx.textBaseline='alphabetic';
+}
+const sx = v => L.strip.x + L.strip.w*(v-T0)/(T_END-T0);
+function drawStrip(t){
+  const r=L.strip, u=L.u;
+  for (const p of PHASES) {
+    const x0=sx(Math.max(p[0],T0)), x1=sx(Math.min(p[1],T_END)), on=t>=p[0]&&t<p[1];
+    ctx.fillStyle=hexA(p[4], on?0.85:0.3); ctx.fillRect(x0, r.y, x1-x0-1, r.h);
+    const label=tx(p[2],p[3]); ctx.font=font(700,(L===LAYOUTS.port?13:12)*u/(L===LAYOUTS.port?1.3:1)*(L===LAYOUTS.port?1.15:1),F.b);
+    if (ctx.measureText(label).width < x1-x0-10) { ctx.fillStyle = on ? '#0b1a22' : C.ink; ctx.globalAlpha = on?1:0.75; ctx.textBaseline='middle'; ctx.fillText(label, x0+6, r.y+r.h/2+1); ctx.textBaseline='alphabetic'; ctx.globalAlpha=1; }
+  }
+  for (const e of EVENTS) { ctx.fillStyle=KIND[e.kind]; ctx.fillRect(sx(e.d)-0.75, r.y-7, 1.5, 5); }
+  ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted; ctx.textAlign='center';
+  for (const y of [1850,1900,1950,2000]) ctx.fillText(String(y), sx(y), r.y+r.h+14*u);
+  ctx.textAlign='left';
+  const x=sx(t); ctx.strokeStyle=C.ink; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x,r.y-10); ctx.lineTo(x,r.y+r.h+3); ctx.stroke();
+}
+function render(t){
+  ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
+  drawHeader(t); drawEvent(t); drawList(t); drawStrip(t);
+}
+
+// ---------- playback: slow near each event ----------
+const playBtn=document.getElementById('play'), scrub=document.getElementById('scrub'), out=document.getElementById('out'), speed=document.getElementById('speed');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t=T0, playing=!reduce;
+function rate(x){
+  let dmin = Infinity; for (const e of EVENTS) { const dd = x < e.d ? e.d-x : x-e.d-0.6; dmin = Math.min(dmin, Math.max(0, dd)); }
+  return Math.max(0.45, 4.2 * clamp(dmin/2.2, 0, 1));
+}
+const fmtOut = x => String(Math.floor(x));
+function setPlaying(p){ playing=p; setK(playBtn, p ? 'pause' : (t>=T_END ? 'replay' : 'play')); TG.sync(); }
+function seek(x){ t=clamp(x,T0,T_END); scrub.value=t; out.textContent=fmtOut(t); TG.seek(); }
+playBtn.addEventListener('click', ()=>{ if (!playing && t>=T_END) seek(T0); if (!playing) TG.unlock(); setPlaying(!playing); });
+scrub.addEventListener('input', ()=>{ seek(+scrub.value); if (playing) setPlaying(false); });
+cv.setAttribute('tabindex','0');
+cv.addEventListener('keydown', e=>{
+  if (e.key===' ') { e.preventDefault(); playBtn.click(); }
+  else if (e.key==='ArrowRight') seek(Math.floor(t)+1);
+  else if (e.key==='ArrowLeft') seek(Math.floor(t)-1);
+});
+const bansOl=document.getElementById('bans');
+function applyLang(){
+  TG.lang();
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.title = tx('白話字的歷史 1832–2006', 'The Story of Pe̍h-ōe-jī, 1832–2006');
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
+  setPlaying(playing);
+  bansOl.innerHTML = BANS.map(e=>`<li><b>${Math.floor(e.d)}</b><span>${uiHTML(e.tz+'：'+e.bz, e.te+': '+e.be)}</span></li>`).join('');
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  cv.setAttribute('aria-label', tx('白話字歷史年表動畫','Animated timeline of the history of Pe̍h-ōe-jī'));
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+new ResizeObserver(()=>layout()).observe(stage);
+
+// Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.
+const TG = TGNarration({ name:'poj', lang:()=>lang, getT:()=>t, isPlaying:()=>playing, setPlaying, stage, playBtn,
+  cues:[...PHASES.map((p,i)=>({y:Math.max(p[0],T0), id:'p'+i})), ...EVENTS.map((e,i)=>({y:e.d, id:'e'+i}))] });
+if (TG.on()) playing=false;   // sound needs a tap, so the narrated film waits for Play
+layout(); applyLang(); seek(T0); setPlaying(playing);
+let last=performance.now();
+function frame(now){
+  TG.tick();
+  const dt=Math.min(0.1,(now-last)/1000); last=now;
+  if (playing) { t+=TG.step(dt*rate(t)*(+speed.value), now); if (t>=T_END) { t=T_END; if (!TG.busy()) setPlaying(false); } scrub.value=t; out.textContent=fmtOut(t); }
+  render(t); requestAnimationFrame(frame);
+}
+requestAnimationFrame(n=>{ last=n; frame(n); });
+})();
+</script>
+</body>
+</html>
