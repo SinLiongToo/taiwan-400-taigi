@@ -50,11 +50,31 @@ def patch(src, name):
     print(f"  wrote {name}.html (clock '{v}', end {end}, start {start})")
 
 
+def patch_engine(src, name):
+    """Pages generated from tools/rebellions (guo, linshuangwen, daichaochun, feuds, indigenous): one Film(S) object."""
+    s = src.read_text(encoding="utf-8")
+    s = sub1(s, r"<script>\n", f'<script src="narration-{name}.js"></script>\n<script src="pictures.js"></script>\n<script src="tg.js"></script>\n<script>\n', "inline script")
+    s = sub1(s, r"(f\.setPlaying = p => \{ f\.playing=p; setK\(play,[^\n]*?\); )\};", r"\1f.TG && f.TG.sync(); };", "setPlaying")
+    s = sub1(s, r"(f\.seek = t => \{[^\n]*?) ?\};\n", r"\1 f.TG && f.TG.seek(); };\n", "seek")
+    s = sub1(s, r"(play\.addEventListener\('click', \(\)=>\{ f\.started=true; if \(!f\.playing && f\.t>=T_END\) f\.seek\(0\); )(f\.setPlaying\(!f\.playing\); \}\);)",
+             r"\1if (!f.playing) f.TG.unlock(); \2\n"
+             f"  // Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.\n"
+             f"  f.TG = TGNarration({{ name:'{name}', lang:()=>lang, getT:()=>f.t, isPlaying:()=>f.playing, setPlaying:p=>f.setPlaying(p), stage, playBtn:play,\n"
+             f"    cues:[...S.PHASES.map((p,i)=>({{y:Math.max(p[0],0), id:'p'+i}})), ...S.EVENTS.map((e,i)=>({{y:e.d, id:'e'+i}}))] }});", "play button")
+    s = sub1(s, r"if \(f\.playing\) \{ f\.t\+=dt\*rate\(f\.t\)\*\(\+speed\.value\); if \(f\.t>=T_END\) \{ f\.t=T_END; f\.setPlaying\(false\); \}",
+             "f.TG.tick();\n    if (f.playing) { f.t+=f.TG.step(dt*rate(f.t)*(+speed.value), performance.now()); if (f.t>=T_END) { f.t=T_END; if (!f.TG.busy()) f.setPlaying(false); }", "tick")
+    s = sub1(s, r"if \(e\.isIntersecting && !f\.started && !reduce\) \{", "if (e.isIntersecting && !f.started && !reduce && !f.TG.on()) {", "autoplay")
+    s = sub1(s, r"(for \(const f of films\) f\.setPlaying\(f\.playing\);)", r"\1 for (const f of films) f.TG.lang();", "applyLang")
+    (ROOT / f"{name}.html").write_text(s, encoding="utf-8", newline="\n")
+    print(f"  wrote {name}.html (rebellion engine)")
+
+
 def main():
     src_dir = Path(sys.argv[1])
     for name in sys.argv[2:]:
         print(name)
-        patch(src_dir / f"{name}.html", name)
+        src = src_dir / f"{name}.html"
+        (patch_engine if "function Film(S){" in src.read_text(encoding="utf-8") else patch)(src, name)
     main_page = ROOT / "taiwan-400.html"
     s = main_page.read_text(encoding="utf-8")
     for name in sys.argv[2:]:   # the main page's card now opens the narrated copy

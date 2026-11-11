@@ -296,5 +296,167 @@
    "zh": "荷蘭人向鄭成功投降。1675 年荷蘭出版品中的版畫，出自當時歐洲人的想像。",
    "en": "The Dutch surrender to Koxinga, an engraving from a Dutch book of 1675, drawn as Europeans imagined the scene."
   }
+ ],
+ "yiwei": [
+  {
+   "at": "p0",
+   "key": "shimonoseki-signing",
+   "file": "Scene of signing Treaty of Shimonoseki pictorial.jpg",
+   "zh": "馬關條約簽訂的場面，約 1895 年的日本畫報。",
+   "en": "The signing of the Treaty of Shimonoseki, from a Japanese pictorial of about 1895."
+  },
+  {
+   "at": "e1",
+   "key": "tiger-flag",
+   "file": "Blue Ground Yellow Tiger Flag (part).jpg",
+   "zh": "台灣民主國的藍地黃虎旗（摹本局部）。",
+   "en": "The Blue Ground Yellow Tiger Flag of the Republic of Formosa (detail of a copy)."
+  },
+  {
+   "at": "e2",
+   "key": "aodi-camp-1895",
+   "file": "Prince Kitashirakawa Yoshihisa camping on the coast of Aodi.jpg",
+   "zh": "1895 年 5 月 31 日，北白川宮能久親王與近衛師團在澳底海岸露營。",
+   "en": "May 31, 1895: Prince Kitashirakawa and the Imperial Guard camped on the shore at Aodi."
+  },
+  {
+   "at": "e6",
+   "key": "north-gate-1895",
+   "file": "A view of the north gate tower and a portion of the streets of Taipeh.jpg",
+   "zh": "台北城北門。1895 年 6 月日軍未經戰鬥由此入城；照片為同年日本陸地測量部所攝。",
+   "en": "The North Gate of Taipei, where Japanese troops entered without a fight in June 1895; photographed that year by the army survey."
+  },
+  {
+   "at": "p2",
+   "key": "troops-north-gate-1895",
+   "file": "The 5th Regiment of Japanese Army resting in near the north gate of Taipeh.jpg",
+   "zh": "1895 年，日軍在台北城北門附近休息。日本陸地測量部攝。",
+   "en": "Japanese troops resting near Taipei’s North Gate in 1895; photographed by the army survey."
+  },
+  {
+   "at": "e13",
+   "key": "fangliao-landing",
+   "file": "The landing of Japanese troops at Fangliao.jpg",
+   "zh": "1895 年 10 月 11 日，日軍在枋寮登陸。小川一真攝。",
+   "en": "October 11, 1895: Japanese troops landing at Fangliao. Photo by Ogawa Kazumasa."
+  },
+  {
+   "at": "e14",
+   "key": "liu-yongfu",
+   "file": "Liu Yongfu.jpg",
+   "zh": "黑旗軍首領劉永福，約 1885 年。",
+   "en": "Liu Yongfu, leader of the Black Flag Army, about 1885."
+  }
+ ],
+ "tapani": [
+  {
+   "at": "p0",
+   "key": "yu-qingfang",
+   "file": "余清芳照片.jpg",
+   "zh": "余清芳，1915 年被捕後所攝。",
+   "en": "Yu Qingfang, photographed after his arrest in 1915."
+  },
+  {
+   "at": "e2",
+   "key": "luo-jun",
+   "file": "西來庵事件 羅俊.jpg",
+   "zh": "羅俊，1915 年被捕後。",
+   "en": "Luo Jun after his arrest in 1915."
+  },
+  {
+   "at": "e3",
+   "key": "tapani-manifesto",
+   "file": "Manifesto of the Tapani incident.jpg",
+   "zh": "余清芳以「大元帥」名義發布的告示，1915 年。",
+   "en": "The proclamation Yu Qingfang issued as “Grand Marshal”, 1915."
+  },
+  {
+   "at": "p2",
+   "key": "after-tapani",
+   "file": "After the Tapani incident.jpg",
+   "zh": "事件後的照片：西來庵與遭破壞的房舍，1915 年。",
+   "en": "After the rising: Xilai Temple and wrecked buildings, 1915."
+  },
+  {
+   "at": "e9",
+   "key": "prisoners-tainan",
+   "file": "余清芳等人被押解經過台南停車場前.jpg",
+   "zh": "余清芳等人被押解，經過台南車站前。",
+   "en": "Yu Qingfang and others being escorted past Tainan Station."
+  },
+  {
+   "at": "e10",
+   "key": "xilaian-court",
+   "file": "Xilaian Incident.jpg",
+   "zh": "1915 年，被告從台南監獄被押往臨時法院出庭。",
+   "en": "1915: defendants marched from Tainan Prison to the special court."
+  }
+ ],
+ "wushe": [
+  {
+   "at": "p0",
+   "key": "mona-rudao",
+   "file": "Mona Rudao and Seediq tribal leaders.jpg",
+   "zh": "莫那．魯道（中）與賽德克族頭目，1930 年以前。",
+   "en": "Mona Rudao (centre) with Seediq leaders, before 1930."
+  },
+  {
+   "at": "e0",
+   "key": "wushe-scene",
+   "file": "The scene of the Wushe Incident.JPG",
+   "zh": "事件後的霧社現場，1930 年 10 月。",
+   "en": "The scene at Musha after the attack, October 1930."
+  },
+  {
+   "at": "e1",
+   "key": "musha-police",
+   "file": "People of the Taichu Prefecture Police Department during the Musha Incident 1930.jpg",
+   "zh": "霧社事件期間的台中州警務部人員，1930 年。",
+   "en": "Staff of the Taichū Prefecture police department during the Musha Incident, 1930."
+  },
+  {
+   "at": "e2",
+   "key": "truwan-smoke",
+   "file": "Smoke and flames at Truwan during Musha Incident.jpg",
+   "zh": "鎮壓期間，塔洛灣社一帶冒出濃煙與火光，1930 年。",
+   "en": "Smoke and flames at Truwan during the suppression, 1930."
+  }
+ ],
+ "airraids": [
+  {
+   "at": "p1",
+   "key": "formosa-airfield-1944",
+   "file": "Japanese airfield on Formosa under attack by U.S. carrier aircraft, in October 1944.jpg",
+   "zh": "1944 年 10 月，台灣的日軍機場遭美國航艦飛機攻擊。美國海軍攝。",
+   "en": "October 1944: a Japanese airfield on Taiwan under attack by US carrier aircraft. US Navy photo."
+  },
+  {
+   "at": "e4",
+   "key": "takao-harbor-1945",
+   "file": "A Japanese transport explodes after being hit by carrier plane bombs in Takao Harbor, Formosa, on 15 January 1945.jpg",
+   "zh": "1945 年 1 月 15 日，高雄港內一艘日本運輸船被航艦飛機炸中爆炸。",
+   "en": "January 15, 1945: a Japanese transport explodes in Takao (Kaohsiung) harbour after a hit from carrier aircraft."
+  },
+  {
+   "at": "e6",
+   "key": "taihoku-raid",
+   "file": "Taihoku Air Raid 1945.jpg",
+   "zh": "1945 年 5 月 31 日台北大空襲的空拍照。美國空軍歷史研究局。",
+   "en": "The Raid on Taipei from the air, May 31, 1945. US Air Force Historical Research Agency."
+  },
+  {
+   "at": "e7",
+   "key": "taihoku-ruins",
+   "file": "Ruins after the bombardment in Taihoku 1945.jpg",
+   "zh": "空襲後的台北街頭廢墟，1945 年。鄧南光攝。",
+   "en": "Ruins in Taipei after the bombing, 1945. Photo by Deng Nan-guang."
+  },
+  {
+   "at": "e8",
+   "key": "kiirun-debris",
+   "file": "Debris in Kiirun circa 1945.jpg",
+   "zh": "基隆的瓦礫，約 1945 年。",
+   "en": "Rubble in Keelung, about 1945."
+  }
  ]
 }

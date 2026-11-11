@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="乙未戰爭 1895：日軍自澳底登陸，五個月內由北而南攻下台灣，台灣民主國與各地義軍抵抗的逐日地圖。The 1895 war: a day-by-day map of Japan's invasion from Aodi to Tainan and the resistance of the Republic of Formosa and local militias.">
+<title>乙未戰爭 1895</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one "film" canvas (date and events left, the island with the occupation front sweeping south centre, four people and the casualty figures right, phase strip below), then a reading column. Same sea-ink family as 台灣四百年; Japan red and Republic-of-Formosa teal from the main page mark the two sides. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --jp: #f0625a;
+  --twr: #7fd3d0;
+  --focus: #e3c15c;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 14px; }
+.wrap > * { min-width: 0; }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.back { color: var(--muted); font-size: 13.5px; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas.film { display: block; width: 100%; height: auto; max-width: 100%; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--twr); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 9ch; color: var(--twr); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--twr); color: #06201f; border-color: var(--twr); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #1f5452; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.read { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px 48px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 8px; }
+@media (max-width: 820px) { .read { grid-template-columns: minmax(0, 1fr); } }
+.read h2 { font-family: var(--f-display); font-size: 21px; margin: 0 0 12px; letter-spacing: .04em; }
+.read p { margin: 0 0 12px; max-width: 66ch; }
+.after { list-style: none; margin: 0; padding: 0; display: grid; }
+.after li { display: grid; grid-template-columns: 6.6em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.after li:last-child { border-bottom: 0; }
+.after b { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--twr); font-weight: 600; }
+.after span { min-width: 0; }
+.side { display: grid; gap: 26px; align-content: start; color: var(--muted); }
+.side p { margin: 0; }
+.side a { color: var(--ink); }
+.side ul, .side ol { margin: 0; padding-left: 1.3em; }
+.refs li { margin-bottom: 6px; font-size: 13.5px; }
+#credits { font-size: 12.5px; }
+#credits a { color: var(--muted); }
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
+.read h2 .en { font-family: var(--f-body); font-size: .62em; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="./" data-k="back"></a>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <h1 data-k="h1"></h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="film" class="film" width="1600" height="900"></canvas></div>
+  <div class="deck">
+    <button id="play" class="primary" type="button"></button>
+    <div class="scrub">
+      <input id="scrub" type="range" min="0" max="230" step="0.1" value="0" aria-label="Date">
+      <output id="out" for="scrub">1895/4/10</output>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="speed" data-k="speed"></label>
+      <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+    </div>
+  </div>
+
+  <section class="read">
+    <div>
+      <h2 data-k="bgH"></h2>
+      <p data-k="bg1"></p>
+      <p data-k="bg2"></p>
+      <h2 data-k="afterH"></h2>
+      <ol class="after" id="after"></ol>
+    </div>
+    <div class="side">
+      <div>
+        <h2 data-k="noteH"></h2>
+        <p data-k="note"></p>
+      </div>
+      <div>
+        <h2 data-k="refH"></h2>
+        <ol class="refs">
+          <li>James W. Davidson, <i>The Island of Formosa, Past and Present</i>. London and New York: Macmillan, 1903.（作者為隨日軍採訪的美國記者）</li>
+          <li>Takekoshi Yosaburō（竹越與三郎）, <i>Japanese Rule in Formosa</i>. London: Longmans, Green, 1907.</li>
+          <li>Paul D. Barclay, <i>Outcasts of Empire: Japan’s Rule on Taiwan’s “Savage Border,” 1874–1945</i>. Oakland: University of California Press, 2018.</li>
+          <li>維基百科「乙未戰爭」條目；Wikipedia, “Japanese invasion of Taiwan (1895).”（2026 年 10 月查閱，傷亡數字兩條目不同，頁面並列）</li>
+        </ol>
+      </div>
+      <div>
+        <h2 data-k="moreH"></h2>
+        <ul>
+          <li><a href="https://zh.wikipedia.org/wiki/乙未戰爭" target="_blank" rel="noopener">維基百科：乙未戰爭</a></li>
+          <li><a href="https://zh.wikipedia.org/wiki/臺灣民主國" target="_blank" rel="noopener">維基百科：臺灣民主國</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Japanese_invasion_of_Taiwan_(1895)" target="_blank" rel="noopener">Wikipedia: Japanese invasion of Taiwan (1895)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 data-k="credH"></h2>
+        <ul id="credits"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="portraits.js"></script>
+<script src="narration-yiwei.js"></script>
+<script src="pictures.js"></script>
+<script src="tg.js"></script>
+<script>
+(() => {
+const PORTRAITS = window.PORTRAITS || {};
+const IMG = {}; for (const k of ['Tang Jingsong','Liu Yongfu','Kabayama Sukenori']) if (PORTRAITS[k]) { const im=new Image(); im.src=PORTRAITS[k].src; IMG[k]=im; }
+
+// ---------- language (shared with 台灣四百年) ----------
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;
+const UI = {
+  back: ['台灣四百年', 'Taiwan: Four Centuries'],
+  langLbl: ['語言','Language'],
+  h1: ['乙未戰爭 1895', 'The 1895 War for Taiwan'],
+  intro: ['馬關條約割台後，台灣士紳成立台灣民主國抵抗。日軍 5 月 29 日從澳底登陸，五個月內由北而南推進，各地客家與閩南義軍節節抵抗，10 月 21 日台南陷落。逐日看戰線如何南移。',
+          'After the Treaty of Shimonoseki ceded Taiwan, local gentry founded the Republic of Formosa to resist. Japanese troops landed at Aodi on May 29 and in five months pushed from north to south against Hakka and Hoklo militias, until Tainan fell on October 21. Watch the front move south, day by day.'],
+  play: ['播放','Play'], pause: ['暫停','Pause'], replay: ['重播','Replay'], speed: ['速度','Speed'],
+  bgH: ['背景', 'Background'],
+  bg1: ['1895 年 4 月，清廷在甲午戰爭戰敗後簽訂馬關條約，將台灣與澎湖割讓給日本。消息傳來，台灣官紳反對割讓，5 月宣布成立台灣民主國，以巡撫唐景崧為總統，盼能爭取列強干涉。',
+        'In April 1895, defeated in the First Sino-Japanese War, the Qing signed the Treaty of Shimonoseki and ceded Taiwan and Penghu to Japan. Taiwan’s officials and gentry refused to accept it and in May declared the Republic of Formosa, with Governor Tang Jingsong as president, hoping foreign powers would step in.'],
+  bg2: ['日軍登陸後，北部的清軍與民主國政府迅速瓦解。真正的抵抗來自中部的客家義軍與南部劉永福的黑旗軍，戰事拖延五個月。日軍戰死者不多，病死者卻是戰死的數十倍，主要死於瘧疾與霍亂。',
+        'After the landing, Qing troops and the republic’s government in the north collapsed quickly. Real resistance came from Hakka militias in the centre and Liu Yongfu’s Black Flag Army in the south, dragging the war out for five months. Few Japanese died in battle, but dozens of times as many died of malaria and cholera.'],
+  afterH: ['之後', 'Afterward'],
+  noteH: ['關於這張地圖', 'About this map'],
+  note: ['地圖只呈現西部平原與北部的戰線，東部與山地原住民族地區要到之後多年才被日本控制，不在本圖範圍。佔領範圍為依各城陷落日期整理的示意。部分日期各來源相差一兩天，以範圍標示；雙方傷亡數字差距大，頁面並列。',
+         'The map shows only the western plains and the north. The east and the Indigenous mountains came under Japanese control years later and are outside this map. Occupied areas are a schematic based on when each town fell. Some dates differ by a day or two between sources and are shown as ranges; casualty figures differ widely and are shown side by side.'],
+  refH: ['參考資料', 'References'],
+  moreH: ['延伸閱讀', 'Further reading'],
+  credH: ['肖像來源', 'Portrait sources'],
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ---------- time ----------
+const T0 = Date.UTC(1895,3,10);
+const D = s => { const [y,m,d]=s.split('-').map(Number); return (Date.UTC(y,m-1,d)-T0)/864e5; };
+const dateOf = t => { const dt=new Date(T0 + Math.floor(t)*864e5); return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()]; };
+const MON = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
+const T_END = D('1895-11-30');
+
+// ---------- geography ----------
+const COAST = [[121.54,25.30],[121.62,25.24],[121.74,25.15],[121.85,25.11],[121.92,25.03],[121.83,24.90],[121.82,24.75],[121.86,24.59],[121.78,24.42],[121.70,24.28],[121.62,24.02],[121.58,23.85],[121.50,23.60],[121.45,23.38],[121.37,23.15],[121.25,22.92],[121.15,22.75],[121.02,22.58],[120.95,22.45],[120.90,22.30],[120.86,22.10],[120.85,21.92],[120.75,21.93],[120.70,21.95],[120.72,22.10],[120.62,22.30],[120.50,22.45],[120.38,22.52],[120.27,22.62],[120.20,22.78],[120.13,22.95],[120.10,23.10],[120.08,23.30],[120.13,23.50],[120.20,23.75],[120.30,23.95],[120.40,24.15],[120.52,24.35],[120.68,24.58],[120.85,24.80],[120.98,24.95],[121.10,25.05],[121.28,25.12],[121.40,25.18],[121.54,25.30]];
+const SPINE = [[121.55,24.75],[121.35,24.45],[121.18,24.05],[121.02,23.55],[120.90,23.05],[120.83,22.55],[120.79,22.18]];
+const BOUNDS = [119.75, 21.8, 122.15, 25.45];
+const COS = Math.cos(23.7*Math.PI/180);
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const smooth = (a,b,x) => { const t = clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };
+const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+const rgba = (c,a) => `rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a.toFixed(3)})`;
+const pw = (x, pts) => { if (x<=pts[0][0]) return pts[0][1]; for (let i=1;i<pts.length;i++) if (x<=pts[i][0]) { const [a,va]=pts[i-1],[b,vb]=pts[i]; return va+(vb-va)*(x-a)/(b-a); } return pts[pts.length-1][1]; };
+function pip(x,y,p){ let inside=false; for(let i=0,j=p.length-1;i<p.length;j=i++){ const [xi,yi]=p[i],[xj,yj]=p[j]; if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=!inside; } return inside; }
+function segDist(px,py,a,b){ const ax=a[0]*COS,ay=a[1],bx=b[0]*COS,by=b[1],x=px*COS; const dx=bx-ax,dy=by-ay; const t=clamp(((x-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy),0,1); return Math.hypot(x-(ax+t*dx), py-(ay+t*dy)); }
+const spineLon = lat => pw(lat, SPINE.map(p=>[p[1],p[0]]).reverse());
+const SP = 0.034, dots = [];
+for (let r=0, lat=25.34; lat>21.88; lat-=SP*0.866, r++)
+  for (let lon=119.95+(r%2?SP/COS/2:0); lon<122.0; lon+=SP/COS) {
+    if (!pip(lon,lat,COAST)) continue;
+    let d=9; for (let i=0;i<SPINE.length-1;i++) d=Math.min(d, segDist(lon,lat,SPINE[i],SPINE[i+1]));
+    const w = 0.24 + 0.17*Math.exp(-(((lat-23.8)/0.6)**2)), m = clamp(1-d/w,0,1);
+    const yilan = lat>24.45 && lat<24.95 && lon>121.62, east = lat<24.45 && lon > spineLon(lat)+0.03;
+    dots.push({ lon, lat, out: m>0.42 || east || yilan, cr:51, cg:80, cb:94 });
+  }
+for (const p of [[119.56,23.66],[119.60,23.63],[119.64,23.60],[119.60,23.57],[119.56,23.57],[119.52,23.60]]) dots.push({ lon:p[0], lat:p[1], penghu:true, out:false, cr:51, cg:80, cb:94 });
+
+// ---------- occupation model ----------
+const FRONT = [['1895-05-28',26.0],['1895-06-03',25.12],['1895-06-07',24.98],['1895-06-22',24.78],['1895-08-13',24.72],['1895-08-14',24.55],['1895-08-26',24.50],['1895-08-29',24.04],['1895-10-08',23.98],['1895-10-09',23.44],['1895-10-20',23.38],['1895-10-21',22.90],['1895-10-27',21.80]].map(([d,v])=>[D(d),v]);
+const POCKETS = [ { p:[121.90,25.02], a:'1895-05-29', b:'1895-06-03', r:0.22 }, { p:[120.16,23.38], a:'1895-10-10', b:'1895-10-20', r:0.22 }, { p:[120.59,22.36], a:'1895-10-11', b:'1895-10-20', r:0.34 }, { p:[120.28,22.62], a:'1895-10-13', b:'1895-10-18', r:0.16 } ].map(o=>({ ...o, a:D(o.a), b:D(o.b) }));
+function occupied(d, t){
+  if (d.penghu) return 1;                                   // Penghu taken in March 1895
+  if (d.out) return -1;                                     // east and mountains: outside this campaign
+  if (d.lat >= pw(t, FRONT)) return 1;
+  for (const k of POCKETS) if (t >= k.a && Math.hypot((d.lon-k.p[0])*COS, d.lat-k.p[1]) < k.r*smooth(k.a, k.b, t)) return 1;
+  return 0;
+}
+
+// ---------- story ----------
+const PLACES = {
+  aodi:{zh:'澳底',en:'Aodi',p:[121.92,25.03],side:'r'}, ruifang:{zh:'瑞芳',en:'Ruifang',p:[121.81,25.10],side:'r',dy:-14}, keelung:{zh:'基隆',en:'Keelung',p:[121.74,25.14],side:'r',dy:-28},
+  taipei:{zh:'台北',en:'Taipei',p:[121.51,25.04],side:'l'}, hsinchu:{zh:'新竹',en:'Hsinchu',p:[120.97,24.80],side:'l'}, jianbi:{zh:'尖筆山',en:'Jianbishan',p:[120.92,24.71],side:'l'},
+  miaoli:{zh:'苗栗',en:'Miaoli',p:[120.82,24.56],side:'l'}, baguashan:{zh:'八卦山（彰化）',en:'Baguashan, Changhua',p:[120.56,24.07],side:'l'}, chiayi:{zh:'嘉義',en:'Chiayi',p:[120.45,23.48],side:'r'},
+  budai:{zh:'布袋嘴',en:'Budai',p:[120.16,23.38],side:'l'}, tainan:{zh:'台南',en:'Tainan',p:[120.20,22.99],side:'l'}, takow:{zh:'打狗',en:'Takow',p:[120.28,22.62],side:'l'},
+  fangliao:{zh:'枋寮',en:'Fangliao',p:[120.59,22.36],side:'r'}, changxing:{zh:'長興庄',en:'Changxing',p:[120.53,22.70],side:'r'}, penghu:{zh:'澎湖',en:'Penghu',p:[119.57,23.57],side:'r',dy:-16},
+};
+const ROUTE = [['aodi','1895-05-29'],['ruifang','1895-06-02'],['keelung','1895-06-03'],['taipei','1895-06-07'],['hsinchu','1895-06-22'],['jianbi','1895-07-10'],['miaoli','1895-08-14'],['baguashan','1895-08-28'],['chiayi','1895-10-09'],['tainan','1895-10-21']].map(([k,d])=>({ p:PLACES[k].p, d:D(d) }));
+const LANDINGS = [['budai','1895-10-10',[119.85,23.45]],['fangliao','1895-10-11',[120.40,22.15]]].map(([k,d,f])=>({ p:PLACES[k].p, d:D(d), from:f }));
+// [date, zh title, en title, zh text, en text, place, label, battle?]
+const EVENTS = [
+  ['1895-04-17','馬關條約','Treaty of Shimonoseki','甲午戰敗，清廷將台灣與澎湖割讓給日本。澎湖已在 3 月被日軍佔領。','Defeated by Japan, the Qing ceded Taiwan and Penghu. Japanese troops had already occupied Penghu in March.','penghu'],
+  ['1895-05-25','台灣民主國成立','The Republic of Formosa','台灣官紳宣布成立台灣民主國（宣言於 5 月 23 日發布），推巡撫唐景崧為總統，年號永清。','Officials and gentry founded the Republic of Formosa (its declaration was issued on May 23), with Governor Tang Jingsong as president and the era name Yongqing.','taipei'],
+  ['1895-05-29','日軍澳底登陸','Japanese land at Aodi','日本近衛師團在東北角三貂角附近的澳底登陸，避開防守嚴密的基隆港。','The Japanese Imperial Guards landed at Aodi near Cape Santiago in the northeast, avoiding heavily defended Keelung.','aodi',null,true],
+  ['1895-06-02','瑞芳之戰','Battle of Ruifang','日軍在瑞芳擊潰守軍，往基隆推進。','Japanese troops broke the defenders at Ruifang and pushed on to Keelung.','ruifang',['6/1–2','Jun 1–2'],true],
+  ['1895-06-03','基隆陷落','Keelung falls','基隆失守，日清雙方代表在港外軍艦上辦理台灣交接。','Keelung fell, and Japanese and Qing envoys completed the handover of Taiwan aboard a warship off the port.','keelung',null,true],
+  ['1895-06-06','唐景崧內渡','Tang Jingsong flees','總統唐景崧搭船逃往廈門，台北陷入混亂。','President Tang Jingsong fled by ship to Xiamen, and Taipei fell into chaos.','taipei'],
+  ['1895-06-07','日軍進入台北','Japanese enter Taipei','台北士紳派人迎日軍入城以恢復秩序，日軍未經戰鬥進入台北。','Taipei gentry invited the Japanese in to restore order, and they entered the city without a fight.','taipei'],
+  ['1895-06-17','始政式','The colonial government begins','首任總督樺山資紀在台北舉行始政式，此後這天被定為「始政紀念日」。','First Governor-General Kabayama Sukenori held a ceremony in Taipei to begin colonial rule; the day became an annual holiday.','taipei'],
+  ['1895-06-22','日軍佔新竹城','Hsinchu taken','日軍佔領新竹城，但城外客家義軍持續反攻，戰事膠著近兩個月。','The Japanese took Hsinchu, but Hakka militias kept attacking from outside, and fighting dragged on for nearly two months.','hsinchu',null,true],
+  ['1895-07-10','尖筆山之役・姜紹祖殉難','Jianbishan; Jiang Shaozu dies','義軍在尖筆山一帶敗退，北埔義軍領袖姜紹祖被俘後殉難。','The militias were driven back around Jianbishan, and Beipu militia leader Jiang Shaozu was captured and died.','jianbi',['7月上旬','Early July'],true],
+  ['1895-08-14','苗栗失守','Miaoli falls','日軍增援後南下，攻下苗栗。','Reinforced, the Japanese moved south and took Miaoli.','miaoli',null,true],
+  ['1895-08-28','八卦山之役','Battle of Baguashan','乙未戰爭中規模最大的戰役。義軍領袖吳湯興戰死，彰化城失守。','The largest battle of the war. Militia leader Wu Tang-hsing was killed and Changhua fell.','baguashan',['8/27–28','Aug 27–28'],true],
+  ['1895-10-09','嘉義陷落','Chiayi falls','日軍在休整補給後再度南進，攻下嘉義城。','After resting and resupplying, the Japanese moved south again and took Chiayi.','chiayi',null,true],
+  ['1895-10-10','布袋嘴、枋寮登陸','Landings at Budai and Fangliao','日軍另派部隊從布袋嘴與枋寮登陸，南北夾擊台南。','Japanese units landed at Budai and Fangliao to close on Tainan from north and south.','budai',['10/10–11','Oct 10–11'],true],
+  ['1895-10-20','劉永福離台','Liu Yongfu leaves','黑旗軍首領劉永福見大勢已去，搭英國商船離開台南。','Seeing the end, Black Flag commander Liu Yongfu slipped out of Tainan on a British merchant ship.','tainan'],
+  ['1895-10-21','台南陷落','Tainan falls','日軍進入台南，台灣民主國瓦解，有組織的抵抗結束。','Japanese troops entered Tainan; the Republic of Formosa collapsed and organized resistance ended.','tainan'],
+  ['1895-10-28','北白川宮能久親王病逝','Prince Kitashirakawa dies','率近衛師團來台的北白川宮能久親王在台南死於瘧疾。','Prince Kitashirakawa Yoshihisa, who led the Imperial Guards to Taiwan, died of malaria in Tainan.','tainan'],
+  ['1895-11-18','總督宣告全島平定','Taiwan declared pacified','樺山資紀向東京報告全島平定，但各地武裝抗日此後仍持續多年。','Kabayama reported to Tokyo that Taiwan was pacified, though armed resistance went on for years.','taipei'],
+  ['1895-11-26','長興庄之役','Battle of Changxing','屏東長興一帶的義軍被擊潰，是乙未戰爭最後的戰鬥之一。','Militias around Changxing in Pingtung were defeated in one of the last fights of the war.','changxing',null,true],
+].map(e=>({ d:D(e[0]), tz:e[1], te:e[2], bz:e[3], be:e[4], at:e[5], lbl:e[6], battle:!!e[7] }));
+const PHASES = [
+  [0, D('1895-05-29'), '割讓與建國','Cession and the Republic','#e3c15c','馬關條約割台，台灣官紳不願接受，成立台灣民主國，期待列強干涉。','The treaty ceded Taiwan; its officials and gentry refused and founded the Republic of Formosa, hoping the powers would intervene.'],
+  [D('1895-05-29'), D('1895-06-22'), '北部失守','The north falls','#f0625a','日軍從澳底登陸，十天內攻下基隆、進入台北，民主國政府瓦解。','The Japanese landed at Aodi and within ten days took Keelung and entered Taipei; the republic’s government collapsed.'],
+  [D('1895-06-22'), D('1895-08-29'), '中部義軍抗戰','The militias of the centre','#7fd3d0','新竹、苗栗一帶的客家義軍以遊擊戰拖住日軍近兩個月，直到八卦山之役。','Hakka militias around Hsinchu and Miaoli held the Japanese with guerrilla fighting for nearly two months, until Baguashan.'],
+  [D('1895-08-29'), D('1895-10-21'), '南進','The push south','#e08a5a','日軍休整後兵分三路，陸路南下並從布袋嘴、枋寮登陸，包圍劉永福據守的台南。','After regrouping, the Japanese advanced on three axes, overland and by landings at Budai and Fangliao, to surround Liu Yongfu in Tainan.'],
+  [D('1895-10-21'), T_END+1, '平定與餘波','Pacified, not at peace','#9fb2ba','台南陷落後總督宣告平定，但各地抗日武裝持續到 1902 年前後。','After Tainan fell the governor declared Taiwan pacified, but armed resistance continued until around 1902.'],
+];
+const phaseAt = t => PHASES.find(p => t>=p[0] && t<p[1]) || PHASES[PHASES.length-1];
+const PEOPLE = [
+  { k:'Tang Jingsong', zh:'唐景崧', en:'Tang Jingsong', role:['台灣民主國總統','President, Republic of Formosa'], col:'#7fd3d0', st:[[0,'台灣巡撫','Governor'],[D('1895-05-25'),'總統','President'],[D('1895-06-06'),'內渡','Fled']] },
+  { k:'Liu Yongfu', zh:'劉永福', en:'Liu Yongfu', role:['黑旗軍首領，守台南','Black Flag leader in Tainan'], col:'#7fd3d0', st:[[0,'駐守台南','In Tainan'],[D('1895-06-07'),'主持抗日','Leading'],[D('1895-10-20'),'離台','Left']] },
+  { k:'Wu Tang-hsing', zh:'吳湯興', en:'Wu Tang-hsing', role:['苗栗客家義軍領袖','Hakka militia leader, Miaoli'], col:'#7fd3d0', st:[[0,'組織義軍','Organizing'],[D('1895-06-22'),'抗戰','Fighting'],[D('1895-08-28'),'戰死','Killed']] },
+  { k:'Kabayama Sukenori', zh:'樺山資紀', en:'Kabayama Sukenori', role:['首任台灣總督','First Governor-General'], col:'#f0625a', st:[[0,'受命','Appointed'],[D('1895-06-17'),'始政','Rule begins'],[D('1895-11-18'),'宣告平定','Declares peace']] },
+];
+const AFTER = [
+  ['1896','雲林、台北等地抗日事件不斷，總督府以軍警鎮壓並實施「匪徒刑罰令」（1898）。','Uprisings continue in Yunlin, Taipei and elsewhere; the colonial government answers with troops, police and, from 1898, a harsh “bandit punishment” law.'],
+  ['1902','平地的武裝抗日大致平息，日本的統治轉向山地。','Armed resistance on the plains largely ends, and Japanese rule turns to the mountains.'],
+  ['1915','西來庵事件，最後一次大規模漢人武裝抗日。','The Tapani Incident, the last large Han armed uprising.'],
+];
+
+// ---------- drawing ----------
+const C = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d' };
+const JP = hex('#f0625a'), TWR = hex('#7fd3d0'), QING = hex('#e3c15c'), BASE = hex('#33505e'), OUT = hex('#26414d'), FIRE = hex('#f08a4b'), INK = hex('#ece6d6');
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+const cv=document.getElementById('film'), ctx=cv.getContext('2d'), stage=cv.parentElement;
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1, title:{x:56,y:58}, date:{x:52,y:180,size:104}, year:{x:58,y:218}, phase:{x:58,y:278,size:34}, pdesc:{x:58,y:318,w:370,lh:27,max:4},
+    event:{x:58,y:478,w:370}, map:{x:450,y:24,w:600,h:800}, people:{x:1100,y:60,w:440,rh:104}, stats:{x:1100,y:520,w:440}, strip:{x:56,y:846,w:1488,h:28} },
+  port: { W:720, H:2000, u:1.3, title:{x:28,y:50}, date:{x:24,y:140,size:84}, year:{x:30,y:178}, phase:{x:28,y:234,size:30}, pdesc:{x:28,y:274,w:664,lh:30,max:2},
+    map:{x:16,y:330,w:688,h:640}, event:{x:28,y:1020,w:664}, people:{x:28,y:1210,w:664,rh:108}, stats:{x:28,y:1690,w:664}, strip:{x:28,y:1930,w:664,h:32} },
+};
+let L=LAYOUTS.land, M={};
+const P = (lon,lat) => [M.ox+(lon-BOUNDS[0])*COS*M.k, M.oy+(BOUNDS[3]-lat)*M.k];
+function layout(){
+  const cw = stage.clientWidth || 1000;
+  L = cw < 720 ? LAYOUTS.port : LAYOUTS.land;
+  const scale = Math.min(2, window.devicePixelRatio||1) * cw / L.W;
+  cv.width=Math.round(L.W*scale); cv.height=Math.round(L.H*scale); ctx.setTransform(scale,0,0,scale,0,0);
+  const r=L.map, gw=(BOUNDS[2]-BOUNDS[0])*COS, gh=BOUNDS[3]-BOUNDS[1];
+  M.k=Math.min(r.w/gw, r.h/gh); M.ox=r.x+(r.w-gw*M.k)/2; M.oy=r.y+(r.h-gh*M.k)/2; M.dot=SP*M.k*0.42;
+  for (const d of dots) [d.x,d.y]=P(d.lon,d.lat);
+}
+function wrap(text, maxW){
+  const toks = text.match(/[\p{Script=Latin}0-9.,;:!?%’'"“”()\/\-–]+|\s|./gu) || [];
+  const lines=[]; let line='';
+  for (const t of toks) { if (line && !/^[，。、；：！？）」』,.;:!?)]$/.test(t) && ctx.measureText(line+t).width > maxW) { lines.push(line.trimEnd()); line = t.trim() ? t : ''; } else line += t; }
+  if (line) lines.push(line); return lines;
+}
+function fitFont(text, weight, size, family, maxW, min=11){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+function label(zh, en, x, y, left, size=12.5){
+  const u=L.u, lx=x+(left?-11:11);
+  ctx.textAlign = left ? 'right' : 'left'; ctx.font=font(600,size*u,F.b);
+  const nm = tx(zh,en);
+  ctx.lineWidth=3.5; ctx.strokeStyle=C.bg; ctx.strokeText(nm, lx, y+4.5); ctx.fillStyle=C.ink; ctx.fillText(nm, lx, y+4.5);
+  if (lang==='bi') { ctx.font=font(400,(size-3)*u,F.b); ctx.strokeText(en, lx, y+4.5+12*u); ctx.fillStyle=C.muted; ctx.fillText(en, lx, y+4.5+12*u); }
+  ctx.textAlign='left';
+}
+const rrect = (x,y,w,h,r) => { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); };
+const lastEvent = t => { let e=null; for (const x of EVENTS) if (x.d<=t) e=x; else break; return e; };
+function arrowHead(x,y,ang,col,s=8){ ctx.fillStyle=col; ctx.beginPath(); ctx.moveTo(x+Math.cos(ang)*s, y+Math.sin(ang)*s); ctx.lineTo(x+Math.cos(ang+2.5)*s, y+Math.sin(ang+2.5)*s); ctx.lineTo(x+Math.cos(ang-2.5)*s, y+Math.sin(ang-2.5)*s); ctx.closePath(); ctx.fill(); }
+
+let lastT=0;
+function drawMap(t, dt){
+  const r=L.map, u=L.u, f=1-Math.pow(0.003, dt);
+  ctx.save(); ctx.beginPath(); ctx.rect(r.x,r.y,r.w,r.h); ctx.clip();
+  ctx.strokeStyle=C.grid; ctx.lineWidth=1; ctx.font=font(400,11*u,F.m); ctx.fillStyle=C.faint;
+  for (let lon=120; lon<=122; lon++) { const [x]=P(lon,0); ctx.beginPath(); ctx.moveTo(x,r.y); ctx.lineTo(x,r.y+r.h); ctx.stroke(); ctx.fillText(`${lon}°E`, x+4, r.y+r.h-8); }
+  for (let lat=22; lat<=25; lat++) { const [,y]=P(0,lat); ctx.beginPath(); ctx.moveTo(r.x,y); ctx.lineTo(r.x+r.w,y); ctx.stroke(); ctx.fillText(`${lat}°N`, r.x+r.w-44*u, y-5); }
+  const front = pw(t, FRONT);
+  for (const d of dots) {
+    const o = occupied(d, t);
+    const target = o===-1 ? OUT : o===1 ? JP : (t >= D('1895-05-25') ? TWR : QING);
+    const a = o===-1 ? 0.5 : o===1 ? 0.9 : 0.55;
+    d.cr+=(target[0]-d.cr)*f; d.cg+=(target[1]-d.cg)*f; d.cb+=(target[2]-d.cb)*f;
+    ctx.fillStyle=`rgba(${d.cr|0},${d.cg|0},${d.cb|0},${a})`; ctx.beginPath(); ctx.arc(d.x,d.y,M.dot,0,6.2832); ctx.fill();
+  }
+  // front line glow across the western plain
+  if (front < 25.5 && front > 22) { const [x0,y]=P(120.0,front), [x1]=P(spineLon(front)+0.05,front); const g=ctx.createLinearGradient(0,y-10,0,y+10); g.addColorStop(0,rgba(JP,0)); g.addColorStop(0.5,rgba(JP,0.55)); g.addColorStop(1,rgba(JP,0)); ctx.fillStyle=g; ctx.fillRect(x0,y-10,x1-x0,20); }
+  // "outside" label
+  { const [x,y]=P(121.18,23.5); ctx.font=font(500,12*u,F.d); ctx.fillStyle=rgba(hex('#6f8b96'),0.95); ctx.textAlign='center'; ctx.fillText(tx('山地與東部','Mountains & east'), x, y); ctx.font=font(400,10.5*u,F.b); ctx.fillText(tx('（不在本次戰線）','(outside this campaign)'), x, y+15*u); ctx.textAlign='left'; }
+  // Japanese overland route so far
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  let pts=[]; for (let i=0;i<ROUTE.length;i++) { if (t < ROUTE[i].d) { if (i>0) { const a=ROUTE[i-1], b=ROUTE[i], q=clamp((t-a.d)/(b.d-a.d),0,1); const [x0,y0]=P(...a.p), [x1,y1]=P(...b.p); pts.push([x0+(x1-x0)*q, y0+(y1-y0)*q]); } break; } pts.push(P(...ROUTE[i].p)); }
+  if (pts.length>1) { ctx.beginPath(); pts.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y)); ctx.strokeStyle=rgba(hex(C.bg),0.8); ctx.lineWidth=6; ctx.stroke(); ctx.strokeStyle=rgba(JP,0.95); ctx.lineWidth=2.6; ctx.stroke();
+    const [xa,ya]=pts[pts.length-2], [xb,yb]=pts[pts.length-1]; if (t < ROUTE[ROUTE.length-1].d) arrowHead(xb,yb,Math.atan2(yb-ya,xb-xa),rgba(JP,1)); }
+  // landing at Aodi and southern landings from the sea
+  for (const ld of [{ p:PLACES.aodi.p, d:D('1895-05-29'), from:[122.12,25.25] }, ...LANDINGS]) {
+    if (t < ld.d-1.5) continue; const q=clamp((t-(ld.d-1.5))/1.5,0,1), [x0,y0]=P(...ld.from), [x1,y1]=P(...ld.p), xb=x0+(x1-x0)*q, yb=y0+(y1-y0)*q;
+    ctx.setLineDash([4,5]); ctx.strokeStyle=rgba(JP,0.85); ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(xb,yb); ctx.stroke(); ctx.setLineDash([]);
+    if (q<1) arrowHead(xb,yb,Math.atan2(y1-y0,x1-x0),rgba(JP,1));
+  }
+  // battle bursts
+  for (const e of EVENTS) if (e.battle && t>=e.d && t<e.d+1.4) { const [x,y]=P(...PLACES[e.at].p), q=(t-e.d)/1.4; for (let i=0;i<3;i++) { ctx.strokeStyle=rgba(FIRE,(1-q)*0.9); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,(8+24*q)*(1+0.3*i),0,6.2832); ctx.stroke(); } }
+  // places
+  for (const k in PLACES) {
+    const pl=PLACES[k], [x,y]=P(...pl.p), taken = k==='penghu' || EVENTS.some(e=>e.at===k && e.battle && t>=e.d) || (k==='taipei' && t>=D('1895-06-07')) || (k==='tainan' && t>=D('1895-10-21'));
+    const relevant = EVENTS.some(e=>e.at===k && t>=e.d-25) || k==='taipei' || k==='tainan' || k==='penghu';
+    if (!relevant) continue;
+    ctx.fillStyle = taken ? rgba(JP,1) : C.bg; ctx.strokeStyle=C.ink; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(x,y,4.5,0,6.2832); ctx.fill(); ctx.stroke();
+    label(pl.zh, pl.en, x, y+(pl.dy||0), pl.side==='l');
+  }
+  const e = lastEvent(t);
+  if (e && e.at && t-e.d < 3) { const [x,y]=P(...PLACES[e.at].p), ph=(performance.now()/1000)%1; ctx.strokeStyle=rgba(INK,(1-ph)*0.85); ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,9+ph*28,0,6.2832); ctx.stroke(); }
+  ctx.restore();
+  drawLegend(t);
+}
+function drawLegend(t){
+  const r=L.map, u=L.u, items=[[JP,'日軍佔領','Occupied by Japan'],[t>=D('1895-05-25')?TWR:QING, t>=D('1895-05-25')?'台灣民主國／義軍':'清朝（割讓前）', t>=D('1895-05-25')?'Republic of Formosa / militias':'Qing (before handover)'],[OUT,'山地與東部','Mountains & east']];
+  const lh=(lang==='bi'?30:21)*u, w=(lang==='zh'?170:230)*u, h=items.length*lh+40*u, x=r.x+10, y=r.y+r.h-h-30*u;
+  ctx.fillStyle='rgba(8,21,29,0.88)'; ctx.fillRect(x,y,w,h); ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.strokeRect(x,y,w,h);
+  items.forEach(([c,zh,en],i)=>{ const yy=y+14+i*lh+8*u; ctx.fillStyle=rgba(c,0.95); ctx.beginPath(); ctx.arc(x+16,yy-4,6,0,6.2832); ctx.fill();
+    ctx.font=font(500,12*u,F.b); ctx.fillStyle=C.ink; ctx.fillText(tx(zh,en), x+30, yy); if (lang==='bi') { ctx.font=font(400,10.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(en, x+30, yy+13*u); } });
+  const yy=y+14+items.length*lh+8*u; ctx.strokeStyle=rgba(JP,1); ctx.lineWidth=2.6; ctx.beginPath(); ctx.moveTo(x+8,yy-4); ctx.lineTo(x+24,yy-4); ctx.stroke();
+  ctx.font=font(500,12*u,F.b); ctx.fillStyle=C.ink; ctx.fillText(lang==='bi'?'日軍進軍路線 Japanese advance':tx('日軍進軍路線','Japanese advance'), x+30, yy);
+}
+function drawHeader(t){
+  const u=L.u, ph=phaseAt(t), [Y,m,d]=dateOf(t), bi=lang==='bi';
+  ctx.font=font(700,13*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('乙 未 戰 爭　1895','THE 1895 WAR FOR TAIWAN'), L.title.x, L.title.y);
+  const big = tx(`${m}月${d}日`, `${MON[m]} ${d}`); fitFont(big, 900, L.date.size, F.d, 390*u, 40); ctx.fillStyle=C.ink; ctx.fillText(big, L.date.x, L.date.y);
+  ctx.font=font(500,17*u,F.d); ctx.fillStyle=C.muted;
+  const yl = tx('1895・光緒 21 年・明治 28 年', '1895 · Guangxu 21 · Meiji 28');
+  ctx.fillText(bi ? `${yl}　${MON[m]} ${d}` : yl, L.year.x, L.year.y);
+  const pn=tx(ph[2],ph[3]); fitFont(pn, 900, L.phase.size, F.d, L.pdesc.w, 18); ctx.fillStyle=ph[4]; ctx.fillText(pn, L.phase.x, L.phase.y);
+  if (bi) { const w=ctx.measureText(pn).width; ctx.font=font(500,17*u,F.d); if (w+12+ctx.measureText(ph[3]).width <= L.pdesc.w) { ctx.globalAlpha=0.85; ctx.fillText(ph[3], L.phase.x+w+12, L.phase.y); ctx.globalAlpha=1; } }
+  const pd=L.pdesc; ctx.font=font(400,(lang==='en'?15.5:16.5)*u,F.b); ctx.fillStyle=C.muted;
+  wrap(tx(ph[5],ph[6]), pd.w).slice(0,pd.max).forEach((ln,i)=>ctx.fillText(ln, pd.x, pd.y+i*pd.lh));
+}
+const evDate = e => e.lbl ? tx(e.lbl[0], e.lbl[1]) : (([Y,m,d]) => `${m}/${d}`)(dateOf(e.d));
+function drawEvent(t){
+  const r=L.event, u=L.u, bi=lang==='bi', port=L.W<1000;
+  ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('紀 事','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+  const idx=EVENTS.indexOf(lastEvent(t));
+  if (idx<0) { ctx.font=font(400,15*u,F.b); ctx.fillStyle=C.muted; wrap(tx('1895 年春，甲午戰爭進入尾聲，清日在馬關議和。','Spring 1895: the Sino-Japanese War is ending, and the two sides negotiate peace at Shimonoseki.'), r.w).forEach((ln,i)=>ctx.fillText(ln, r.x, r.y+24*u+i*24*u)); return; }
+  const e=EVENTS[idx], dl=evDate(e);
+  fitFont(dl, 600, 14*u, F.m, 72*u, 9); ctx.fillStyle=phaseAt(e.d)[4]; ctx.fillText(dl, r.x, r.y+24*u);
+  const title=tx(e.tz,e.te); fitFont(title, 700, 23*u, F.d, r.w-82*u, 14); ctx.fillStyle=C.ink; ctx.fillText(title, r.x+82*u, r.y+25*u);
+  let y=r.y+58*u;
+  if (bi) { fitFont(e.te, 500, 14*u, F.b, r.w-82*u, 10); ctx.fillStyle=C.muted; ctx.fillText(e.te, r.x+82*u, r.y+45*u); y=r.y+74*u; }
+  ctx.font=font(400,(lang==='en'?14.5:15.5)*u,F.b); ctx.fillStyle=C.muted;
+  const lines=wrap(tx(e.bz,e.be), r.w).slice(0, port?3:5); lines.forEach((ln,i)=>ctx.fillText(ln, r.x, y+i*24*u)); y+=lines.length*24*u+22*u;
+  for (let j=idx-1; j>=Math.max(0,idx-2) && !port; j--) {
+    const p=EVENTS[j], s = bi ? `${p.tz} ${p.te}` : tx(p.tz,p.te); ctx.globalAlpha=0.6;
+    fitFont(evDate(p), 600, 12.5*u, F.m, 74*u, 9); ctx.fillStyle=C.muted; ctx.fillText(evDate(p), r.x, y);
+    fitFont(s, 500, 14*u, F.b, r.w-82*u, 10); ctx.fillStyle=C.ink; ctx.fillText(s, r.x+82*u, y); y+=24*u; ctx.globalAlpha=1;
+  }
+}
+const STATUS_COL = { '戰死':'#d0473f', '內渡':'#9fb2ba', '離台':'#9fb2ba' };
+function drawPeople(t){
+  const r=L.people, u=L.u, bi=lang==='bi';
+  ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('人物','People'); ctx.fillText(tt, r.x, r.y);
+  if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('People', r.x+w+8, r.y); }
+  PEOPLE.forEach((pp,i)=>{
+    const y=r.y+14*u+i*r.rh, pw=56*u, ph=70*u, x0=r.x+pw+14*u;
+    let st=pp.st[0]; for (const s of pp.st) if (t>=s[0]) st=s;
+    const col=STATUS_COL[st[1]]||pp.col;
+    ctx.save(); rrect(r.x,y,pw,ph,4); ctx.clip();
+    const im=IMG[pp.k]; if (im && im.complete && im.naturalWidth) { if (st[1]==='戰死') ctx.filter='grayscale(1)'; ctx.drawImage(im, r.x, y, pw, ph); ctx.filter='none'; }
+    else { ctx.fillStyle=rgba(hex(pp.col),0.2); ctx.fillRect(r.x,y,pw,ph); ctx.fillStyle=pp.col; ctx.font=font(900,ph*0.45,F.d); ctx.textAlign='center'; ctx.fillText(pp.zh[0], r.x+pw/2, y+ph*0.66); ctx.textAlign='left'; }
+    ctx.restore(); ctx.strokeStyle=pp.col; ctx.lineWidth=1.5; rrect(r.x,y,pw,ph,4); ctx.stroke();
+    const nm=tx(pp.zh,pp.en); fitFont(nm, 900, 20*u, F.d, r.w-pw-140*u, 12); ctx.fillStyle=C.ink; ctx.fillText(nm, x0, y+20*u);
+    let yy=y+40*u; if (bi) { ctx.font=font(500,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(pp.en, x0, yy); yy+=17*u; }
+    fitFont(tx(...pp.role), 400, 12.5*u, F.b, r.w-pw-24*u, 9); ctx.fillStyle=C.muted; ctx.fillText(tx(...pp.role), x0, yy);
+    const chip = bi ? `${st[1]} ${st[2]}` : tx(st[1],st[2]); ctx.font=font(700,12*u,F.b);
+    const cw=ctx.measureText(chip).width+16*u, cx=r.x+r.w-cw, cy=y+3*u;
+    ctx.fillStyle=rgba(hex(col),0.18); rrect(cx,cy,cw,22*u,11*u); ctx.fill(); ctx.strokeStyle=col; ctx.lineWidth=1.2; ctx.stroke(); ctx.fillStyle=col; ctx.fillText(chip, cx+8*u, cy+15.5*u);
+    ctx.strokeStyle=C.grid; ctx.beginPath(); ctx.moveTo(r.x, y+ph+12*u); ctx.lineTo(r.x+r.w, y+ph+12*u); ctx.stroke();
+  });
+}
+function drawStats(t){
+  const r=L.stats, u=L.u, bi=lang==='bi', on=t>=D('1895-11-18');
+  ctx.font=font(700,14*u,F.b); ctx.fillStyle=C.ink; const tt=tx('傷亡','Casualties'); ctx.fillText(tt, r.x, r.y);
+  if (bi) { const w=ctx.measureText(tt).width; ctx.font=font(400,12*u,F.b); ctx.fillStyle=C.muted; ctx.fillText('Casualties', r.x+w+8, r.y); }
+  const cells=[['≈14,000','台灣方面死亡','Taiwanese dead'],['164–333','日軍戰死','Japanese killed in action'],['4,642–8,170','日軍病死','Japanese dead of disease']], cw=r.w/3;
+  cells.forEach(([n,zh,en],i)=>{ const x=r.x+i*cw, y=r.y+48*u;
+    fitFont(on?n:'—', 900, 30*u, F.d, cw-10, 14); ctx.fillStyle = on ? (i===0?'#7fd3d0':'#f0625a') : C.faint; ctx.fillText(on?n:'—', x, y);
+    ctx.font=font(500,12.5*u,F.b); ctx.fillStyle = on ? C.ink : C.faint; ctx.fillText(tx(zh,en), x, y+22*u);
+    if (bi) { fitFont(en, 400, 11*u, F.b, cw-8, 8); ctx.fillStyle=C.muted; ctx.fillText(en, x, y+38*u); } });
+  ctx.font=font(400,12.5*u,F.b); ctx.fillStyle=C.muted;
+  const note = on ? tx('日軍數字各來源差距大，兩說並列；病死多因瘧疾與霍亂。台灣方面為估計值，另有平民傷亡更高的說法。','Japanese figures vary widely between sources, so both are given; most died of malaria and cholera. Taiwanese figures are estimates, and some accounts put civilian losses far higher.')
+                  : tx('數字在戰事結束後顯示。','Figures appear once the fighting ends.');
+  wrap(note, r.w).slice(0,4).forEach((ln,i)=>ctx.fillText(ln, r.x, r.y+(bi?106:90)*u+i*20*u));
+}
+const SHARE=[0.12,0.20,0.26,0.26,0.16];
+function sx(t){ const r=L.strip; let acc=0; for (let i=0;i<PHASES.length;i++) { const [a,b]=PHASES[i], bb=Math.min(b,T_END); if (t<=bb || i===PHASES.length-1) return r.x + r.w*(acc + SHARE[i]*clamp((t-a)/(bb-a),0,1)); acc+=SHARE[i]; } }
+function drawStrip(t){
+  const r=L.strip, u=L.u;
+  PHASES.forEach(p=>{
+    const x0=sx(p[0]), x1=sx(Math.min(p[1],T_END)), on=t>=p[0]&&t<p[1];
+    ctx.fillStyle=p[4]; ctx.globalAlpha=on?0.95:0.35; ctx.fillRect(x0,r.y,x1-x0-1.5,r.h); ctx.globalAlpha=1;
+    ctx.font=font(700,12.5*u,F.b); ctx.fillStyle=on?'#14090a':C.ink;
+    let lb = lang==='bi' ? `${p[2]} ${p[3]}` : tx(p[2],p[3]); if (ctx.measureText(lb).width > x1-x0-10) lb=tx(p[2],p[3]);
+    if (ctx.measureText(lb).width < x1-x0-10) ctx.fillText(lb, x0+6, r.y+r.h/2+4.5*u);
+  });
+  ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted;
+  for (const s of ['1895-05-01','1895-06-01','1895-07-01','1895-08-01','1895-09-01','1895-10-01','1895-11-01']) { const x=sx(D(s)); ctx.fillRect(x, r.y+r.h, 1, 5); const mo=+s.split('-')[1]; ctx.fillText(lang==='en' ? MON[mo].slice(0,3) : `${mo}月`, x+3, r.y+r.h+15*u); }
+  ctx.fillStyle=C.ink; ctx.globalAlpha=0.55; for (const e of EVENTS) ctx.fillRect(sx(e.d)-0.5, r.y-6, 1, 4); ctx.globalAlpha=1;
+  const x=sx(t); ctx.fillStyle=C.ink; ctx.beginPath(); ctx.moveTo(x-6,r.y-10); ctx.lineTo(x+6,r.y-10); ctx.lineTo(x,r.y-2); ctx.closePath(); ctx.fill(); ctx.fillRect(x-1,r.y-2,2,r.h+4);
+}
+function render(t, dt){
+  ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
+  drawMap(t, dt); drawHeader(t); drawEvent(t); drawPeople(t); drawStats(t); drawStrip(t);
+}
+
+// ---------- playback: slow near each event ----------
+const playBtn=document.getElementById('play'), scrub=document.getElementById('scrub'), out=document.getElementById('out'), speed=document.getElementById('speed');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t=0, playing=!reduce;
+const BASE_RATE = PHASES.map((p,i)=>(Math.min(p[1],T_END)-p[0])/(SHARE[i]*40));
+function rate(x){
+  const base = BASE_RATE[PHASES.indexOf(phaseAt(x))];
+  let dmin = Infinity; for (const e of EVENTS) { const dd = x < e.d ? e.d-x : x-e.d-1; dmin = Math.min(dmin, Math.max(0, dd)); }
+  return Math.max(1.0, base * clamp(dmin/3, 0, 1));
+}
+const fmtOut = x => { const [Y,m,d]=dateOf(x); return `${Y}/${m}/${d}`; };
+function setPlaying(p){ playing=p; setK(playBtn, p ? 'pause' : (t>=T_END ? 'replay' : 'play')); TG.sync(); }
+function seek(x){ t=clamp(x,0,T_END); scrub.value=t; out.textContent=fmtOut(t); TG.seek(); }
+scrub.max = T_END;
+playBtn.addEventListener('click', ()=>{ if (!playing && t>=T_END) seek(0); if (!playing) TG.unlock(); setPlaying(!playing); });
+scrub.addEventListener('input', ()=>{ seek(+scrub.value); if (playing) setPlaying(false); });
+cv.setAttribute('tabindex','0');
+cv.addEventListener('keydown', e=>{
+  if (e.key===' ') { e.preventDefault(); playBtn.click(); }
+  else if (e.key==='ArrowRight') seek(Math.floor(t)+1);
+  else if (e.key==='ArrowLeft') seek(Math.floor(t)-1);
+});
+const afterOl=document.getElementById('after'), credUl=document.getElementById('credits');
+function applyLang(){
+  TG.lang();
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.title = tx('乙未戰爭 1895', 'The 1895 War for Taiwan');
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
+  setPlaying(playing);
+  afterOl.innerHTML = AFTER.map(([y,zh,en])=>`<li><b>${y}</b><span>${uiHTML(zh,en)}</span></li>`).join('');
+  credUl.innerHTML = PEOPLE.filter(p=>PORTRAITS[p.k]).map(p=>{ const c=PORTRAITS[p.k]; return `<li>${esc(tx(p.zh,p.en))}: <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.file)}</a> (${esc(c.license)})</li>`; }).join('')
+    + `<li>${esc(tx('吳湯興：無可用的自由授權肖像，以字卡代替。','Wu Tang-hsing: no freely licensed portrait; a name card is shown.'))}</li>`;
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  cv.setAttribute('aria-label', tx('乙未戰爭逐日地圖動畫','Day-by-day map animation of the 1895 war'));
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+new ResizeObserver(()=>layout()).observe(stage);
+// Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.
+const TG = TGNarration({ name:'yiwei', lang:()=>lang, getT:()=>t, isPlaying:()=>playing, setPlaying, stage:document.querySelector('.stage'), playBtn,
+  cues:[...PHASES.map((p,i)=>({y:Math.max(p[0],0), id:'p'+i})), ...EVENTS.map((e,i)=>({y:e.d, id:'e'+i}))] });
+if (TG.on()) playing=false;   // sound needs a tap, so the narrated film waits for Play
+layout(); applyLang(); seek(0); setPlaying(playing);
+let last=performance.now();
+function frame(now){
+  TG.tick();
+  const dt=Math.min(0.1,(now-last)/1000); last=now;
+  if (playing) { t+=TG.step(dt*rate(t)*(+speed.value), now); if (t>=T_END) { t=T_END; if (!TG.busy()) setPlaying(false); } scrub.value=t; out.textContent=fmtOut(t); }
+  render(t, dt); requestAnimationFrame(frame);
+}
+requestAnimationFrame(n=>{ last=n; frame(n); });
+})();
+</script>
+</body>
+</html>

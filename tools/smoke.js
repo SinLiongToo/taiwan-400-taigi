@@ -22,7 +22,7 @@ const els = {};
 function el(id) {
   if (!els[id]) els[id] = {
     id, dataset: {}, style: {}, value: '0', textContent: '', innerHTML: '', hidden: false, clientWidth: width,
-    parentElement: { clientWidth: width }, classList: { toggle() {}, add() {}, remove() {} },
+    parentElement: { clientWidth: width, insertAdjacentElement() {} }, classList: { toggle() {}, add() {}, remove() {} },
     getContext: () => ctx2d, setAttribute() {}, addEventListener() {}, appendChild() {}, append() {}, insertAdjacentElement() {},
     scrollIntoView() {}, matches: () => false, querySelector: () => el('q'),
   };

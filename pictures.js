@@ -460,5 +460,255 @@ window.PICTURES = {
    "artist": "Jan van Baden",
    "url": "https://commons.wikimedia.org/wiki/File:Surrender_of_Zeelandia.jpg"
   }
+ ],
+ "yiwei": [
+  {
+   "at": "p0",
+   "key": "shimonoseki-signing",
+   "zh": "馬關條約簽訂的場面，約 1895 年的日本畫報。",
+   "en": "The signing of the Treaty of Shimonoseki, from a Japanese pictorial of about 1895.",
+   "w": 960,
+   "h": 497,
+   "license": "Public domain",
+   "artist": "as shown on picture",
+   "url": "https://commons.wikimedia.org/wiki/File:Scene_of_signing_Treaty_of_Shimonoseki_pictorial.jpg"
+  },
+  {
+   "at": "e1",
+   "key": "tiger-flag",
+   "zh": "台灣民主國的藍地黃虎旗（摹本局部）。",
+   "en": "The Blue Ground Yellow Tiger Flag of the Republic of Formosa (detail of a copy).",
+   "w": 960,
+   "h": 935,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Blue_Ground_Yellow_Tiger_Flag_(part).jpg"
+  },
+  {
+   "at": "e2",
+   "key": "aodi-camp-1895",
+   "zh": "1895 年 5 月 31 日，北白川宮能久親王與近衛師團在澳底海岸露營。",
+   "en": "May 31, 1895: Prince Kitashirakawa and the Imperial Guard camped on the shore at Aodi.",
+   "w": 960,
+   "h": 718,
+   "license": "Public domain",
+   "artist": "臺灣教育會",
+   "url": "https://commons.wikimedia.org/wiki/File:Prince_Kitashirakawa_Yoshihisa_camping_on_the_coast_of_Aodi.jpg"
+  },
+  {
+   "at": "e6",
+   "key": "north-gate-1895",
+   "zh": "台北城北門。1895 年 6 月日軍未經戰鬥由此入城；照片為同年日本陸地測量部所攝。",
+   "en": "The North Gate of Taipei, where Japanese troops entered without a fight in June 1895; photographed that year by the army survey.",
+   "w": 960,
+   "h": 723,
+   "license": "Public domain",
+   "artist": "大日本帝國陸地測量部",
+   "url": "https://commons.wikimedia.org/wiki/File:A_view_of_the_north_gate_tower_and_a_portion_of_the_streets_of_Taipeh.jpg"
+  },
+  {
+   "at": "p2",
+   "key": "troops-north-gate-1895",
+   "zh": "1895 年，日軍在台北城北門附近休息。日本陸地測量部攝。",
+   "en": "Japanese troops resting near Taipei’s North Gate in 1895; photographed by the army survey.",
+   "w": 960,
+   "h": 712,
+   "license": "Public domain",
+   "artist": "大日本帝國陸地測量部",
+   "url": "https://commons.wikimedia.org/wiki/File:The_5th_Regiment_of_Japanese_Army_resting_in_near_the_north_gate_of_Taipeh.jpg"
+  },
+  {
+   "at": "e13",
+   "key": "fangliao-landing",
+   "zh": "1895 年 10 月 11 日，日軍在枋寮登陸。小川一真攝。",
+   "en": "October 11, 1895: Japanese troops landing at Fangliao. Photo by Ogawa Kazumasa.",
+   "w": 960,
+   "h": 627,
+   "license": "Public domain",
+   "artist": "Ogawa Kazumasa",
+   "url": "https://commons.wikimedia.org/wiki/File:The_landing_of_Japanese_troops_at_Fangliao.jpg"
+  },
+  {
+   "at": "e14",
+   "key": "liu-yongfu",
+   "zh": "黑旗軍首領劉永福，約 1885 年。",
+   "en": "Liu Yongfu, leader of the Black Flag Army, about 1885.",
+   "w": 318,
+   "h": 480,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Liu_Yongfu.jpg"
+  }
+ ],
+ "tapani": [
+  {
+   "at": "p0",
+   "key": "yu-qingfang",
+   "zh": "余清芳，1915 年被捕後所攝。",
+   "en": "Yu Qingfang, photographed after his arrest in 1915.",
+   "w": 960,
+   "h": 1370,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:%E4%BD%99%E6%B8%85%E8%8A%B3%E7%85%A7%E7%89%87.jpg"
+  },
+  {
+   "at": "e2",
+   "key": "luo-jun",
+   "zh": "羅俊，1915 年被捕後。",
+   "en": "Luo Jun after his arrest in 1915.",
+   "w": 509,
+   "h": 678,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:%E8%A5%BF%E4%BE%86%E5%BA%B5%E4%BA%8B%E4%BB%B6_%E7%BE%85%E4%BF%8A.jpg"
+  },
+  {
+   "at": "e3",
+   "key": "tapani-manifesto",
+   "zh": "余清芳以「大元帥」名義發布的告示，1915 年。",
+   "en": "The proclamation Yu Qingfang issued as “Grand Marshal”, 1915.",
+   "w": 960,
+   "h": 772,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Manifesto_of_the_Tapani_incident.jpg"
+  },
+  {
+   "at": "p2",
+   "key": "after-tapani",
+   "zh": "事件後的照片：西來庵與遭破壞的房舍，1915 年。",
+   "en": "After the rising: Xilai Temple and wrecked buildings, 1915.",
+   "w": 960,
+   "h": 779,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:After_the_Tapani_incident.jpg"
+  },
+  {
+   "at": "e9",
+   "key": "prisoners-tainan",
+   "zh": "余清芳等人被押解，經過台南車站前。",
+   "en": "Yu Qingfang and others being escorted past Tainan Station.",
+   "w": 960,
+   "h": 780,
+   "license": "Public domain",
+   "artist": "authors unknown",
+   "url": "https://commons.wikimedia.org/wiki/File:%E4%BD%99%E6%B8%85%E8%8A%B3%E7%AD%89%E4%BA%BA%E8%A2%AB%E6%8A%BC%E8%A7%A3%E7%B6%93%E9%81%8E%E5%8F%B0%E5%8D%97%E5%81%9C%E8%BB%8A%E5%A0%B4%E5%89%8D.jpg"
+  },
+  {
+   "at": "e10",
+   "key": "xilaian-court",
+   "zh": "1915 年，被告從台南監獄被押往臨時法院出庭。",
+   "en": "1915: defendants marched from Tainan Prison to the special court.",
+   "w": 960,
+   "h": 658,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Xilaian_Incident.jpg"
+  }
+ ],
+ "wushe": [
+  {
+   "at": "p0",
+   "key": "mona-rudao",
+   "zh": "莫那．魯道（中）與賽德克族頭目，1930 年以前。",
+   "en": "Mona Rudao (centre) with Seediq leaders, before 1930.",
+   "w": 600,
+   "h": 857,
+   "license": "Public domain",
+   "artist": "Unknown photographer",
+   "url": "https://commons.wikimedia.org/wiki/File:Mona_Rudao_and_Seediq_tribal_leaders.jpg"
+  },
+  {
+   "at": "e0",
+   "key": "wushe-scene",
+   "zh": "事件後的霧社現場，1930 年 10 月。",
+   "en": "The scene at Musha after the attack, October 1930.",
+   "w": 960,
+   "h": 659,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:The_scene_of_the_Wushe_Incident.JPG"
+  },
+  {
+   "at": "e1",
+   "key": "musha-police",
+   "zh": "霧社事件期間的台中州警務部人員，1930 年。",
+   "en": "Staff of the Taichū Prefecture police department during the Musha Incident, 1930.",
+   "w": 960,
+   "h": 607,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:People_of_the_Taichu_Prefecture_Police_Department_during_the_Musha_Incident_1930.jpg"
+  },
+  {
+   "at": "e2",
+   "key": "truwan-smoke",
+   "zh": "鎮壓期間，塔洛灣社一帶冒出濃煙與火光，1930 年。",
+   "en": "Smoke and flames at Truwan during the suppression, 1930.",
+   "w": 960,
+   "h": 667,
+   "license": "Public domain",
+   "artist": "Unknown photographer",
+   "url": "https://commons.wikimedia.org/wiki/File:Smoke_and_flames_at_Truwan_during_Musha_Incident.jpg"
+  }
+ ],
+ "airraids": [
+  {
+   "at": "p1",
+   "key": "formosa-airfield-1944",
+   "zh": "1944 年 10 月，台灣的日軍機場遭美國航艦飛機攻擊。美國海軍攝。",
+   "en": "October 1944: a Japanese airfield on Taiwan under attack by US carrier aircraft. US Navy photo.",
+   "w": 960,
+   "h": 543,
+   "license": "Public domain",
+   "artist": "U.S. Navy",
+   "url": "https://commons.wikimedia.org/wiki/File:Japanese_airfield_on_Formosa_under_attack_by_U.S._carrier_aircraft,_in_October_1944.jpg"
+  },
+  {
+   "at": "e4",
+   "key": "takao-harbor-1945",
+   "zh": "1945 年 1 月 15 日，高雄港內一艘日本運輸船被航艦飛機炸中爆炸。",
+   "en": "January 15, 1945: a Japanese transport explodes in Takao (Kaohsiung) harbour after a hit from carrier aircraft.",
+   "w": 960,
+   "h": 748,
+   "license": "Public domain",
+   "artist": "Unidentified US Navy personnel - possibly Robert O. Baumrucker who is identified at the so",
+   "url": "https://commons.wikimedia.org/wiki/File:A_Japanese_transport_explodes_after_being_hit_by_carrier_plane_bombs_in_Takao_Harbor,_Formosa,_on_15_January_1945.jpg"
+  },
+  {
+   "at": "e6",
+   "key": "taihoku-raid",
+   "zh": "1945 年 5 月 31 日台北大空襲的空拍照。美國空軍歷史研究局。",
+   "en": "The Raid on Taipei from the air, May 31, 1945. US Air Force Historical Research Agency.",
+   "w": 960,
+   "h": 1226,
+   "license": "Public domain",
+   "artist": "Air Force History Research Agency, United States",
+   "url": "https://commons.wikimedia.org/wiki/File:Taihoku_Air_Raid_1945.jpg"
+  },
+  {
+   "at": "e7",
+   "key": "taihoku-ruins",
+   "zh": "空襲後的台北街頭廢墟，1945 年。鄧南光攝。",
+   "en": "Ruins in Taipei after the bombing, 1945. Photo by Deng Nan-guang.",
+   "w": 766,
+   "h": 509,
+   "license": "Public domain",
+   "artist": "鄧南光",
+   "url": "https://commons.wikimedia.org/wiki/File:Ruins_after_the_bombardment_in_Taihoku_1945.jpg"
+  },
+  {
+   "at": "e8",
+   "key": "kiirun-debris",
+   "zh": "基隆的瓦礫，約 1945 年。",
+   "en": "Rubble in Keelung, about 1945.",
+   "w": 960,
+   "h": 540,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Debris_in_Kiirun_circa_1945.jpg"
+  }
  ]
 };
