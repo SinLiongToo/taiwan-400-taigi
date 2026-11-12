@@ -168,7 +168,7 @@ const UI = {
   note2: ['傳教士的記述多出自他們自己或教會的著作，對衝突的另一方（如 1865 年看西街事件、1875 年白水溪事件）著墨不多。旁白是語音合成的台語，字幕的白話字由程式從漢字轉寫，個別字的讀音可能有誤。',
           'Most accounts come from the missionaries themselves or from church writers and say little about the other side of the clashes (the 1865 Khòaⁿ-sai Street riot, the 1875 Pe̍h-chúi-khe attack). The narration is synthesized Taiwanese, and the POJ subtitles are converted from characters by a program, so individual readings may be wrong.'],
   refH: ['參考資料', 'Sources'],
-  refP: ['本頁的年份與事實整理自下列著作。', 'Dates and facts on this page are compiled from the works below.'],
+  refP: ['本頁的年份與事實整理自下列著作。1895 年巴克禮與日軍交涉的經過，另有專頁「巴克禮與台南開城」（tainan1895.html）。', 'Dates and facts on this page are compiled from the works below. Barclay’s mission to the Japanese army in 1895 has its own page, “Barclay and the Capitulation of Tainan” (tainan1895.html).'],
 };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);

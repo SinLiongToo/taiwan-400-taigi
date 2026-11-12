@@ -1197,5 +1197,84 @@ window.PICTURES = {
    "artist": "Pbdragonwang",
    "url": "https://commons.wikimedia.org/wiki/File:%E5%B7%B4%E5%85%8B%E7%A6%AE%E5%A2%93.jpg"
   }
+ ],
+ "tainan1895": [
+  {
+   "at": "p0",
+   "key": "barclay",
+   "zh": "巴克禮（Thomas Barclay）。照片刊於 1936 年；1895 年時他 45 歲。",
+   "en": "Thomas Barclay. The photograph was published in 1936; in 1895 he was 45.",
+   "w": 556,
+   "h": 754,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Portrait_photo_of_Dr._Thomas_Barclay_1936.jpg"
+  },
+  {
+   "at": "e2",
+   "key": "liu-yongfu",
+   "zh": "黑旗軍首領劉永福，約 1885 年。",
+   "en": "Liu Yongfu, leader of the Black Flag Army, about 1885.",
+   "w": 318,
+   "h": 480,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Liu_Yongfu.jpg"
+  },
+  {
+   "at": "e3",
+   "key": "tainan-wall-drill",
+   "zh": "台南城牆。照片是之後明治年間日軍在城牆邊操練的情形。",
+   "en": "The city wall of Tainan. The photograph shows Japanese troops drilling beside it in the Meiji years that followed.",
+   "w": 960,
+   "h": 640,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Military_drill_of_Japanese_army_at_the_city_wall_of_Tainan_Meiji_era.jpg"
+  },
+  {
+   "at": "e7",
+   "key": "nogi",
+   "zh": "乃木希典，1912 年以前。1895 年他率第二師團從枋寮登陸北上。",
+   "en": "Nogi Maresuke, before 1912. In 1895 he led the 2nd Division north from its landing at Fangliao.",
+   "w": 960,
+   "h": 1232,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author - restored by User:Adam Cuerden",
+   "url": "https://commons.wikimedia.org/wiki/File:Maresuke_Nogi,_%E8%BF%91%E4%B8%96%E5%90%8D%E5%A3%AB%E5%86%99%E7%9C%9F_%E5%85%B61_-_Photo_only.jpg"
+  },
+  {
+   "at": "p3",
+   "key": "su-house",
+   "zh": "高雄湖內的太爺蘇家古厝，相傳巴克禮在這裡見到乃木希典。Pbdragonwang 攝，2021 年。",
+   "en": "The Su family house at Taiye, Hunei, Kaohsiung, where Barclay is said to have met Nogi. Photo by Pbdragonwang, 2021.",
+   "w": 960,
+   "h": 640,
+   "license": "CC BY-SA 4.0",
+   "artist": "Pbdragonwang",
+   "url": "https://commons.wikimedia.org/wiki/File:%E5%A4%AA%E7%88%BA%E8%98%87%E5%AE%B6%E5%8F%A4%E5%8E%9D.jpg"
+  },
+  {
+   "at": "e8",
+   "key": "great-south-gate",
+   "zh": "台南府城大南門，攝於日治時期。",
+   "en": "The Great South Gate of Tainan, photographed under Japanese rule.",
+   "w": 960,
+   "h": 550,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Great_South_Gate,_Tainan.jpg"
+  },
+  {
+   "at": "e9",
+   "key": "small-south-gate",
+   "zh": "台南府城小南門，1945 年以前。",
+   "en": "The Small South Gate of Tainan, before 1945.",
+   "w": 960,
+   "h": 601,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:%E8%87%BA%E7%81%A3%E5%BA%9C%E5%9F%8E%E5%B0%8F%E5%8D%97%E9%96%80.JPG"
+  }
  ]
 };

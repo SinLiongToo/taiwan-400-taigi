@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="巴克禮與台南開城 1895：劉永福離開後，兩位傳教士連夜出城，請日軍不要攻打台南。Barclay and the capitulation of Tainan, 1895: after Liu Yongfu left, two missionaries walked out by night to ask the Japanese army not to attack the city.">
+<title>巴克禮與台南開城 1895</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one "film" canvas (year, period and the current event on the left, every milestone as a list on the right coloured by person, period strip below), then a reading column with one short life for each of the four and the sources. Same sea-ink family as 台灣四百年. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --gold: #ecd04f;
+  --ban: #e0555c;
+  --focus: #7fd3d0;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 14px; }
+.wrap > * { min-width: 0; }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.back { color: var(--muted); font-size: 13.5px; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas.film { display: block; width: 100%; height: auto; max-width: 100%; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--gold); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 9ch; color: var(--gold); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--gold); color: #1a1505; border-color: var(--gold); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #4a3f10; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.read { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px 48px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 8px; }
+@media (max-width: 820px) { .read { grid-template-columns: minmax(0, 1fr); } }
+.read h2 { font-family: var(--f-display); font-size: 21px; margin: 0 0 12px; letter-spacing: .04em; }
+.read p { margin: 0 0 12px; max-width: 66ch; }
+.read .gap { margin-top: 26px; }
+.after { list-style: none; margin: 0; padding: 0; display: grid; }
+.after li { display: grid; grid-template-columns: 5.2em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.after li:last-child { border-bottom: 0; }
+.after b { font-family: var(--f-display); color: var(--ink); font-weight: 700; }
+.after li { grid-template-columns: 5.4em minmax(0, 1fr); }
+.after b small { display: block; font-family: var(--f-mono); font-weight: 400; font-size: 12px; color: var(--muted); }
+.after span { min-width: 0; }
+.side { display: grid; gap: 26px; align-content: start; color: var(--muted); }
+.side p { margin: 0 0 10px; }
+.side a { color: var(--ink); }
+.side ul, .side ol { margin: 0; padding-left: 1.3em; }
+.refs li { margin-bottom: 7px; font-size: 13.5px; overflow-wrap: anywhere; }
+.sample { font-family: var(--f-display); font-size: 19px; color: var(--ink); line-height: 1.6; margin: 0 0 4px; }
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
+.read h2 .en { font-family: var(--f-body); font-size: .62em; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="./" data-k="back"></a>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <h1 data-k="h1"></h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="film" class="film" width="1600" height="900"></canvas></div>
+  <div class="deck">
+    <button id="play" class="primary" type="button"></button>
+    <div class="scrub">
+      <input id="scrub" type="range" min="0" max="10.2" step="0.01" value="0" aria-label="Date">
+      <output id="out" for="scrub">10/12</output>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="speed" data-k="speed"></label>
+      <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+    </div>
+  </div>
+
+  <section class="read">
+    <div>
+      <h2 data-k="bgH"></h2>
+      <p data-k="bg1"></p>
+      <p data-k="bg2"></p>
+      <h2 class="gap" data-k="afterH"></h2>
+      <ol class="after" id="lives"></ol>
+    </div>
+    <div class="side">
+      <div>
+        <h2 data-k="noteH"></h2>
+        <p data-k="note1"></p>
+        <p data-k="note2"></p>
+        <p data-k="note3"></p>
+      </div>
+      <div>
+        <h2 data-k="refH"></h2>
+        <p data-k="refP"></p>
+        <ol class="refs">
+          <li>William Campbell, <i>Sketches from Formosa</i>. London: Marshall Brothers, 1915（甘為霖當時人在台南，書中記述這一夜的經過與乃木的警告）。</li>
+          <li>James W. Davidson, <i>The Island of Formosa, Past and Present</i>. London and New York: Macmillan, 1903（達飛聲是隨日軍採訪的美國記者）。</li>
+          <li>Edward Band, <i>Barclay of Formosa</i>. Tokyo: Christian Literature Society, 1936.</li>
+          <li>巴克禮，〈乃木軍の台南入城〉，收於井川直衛，《バアクレイ博士の面影》，1936。</li>
+          <li>潘稀祺，《為愛航向福爾摩沙：巴克禮博士傳》，台南：人光出版社。</li>
+          <li>臺南市政府文化局，〈巴克禮牧師二層行日軍營地會談——二層行溪〉〈巴克禮與乃木希典會談——蘇家大厝〉，2021。</li>
+          <li>Yosaburō Takekoshi, <i>Japanese Rule in Formosa</i>. London: Longmans, Green, 1907.</li>
+          <li>Henry McAleavy, <i>Black Flags in Vietnam</i>. London: Allen &amp; Unwin, 1968（劉永福）。</li>
+          <li>〈日軍和平進城 120 年　台灣教會公報社找尋巴克禮足跡〉，《自由時報》，2015 年 10 月 17 日。</li>
+          <li>維基百科：<a href="https://zh.wikipedia.org/zh-tw/巴克禮" target="_blank" rel="noopener">巴克禮</a>；Wikipedia: <a href="https://en.wikipedia.org/wiki/Capitulation_of_Tainan" target="_blank" rel="noopener">Capitulation of Tainan</a>, <a href="https://en.wikipedia.org/wiki/Thomas_Barclay_(missionary)" target="_blank" rel="noopener">Thomas Barclay</a>（2026 年 11 月查閱）。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="narration-tainan1895.js"></script>
+<script src="pictures.js"></script>
+<script src="tg.js"></script>
+<script>
+(() => {
+// ---------- language ----------
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;
+const UI = {
+  back: ['台灣四百年', 'Taiwan: Four Centuries'],
+  langLbl: ['語言','Language'],
+  h1: ['巴克禮與台南開城', 'Barclay and the Capitulation of Tainan'],
+  intro: ['1895 年 10 月 20 日夜裡，劉永福已經離開，日軍從三面逼近台南。兩位英國傳教士受城內仕紳之託，提著燈走到日軍營地，請日軍不要攻城。第二天清晨日軍入城，沒有發生戰鬥。',
+          'On the night of October 20, 1895, Liu Yongfu had gone and the Japanese army was closing on Tainan from three sides. At the request of the city’s notables two British missionaries walked with lanterns to the Japanese camp and asked the army not to attack. It entered at dawn the next day without fighting.'],
+  play: ['播放','Play'], pause: ['暫停','Pause'], replay: ['重播','Replay'], speed: ['速度','Speed'],
+  bgH: ['背景', 'Background'],
+  bg1: ['1895 年馬關條約把台灣割讓給日本。日軍 5 月底在澳底登陸，一路向南；到 10 月中旬，近衛師團從北邊南下，另外兩支部隊在布袋嘴與枋寮登陸，三路逼近台灣民主國最後的據點台南。守城的是黑旗軍首領劉永福。',
+        'The Treaty of Shimonoseki ceded Taiwan to Japan in 1895. The Japanese army landed at Aodi at the end of May and fought its way south. By mid-October the Imperial Guard was coming down from the north and two more forces had landed at Budai and Fangliao, closing on Tainan, the last stronghold of the Republic of Formosa, held by Liu Yongfu of the Black Flags.'],
+  bg2: ['台南城裡約有五萬居民。英國長老教會在城內有醫館、學校與教會，巴克禮、宋忠堅、甘為霖等傳教士都住在這裡。這一頁逐日追蹤 10 月 12 日到 21 日之間發生的事。',
+        'Some fifty thousand people lived in Tainan. The English Presbyterian mission had its hospital, schools and church in the city, and the missionaries Barclay, Ferguson and Campbell lived there. This page follows what happened between October 12 and 21, day by day.'],
+  afterH: ['之後', 'Afterward'],
+  noteH: ['說明與限制', 'Notes and limits'],
+  note1: ['各家資料有幾處不一致，本頁照下列方式處理。入城的城門：甘為霖的書說是大南門，中文資料多說是小南門，本頁兩種都寫。會見的地點與對象：英文資料說兩人被帶到二層行見乃木希典；中文資料說先在二層行溪見到前衛司令官山口素臣，再到太爺（今高雄湖內）蘇家古厝見乃木，本頁採後者並註明。出發時間：有「傍晚」與「入夜」兩說。',
+          'Sources differ in a few places, handled here as follows. The gate of entry: Campbell’s book says the Great South Gate, most Chinese accounts the Small South Gate; both are given. The meeting: English accounts say the two were taken to Nogi at Ji-chang-hang; Chinese accounts say they first met the vanguard commander Yamaguchi Motoomi at the Erren River and then Nogi at the Su family house in Taiye (Hunei, Kaohsiung); this page follows the latter and says so. The start is given as dusk or as nightfall.'],
+  note2: ['「若有欺詐，全城燒毀」這句警告出自甘為霖的記述，不是日方文件。繳械槍枝的數目（七、八千枝）出自達飛聲。',
+          'The warning that the city would be burned at any sign of treachery comes from Campbell’s account, not from a Japanese document. The number of rifles handed in (seven to eight thousand) comes from Davidson.'],
+  note3: ['這件事的記述幾乎都來自傳教士、教會與日方，台南一般居民與黑旗軍士兵怎麼看，留下的資料很少。旁白是語音合成的台語，白話字字幕由程式轉寫，個別字的讀音可能有誤。',
+          'Almost every account comes from the missionaries, the church or the Japanese side; little survives of how ordinary townspeople or the Black Flag soldiers saw it. The narration is synthesized Taiwanese, and the POJ subtitles are converted by a program, so individual readings may be wrong.'],
+  refH: ['參考資料', 'Sources'],
+  refP: ['本頁的日期與事實整理自下列著作。', 'Dates and facts on this page are compiled from the works below.'],
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ---------- data ----------
+// The clock counts days from October 12, 1895 (0 = Oct 12, 00:00). kind = whose move the event is.
+const KIND = { liu:'#7fd3d0', city:'#ecd04f', mis:'#b28be6', jp:'#f0625a' };
+const WHO = { liu:['劉永福與守軍','Liu and the garrison'], city:['台南城內','The city'], mis:['傳教士','The missionaries'], jp:['日軍','The Japanese army'] };
+const T0 = 0, T_END = 10.2;
+const EVENTS = [
+  [0.5, "mis", "10/12", "Oct 12", "巴克禮回到台南", "Barclay returns to Tainan", "巴克禮從廈門回到台南。城裡還算平靜，由黑旗軍首領劉永福控制，但日軍已經從南北兩面逼近。", "Barclay came back from Amoy. The city was still calm under Liu Yongfu of the Black Flags, but the Japanese were closing in from north and south."],
+  [2.9, "city", "10/14 夜", "Oct 14, night", "麻豆事件", "The killings at Moatau", "謠傳基督徒勾結日軍。10 月 14 日夜裡，麻豆的教會信徒遭到攻擊，15 人被殺。各地都有搜捕基督徒的情形，傳教士自己的處境也很危險。", "Rumour had it that Christians were in league with the Japanese. On the night of October 14 church members at Moatau (Madou) were attacked and fifteen were killed. Christians were being hunted in many places, and the missionaries themselves were in danger."],
+  [7.85, "liu", "10/19 夜", "Oct 19, night", "劉永福離開", "Liu Yongfu leaves", "劉永福認定大勢已去，夜裡帶著百餘名部屬離開台南，說是去巡視安平的防務。隔天清晨他扮成苦力，搭英國商船爹利士號前往廈門。", "Deciding the war was lost, Liu Yongfu left Tainan at night with about a hundred officers, saying he was going to inspect the defences at Anping. Next morning, dressed as a coolie, he boarded the British steamer Thales for Amoy."],
+  [8.35, "city", "10/20 上午", "Oct 20, morning", "無主之城", "A city without a master", "消息在上午傳開，全城震動，士兵湧向安平。三名海關的洋員勸士兵交出武器，到天黑時，七、八千枝槍鎖進了海關的倉庫。城裡沒有人主事，居民擔心潰兵搶劫，更擔心日軍攻城。", "The news spread in the morning and shook the city; soldiers streamed towards Anping. Three foreign employees of the Customs persuaded them to give up their arms, and by dark seven or eight thousand rifles were locked in the Customs godown. No one was in charge. People feared looting by the disbanded troops, and feared an assault by the Japanese still more."],
+  [8.6, "city", "10/20 下午", "Oct 20, afternoon", "仕紳的請託", "The notables’ request", "城裡的仕紳與商人寫了一封信，說守軍已經放下武器，請日軍進城維持秩序，上百人具名。但沒有人敢把信送到日軍營地。他們去找傳教士，巴克禮與宋忠堅答應走這一趟。", "The city’s notables and merchants wrote a letter saying the garrison had laid down its arms and asking the Japanese to come in and keep order; about a hundred signed. No one dared carry it to the Japanese camp. They turned to the missionaries, and Barclay and Duncan Ferguson agreed to go."],
+  [8.75, "mis", "10/20 傍晚", "Oct 20, dusk", "提燈出城", "Out of the city with lanterns", "找不到願意去的轎夫，兩人只能走路。天黑前後，巴克禮、宋忠堅與 19 名台灣人出城向南，提著燈、拿著英國國旗，一路唱詩歌，好讓日軍知道來的不是敵人。", "No chair-bearers would go, so they walked. About nightfall Barclay, Ferguson and nineteen Taiwanese left the city heading south, carrying lanterns and a British flag and singing hymns, so that the Japanese would know they were not an enemy."],
+  [8.95, "jp", "10/20 夜", "Oct 20, night", "二層行溪的槍聲", "A shot at the Erren River", "走了幾英里，到二層行溪附近，日軍哨兵開了一槍，舉槍喝令他們站住，把一行人帶去盤問。他們先見到前衛部隊的司令官山口素臣。", "After some miles, near the Erren River, a Japanese sentry fired a shot and levelled his rifle, and the party was halted and taken in for questioning. They first met Yamaguchi Motoomi, who commanded the vanguard."],
+  [9.1, "jp", "10/21 凌晨", "Oct 21, before dawn", "乃木的答覆", "Nogi’s answer", "兩人被帶到第二師團長乃木希典面前。乃木答應不流血進城，但懷疑有詐：天亮前出發，巴克禮與 19 名台灣人走在最前面，宋忠堅與軍官走在後面；只要有一點抵抗或欺詐的跡象，士兵就開火，全城燒成平地。", "They were brought before Lieutenant-General Nogi Maresuke of the 2nd Division. Nogi agreed to enter without bloodshed, but he suspected a trap. The army would move before daybreak with Barclay and the nineteen Taiwanese in front and Ferguson behind with the officers; at the slightest sign of resistance or treachery the soldiers would open fire and the whole city would be burned to the ground."],
+  [9.29, "jp", "10/21 上午 7 時", "Oct 21, 7 a.m.", "日軍入城", "The army enters", "上午七點，巴克禮走在隊伍前面，帶著約一千名步兵與騎兵從南門進城（一說大南門，一說小南門）。城門開著，沒有人抵抗；九點，日軍控制了全城。", "At seven in the morning Barclay walked at the head of about a thousand infantry and cavalry through the south gate (the Great South Gate in one account, the Small South Gate in another). The gate stood open and no one resisted; by nine the army held the city."],
+  [9.6, "jp", "10/21 下午", "Oct 21, afternoon", "抵抗結束", "The end of resistance", "下午，從北邊南下的部隊也抵達台南。台灣民主國瓦解，乙未戰爭有組織的抵抗到此結束；各地的武裝抗日則又持續了多年。", "In the afternoon the column from the north arrived as well. The Republic of Formosa was at an end and organised resistance in the war of 1895 was over, though armed resistance in the countryside went on for years."],
+].map(e=>({ d:e[0], kind:e[1], lbl:[e[2],e[3]], tz:e[4], te:e[5], bz:e[6], be:e[7] }));
+const PHASES = [
+  [0, 8.3, "圍城之前", "Before the end", "#7fd3d0", "日軍三路逼近，台南城裡謠言四起，基督徒成為攻擊的對象。", "The Japanese closed in from three sides; Tainan was full of rumour and Christians became targets."],
+  [8.3, 8.7, "無主之城", "A city without a master", "#ecd04f", "劉永福一走，守軍瓦解，城裡沒有人能出面與日軍交涉。", "With Liu gone the garrison fell apart, and no one in the city could treat with the Japanese."],
+  [8.7, 9.25, "夜行", "The night walk", "#b28be6", "兩位傳教士帶著仕紳的信，連夜走向日軍的前線。", "Two missionaries carried the notables’ letter through the night to the Japanese lines."],
+  [9.25, 11, "入城", "The entry", "#f0625a", "日軍在清晨入城，沒有發生戰鬥。", "The army marched in at dawn without a fight."],
+];
+const phaseAt = t => PHASES.find(p => t>=p[0] && t<p[1]) || PHASES[PHASES.length-1];
+const AFTER = [
+  ["10/28", "北白川宮能久親王病逝", "Prince Kitashirakawa dies", "率近衛師團來台的北白川宮能久親王在台南病逝。", "Prince Kitashirakawa Yoshihisa, who had led the Imperial Guard to Taiwan, died of illness in Tainan."],
+  ["1897", "授勳", "Decorations", "巴克禮與宋忠堅獲明治天皇頒授五等旭日章；台南的市民另外贈送卷軸致謝。", "Barclay and Ferguson received the Order of the Rising Sun, 5th class, from the Meiji Emperor; the townspeople of Tainan presented a scroll of thanks."],
+  ["1935", "巴克禮逝世", "Barclay dies", "巴克禮在台南住到 1935 年逝世，葬在南山公墓。", "Barclay lived in Tainan until his death in 1935 and is buried in Nanshan Cemetery."],
+  ["今日", "紀念", "Remembered", "臺南市文化局把二層行溪畔與高雄湖內的蘇家古厝列為這段歷史的場域；台南有巴克禮紀念公園與巴克禮路。", "Tainan’s cultural bureau lists the bank of the Erren River and the Su family house in Hunei, Kaohsiung, as sites of this history; the city has a Barclay Memorial Park and a Barclay Road."],
+];
+const dayOf = t => 12 + Math.floor(t);                       // day of October
+const HOURS = [['凌晨','before dawn'],['上午','morning'],['下午','afternoon'],['夜','night']];
+const evLbl = e => tx(...e.lbl);
+
+// ---------- canvas ----------
+const cv=document.getElementById('film'), ctx=cv.getContext('2d'), stage=cv.parentElement;
+const C = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d' };
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1, title:{x:56,y:58}, year:{x:50,y:195,size:128}, phase:{x:58,y:268,size:36}, pdesc:{x:58,y:312,w:430,lh:27,max:4},
+          event:{x:58,y:478,w:430}, list:{x:570,y:120,w:974,rh:62,size:21}, strip:{x:56,y:856,w:1488,h:22} },
+  port: { W:720, H:2010, u:1.3, title:{x:28,y:50}, year:{x:24,y:152,size:92}, phase:{x:28,y:214,size:32}, pdesc:{x:28,y:256,w:664,lh:30,max:3},
+          event:{x:28,y:400,w:664}, list:{x:28,y:900,w:664,rh:84,size:23}, strip:{x:28,y:1950,w:664,h:30} },
+};
+let L = LAYOUTS.land;
+function layout(){
+  const cw = stage.clientWidth || 1000;
+  L = cw < 720 ? LAYOUTS.port : LAYOUTS.land;
+  const scale = Math.min(2, window.devicePixelRatio||1) * cw / L.W;
+  cv.width=Math.round(L.W*scale); cv.height=Math.round(L.H*scale); ctx.setTransform(scale,0,0,scale,0,0);
+}
+function wrap(text, maxW){
+  const out=[]; let line='';
+  const toks = /[　-鿿]/.test(text) ? text.match(/[A-Za-z0-9,.\-–]+|./gu) : text.split(/(?<= )/);   // keep a year or a Latin word in one piece
+  for (const tk of toks) {
+    if (ctx.measureText(line+tk).width > maxW && line) {
+      if (/^[，。、；：！？）」』》]/.test(tk)) { line += tk; continue; }   // never start a line with punctuation
+      out.push(line); line = tk.trimStart();
+    } else line += tk;
+  }
+  if (line) out.push(line); return out;
+}
+function fitFont(text, weight, size, family, maxW, min=11){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+const hexA = (h,a) => `rgba(${parseInt(h.slice(1,3),16)},${parseInt(h.slice(3,5),16)},${parseInt(h.slice(5,7),16)},${a})`;
+function lastEvent(t){ let e=null; for (const x of EVENTS) { if (x.d<=t) e=x; else break; } return e; }
+
+function drawHeader(t){
+  const u=L.u, ph=phaseAt(t), bi=lang==='bi';
+  ctx.textBaseline='alphabetic'; ctx.textAlign='left';
+  ctx.font=font(700,13*u,F.b); ctx.fillStyle=C.muted;
+  ctx.fillText(tx('巴 克 禮 與 台 南 開 城　1895','BARCLAY AND THE CAPITULATION OF TAINAN   1895'), L.title.x, L.title.y);
+  ctx.font=font(900,L.year.size,F.d); ctx.fillStyle=C.ink; ctx.fillText('10/'+dayOf(t), L.year.x, L.year.y);
+  { const w=ctx.measureText('10/'+dayOf(t)).width, h=HOURS[Math.min(3, Math.floor((t-Math.floor(t))*4))]; ctx.font=font(500,20*u,F.d); ctx.fillStyle=C.muted; ctx.fillText(tx('1895 年・','1895 · ')+tx(...h), L.year.x+w+16*u, L.year.y); }
+  fitFont(tx(ph[2],ph[3]), 900, L.phase.size, F.d, L.pdesc.w, 20); ctx.fillStyle=ph[4]; ctx.fillText(tx(ph[2],ph[3]), L.phase.x, L.phase.y);
+  let y = L.pdesc.y;
+  if (bi) { ctx.font=font(500,16*u,F.d); ctx.globalAlpha=0.8; ctx.fillText(ph[3], L.phase.x+2, L.phase.y+24*u); ctx.globalAlpha=1; y += 22*u; }
+  ctx.font=font(400,(lang==='en'?16:17)*u,F.b); ctx.fillStyle=C.muted;
+  wrap(tx(ph[5],ph[6]), L.pdesc.w).slice(0, L.pdesc.max+(lang==='en'?1:0)).forEach((ln,i)=>ctx.fillText(ln, L.pdesc.x, y+i*L.pdesc.lh*(lang==='en'?0.9:1)));
+}
+function drawEvent(t){
+  const r=L.event, u=L.u, bi=lang==='bi', e=lastEvent(t);
+  ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('紀 事','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+  if (!e) return;
+  const col=KIND[e.kind];
+  ctx.font=font(600,14*u,F.b); ctx.fillStyle=col; ctx.fillText(evLbl(e), r.x, r.y+24*u);
+  { const w=ctx.measureText(evLbl(e)).width; ctx.font=font(700,12*u,F.b); ctx.fillText('　'+tx(...WHO[e.kind]), r.x+w+2, r.y+23*u); }
+  let ty = r.y+54*u;
+  ctx.font=font(700,22*u,F.d); ctx.fillStyle=C.ink;
+  for (const ln of wrap(tx(e.tz,e.te), r.w).slice(0,2)) { ctx.fillText(ln, r.x, ty); ty += 29*u; }
+  if (bi) { ctx.font=font(500,14*u,F.b); ctx.fillStyle=C.muted; for (const ln of wrap(e.te, r.w).slice(0,2)) { ctx.fillText(ln, r.x, ty-4*u); ty += 20*u; } }
+  ty += 6*u;
+  ctx.font=font(400,(lang==='en'?14.5:15.5)*u,F.b); ctx.fillStyle=C.muted;
+  const maxL = L===LAYOUTS.port ? 11 : (bi ? 10 : 13);
+  wrap(tx(e.bz,e.be), r.w).slice(0,maxL).forEach((ln,i)=>ctx.fillText(ln, r.x, ty+i*(lang==='en'?22:25)*u));
+}
+function drawList(t){
+  const r=L.list, u=L.u, bi=lang==='bi', cur=lastEvent(t), port=L===LAYOUTS.port;
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.textAlign='left';
+  ctx.fillText(tx('年 表','TIMELINE')+(bi?'  TIMELINE':''), r.x, r.y-12*u);
+  // legend
+  const leg=Object.keys(WHO).map(k=>[k, tx(...WHO[k])]);
+  let lx = r.x + r.w; ctx.textAlign='right'; ctx.font=font(500,11.5*u,F.b);
+  for (const [k,label] of leg.slice().reverse()) { ctx.fillStyle=C.muted; ctx.fillText(label, lx, r.y-12*u); lx -= ctx.measureText(label).width+8*u; ctx.fillStyle=KIND[k]; ctx.beginPath(); ctx.arc(lx, r.y-16*u, 4*u, 0, 6.3); ctx.fill(); lx -= 16*u; }
+  ctx.textAlign='left';
+  const yearW = (lang==='en' ? (port?150:150) : (port?118:122))*u, dotX = r.x+yearW+8*u, textX = dotX+18*u;
+  ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(dotX, r.y+r.rh*0.5); ctx.lineTo(dotX, r.y+r.rh*(EVENTS.length-0.5)); ctx.stroke();
+  EVENTS.forEach((e,i)=>{
+    const y = r.y + r.rh*(i+0.5), past = e.d<=t, on = e===cur, col=KIND[e.kind];
+    if (on) { ctx.fillStyle=hexA(col,0.13); ctx.fillRect(r.x-8*u, y-r.rh/2+1, r.w+16*u, r.rh-2); ctx.fillStyle=col; ctx.fillRect(r.x-8*u, y-r.rh/2+1, 3*u, r.rh-2); }
+    ctx.globalAlpha = on ? 1 : past ? 0.82 : 0.3;
+    ctx.textBaseline='middle';
+    ctx.font=font(600,(port?17:14.5)*u/(port?1.3:1)*(port?1.3:1),F.m); ctx.font=font(600,(port?16:13.5)*u,F.b); ctx.fillStyle = past ? col : C.muted; ctx.fillText(evLbl(e), r.x, y+1);
+    ctx.fillStyle = past ? col : C.faint; ctx.beginPath(); ctx.arc(dotX, y, (on?6:4.2)*u, 0, 6.3); ctx.fill();
+    const zh=tx(e.tz,e.te), avail=r.x+r.w-textX;
+    ctx.font=font(on?700:500, r.size, lang==='en'?F.b:F.d);
+    let w=ctx.measureText(zh).width;
+    if (w>avail) { fitFont(zh, on?700:500, r.size, lang==='en'?F.b:F.d, avail, 12); w=ctx.measureText(zh).width; }
+    ctx.fillStyle = C.ink; ctx.fillText(zh, textX, y+1);
+    if (bi && !port) { const rest=avail-w-14*u; if (rest>120) { fitFont(e.te, 400, 13.5*u, F.b, rest, 10.5); ctx.fillStyle=C.muted; ctx.fillText(e.te, textX+w+14*u, y+1.5); } }
+    ctx.globalAlpha=1;
+  });
+  ctx.textBaseline='alphabetic';
+}
+const sx = v => L.strip.x + L.strip.w*(v-T0)/(T_END-T0);
+function drawStrip(t){
+  const r=L.strip, u=L.u;
+  for (const p of PHASES) {
+    const x0=sx(Math.max(p[0],T0)), x1=sx(Math.min(p[1],T_END)), on=t>=p[0]&&t<p[1];
+    ctx.fillStyle=hexA(p[4], on?0.85:0.3); ctx.fillRect(x0, r.y, x1-x0-1, r.h);
+    const label=tx(p[2],p[3]); ctx.font=font(700,(L===LAYOUTS.port?13:12)*u/(L===LAYOUTS.port?1.3:1)*(L===LAYOUTS.port?1.15:1),F.b);
+    if (ctx.measureText(label).width < x1-x0-10) { ctx.fillStyle = on ? '#0b1a22' : C.ink; ctx.globalAlpha = on?1:0.75; ctx.textBaseline='middle'; ctx.fillText(label, x0+6, r.y+r.h/2+1); ctx.textBaseline='alphabetic'; ctx.globalAlpha=1; }
+  }
+  for (const e of EVENTS) { ctx.fillStyle=KIND[e.kind]; ctx.fillRect(sx(e.d)-0.75, r.y-7, 1.5, 5); }
+  ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted; ctx.textAlign='center';
+  for (let dd=0; dd<=10; dd+=2) ctx.fillText('10/'+(12+dd), sx(dd), r.y+r.h+14*u);
+  ctx.textAlign='left';
+  const x=sx(t); ctx.strokeStyle=C.ink; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x,r.y-10); ctx.lineTo(x,r.y+r.h+3); ctx.stroke();
+}
+function render(t){
+  ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
+  drawHeader(t); drawEvent(t); drawList(t); drawStrip(t);
+}
+
+// ---------- playback: slow near each event ----------
+const playBtn=document.getElementById('play'), scrub=document.getElementById('scrub'), out=document.getElementById('out'), speed=document.getElementById('speed');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t=T0, playing=!reduce;
+function rate(x){
+  let dmin = Infinity; for (const e of EVENTS) { const dd = x < e.d ? e.d-x : x-e.d-0.04; dmin = Math.min(dmin, Math.max(0, dd)); }
+  return Math.max(0.03, 0.55 * clamp(dmin/0.5, 0, 1));
+}
+const fmtOut = x => { const h=Math.floor((x-Math.floor(x))*24); return `10/${dayOf(x)} ${String(h).padStart(2,'0')}:00`; };
+function setPlaying(p){ playing=p; setK(playBtn, p ? 'pause' : (t>=T_END ? 'replay' : 'play')); TG.sync(); }
+function seek(x){ t=clamp(x,T0,T_END); scrub.value=t; out.textContent=fmtOut(t); TG.seek(); }
+playBtn.addEventListener('click', ()=>{ if (!playing && t>=T_END) seek(T0); if (!playing) TG.unlock(); setPlaying(!playing); });
+scrub.addEventListener('input', ()=>{ seek(+scrub.value); if (playing) setPlaying(false); });
+cv.setAttribute('tabindex','0');
+cv.addEventListener('keydown', e=>{
+  if (e.key===' ') { e.preventDefault(); playBtn.click(); }
+  else if (e.key==='ArrowRight') seek(t+0.25);
+  else if (e.key==='ArrowLeft') seek(t-0.25);
+});
+const livesOl=document.getElementById('lives');
+function applyLang(){
+  TG.lang();
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.title = tx('巴克禮與台南開城 1895', 'Barclay and the Capitulation of Tainan, 1895');
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
+  setPlaying(playing);
+  livesOl.innerHTML = AFTER.map(([y,tz,te,bz,be])=>`<li><b>${esc(y)}</b><span>${uiHTML(tz+'：'+bz, te+': '+be)}</span></li>`).join('');
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  cv.setAttribute('aria-label', tx('1895 年台南開城逐日年表動畫','Day-by-day animated timeline of the capitulation of Tainan, 1895'));
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+new ResizeObserver(()=>layout()).observe(stage);
+
+// Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.
+const TG = TGNarration({ name:'tainan1895', lang:()=>lang, getT:()=>t, isPlaying:()=>playing, setPlaying, stage, playBtn,
+  cues:[...PHASES.map((p,i)=>({y:Math.max(p[0],T0), id:'p'+i})), ...EVENTS.map((e,i)=>({y:e.d, id:'e'+i}))] });
+if (TG.on()) playing=false;   // sound needs a tap, so the narrated film waits for Play
+layout(); applyLang(); seek(T0); setPlaying(playing);
+let last=performance.now();
+function frame(now){
+  TG.tick();
+  const dt=Math.min(0.1,(now-last)/1000); last=now;
+  if (playing) { t+=TG.step(dt*rate(t)*(+speed.value), now); if (t>=T_END) { t=T_END; if (!TG.busy()) setPlaying(false); } scrub.value=t; out.textContent=fmtOut(t); }
+  render(t); requestAnimationFrame(frame);
+}
+requestAnimationFrame(n=>{ last=n; frame(n); });
+})();
+</script>
+</body>
+</html>

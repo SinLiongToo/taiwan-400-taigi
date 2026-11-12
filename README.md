@@ -18,6 +18,9 @@ Only the English guide (`intro.html`) still opens on the original site.
 `missionaries.html` 四位傳教士 (Four Missionaries, 1865–1935: Maxwell, Mackay, Campbell, Barclay) is built the same
 way as `poj.html` below, with events coloured by person and a short life of each; script `tools/narration_missionaries.json`.
 
+`tainan1895.html` 巴克禮與台南開城 (Barclay and the Capitulation of Tainan, October 12–21, 1895) uses the same film with a
+clock in days and events labelled by time of day; script `tools/narration_tainan1895.json`.
+
 `poj.html` 白話字的歷史 (The Story of Pe̍h-ōe-jī, 1832–2006) is a page written for this site, not copied
 from `taiwan-400`: a timeline film of 25 milestones in seven periods, with the wartime and post-war bans
 marked in red, a list of the bans, notes on where sources disagree, and a Sources section. It is a

@@ -773,5 +773,56 @@
    "zh": "巴克禮的墓，在台南市南區南山公墓的基督教墓地。Pbdragonwang 攝，2019 年。",
    "en": "Barclay’s grave in the Christian section of Nanshan Cemetery, Tainan. Photo by Pbdragonwang, 2019."
   }
+ ],
+ "tainan1895": [
+  {
+   "at": "p0",
+   "key": "barclay",
+   "file": "Portrait photo of Dr. Thomas Barclay 1936.jpg",
+   "zh": "巴克禮（Thomas Barclay）。照片刊於 1936 年；1895 年時他 45 歲。",
+   "en": "Thomas Barclay. The photograph was published in 1936; in 1895 he was 45."
+  },
+  {
+   "at": "e2",
+   "key": "liu-yongfu",
+   "file": "Liu Yongfu.jpg",
+   "zh": "黑旗軍首領劉永福，約 1885 年。",
+   "en": "Liu Yongfu, leader of the Black Flag Army, about 1885."
+  },
+  {
+   "at": "e3",
+   "key": "tainan-wall-drill",
+   "file": "Military drill of Japanese army at the city wall of Tainan Meiji era.jpg",
+   "zh": "台南城牆。照片是之後明治年間日軍在城牆邊操練的情形。",
+   "en": "The city wall of Tainan. The photograph shows Japanese troops drilling beside it in the Meiji years that followed."
+  },
+  {
+   "at": "e7",
+   "key": "nogi",
+   "file": "Maresuke Nogi, 近世名士写真 其1 - Photo only.jpg",
+   "zh": "乃木希典，1912 年以前。1895 年他率第二師團從枋寮登陸北上。",
+   "en": "Nogi Maresuke, before 1912. In 1895 he led the 2nd Division north from its landing at Fangliao."
+  },
+  {
+   "at": "p3",
+   "key": "su-house",
+   "file": "太爺蘇家古厝.jpg",
+   "zh": "高雄湖內的太爺蘇家古厝，相傳巴克禮在這裡見到乃木希典。Pbdragonwang 攝，2021 年。",
+   "en": "The Su family house at Taiye, Hunei, Kaohsiung, where Barclay is said to have met Nogi. Photo by Pbdragonwang, 2021."
+  },
+  {
+   "at": "e8",
+   "key": "great-south-gate",
+   "file": "Great South Gate, Tainan.jpg",
+   "zh": "台南府城大南門，攝於日治時期。",
+   "en": "The Great South Gate of Tainan, photographed under Japanese rule."
+  },
+  {
+   "at": "e9",
+   "key": "small-south-gate",
+   "file": "臺灣府城小南門.JPG",
+   "zh": "台南府城小南門，1945 年以前。",
+   "en": "The Small South Gate of Tainan, before 1945."
+  }
  ]
 }

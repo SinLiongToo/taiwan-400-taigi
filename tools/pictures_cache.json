@@ -710,5 +710,45 @@
   "license": "CC BY-SA 4.0",
   "artist": "Pbdragonwang",
   "url": "https://commons.wikimedia.org/wiki/File:%E5%B7%B4%E5%85%8B%E7%A6%AE%E5%A2%93.jpg"
+ },
+ "tainan-wall-drill": {
+  "file": "Military drill of Japanese army at the city wall of Tainan Meiji era.jpg",
+  "w": 960,
+  "h": 640,
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "url": "https://commons.wikimedia.org/wiki/File:Military_drill_of_Japanese_army_at_the_city_wall_of_Tainan_Meiji_era.jpg"
+ },
+ "nogi": {
+  "file": "Maresuke Nogi, 近世名士写真 其1 - Photo only.jpg",
+  "w": 960,
+  "h": 1232,
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author - restored by User:Adam Cuerden",
+  "url": "https://commons.wikimedia.org/wiki/File:Maresuke_Nogi,_%E8%BF%91%E4%B8%96%E5%90%8D%E5%A3%AB%E5%86%99%E7%9C%9F_%E5%85%B61_-_Photo_only.jpg"
+ },
+ "su-house": {
+  "file": "太爺蘇家古厝.jpg",
+  "w": 960,
+  "h": 640,
+  "license": "CC BY-SA 4.0",
+  "artist": "Pbdragonwang",
+  "url": "https://commons.wikimedia.org/wiki/File:%E5%A4%AA%E7%88%BA%E8%98%87%E5%AE%B6%E5%8F%A4%E5%8E%9D.jpg"
+ },
+ "great-south-gate": {
+  "file": "Great South Gate, Tainan.jpg",
+  "w": 960,
+  "h": 550,
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "url": "https://commons.wikimedia.org/wiki/File:Great_South_Gate,_Tainan.jpg"
+ },
+ "small-south-gate": {
+  "file": "臺灣府城小南門.JPG",
+  "w": 960,
+  "h": 601,
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "url": "https://commons.wikimedia.org/wiki/File:%E8%87%BA%E7%81%A3%E5%BA%9C%E5%9F%8E%E5%B0%8F%E5%8D%97%E9%96%80.JPG"
  }
 }
