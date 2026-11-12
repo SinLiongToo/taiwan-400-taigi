@@ -1185,6 +1185,17 @@ window.PICTURES = {
    "license": "Public domain",
    "artist": "Unknown authorUnknown author",
    "url": "https://commons.wikimedia.org/wiki/File:Portrait_photo_of_Dr._Thomas_Barclay_1936.jpg"
+  },
+  {
+   "at": "e25",
+   "key": "barclay-tomb",
+   "zh": "巴克禮的墓，在台南市南區南山公墓的基督教墓地。Pbdragonwang 攝，2019 年。",
+   "en": "Barclay’s grave in the Christian section of Nanshan Cemetery, Tainan. Photo by Pbdragonwang, 2019.",
+   "w": 960,
+   "h": 1440,
+   "license": "CC BY-SA 4.0",
+   "artist": "Pbdragonwang",
+   "url": "https://commons.wikimedia.org/wiki/File:%E5%B7%B4%E5%85%8B%E7%A6%AE%E5%A2%93.jpg"
   }
  ]
 };
