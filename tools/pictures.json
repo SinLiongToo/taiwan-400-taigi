@@ -659,5 +659,112 @@
    "zh": "使用白話字的書籍。",
    "en": "Books printed in Pe̍h-ōe-jī."
   }
+ ],
+ "missionaries": [
+  {
+   "at": "p0",
+   "key": "maxwell",
+   "file": "英國長老教會第一位駐臺灣宣教師馬雅各牧師（James Laidlaw Maxwell, MD).jpg",
+   "zh": "馬雅各（James Laidlaw Maxwell），英國長老教會第一位駐台灣的宣教師。",
+   "en": "James Laidlaw Maxwell, the English Presbyterian Church’s first missionary in Taiwan."
+  },
+  {
+   "at": "e3",
+   "key": "sin-lau-hospital",
+   "file": "臺南新樓醫院 01.jpg",
+   "zh": "今日的台南新樓醫院，前身是馬雅各 1869 年設在二老口的「舊樓」醫館。",
+   "en": "Sin-Lau Hospital in Tainan today; it grew out of the “Old Building” clinic Maxwell opened in 1869."
+  },
+  {
+   "at": "e4",
+   "key": "campbell",
+   "file": "Campbell.png",
+   "zh": "甘為霖（William Campbell），19 世紀末的版畫。",
+   "en": "William Campbell, an engraving of the late nineteenth century."
+  },
+  {
+   "at": "e5",
+   "key": "mackay-teeth",
+   "file": "Teeth extraction by Rev. George Leslie Mackay and his assistants in Taiwan.jpg",
+   "zh": "馬偕（右）與學生在野外替人拔牙。",
+   "en": "Mackay (right) and his students pulling teeth in the open air."
+  },
+  {
+   "at": "e7",
+   "key": "barclay",
+   "file": "Portrait photo of Dr. Thomas Barclay 1936.jpg",
+   "zh": "巴克禮（Thomas Barclay）。照片刊於 1936 年。",
+   "en": "Thomas Barclay; the photograph was published in 1936."
+  },
+  {
+   "at": "e8",
+   "key": "tainan-college",
+   "file": "View at Tainan Theological College and Seminary.jpg",
+   "zh": "台南神學院一景，約 1940 年。",
+   "en": "A view of Tainan Theological College, about 1940."
+  },
+  {
+   "at": "e9",
+   "key": "mackay",
+   "file": "馬偕牧師照片.jpg",
+   "zh": "馬偕（George Leslie Mackay），攝於 1902 年以前。",
+   "en": "George Leslie Mackay, photographed before 1902."
+  },
+  {
+   "at": "e10",
+   "key": "mackay-clinic",
+   "file": "滬尾偕醫館.jpg",
+   "zh": "淡水的滬尾偕醫館，1880 年創設。張欽嵐攝，2019 年。",
+   "en": "The Mackay clinic at Tamsui, founded in 1880. Photo by 張欽嵐, 2019."
+  },
+  {
+   "at": "e11",
+   "key": "oxford-college",
+   "file": "Oxford College Tamsui.jpg",
+   "zh": "淡水的理學堂大書院（牛津學堂），1882 年落成，今在真理大學校園內。",
+   "en": "Oxford College at Tamsui, opened in 1882, now on the campus of Aletheia University."
+  },
+  {
+   "at": "e14",
+   "key": "church-news-1885",
+   "file": "Tai-Oan-Hu-Sia-Kau-Hoe-Po.jpg",
+   "zh": "《台灣府城教會報》創刊號，1885 年 7 月，全用白話字。",
+   "en": "The first issue of the Tâi-oân-hú-siâⁿ Kàu-hōe-pò, July 1885, entirely in romanized Taiwanese."
+  },
+  {
+   "at": "e16",
+   "key": "campbell",
+   "file": "Campbell.png",
+   "zh": "甘為霖（William Campbell），19 世紀末的版畫。",
+   "en": "William Campbell, an engraving of the late nineteenth century."
+  },
+  {
+   "at": "e18",
+   "key": "barclay",
+   "file": "Portrait photo of Dr. Thomas Barclay 1936.jpg",
+   "zh": "巴克禮（Thomas Barclay）。照片刊於 1936 年。",
+   "en": "Thomas Barclay; the photograph was published in 1936."
+  },
+  {
+   "at": "e19",
+   "key": "mackay-grave",
+   "file": "2008-01-23 graves of Tiu Chhang-mia and George Leslie Mackay.jpg",
+   "zh": "馬偕與張聰明的墓，在淡水的淡江中學校園內。",
+   "en": "The graves of Mackay and Tiuⁿ Chhang-miâ in the grounds of Tamkang High School, Tamsui."
+  },
+  {
+   "at": "e20",
+   "key": "campbell",
+   "file": "Campbell.png",
+   "zh": "甘為霖（William Campbell），19 世紀末的版畫。",
+   "en": "William Campbell, an engraving of the late nineteenth century."
+  },
+  {
+   "at": "e22",
+   "key": "barclay",
+   "file": "Portrait photo of Dr. Thomas Barclay 1936.jpg",
+   "zh": "巴克禮（Thomas Barclay）。照片刊於 1936 年。",
+   "en": "Thomas Barclay; the photograph was published in 1936."
+  }
  ]
 }

@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="四位傳教士 1865–1935：馬雅各、馬偕、甘為霖、巴克禮在台灣的醫療、教育、字典與報紙。Four missionaries, 1865–1935: Maxwell, Mackay, Campbell and Barclay, and the hospitals, schools, dictionary and newspaper they left in Taiwan.">
+<title>四位傳教士 1865–1935</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one "film" canvas (year, period and the current event on the left, every milestone as a list on the right coloured by person, period strip below), then a reading column with one short life for each of the four and the sources. Same sea-ink family as 台灣四百年. */
+:root {
+  color-scheme: dark;
+  --bg: #08151d;
+  --panel: #0e212c;
+  --line: #21404f;
+  --ink: #ece6d6;
+  --muted: #8fa6b0;
+  --gold: #ecd04f;
+  --ban: #e0555c;
+  --focus: #7fd3d0;
+  --f-display: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --f-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { background: var(--bg); color: var(--ink); margin: 0; }
+body { font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 14px; }
+.wrap > * { min-width: 0; }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.back { color: var(--muted); font-size: 13.5px; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.head h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(26px, 4vw, 38px); margin: 0; letter-spacing: .04em; text-wrap: balance; line-height: 1.25; }
+.head p { margin: 0; color: var(--muted); max-width: 66ch; }
+.stage { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+canvas.film { display: block; width: 100%; height: auto; max-width: 100%; }
+.deck { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.deck .scrub { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--gold); }
+output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; min-width: 4ch; color: var(--gold); font-weight: 600; }
+button, select { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+button.primary { background: var(--gold); color: #1a1505; border-color: var(--gold); font-weight: 700; min-width: 5.5em; }
+button.primary .en { color: #4a3f10; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; }
+.seg button + button { border-left: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button:last-child { border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--line); }
+.lbl { color: var(--muted); font-size: 13px; letter-spacing: .06em; }
+.read { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px 48px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 8px; }
+@media (max-width: 820px) { .read { grid-template-columns: minmax(0, 1fr); } }
+.read h2 { font-family: var(--f-display); font-size: 21px; margin: 0 0 12px; letter-spacing: .04em; }
+.read p { margin: 0 0 12px; max-width: 66ch; }
+.read .gap { margin-top: 26px; }
+.after { list-style: none; margin: 0; padding: 0; display: grid; }
+.after li { display: grid; grid-template-columns: 5.2em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.after li:last-child { border-bottom: 0; }
+.after b { font-family: var(--f-display); color: var(--ink); font-weight: 700; }
+.after li { grid-template-columns: 6.4em minmax(0, 1fr); }
+.after b small { display: block; font-family: var(--f-mono); font-weight: 400; font-size: 12px; color: var(--muted); }
+.after span { min-width: 0; }
+.side { display: grid; gap: 26px; align-content: start; color: var(--muted); }
+.side p { margin: 0 0 10px; }
+.side a { color: var(--ink); }
+.side ul, .side ol { margin: 0; padding-left: 1.3em; }
+.refs li { margin-bottom: 7px; font-size: 13.5px; overflow-wrap: anywhere; }
+.sample { font-family: var(--f-display); font-size: 19px; color: var(--ink); line-height: 1.6; margin: 0 0 4px; }
+.en { color: var(--muted); font-size: .86em; margin-left: .45em; font-weight: 400; letter-spacing: 0; }
+h1 .en { display: block; margin-left: 0; font-size: .46em; font-family: var(--f-body); letter-spacing: .02em; }
+p .en, li .en, .read h2 .en, .after span .en { display: block; margin-left: 0; }
+.read h2 .en { font-family: var(--f-body); font-size: .62em; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="back" href="./" data-k="back"></a>
+    <div class="grp">
+      <span class="lbl" data-k="langLbl"></span>
+      <div class="seg" role="group" aria-label="Language">
+        <button id="langZh" type="button" aria-pressed="false" lang="zh-Hant">中文</button>
+        <button id="langEn" type="button" aria-pressed="false" lang="en">EN</button>
+        <button id="langBi" type="button" aria-pressed="true">中英</button>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <h1 data-k="h1"></h1>
+    <p data-k="intro"></p>
+  </div>
+
+  <div class="stage"><canvas id="film" class="film" width="1600" height="900"></canvas></div>
+  <div class="deck">
+    <button id="play" class="primary" type="button"></button>
+    <div class="scrub">
+      <input id="scrub" type="range" min="1863" max="1937" step="0.02" value="1863" aria-label="Year">
+      <output id="out" for="scrub">1863</output>
+    </div>
+    <div class="grp">
+      <label class="lbl" for="speed" data-k="speed"></label>
+      <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+    </div>
+  </div>
+
+  <section class="read">
+    <div>
+      <h2 data-k="whoH"></h2>
+      <p data-k="who0"></p>
+      <ol class="after" id="lives"></ol>
+    </div>
+    <div class="side">
+      <div>
+        <h2 data-k="noteH"></h2>
+        <p data-k="note1"></p>
+        <p data-k="note2"></p>
+      </div>
+      <div>
+        <h2 data-k="refH"></h2>
+        <p data-k="refP"></p>
+        <ol class="refs">
+          <li>潘稀祺，《台灣醫療宣教之父：馬雅各醫生傳》，台南：新樓醫院，2004。</li>
+          <li>George L. Mackay, <i>From Far Formosa: The Island, its People and Missions</i>, ed. J. A. Macdonald. New York: F. H. Revell, 1895–96；中譯：林晚生譯，《福爾摩沙紀事：馬偕台灣回憶錄》，台北：前衛，2007。</li>
+          <li>“MACKAY, GEORGE LESLIE,” <i>Dictionary of Canadian Biography</i>, vol. XIII. <a href="http://www.biographi.ca/en/bio/mackay_george_leslie_13E.html" target="_blank" rel="noopener">biographi.ca</a></li>
+          <li>James R. Rohrer, “The Legacy of George Leslie Mackay.” <i>International Bulletin of Missionary Research</i> 34 (4), 2010: 221–228.</li>
+          <li>William Campbell, <i>Sketches from Formosa</i>. London: Marshall Brothers, 1915；中譯：《素描福爾摩沙：甘為霖台灣筆記》，台北：前衛，2009。</li>
+          <li>邱大昕，〈我自己要見祂——甘為霖牧師生平考略〉，《台灣教會公報》第 3529 期，2019 年 10 月 14 日。</li>
+          <li>Edward Band, <i>Barclay of Formosa</i>. Tokyo: Christian Literature Society, 1936.</li>
+          <li>潘稀祺，《為愛航向福爾摩沙：巴克禮博士傳》，台南：人光出版社。</li>
+          <li>賴永祥，《教會史話》各篇（如〈二老口舊樓〉〈德馬太醫生〉〈卓道生述大學之始〉）。</li>
+          <li>Harold M. Otness, <i>One Thousand Westerners in Taiwan, to 1945</i>. Taipei: Institute of Taiwan History, Academia Sinica, 1999.</li>
+          <li>Henning Klöter, <i>Written Taiwanese</i>. Wiesbaden: Harrassowitz, 2005.</li>
+          <li>臺南市政府文化局，〈巴克禮牧師二層行日軍營地會談〉〈巴克禮與乃木希典會談——蘇家大厝〉，2021。</li>
+          <li>維基百科：<a href="https://zh.wikipedia.org/zh-tw/馬雅各" target="_blank" rel="noopener">馬雅各</a>、<a href="https://zh.wikipedia.org/zh-tw/馬偕" target="_blank" rel="noopener">馬偕</a>、<a href="https://zh.wikipedia.org/zh-tw/甘為霖" target="_blank" rel="noopener">甘為霖</a>、<a href="https://zh.wikipedia.org/zh-tw/巴克禮" target="_blank" rel="noopener">巴克禮</a>；Wikipedia: <a href="https://en.wikipedia.org/wiki/James_Laidlaw_Maxwell" target="_blank" rel="noopener">Maxwell</a>, <a href="https://en.wikipedia.org/wiki/George_Leslie_Mackay" target="_blank" rel="noopener">Mackay</a>, <a href="https://en.wikipedia.org/wiki/William_Campbell_(missionary)" target="_blank" rel="noopener">Campbell</a>, <a href="https://en.wikipedia.org/wiki/Thomas_Barclay_(missionary)" target="_blank" rel="noopener">Barclay</a>, <a href="https://en.wikipedia.org/wiki/Taiwan_Church_News" target="_blank" rel="noopener">Taiwan Church News</a>（2026 年 11 月查閱）。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="narration-missionaries.js"></script>
+<script src="pictures.js"></script>
+<script src="tg.js"></script>
+<script>
+(() => {
+// ---------- language ----------
+let lang = 'bi';
+try { const s = localStorage.getItem('tw400-lang'); if (s==='zh'||s==='en'||s==='bi') lang = s; } catch (e) {}
+if (['#zh','#en','#bi'].includes(location.hash)) lang = location.hash.slice(1);
+const tx = (zh, en) => lang==='en' ? en : zh;
+const UI = {
+  back: ['台灣四百年', 'Taiwan: Four Centuries'],
+  langLbl: ['語言','Language'],
+  h1: ['四位傳教士', 'Four Missionaries'],
+  intro: ['1865–1935：馬雅各、馬偕、甘為霖、巴克禮。四個長老教會的傳教士先後來到台灣，留下醫院、學校、字典、印刷所和台灣第一份報紙。',
+          '1865–1935: Maxwell, Mackay, Campbell and Barclay. Four Presbyterian missionaries came to Taiwan one after another and left hospitals, schools, a dictionary, a printing press and the island’s first newspaper.'],
+  play: ['播放','Play'], pause: ['暫停','Pause'], replay: ['重播','Replay'], speed: ['速度','Speed'],
+  whoH: ['四個人', 'The four'],
+  who0: ['1858 年天津條約開放台灣的港口，傳教士得以來台。南部由英國長老教會負責，北部由加拿大長老教會負責，兩邊以大甲溪為界。', 'The Treaty of Tianjin of 1858 opened Taiwan’s ports, and missionaries could come. The English Presbyterian Church took the south and the Canadian Presbyterian Church the north, with the Dajia River between them.'],
+  noteH: ['說明與限制', 'Notes and limits'],
+  note1: ['幾個年份各家資料寫法不同，本頁照下列方式處理：滬尾偕醫館的年份有 1879、1880、1882 幾種說法，採 1880；巴克禮創辦「大學」有 1876、1877 兩說，採 1877；《From Far Formosa》有 1895、1896 兩種出版年，採 1895；巴克禮的舊約譯本有 1932、1933 兩說，本頁寫「1930 年代初」；甘為霖逝世有 9 月 7 日與 9 日兩說，本頁只寫 1921 年 9 月。',
+          'Sources give several dates differently, handled here as follows. Mackay’s clinic is dated 1879, 1880 or 1882; this page uses 1880. Barclay’s college is dated 1876 or 1877; this page uses 1877. From Far Formosa is dated 1895 or 1896; this page uses 1895. Barclay’s Old Testament is dated 1932 or 1933; this page says “the early 1930s”. Campbell’s death is given as September 7 or 9, 1921; this page says September 1921.'],
+  note2: ['傳教士的記述多出自他們自己或教會的著作，對衝突的另一方（如 1865 年看西街事件、1875 年白水溪事件）著墨不多。旁白是語音合成的台語，字幕的白話字由程式從漢字轉寫，個別字的讀音可能有誤。',
+          'Most accounts come from the missionaries themselves or from church writers and say little about the other side of the clashes (the 1865 Khòaⁿ-sai Street riot, the 1875 Pe̍h-chúi-khe attack). The narration is synthesized Taiwanese, and the POJ subtitles are converted from characters by a program, so individual readings may be wrong.'],
+  refH: ['參考資料', 'Sources'],
+  refP: ['本頁的年份與事實整理自下列著作。', 'Dates and facts on this page are compiled from the works below.'],
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uiHTML = (zh, en) => lang==='en' ? esc(en) : lang==='bi' ? `${esc(zh)}<span class="en" lang="en">${esc(en)}</span>` : esc(zh);
+const setK = (el, k) => { el.innerHTML = uiHTML(UI[k][0], UI[k][1]); };
+
+// ---------- data ----------
+// kind = which of the four the event belongs to
+const KIND = { mx:'#7fd3d0', mk:'#ecd04f', cp:'#f29a3a', bc:'#b28be6' };
+const WHO = { mx:['馬雅各','Maxwell'], mk:['馬偕','Mackay'], cp:['甘為霖','Campbell'], bc:['巴克禮','Barclay'] };
+const T0 = 1863, T_END = 1937;
+const EVENTS = [
+  [1865.46, "mx", "馬雅各在府城開始醫療傳教", "Maxwell begins in Tainan", "6 月 16 日，英國長老教會的醫師馬雅各在府城看西街租屋，一邊看病一邊傳教。長老教會把這一天當作在台灣設教的開始。", "On June 16 Dr James Laidlaw Maxwell of the English Presbyterian Church rented a house on Khòaⁿ-sai Street in Tainan to treat the sick and preach. The church counts this day as the start of its mission in Taiwan."],
+  [1865.53, "mx", "被迫離開府城", "Driven out of Tainan", "謠言說洋人挖心取眼製藥，民眾包圍醫館。才 23 天，馬雅各就被迫離開府城，轉往有英國領事的打狗旗後。", "Rumours spread that the foreigners cut out hearts and eyes for medicine, and a crowd besieged the clinic. After 23 days Maxwell had to leave, and moved to Takow (Kaohsiung), where there was a British consul."],
+  [1866.7, "mx", "旗後醫館", "The Takow clinic", "馬雅各在旗後建禮拜堂，9 月開設有八張病床的醫館，被視為台灣西式醫院的開端。", "Maxwell built a chapel at Qihou and in September opened a clinic with eight beds, regarded as the beginning of Western hospitals in Taiwan."],
+  [1868.98, "mx", "重返府城，舊樓醫館", "Back to Tainan", "樟腦糾紛與安平砲擊事件後，清廷承認傳教士可在台灣各地居住傳教。12 月 26 日馬雅各回到府城，隔年在二老口租下「舊樓」行醫，就是今日新樓醫院的前身。", "After the camphor dispute and the bombardment of Anping, the Qing accepted that missionaries could live and preach anywhere in Taiwan. Maxwell returned to Tainan on December 26 and the next year rented the “Old Building” as a hospital, the forerunner of today’s Sin-Lau Hospital."],
+  [1871.95, "cp", "甘為霖來台", "Campbell arrives", "1871 年 11 月馬雅各返回英國。12 月，蘇格蘭人甘為霖抵達打狗，隨即到府城，此後在台灣南部傳教四十多年。同月底，加拿大的馬偕也在打狗上岸。", "Maxwell went home in November 1871. In December the Scot William Campbell landed at Takow and went on to Tainan, where he would work for more than forty years. At the end of the same month the Canadian George Leslie Mackay also landed at Takow."],
+  [1872.19, "mk", "馬偕在淡水登岸", "Mackay lands at Tamsui", "3 月 9 日，加拿大長老教會的馬偕在滬尾（淡水）上岸，選定北台灣作為宣教區。他邊學台語邊替人拔牙，一生拔了兩萬一千多顆牙。", "On March 9 Mackay, sent by the Canadian Presbyterian Church, landed at Tamsui and took northern Taiwan as his field. He learned Taiwanese and pulled teeth as he went: more than 21,000 in his lifetime."],
+  [1875.08, "cp", "白水溪事件", "The Pe̍h-chúi-khe attack", "1 月 28 日半夜，地方頭人吳志高的手下放火燒白水溪（今台南白河）的禮拜堂與宿舍，甘為霖摸黑逃出。", "On the night of January 28 followers of the local strongman Gô͘ Chì-ko set fire to the chapel and lodging at Pe̍h-chúi-khe (Baihe, Tainan). Campbell escaped in the dark."],
+  [1875.43, "bc", "巴克禮來台", "Barclay arrives", "6 月 5 日，25 歲的蘇格蘭人巴克禮在打狗上岸。他在台灣住了六十年。", "On June 5 the 25-year-old Scot Thomas Barclay landed at Takow. He stayed in Taiwan for sixty years."],
+  [1877, "bc", "創辦「大學」", "The Capital College", "巴克禮把打狗與府城兩地的傳道師養成班合併為「大學」，自己擔任校長，是今日台南神學院的由來。", "Barclay merged the preachers’ classes of Takow and Tainan into the “Capital College” and became its head: the origin of Tainan Theological College."],
+  [1878.4, "mk", "馬偕與張聰明結婚", "Mackay marries Tiuⁿ Chhang-miâ", "5 月 27 日，馬偕與五股坑的台灣女子張聰明結婚。她協助他向婦女傳教。", "On May 27 Mackay married Tiuⁿ Chhang-miâ, a Taiwanese woman of Go-ko-khiⁿ, who helped him reach women."],
+  [1880, "mk", "滬尾偕醫館", "The Mackay clinic", "馬偕在淡水創設滬尾偕醫館，是北台灣第一所西式醫院，由一位同姓馬偕的美國船長遺孀捐款興建。", "Mackay founded the Mackay clinic at Tamsui, the first Western hospital in northern Taiwan, built with a gift from the widow of an American sea captain also named Mackay."],
+  [1882.57, "mk", "理學堂大書院（牛津學堂）", "Oxford College", "7 月 26 日落成，用加拿大牛津郡鄉親的捐款興建，教授神學、醫學、地理、天文等科目，是今日真理大學與台灣神學院的源頭。", "Opened on July 26 and paid for by the people of Oxford County, Ontario. It taught theology, medicine, geography and astronomy, and is the ancestor of Aletheia University and Taiwan Theological College."],
+  [1884.39, "bc", "聚珍堂：教會公報社的開始", "The mission press", "馬雅各在 1880 年捐了一台印刷機，沒有人會用。巴克禮 1881 年回英國學排字印刷，1884 年 5 月 24 日在台南開工印刷，書房取名「聚珍堂」。這是台灣第一間新式印刷所，也是台灣教會公報社的開始。", "Maxwell had given a printing press in 1880 that nobody could work. Barclay learned typesetting and printing at home in 1881, and on May 24, 1884 the press started work in Tainan under the name Chū-tin-tông. It was Taiwan’s first modern printing house and the beginning of the Taiwan Church Press."],
+  [1884.7, "mk", "淡水女學堂；清法戰爭", "A girls’ school; the Sino-French War", "馬偕在牛津學堂旁開辦淡水女學堂，是台灣第一所女子學校。同年清法戰爭爆發，北部七間教堂被毀；隔年劉銘傳賠償，馬偕用這筆錢重建。", "Mackay opened the Tamsui Girls’ School beside Oxford College, the first school for girls in Taiwan. The Sino-French War broke out that year and seven northern chapels were destroyed; Governor Liu Mingchuan paid compensation the next year and Mackay rebuilt them."],
+  [1885.53, "bc", "《台灣府城教會報》創刊", "The first Church News", "7 月 12 日，巴克禮用聚珍堂的印刷機印出《台灣府城教會報》，全用白話字。這是台灣第一份印刷的報紙，今天仍以《台灣教會公報》之名發行。", "On July 12 Barclay printed the Tâi-oân-hú-siâⁿ Kàu-hōe-pò on the mission press, entirely in romanized Taiwanese. It was Taiwan’s first printed newspaper and still appears as the Taiwan Church News."],
+  [1886.42, "cp", "甘為霖到澎湖", "Campbell goes to Penghu", "5 月 31 日，甘為霖與傳道師高長到澎湖宣教。", "On May 31 Campbell and the preacher Ko Tiong went to preach in Penghu."],
+  [1891.8, "cp", "盲人學校「訓瞽堂」", "A school for the blind", "10 月，甘為霖在府城租下洪公祠開辦盲人學校，教點字與謀生技能，是台灣特殊教育的開始。", "In October Campbell rented a temple hall in Tainan and opened a school for the blind, teaching Braille and trades: the beginning of special education in Taiwan."],
+  [1895.7, "mk", "《From Far Formosa》", "From Far Formosa", "馬偕返加拿大述職期間，把在台灣二十多年的見聞寫成回憶錄出版，是 19 世紀台灣北部社會、原住民與自然的重要紀錄。", "On furlough in Canada, Mackay published his memoir of more than twenty years in Taiwan, an important record of northern Taiwan’s society, Indigenous peoples and natural history in the nineteenth century."],
+  [1895.8, "bc", "巴克禮與日軍交涉", "Barclay goes out to the Japanese army", "劉永福離開後台南無人主事。10 月 20 日，巴克禮與宋忠堅受仕紳之託，連夜出城到二層行溪會見日軍，請日軍和平入城。次日日軍進入台南，沒有發生戰鬥。", "With Liu Yongfu gone, Tainan had no one in charge. On October 20, at the request of the city’s notables, Barclay and Duncan Ferguson walked out by night to the Japanese camp and asked the army to enter peacefully. It marched in the next day without fighting."],
+  [1901.42, "mk", "馬偕逝世", "Mackay dies", "6 月 2 日，馬偕因喉癌在淡水逝世，57 歲，葬在今日淡江中學校園內。他在北台灣設立了六十間教會。", "On June 2 Mackay died of throat cancer at Tamsui, aged 57, and was buried in what is now the grounds of Tamkang High School. He had founded sixty churches in northern Taiwan."],
+  [1903, "cp", "《荷蘭統治下的福爾摩沙》", "Formosa under the Dutch", "甘為霖把荷蘭時期的檔案與傳教紀錄譯成英文出版，至今仍是研究 17 世紀台灣的基本史料。", "Campbell translated the records of the Dutch period and its missions into English. It is still a basic source for seventeenth-century Taiwan."],
+  [1913, "cp", "《廈門音新字典》：甘字典", "Campbell’s dictionary", "甘為霖編的《廈門音新字典》在台南出版，由教會的印刷所印行，用白話字注音，收一萬五千多字。台灣人暱稱「甘字典」，一百多年來不斷重印。", "Campbell’s dictionary of the Amoy vernacular was published in Tainan by the mission press, with readings in romanized Taiwanese for more than 15,000 characters. People call it the “Kam dictionary”, and it has been reprinted for over a century."],
+  [1916, "bc", "巴克禮譯本新約聖經", "Barclay’s New Testament", "巴克禮重新翻譯的白話字新約聖經出版；舊約在 1930 年代初完成。這個譯本通行了大半個世紀。", "Barclay’s new translation of the New Testament into romanized Taiwanese was published; the Old Testament followed in the early 1930s. The version was in use for most of a century."],
+  [1917.1, "cp", "甘為霖離台", "Campbell goes home", "2 月，75 歲的甘為霖離開住了四十五年的台灣。1921 年 9 月他在英國逝世；同年 3 月，馬雅各也在倫敦逝世。", "In February Campbell, aged 75, left Taiwan after forty-five years. He died in England in September 1921; Maxwell had died in London that March."],
+  [1923, "bc", "增補《廈英大辭典》", "The Supplement to Douglas", "巴克禮為杜嘉德的《廈英大辭典》編寫增補，在上海出版。", "Barclay’s supplement to Douglas’s Amoy dictionary was published in Shanghai."],
+  [1935.76, "bc", "巴克禮逝世", "Barclay dies", "10 月 5 日，巴克禮在台南新樓醫院逝世，85 歲，葬在台南。四位傳教士之中，只有他和馬偕長眠在台灣。", "On October 5 Barclay died at Sin-Lau Hospital in Tainan, aged 85, and was buried in the city. Of the four, only he and Mackay lie in Taiwan."],
+].map(e=>({ d:e[0], kind:e[1], tz:e[2], te:e[3], bz:e[4], be:e[5] }));
+const PHASES = [
+  [1860, 1871.9, "南部設教", "A mission in the south", "#7fd3d0", "馬雅各從府城被趕到旗後，再回到府城，在南台灣站穩腳步。", "Maxwell was driven from Tainan to Takow and came back, and the mission took root in the south."],
+  [1871.9, 1884.3, "南北兩個教會", "Two missions, south and north", "#ecd04f", "甘為霖、巴克禮接手南部；馬偕在淡水開創北部教會，設醫館與學堂。", "Campbell and Barclay took over the south; Mackay began the northern church at Tamsui with a clinic and a college."],
+  [1884.3, 1895.4, "印刷、報紙與學校", "A press, a paper and schools", "#e8a33d", "聚珍堂開工、教會報創刊，女學堂與盲人學校相繼設立。", "The press started, the Church News appeared, and schools for girls and for the blind were founded."],
+  [1895.4, 1917, "改朝換代之後", "After the change of rulers", "#f0625a", "日本統治開始，傳教士繼續工作：馬偕逝世，甘為霖編成字典，巴克禮重譯聖經。", "Japanese rule began and the missionaries worked on: Mackay died, Campbell finished his dictionary and Barclay retranslated the Bible."],
+  [1917, 1940, "最後一位", "The last of the four", "#b28be6", "甘為霖返英，巴克禮留在台南直到 1935 年逝世。", "Campbell went home; Barclay stayed in Tainan until his death in 1935."],
+];
+const phaseAt = t => PHASES.find(p => t>=p[0] && t<p[1]) || PHASES[PHASES.length-1];
+const LIVES = [
+  ["mx", "馬雅各", "James Laidlaw Maxwell", "1836–1921", "蘇格蘭人，英國長老教會醫師。1865 年在府城與旗後開始醫療傳教，1871 年返英，1883–84 年再度來台。編成白話字新約聖經（1873），捐贈印刷機（1880）。兒子馬雅各二世後來擔任新樓醫院院長。", "A Scottish doctor of the English Presbyterian Church. He began medical mission work in Tainan and Takow in 1865, went home in 1871 and returned in 1883–84. He edited the New Testament in romanized Taiwanese (1873) and gave the printing press (1880). His son James Jr. later ran Sin-Lau Hospital."],
+  ["mk", "馬偕", "George Leslie Mackay", "1844–1901", "加拿大人，加拿大長老教會牧師。1872 年到淡水，娶台灣女子張聰明，創設偕醫館、牛津學堂、淡水女學堂，在北部設立六十間教會，逝於淡水。", "A Canadian minister of the Canadian Presbyterian Church. He came to Tamsui in 1872, married Tiuⁿ Chhang-miâ, founded the Mackay clinic, Oxford College and the Tamsui Girls’ School and sixty churches in the north, and died at Tamsui."],
+  ["cp", "甘為霖", "William Campbell", "1841–1921", "蘇格蘭人，英國長老教會牧師。1871 年來台，在南部與澎湖傳教，創辦盲人學校，整理荷蘭時期史料，編成《廈門音新字典》（甘字典），1917 年返英。", "A Scottish minister of the English Presbyterian Church. He came in 1871, preached in the south and in Penghu, founded the school for the blind, edited the Dutch-period records and compiled the “Kam dictionary”, and went home in 1917."],
+  ["bc", "巴克禮", "Thomas Barclay", "1849–1935", "蘇格蘭人，英國長老教會牧師。1875 年來台，創辦「大學」（台南神學院）、聚珍堂（台灣教會公報社）與《台灣府城教會報》，1895 年勸日軍和平進入台南，重譯白話字聖經，逝於台南。", "A Scottish minister of the English Presbyterian Church. He came in 1875, founded the Capital College (Tainan Theological College), the mission press (Taiwan Church Press) and the Church News, persuaded the Japanese army to enter Tainan peacefully in 1895, retranslated the Bible, and died in Tainan."],
+];
+
+// ---------- canvas ----------
+const cv=document.getElementById('film'), ctx=cv.getContext('2d'), stage=cv.parentElement;
+const C = { bg:'#08151d', ink:'#ece6d6', muted:'#8fa6b0', faint:'#2a4756', grid:'#16303d' };
+const F = { d:'"Noto Serif TC","Songti TC","PMingLiU",serif', b:'"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif', m:'"IBM Plex Mono",Consolas,monospace' };
+const font = (w,s,f) => `${w} ${s}px ${f}`;
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const LAYOUTS = {
+  land: { W:1600, H:900, u:1, title:{x:56,y:58}, year:{x:50,y:205,size:150}, phase:{x:58,y:268,size:36}, pdesc:{x:58,y:312,w:430,lh:27,max:4},
+          event:{x:58,y:478,w:430}, list:{x:570,y:58,w:974,rh:29.5,size:17}, strip:{x:56,y:856,w:1488,h:22} },
+  port: { W:720, H:2010, u:1.3, title:{x:28,y:50}, year:{x:24,y:158,size:110}, phase:{x:28,y:214,size:32}, pdesc:{x:28,y:256,w:664,lh:30,max:3},
+          event:{x:28,y:400,w:664}, list:{x:28,y:720,w:664,rh:46,size:21}, strip:{x:28,y:1950,w:664,h:30} },
+};
+let L = LAYOUTS.land;
+function layout(){
+  const cw = stage.clientWidth || 1000;
+  L = cw < 720 ? LAYOUTS.port : LAYOUTS.land;
+  const scale = Math.min(2, window.devicePixelRatio||1) * cw / L.W;
+  cv.width=Math.round(L.W*scale); cv.height=Math.round(L.H*scale); ctx.setTransform(scale,0,0,scale,0,0);
+}
+function wrap(text, maxW){
+  const out=[]; let line='';
+  const toks = /[　-鿿]/.test(text) ? text.match(/[A-Za-z0-9,.\-–]+|./gu) : text.split(/(?<= )/);   // keep a year or a Latin word in one piece
+  for (const tk of toks) {
+    if (ctx.measureText(line+tk).width > maxW && line) {
+      if (/^[，。、；：！？）」』》]/.test(tk)) { line += tk; continue; }   // never start a line with punctuation
+      out.push(line); line = tk.trimStart();
+    } else line += tk;
+  }
+  if (line) out.push(line); return out;
+}
+function fitFont(text, weight, size, family, maxW, min=11){ let s=size; ctx.font=font(weight,s,family); while (s>min && ctx.measureText(text).width>maxW) { s-=1; ctx.font=font(weight,s,family); } }
+const hexA = (h,a) => `rgba(${parseInt(h.slice(1,3),16)},${parseInt(h.slice(3,5),16)},${parseInt(h.slice(5,7),16)},${a})`;
+function lastEvent(t){ let e=null; for (const x of EVENTS) { if (x.d<=t) e=x; else break; } return e; }
+
+function drawHeader(t){
+  const u=L.u, ph=phaseAt(t), bi=lang==='bi';
+  ctx.textBaseline='alphabetic'; ctx.textAlign='left';
+  ctx.font=font(700,13*u,F.b); ctx.fillStyle=C.muted;
+  ctx.fillText(tx('四 位 傳 教 士　1865 — 1935','FOUR MISSIONARIES   1865 — 1935'), L.title.x, L.title.y);
+  ctx.font=font(900,L.year.size,F.d); ctx.fillStyle=C.ink; ctx.fillText(String(Math.floor(t)), L.year.x, L.year.y);
+  fitFont(tx(ph[2],ph[3]), 900, L.phase.size, F.d, L.pdesc.w, 20); ctx.fillStyle=ph[4]; ctx.fillText(tx(ph[2],ph[3]), L.phase.x, L.phase.y);
+  let y = L.pdesc.y;
+  if (bi) { ctx.font=font(500,16*u,F.d); ctx.globalAlpha=0.8; ctx.fillText(ph[3], L.phase.x+2, L.phase.y+24*u); ctx.globalAlpha=1; y += 22*u; }
+  ctx.font=font(400,(lang==='en'?16:17)*u,F.b); ctx.fillStyle=C.muted;
+  wrap(tx(ph[5],ph[6]), L.pdesc.w).slice(0, L.pdesc.max+(lang==='en'?1:0)).forEach((ln,i)=>ctx.fillText(ln, L.pdesc.x, y+i*L.pdesc.lh*(lang==='en'?0.9:1)));
+}
+function drawEvent(t){
+  const r=L.event, u=L.u, bi=lang==='bi', e=lastEvent(t);
+  ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(r.x,r.y-24*u); ctx.lineTo(r.x+r.w,r.y-24*u); ctx.stroke();
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.fillText(tx('紀 事','EVENTS')+(bi?'  EVENTS':''), r.x, r.y-4*u);
+  if (!e) return;
+  const col=KIND[e.kind];
+  ctx.font=font(600,14*u,F.m); ctx.fillStyle=col; ctx.fillText(String(Math.floor(e.d)), r.x, r.y+24*u);
+  { const w=ctx.measureText(String(Math.floor(e.d))).width; ctx.font=font(700,12*u,F.b); ctx.fillText('　'+tx(...WHO[e.kind]), r.x+w+2, r.y+23*u); }
+  let ty = r.y+54*u;
+  ctx.font=font(700,22*u,F.d); ctx.fillStyle=C.ink;
+  for (const ln of wrap(tx(e.tz,e.te), r.w).slice(0,2)) { ctx.fillText(ln, r.x, ty); ty += 29*u; }
+  if (bi) { ctx.font=font(500,14*u,F.b); ctx.fillStyle=C.muted; for (const ln of wrap(e.te, r.w).slice(0,2)) { ctx.fillText(ln, r.x, ty-4*u); ty += 20*u; } }
+  ty += 6*u;
+  ctx.font=font(400,(lang==='en'?14.5:15.5)*u,F.b); ctx.fillStyle=C.muted;
+  const maxL = L===LAYOUTS.port ? 7 : (bi ? 8 : 11);
+  wrap(tx(e.bz,e.be), r.w).slice(0,maxL).forEach((ln,i)=>ctx.fillText(ln, r.x, ty+i*(lang==='en'?22:25)*u));
+}
+function drawList(t){
+  const r=L.list, u=L.u, bi=lang==='bi', cur=lastEvent(t), port=L===LAYOUTS.port;
+  ctx.font=font(700,11.5*u,F.b); ctx.fillStyle=C.muted; ctx.textAlign='left';
+  ctx.fillText(tx('年 表','TIMELINE')+(bi?'  TIMELINE':''), r.x, r.y-12*u);
+  // legend
+  const leg=Object.keys(WHO).map(k=>[k, tx(...WHO[k])]);
+  let lx = r.x + r.w; ctx.textAlign='right'; ctx.font=font(500,11.5*u,F.b);
+  for (const [k,label] of leg.slice().reverse()) { ctx.fillStyle=C.muted; ctx.fillText(label, lx, r.y-12*u); lx -= ctx.measureText(label).width+8*u; ctx.fillStyle=KIND[k]; ctx.beginPath(); ctx.arc(lx, r.y-16*u, 4*u, 0, 6.3); ctx.fill(); lx -= 16*u; }
+  ctx.textAlign='left';
+  const yearW = (port?64:58)*u, dotX = r.x+yearW+8*u, textX = dotX+18*u;
+  ctx.strokeStyle=C.faint; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(dotX, r.y+r.rh*0.5); ctx.lineTo(dotX, r.y+r.rh*(EVENTS.length-0.5)); ctx.stroke();
+  EVENTS.forEach((e,i)=>{
+    const y = r.y + r.rh*(i+0.5), past = e.d<=t, on = e===cur, col=KIND[e.kind];
+    if (on) { ctx.fillStyle=hexA(col,0.13); ctx.fillRect(r.x-8*u, y-r.rh/2+1, r.w+16*u, r.rh-2); ctx.fillStyle=col; ctx.fillRect(r.x-8*u, y-r.rh/2+1, 3*u, r.rh-2); }
+    ctx.globalAlpha = on ? 1 : past ? 0.82 : 0.3;
+    ctx.textBaseline='middle';
+    ctx.font=font(600,(port?17:14.5)*u/(port?1.3:1)*(port?1.3:1),F.m); ctx.fillStyle = past ? col : C.muted; ctx.fillText(String(Math.floor(e.d)), r.x, y+1);
+    ctx.fillStyle = past ? col : C.faint; ctx.beginPath(); ctx.arc(dotX, y, (on?6:4.2)*u, 0, 6.3); ctx.fill();
+    const zh=tx(e.tz,e.te), avail=r.x+r.w-textX;
+    ctx.font=font(on?700:500, r.size, lang==='en'?F.b:F.d);
+    let w=ctx.measureText(zh).width;
+    if (w>avail) { fitFont(zh, on?700:500, r.size, lang==='en'?F.b:F.d, avail, 12); w=ctx.measureText(zh).width; }
+    ctx.fillStyle = C.ink; ctx.fillText(zh, textX, y+1);
+    if (bi && !port) { const rest=avail-w-14*u; if (rest>120) { fitFont(e.te, 400, 13.5*u, F.b, rest, 10.5); ctx.fillStyle=C.muted; ctx.fillText(e.te, textX+w+14*u, y+1.5); } }
+    ctx.globalAlpha=1;
+  });
+  ctx.textBaseline='alphabetic';
+}
+const sx = v => L.strip.x + L.strip.w*(v-T0)/(T_END-T0);
+function drawStrip(t){
+  const r=L.strip, u=L.u;
+  for (const p of PHASES) {
+    const x0=sx(Math.max(p[0],T0)), x1=sx(Math.min(p[1],T_END)), on=t>=p[0]&&t<p[1];
+    ctx.fillStyle=hexA(p[4], on?0.85:0.3); ctx.fillRect(x0, r.y, x1-x0-1, r.h);
+    const label=tx(p[2],p[3]); ctx.font=font(700,(L===LAYOUTS.port?13:12)*u/(L===LAYOUTS.port?1.3:1)*(L===LAYOUTS.port?1.15:1),F.b);
+    if (ctx.measureText(label).width < x1-x0-10) { ctx.fillStyle = on ? '#0b1a22' : C.ink; ctx.globalAlpha = on?1:0.75; ctx.textBaseline='middle'; ctx.fillText(label, x0+6, r.y+r.h/2+1); ctx.textBaseline='alphabetic'; ctx.globalAlpha=1; }
+  }
+  for (const e of EVENTS) { ctx.fillStyle=KIND[e.kind]; ctx.fillRect(sx(e.d)-0.75, r.y-7, 1.5, 5); }
+  ctx.font=font(400,10.5*u,F.m); ctx.fillStyle=C.muted; ctx.textAlign='center';
+  for (const y of [1870,1880,1890,1900,1910,1920,1930]) ctx.fillText(String(y), sx(y), r.y+r.h+14*u);
+  ctx.textAlign='left';
+  const x=sx(t); ctx.strokeStyle=C.ink; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x,r.y-10); ctx.lineTo(x,r.y+r.h+3); ctx.stroke();
+}
+function render(t){
+  ctx.fillStyle=C.bg; ctx.fillRect(0,0,L.W,L.H);
+  drawHeader(t); drawEvent(t); drawList(t); drawStrip(t);
+}
+
+// ---------- playback: slow near each event ----------
+const playBtn=document.getElementById('play'), scrub=document.getElementById('scrub'), out=document.getElementById('out'), speed=document.getElementById('speed');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t=T0, playing=!reduce;
+function rate(x){
+  let dmin = Infinity; for (const e of EVENTS) { const dd = x < e.d ? e.d-x : x-e.d-0.25; dmin = Math.min(dmin, Math.max(0, dd)); }
+  return Math.max(0.22, 1.7 * clamp(dmin/0.9, 0, 1));
+}
+const fmtOut = x => String(Math.floor(x));
+function setPlaying(p){ playing=p; setK(playBtn, p ? 'pause' : (t>=T_END ? 'replay' : 'play')); TG.sync(); }
+function seek(x){ t=clamp(x,T0,T_END); scrub.value=t; out.textContent=fmtOut(t); TG.seek(); }
+playBtn.addEventListener('click', ()=>{ if (!playing && t>=T_END) seek(T0); if (!playing) TG.unlock(); setPlaying(!playing); });
+scrub.addEventListener('input', ()=>{ seek(+scrub.value); if (playing) setPlaying(false); });
+cv.setAttribute('tabindex','0');
+cv.addEventListener('keydown', e=>{
+  if (e.key===' ') { e.preventDefault(); playBtn.click(); }
+  else if (e.key==='ArrowRight') seek(Math.floor(t)+1);
+  else if (e.key==='ArrowLeft') seek(Math.floor(t)-1);
+});
+const livesOl=document.getElementById('lives');
+function applyLang(){
+  TG.lang();
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+  document.title = tx('四位傳教士 1865–1935', 'Four Missionaries, 1865–1935');
+  document.querySelectorAll('[data-k]').forEach(el=>setK(el, el.dataset.k));
+  const back=document.querySelector('.back'); back.innerHTML = '← ' + back.innerHTML;
+  setPlaying(playing);
+  livesOl.innerHTML = LIVES.map(([k,zh,en,yrs,bz,be])=>`<li><b style="color:${KIND[k]}">${esc(lang==='en'?en:zh)}<small>${yrs}</small></b><span>${uiHTML(bz, be)}</span></li>`).join('');
+  for (const [id,l] of [['langZh','zh'],['langEn','en'],['langBi','bi']]) document.getElementById(id).setAttribute('aria-pressed', lang===l);
+  cv.setAttribute('aria-label', tx('四位傳教士年表動畫','Animated timeline of four missionaries in Taiwan'));
+}
+function setLang(l){ lang=l; try { localStorage.setItem('tw400-lang', l); } catch (e) {} applyLang(); }
+document.getElementById('langZh').addEventListener('click', ()=>setLang('zh'));
+document.getElementById('langEn').addEventListener('click', ()=>setLang('en'));
+document.getElementById('langBi').addEventListener('click', ()=>setLang('bi'));
+new ResizeObserver(()=>layout()).observe(stage);
+
+// Taigi narration, read-along subtitles and pictures (tg.js). Clip ids: p<phase index>, e<event index>.
+const TG = TGNarration({ name:'missionaries', lang:()=>lang, getT:()=>t, isPlaying:()=>playing, setPlaying, stage, playBtn,
+  cues:[...PHASES.map((p,i)=>({y:Math.max(p[0],T0), id:'p'+i})), ...EVENTS.map((e,i)=>({y:e.d, id:'e'+i}))] });
+if (TG.on()) playing=false;   // sound needs a tap, so the narrated film waits for Play
+layout(); applyLang(); seek(T0); setPlaying(playing);
+let last=performance.now();
+function frame(now){
+  TG.tick();
+  const dt=Math.min(0.1,(now-last)/1000); last=now;
+  if (playing) { t+=TG.step(dt*rate(t)*(+speed.value), now); if (t>=T_END) { t=T_END; if (!TG.busy()) setPlaying(false); } scrub.value=t; out.textContent=fmtOut(t); }
+  render(t); requestAnimationFrame(frame);
+}
+requestAnimationFrame(n=>{ last=n; frame(n); });
+})();
+</script>
+</body>
+</html>

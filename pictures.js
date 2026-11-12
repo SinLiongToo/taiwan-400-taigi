@@ -1019,5 +1019,172 @@ window.PICTURES = {
    "artist": "Taiwantaffy",
    "url": "https://commons.wikimedia.org/wiki/File:Books_which_use_the_Pe%CC%8Dh-%C5%8De-j%C4%AB_romanisation_system_for_Southern_Min-Taiwanese.jpg"
   }
+ ],
+ "missionaries": [
+  {
+   "at": "p0",
+   "key": "maxwell",
+   "zh": "馬雅各（James Laidlaw Maxwell），英國長老教會第一位駐台灣的宣教師。",
+   "en": "James Laidlaw Maxwell, the English Presbyterian Church’s first missionary in Taiwan.",
+   "w": 707,
+   "h": 1024,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:%E8%8B%B1%E5%9C%8B%E9%95%B7%E8%80%81%E6%95%99%E6%9C%83%E7%AC%AC%E4%B8%80%E4%BD%8D%E9%A7%90%E8%87%BA%E7%81%A3%E5%AE%A3%E6%95%99%E5%B8%AB%E9%A6%AC%E9%9B%85%E5%90%84%E7%89%A7%E5%B8%AB%EF%BC%88James_Laidlaw_Maxwell,_MD).jpg"
+  },
+  {
+   "at": "e3",
+   "key": "sin-lau-hospital",
+   "zh": "今日的台南新樓醫院，前身是馬雅各 1869 年設在二老口的「舊樓」醫館。",
+   "en": "Sin-Lau Hospital in Tainan today; it grew out of the “Old Building” clinic Maxwell opened in 1869.",
+   "w": 960,
+   "h": 640,
+   "license": "CC BY-SA 4.0",
+   "artist": "Pbdragonwang",
+   "url": "https://commons.wikimedia.org/wiki/File:%E8%87%BA%E5%8D%97%E6%96%B0%E6%A8%93%E9%86%AB%E9%99%A2_01.jpg"
+  },
+  {
+   "at": "e4",
+   "key": "campbell",
+   "zh": "甘為霖（William Campbell），19 世紀末的版畫。",
+   "en": "William Campbell, an engraving of the late nineteenth century.",
+   "w": 555,
+   "h": 781,
+   "license": "Public domain",
+   "artist": "Unknown engraver",
+   "url": "https://commons.wikimedia.org/wiki/File:Campbell.png"
+  },
+  {
+   "at": "e5",
+   "key": "mackay-teeth",
+   "zh": "馬偕（右）與學生在野外替人拔牙。",
+   "en": "Mackay (right) and his students pulling teeth in the open air.",
+   "w": 960,
+   "h": 669,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Teeth_extraction_by_Rev._George_Leslie_Mackay_and_his_assistants_in_Taiwan.jpg"
+  },
+  {
+   "at": "e7",
+   "key": "barclay",
+   "zh": "巴克禮（Thomas Barclay）。照片刊於 1936 年。",
+   "en": "Thomas Barclay; the photograph was published in 1936.",
+   "w": 556,
+   "h": 754,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Portrait_photo_of_Dr._Thomas_Barclay_1936.jpg"
+  },
+  {
+   "at": "e8",
+   "key": "tainan-college",
+   "zh": "台南神學院一景，約 1940 年。",
+   "en": "A view of Tainan Theological College, about 1940.",
+   "w": 686,
+   "h": 873,
+   "license": "Public domain",
+   "artist": "松山虔三",
+   "url": "https://commons.wikimedia.org/wiki/File:View_at_Tainan_Theological_College_and_Seminary.jpg"
+  },
+  {
+   "at": "e9",
+   "key": "mackay",
+   "zh": "馬偕（George Leslie Mackay），攝於 1902 年以前。",
+   "en": "George Leslie Mackay, photographed before 1902.",
+   "w": 960,
+   "h": 1179,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:%E9%A6%AC%E5%81%95%E7%89%A7%E5%B8%AB%E7%85%A7%E7%89%87.jpg"
+  },
+  {
+   "at": "e10",
+   "key": "mackay-clinic",
+   "zh": "淡水的滬尾偕醫館，1880 年創設。張欽嵐攝，2019 年。",
+   "en": "The Mackay clinic at Tamsui, founded in 1880. Photo by 張欽嵐, 2019.",
+   "w": 960,
+   "h": 640,
+   "license": "CC BY-SA 4.0",
+   "artist": "張欽嵐",
+   "url": "https://commons.wikimedia.org/wiki/File:%E6%BB%AC%E5%B0%BE%E5%81%95%E9%86%AB%E9%A4%A8.jpg"
+  },
+  {
+   "at": "e11",
+   "key": "oxford-college",
+   "zh": "淡水的理學堂大書院（牛津學堂），1882 年落成，今在真理大學校園內。",
+   "en": "Oxford College at Tamsui, opened in 1882, now on the campus of Aletheia University.",
+   "w": 960,
+   "h": 720,
+   "license": "CC BY-SA 3.0",
+   "artist": "Allervous",
+   "url": "https://commons.wikimedia.org/wiki/File:Oxford_College_Tamsui.jpg"
+  },
+  {
+   "at": "e14",
+   "key": "church-news-1885",
+   "zh": "《台灣府城教會報》創刊號，1885 年 7 月，全用白話字。",
+   "en": "The first issue of the Tâi-oân-hú-siâⁿ Kàu-hōe-pò, July 1885, entirely in romanized Taiwanese.",
+   "w": 960,
+   "h": 1427,
+   "license": "Public domain",
+   "artist": "Thomas Barclay, Taiwan Church Press",
+   "url": "https://commons.wikimedia.org/wiki/File:Tai-Oan-Hu-Sia-Kau-Hoe-Po.jpg"
+  },
+  {
+   "at": "e16",
+   "key": "campbell",
+   "zh": "甘為霖（William Campbell），19 世紀末的版畫。",
+   "en": "William Campbell, an engraving of the late nineteenth century.",
+   "w": 555,
+   "h": 781,
+   "license": "Public domain",
+   "artist": "Unknown engraver",
+   "url": "https://commons.wikimedia.org/wiki/File:Campbell.png"
+  },
+  {
+   "at": "e18",
+   "key": "barclay",
+   "zh": "巴克禮（Thomas Barclay）。照片刊於 1936 年。",
+   "en": "Thomas Barclay; the photograph was published in 1936.",
+   "w": 556,
+   "h": 754,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Portrait_photo_of_Dr._Thomas_Barclay_1936.jpg"
+  },
+  {
+   "at": "e19",
+   "key": "mackay-grave",
+   "zh": "馬偕與張聰明的墓，在淡水的淡江中學校園內。",
+   "en": "The graves of Mackay and Tiuⁿ Chhang-miâ in the grounds of Tamkang High School, Tamsui.",
+   "w": 960,
+   "h": 640,
+   "license": "CC BY 2.0",
+   "artist": "MiNe",
+   "url": "https://commons.wikimedia.org/wiki/File:2008-01-23_graves_of_Tiu_Chhang-mia_and_George_Leslie_Mackay.jpg"
+  },
+  {
+   "at": "e20",
+   "key": "campbell",
+   "zh": "甘為霖（William Campbell），19 世紀末的版畫。",
+   "en": "William Campbell, an engraving of the late nineteenth century.",
+   "w": 555,
+   "h": 781,
+   "license": "Public domain",
+   "artist": "Unknown engraver",
+   "url": "https://commons.wikimedia.org/wiki/File:Campbell.png"
+  },
+  {
+   "at": "e22",
+   "key": "barclay",
+   "zh": "巴克禮（Thomas Barclay）。照片刊於 1936 年。",
+   "en": "Thomas Barclay; the photograph was published in 1936.",
+   "w": 556,
+   "h": 754,
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author",
+   "url": "https://commons.wikimedia.org/wiki/File:Portrait_photo_of_Dr._Thomas_Barclay_1936.jpg"
+  }
  ]
 };

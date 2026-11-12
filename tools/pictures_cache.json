@@ -630,5 +630,77 @@
   "license": "CC BY-SA 3.0",
   "artist": "Taiwantaffy",
   "url": "https://commons.wikimedia.org/wiki/File:Books_which_use_the_Pe%CC%8Dh-%C5%8De-j%C4%AB_romanisation_system_for_Southern_Min-Taiwanese.jpg"
+ },
+ "sin-lau-hospital": {
+  "file": "臺南新樓醫院 01.jpg",
+  "w": 960,
+  "h": 640,
+  "license": "CC BY-SA 4.0",
+  "artist": "Pbdragonwang",
+  "url": "https://commons.wikimedia.org/wiki/File:%E8%87%BA%E5%8D%97%E6%96%B0%E6%A8%93%E9%86%AB%E9%99%A2_01.jpg"
+ },
+ "campbell": {
+  "file": "Campbell.png",
+  "w": 555,
+  "h": 781,
+  "license": "Public domain",
+  "artist": "Unknown engraver",
+  "url": "https://commons.wikimedia.org/wiki/File:Campbell.png"
+ },
+ "mackay-teeth": {
+  "file": "Teeth extraction by Rev. George Leslie Mackay and his assistants in Taiwan.jpg",
+  "w": 960,
+  "h": 669,
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "url": "https://commons.wikimedia.org/wiki/File:Teeth_extraction_by_Rev._George_Leslie_Mackay_and_his_assistants_in_Taiwan.jpg"
+ },
+ "barclay": {
+  "file": "Portrait photo of Dr. Thomas Barclay 1936.jpg",
+  "w": 556,
+  "h": 754,
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "url": "https://commons.wikimedia.org/wiki/File:Portrait_photo_of_Dr._Thomas_Barclay_1936.jpg"
+ },
+ "tainan-college": {
+  "file": "View at Tainan Theological College and Seminary.jpg",
+  "w": 686,
+  "h": 873,
+  "license": "Public domain",
+  "artist": "松山虔三",
+  "url": "https://commons.wikimedia.org/wiki/File:View_at_Tainan_Theological_College_and_Seminary.jpg"
+ },
+ "mackay": {
+  "file": "馬偕牧師照片.jpg",
+  "w": 960,
+  "h": 1179,
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "url": "https://commons.wikimedia.org/wiki/File:%E9%A6%AC%E5%81%95%E7%89%A7%E5%B8%AB%E7%85%A7%E7%89%87.jpg"
+ },
+ "mackay-clinic": {
+  "file": "滬尾偕醫館.jpg",
+  "w": 960,
+  "h": 640,
+  "license": "CC BY-SA 4.0",
+  "artist": "張欽嵐",
+  "url": "https://commons.wikimedia.org/wiki/File:%E6%BB%AC%E5%B0%BE%E5%81%95%E9%86%AB%E9%A4%A8.jpg"
+ },
+ "oxford-college": {
+  "file": "Oxford College Tamsui.jpg",
+  "w": 960,
+  "h": 720,
+  "license": "CC BY-SA 3.0",
+  "artist": "Allervous",
+  "url": "https://commons.wikimedia.org/wiki/File:Oxford_College_Tamsui.jpg"
+ },
+ "mackay-grave": {
+  "file": "2008-01-23 graves of Tiu Chhang-mia and George Leslie Mackay.jpg",
+  "w": 960,
+  "h": 640,
+  "license": "CC BY 2.0",
+  "artist": "MiNe",
+  "url": "https://commons.wikimedia.org/wiki/File:2008-01-23_graves_of_Tiu_Chhang-mia_and_George_Leslie_Mackay.jpg"
  }
 }
